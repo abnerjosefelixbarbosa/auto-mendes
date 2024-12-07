@@ -31,6 +31,14 @@ public class EmployeeService implements IEmployeeService {
 	}
 	
 	private void validRegisterEmployee(Employee employee) {
+		boolean isExists = employeeRepository.existsByCpfOrRgOrEmailOrContact(
+				employee.getCpf(),
+				employee.getRg(),
+				employee.getEmail(),
+				employee.getContact()
+		);
 		
+		if (isExists)
+			throw new RuntimeException("CPF, RG, email ou contact  exists");
 	}
 }
