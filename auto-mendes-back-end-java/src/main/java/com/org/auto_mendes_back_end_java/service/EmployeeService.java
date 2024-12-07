@@ -21,7 +21,7 @@ public class EmployeeService implements IEmployeeService {
 	public RegisterEmployeeResponse registerEmployee(RegisterEmployeeRequest request) {
 		Employee employee = new Employee(request);
 		
-		validRegisterEmployee(employee);
+		validEmployee(employee);
 		
 		employee = employeeRepository.save(employee);
 		
@@ -30,7 +30,7 @@ public class EmployeeService implements IEmployeeService {
 		return response;
 	}
 	
-	private void validRegisterEmployee(Employee employee) {
+	private void validEmployee(Employee employee) {
 		boolean isExists = employeeRepository.existsByCpfOrRgOrEmailOrContact(
 				employee.getCpf(),
 				employee.getRg(),

@@ -11,28 +11,33 @@ import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 public record RegisterEmployeeRequest(
-		@NotEmpty
-		@NotNull
+		@NotEmpty(message = "Name empty")
+		@NotNull(message = "Name null")
 		String name,
-		@NotNull
+		@NotNull(message = "Employee type null")
 		@Enumerated(EnumType.STRING)
 		EmployeeType employeeType,
-		@NotNull
+		@NotNull(message = "Birth date null")
 		LocalDate birthDate,
-		@NotEmpty
-		@NotNull
-		@CPF
+		@NotEmpty(message = "CPF empty")
+		@NotNull(message = "CPF null")
+		@CPF(message = "CPF invalid")
+		@Pattern(regexp = "^\\d+$", message = "CPF without period")
 		String cpf,
-		@NotEmpty
-		@NotNull
+		@NotEmpty(message = "RG empty")
+		@NotNull(message = "RG null")
+		@Pattern(regexp = "^\\d+$", message = "RG without period")
 		String rg,
-		@NotEmpty
-		@NotNull
-		@Email
+		@NotEmpty(message = "Email empty")
+		@NotNull(message = "Email null")
+		@Email(message = "Email invalid")
 		String email,
-		@NotEmpty
-		@NotNull
+		@NotEmpty(message = "Contact empty")
+		@NotNull(message = "Contact null")
+		@Size(min = 15, max = 15, message = "Contact with min and max 15 in size")
 		String contact
 ) {}
