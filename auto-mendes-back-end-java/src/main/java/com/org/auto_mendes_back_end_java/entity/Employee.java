@@ -3,10 +3,9 @@ package com.org.auto_mendes_back_end_java.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import com.github.f4b6a3.ulid.UlidCreator;
 //import com.github.f4b6a3.ulid.Ulid;
 //import com.github.f4b6a3.ulid.UlidCreator;
-import com.org.auto_mendes_back_end_java.dto.RegisterEmployeeRequest;
+import com.org.auto_mendes_back_end_java.dto.EmployeeRequest;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,8 +45,7 @@ public class Employee implements Serializable {
 	public Employee() {
 	}
 	
-	public Employee(RegisterEmployeeRequest request) {
-		this.id = UlidCreator.getUlid().toString();
+	public Employee(EmployeeRequest request) {
 		this.name = request.name();
 		this.employeeType = request.employeeType();
 		this.birthDate = request.birthDate();

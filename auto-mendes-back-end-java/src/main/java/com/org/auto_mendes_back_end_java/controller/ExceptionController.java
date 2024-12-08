@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.org.auto_mendes_back_end_java.dto.ExceptionResponse;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
@@ -44,5 +45,18 @@ public class ExceptionController {
 		);
 		
 		return ResponseEntity.status(400).body(exceptionResponse);
+	}
+	
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ExceptionHandler(EntityNotFoundException.class)
+	public ResponseEntity<ExceptionResponse> handleEntityNotFoundException(EntityNotFoundException e, HttpServletRequest request) {
+		ExceptionResponse exceptionResponse = new ExceptionResponse(
+				LocalDateTime.now(),
+				404,
+				e.getMessage(),
+				request.getRequestURI()
+		);
+		
+		return ResponseEntity.status(404).body(exceptionResponse);
 	}
 }

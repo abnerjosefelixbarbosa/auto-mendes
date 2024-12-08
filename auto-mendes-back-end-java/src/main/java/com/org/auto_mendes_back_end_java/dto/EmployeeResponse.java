@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import com.org.auto_mendes_back_end_java.entity.Employee;
 import com.org.auto_mendes_back_end_java.entity.EmployeeType;
 
-public record RegisterEmployeeResponse(
+public record EmployeeResponse(
 		String id,
 		String name,
 		EmployeeType employeeType,
@@ -16,7 +16,7 @@ public record RegisterEmployeeResponse(
 		String contact
 ) {
 
-	public RegisterEmployeeResponse(Employee employee) {
+	public EmployeeResponse(Employee employee) {
 		this(
 			employee.getId(),
 			employee.getName(),
