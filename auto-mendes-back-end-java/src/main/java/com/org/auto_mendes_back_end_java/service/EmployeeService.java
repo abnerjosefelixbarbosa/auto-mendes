@@ -1,5 +1,6 @@
 package com.org.auto_mendes_back_end_java.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +45,7 @@ public class EmployeeService implements IEmployeeService {
 				.findByCpf(cpf)
 				.orElseThrow(() -> new EntityNotFoundException("Employee not found"));
 		
-		employee = employeeMapper.toEmployee(request);
+		BeanUtils.copyProperties(request, employee);
 	
 		employeeRepository.save(employee);
 
@@ -58,6 +59,5 @@ public class EmployeeService implements IEmployeeService {
 		
 		return employeeMapper.toEmployeeResponse(employee);
 	}
-
 	
 }
