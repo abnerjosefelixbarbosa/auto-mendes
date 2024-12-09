@@ -1,5 +1,7 @@
 package com.org.auto_mendes_back_end_java.service;
 
+import java.util.List;
+
 import com.org.auto_mendes_back_end_java.dto.EmployeeRequest;
 import com.org.auto_mendes_back_end_java.dto.EmployeeResponse;
 
@@ -9,4 +11,6 @@ public interface IEmployeeService {
 	EmployeeResponse updateEmployee(String cpf, EmployeeRequest request);
 	
 	EmployeeResponse searchEmployee(String cpf);
+	
+	List<EmployeeResponse> listEmployeeByName(String name);
 }

@@ -1,5 +1,7 @@
 package com.org.auto_mendes_back_end_java.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,20 +29,18 @@ public class EmployeeController {
 	@Autowired
 	private IEmployeeService employeeService;
 
-	
-	
 	@PostMapping(
 			value = "/register-employee",
-			consumes = {MediaType.APPLICATION_JSON_VALUE},
-			produces = {MediaType.APPLICATION_JSON_VALUE}
+			consumes = { MediaType.APPLICATION_JSON_VALUE },
+			produces = { MediaType.APPLICATION_JSON_VALUE }
 	)
 	@ApiResponses(
-			value = {
+			value = { 
 					@ApiResponse(responseCode = "201", description = "employee created"),
 			        @ApiResponse(responseCode = "400", description = "employee bad request"),
-			        @ApiResponse(responseCode = "404", description = "employee not found"),
+			        @ApiResponse(responseCode = "404", description = "employee not found"), 
 			}
-    )
+	)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public ResponseEntity<EmployeeResponse> registerEmployee(@RequestBody @Valid EmployeeRequest request) {
 		EmployeeResponse response = employeeService.registerEmployee(request);
@@ -49,18 +49,18 @@ public class EmployeeController {
 	}
 	
 	
-	
+
 	@PutMapping(
 			value = "/update-employee",
-			consumes = {MediaType.APPLICATION_JSON_VALUE},
-		    produces = {MediaType.APPLICATION_JSON_VALUE}
+			consumes = { MediaType.APPLICATION_JSON_VALUE },
+			produces = { MediaType.APPLICATION_JSON_VALUE }
 	)
 	@ApiResponses(
-			value = {
+			value = { 
 					@ApiResponse(responseCode = "200", description = "employee ok"),
 			        @ApiResponse(responseCode = "400", description = "employee bad request"),
-			        @ApiResponse(responseCode = "404", description = "employee not found"),
-			}
+			        @ApiResponse(responseCode = "404", description = "employee not found"), 
+		    }
     )
 	@ResponseStatus(code = HttpStatus.OK)
 	public ResponseEntity<EmployeeResponse> updateEmployee(@RequestParam String cpf, @RequestBody @Valid EmployeeRequest request) {
@@ -73,18 +73,34 @@ public class EmployeeController {
 	
 	@GetMapping(
 			value = "/search-employee",
-		    produces = {MediaType.APPLICATION_JSON_VALUE}
+			produces = { MediaType.APPLICATION_JSON_VALUE }
 	)
 	@ApiResponses(
-			value = {
+			value = { 
 					@ApiResponse(responseCode = "200", description = "employee ok"),
-			        @ApiResponse(responseCode = "404", description = "employee not found"),
+			        @ApiResponse(responseCode = "404", description = "employee not found"), 
 			}
-    )
+	)
 	@ResponseStatus(code = HttpStatus.OK)
 	public ResponseEntity<EmployeeResponse> searchEmployee(@RequestParam String cpf) {
 		EmployeeResponse response = employeeService.searchEmployee(cpf);
 
 		return ResponseEntity.status(200).body(response);
+	}
+	
+	
+	
+	@GetMapping(
+			value = "/list-employee-by-Name",
+			produces = { MediaType.APPLICATION_JSON_VALUE }
+	)
+	@ApiResponses(
+			value = { @ApiResponse(responseCode = "200", description = "employee ok") }
+	)
+	@ResponseStatus(code = HttpStatus.OK)
+	public ResponseEntity<List<EmployeeResponse>> listEmployeeByName(@RequestParam String name) {
+		List<EmployeeResponse> responses = employeeService.listEmployeeByName(name);
+
+		return ResponseEntity.status(200).body(responses);
 	}
 }

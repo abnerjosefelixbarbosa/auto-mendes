@@ -5,9 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class AutoMendesBackEndJavaApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(AutoMendesBackEndJavaApplication.class, args);
 	}
-
 }

@@ -1,5 +1,6 @@
 package com.org.auto_mendes_back_end_java.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,4 +13,6 @@ public interface IEmployeeRepository extends JpaRepository<Employee, String> {
 	boolean existsByCpfOrRgOrEmailOrContact(String cpf, String rg, String email, String contact);
 	
 	Optional<Employee> findByCpf(String cpf);
+		
+	List<Employee> findAllByName(String name);
 }

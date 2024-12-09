@@ -1,5 +1,7 @@
 package com.org.auto_mendes_back_end_java.service;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,5 +61,8 @@ public class EmployeeService implements IEmployeeService {
 		
 		return employeeMapper.toEmployeeResponse(employee);
 	}
-	
+
+	public List<EmployeeResponse> listEmployeeByName(String name) {		
+		return null;
+	}
 }
