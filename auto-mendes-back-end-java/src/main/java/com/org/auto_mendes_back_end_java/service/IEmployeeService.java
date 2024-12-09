@@ -7,4 +7,6 @@ public interface IEmployeeService {
 	EmployeeResponse registerEmployee(EmployeeRequest request);
 	
 	EmployeeResponse updateEmployee(String cpf, EmployeeRequest request);
+	
+	EmployeeResponse searchEmployee(String cpf);
 }

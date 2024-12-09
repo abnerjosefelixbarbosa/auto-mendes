@@ -28,11 +28,11 @@ public record EmployeeRequest(
 		@NotEmpty(message = "CPF empty")
 		@NotNull(message = "CPF null")
 		@CPF(message = "CPF invalid")
-		@Pattern(regexp = "^\\d+$", message = "CPF with period")
+		@Pattern(regexp = "^\\d+$", message = "CPF period")
 		String cpf,
 		@NotEmpty(message = "RG empty")
 		@NotNull(message = "RG null")
-		@Pattern(regexp = "^\\d+$", message = "RG with period")
+		@Pattern(regexp = "^\\d+$", message = "RG period")
 		String rg,
 		@NotEmpty(message = "Email empty")
 		@NotNull(message = "Email null")
@@ -40,6 +40,6 @@ public record EmployeeRequest(
 		String email,
 		@NotEmpty(message = "Contact empty")
 		@NotNull(message = "Contact null")
-		@Size(min = 15, max = 15, message = "Contact with min and max 15 in size")
+		@Size(min = 15, max = 15, message = "Contact size 15")
 		String contact
 ) {}
