@@ -1,5 +1,5 @@
 # auto-mendes-back-end
 
-# model
+# modelo
 
-# auto-mendes-back-end-java
+# back-end-java
