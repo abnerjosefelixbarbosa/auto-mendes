@@ -1,8 +1,8 @@
 package com.org.auto_mendes_back_end_java.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -91,15 +91,15 @@ public class EmployeeController {
 	
 	
 	@GetMapping(
-			value = "/list-employee-by-Name",
+			value = "/list-employee-by-name",
 			produces = { MediaType.APPLICATION_JSON_VALUE }
 	)
 	@ApiResponses(
 			value = { @ApiResponse(responseCode = "200", description = "employee ok") }
 	)
 	@ResponseStatus(code = HttpStatus.OK)
-	public ResponseEntity<List<EmployeeResponse>> listEmployeeByName(@RequestParam String name) {
-		List<EmployeeResponse> responses = employeeService.listEmployeeByName(name);
+	public ResponseEntity<Page<EmployeeResponse>> listEmployeeByName(@RequestParam String name, Pageable pageable) {
+		Page<EmployeeResponse> responses = employeeService.listEmployeeByName(name, pageable);
 
 		return ResponseEntity.status(200).body(responses);
 	}
