@@ -21,7 +21,7 @@ API Spring Boot java da auto mendes
 
 - Um cliente realiza mais de uma venda e uma venda é realizada por um cliente.
 - Um funcionário realiza mais de uma venda e uma venda é realizada por um funcionário.
-- Uma venda possui mais de um carro e um carro é possuído por uma venda.
+- Uma venda possui mais um carro e um carro é possuído por mais de uma venda.
 - Dentro da concessionária existem tipos de funcionário como vendedor, gerente e subgerente.
 - Um carro possui um modelo e um modelo é possuído por mais de um carro.
 - Um modelo possui uma marca e uma marca é possuída por mais de um modelo.
