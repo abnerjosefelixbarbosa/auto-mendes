@@ -9,11 +9,15 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "employees")
 public class Employee implements Serializable {
@@ -37,6 +41,4 @@ public class Employee implements Serializable {
 	private String email;
 	@Column(name = "contact", nullable = false, unique = true)
 	private String contact;
-	
-	public Employee() {}
 }

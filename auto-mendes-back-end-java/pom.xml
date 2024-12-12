@@ -12,7 +12,7 @@
 	<artifactId>auto-mendes-back-end-java</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>auto-mendes-back-end-java</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Auto mendes back end java for Spring Boot</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -78,16 +78,15 @@
             <version>2.7.0</version>
        </dependency>
        
-       <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis -->
        <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <artifactId>spring-boot-starter-cache</artifactId>
        </dependency>
        
-       <!-- https://mvnrepository.com/artifact/io.lettuce/lettuce-core -->
+       <!-- https://mvnrepository.com/artifact/com.github.ben-manes.caffeine/caffeine -->
        <dependency>
-            <groupId>io.lettuce</groupId>
-            <artifactId>lettuce-core</artifactId>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
        </dependency>
 	</dependencies>
 
