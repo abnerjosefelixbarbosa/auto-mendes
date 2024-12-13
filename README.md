@@ -6,7 +6,7 @@ API Spring Boot java da auto mendes
 
 ![diagrama-de-classe drawio](https://github.com/user-attachments/assets/0dd7d2b2-5218-4d50-a57b-b1adf7e75ddc)
 
-# Back End Java
+# Tecnologias 
 
 - Hibernate/JPA
 - Validation
