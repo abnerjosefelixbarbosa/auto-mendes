@@ -3,7 +3,8 @@ package com.org.auto_mendes_back_end_java.model.validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.org.auto_mendes_back_end_java.model.dto.EmployeeRequest;
+import com.org.auto_mendes_back_end_java.model.dto.EmployeeRegistrationRequest;
+import com.org.auto_mendes_back_end_java.model.dto.EmployeeUpdateRequest;
 import com.org.auto_mendes_back_end_java.model.repository.IEmployeeRepository;
 
 @Component
@@ -11,11 +12,21 @@ public class EmployeeValidation implements IEmployeeValidation {
 	@Autowired
 	private IEmployeeRepository employeeRepository;
 	
-	public void validateEmployee(EmployeeRequest request) {
-		boolean isExists = employeeRepository.existsByCpfOrRgOrEmailOrContact(request.cpf(), request.rg(),
-				request.email(), request.contact());
+	public void validateEmployeeRegistrationRequest(EmployeeRegistrationRequest request) {
+		boolean isExists = employeeRepository.existsByCpfOrRgOrEmailOrContact(request.cpf(),
+				request.rg(),
+				request.email(),
+				request.contact());
 
 		if (isExists)
 			throw new RuntimeException("CPF, RG, email ou contact exists");
+	}
+	
+	public void validateEmployeeUpdateRequest(EmployeeUpdateRequest request) {
+		boolean isExists = employeeRepository.existsByEmailOrContact(request.email(),
+				request.contact());
+
+		if (isExists)
+			throw new RuntimeException("Email ou contact exists");
 	}
 }

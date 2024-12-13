@@ -1,6 +1,7 @@
 package com.org.auto_mendes_back_end_java.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -19,7 +20,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.f4b6a3.ulid.UlidCreator;
-import com.org.auto_mendes_back_end_java.model.dto.EmployeeRequest;
+import com.org.auto_mendes_back_end_java.model.dto.EmployeeRegistrationRequest;
+import com.org.auto_mendes_back_end_java.model.dto.EmployeeUpdateRequest;
 import com.org.auto_mendes_back_end_java.model.entity.Employee;
 import com.org.auto_mendes_back_end_java.model.entity.EmployeeType;
 import com.org.auto_mendes_back_end_java.model.repository.IEmployeeRepository;
@@ -47,7 +49,7 @@ class EmployeeControllerTest {
 
 	@Test
 	void registerEmployeeAndReturn201Status() throws Exception {
-		EmployeeRequest request = new EmployeeRequest("name1",
+		EmployeeRegistrationRequest request = new EmployeeRegistrationRequest("name1",
 				EmployeeType.SELLER,
 				LocalDate.of(1991, 01, 01), 
 			    "36716536477",
@@ -62,6 +64,27 @@ class EmployeeControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 				.content(json))
 		.andExpect(MockMvcResultMatchers.status().isCreated())
+		.andDo(print());
+	}
+	
+	@Test
+	void updateEmployeeAndReturn200Status() throws Exception {
+		loadEmployees();
+		
+		EmployeeUpdateRequest request = new EmployeeUpdateRequest("name1",
+				EmployeeType.SELLER,
+				LocalDate.of(1991, 01, 01),
+			    "email2@gmail.com",
+			    "(81) 91111-1112");
+		
+		String json = objectMapper.writeValueAsString(request);
+		
+		mockMvc.perform(patch("/api/employees/update-employee")
+				.queryParam("cpf", "36716536477")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(json))
+		.andExpect(MockMvcResultMatchers.status().isOk())
 		.andDo(print());
 	}
 	

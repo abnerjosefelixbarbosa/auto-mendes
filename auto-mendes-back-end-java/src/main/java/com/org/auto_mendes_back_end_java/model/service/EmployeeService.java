@@ -8,8 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.github.f4b6a3.ulid.UlidCreator;
-import com.org.auto_mendes_back_end_java.model.dto.EmployeeRequest;
+import com.org.auto_mendes_back_end_java.model.dto.EmployeeRegistrationRequest;
 import com.org.auto_mendes_back_end_java.model.dto.EmployeeResponse;
+import com.org.auto_mendes_back_end_java.model.dto.EmployeeUpdateRequest;
 import com.org.auto_mendes_back_end_java.model.entity.Employee;
 import com.org.auto_mendes_back_end_java.model.mapper.IEmployeeMapper;
 import com.org.auto_mendes_back_end_java.model.repository.IEmployeeRepository;
@@ -28,8 +29,8 @@ public class EmployeeService implements IEmployeeService {
 	private IEmployeeValidation employeeValidation;
 
 	@Transactional
-	public EmployeeResponse registerEmployee(EmployeeRequest request) {
-		employeeValidation.validateEmployee(request);
+	public EmployeeResponse registerEmployee(EmployeeRegistrationRequest request) {
+		employeeValidation.validateEmployeeRegistrationRequest(request);
 		
 		Employee employee = employeeMapper.toEmployee(request);
 		
@@ -41,8 +42,8 @@ public class EmployeeService implements IEmployeeService {
 	}
 
 	@Transactional
-	public EmployeeResponse updateEmployee(String cpf, EmployeeRequest request) {
-		employeeValidation.validateEmployee(request);
+	public EmployeeResponse updateEmployee(String cpf, EmployeeUpdateRequest request) {
+		employeeValidation.validateEmployeeUpdateRequest(request);
 
 		Employee employee = employeeRepository
 				.findByCpf(cpf)
