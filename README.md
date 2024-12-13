@@ -75,15 +75,13 @@ POST
 ### Atualizar Funcionário 
 
 ```JSON
-PUT
+PATCH
 /api/employees/update-employee?cpf=value
 
 {
   "name": "string",
   "employeeType": "string",
   "birthDate": "string",
-  "cpf": "string",
-  "rg": "string",
   "email": "string",
   "contact": "string"
 }
