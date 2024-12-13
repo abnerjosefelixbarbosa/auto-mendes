@@ -16,6 +16,8 @@ API Spring Boot java da auto mendes
 - Ulid
 - Sweeger
 - Cashining
+- SOLID
+- Arquitetura MVC
 
 # Regra De Negócios
 
