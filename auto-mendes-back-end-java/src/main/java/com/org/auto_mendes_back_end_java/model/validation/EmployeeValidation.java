@@ -1,10 +1,10 @@
-package com.org.auto_mendes_back_end_java.validation;
+package com.org.auto_mendes_back_end_java.model.validation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.org.auto_mendes_back_end_java.dto.EmployeeRequest;
-import com.org.auto_mendes_back_end_java.repository.IEmployeeRepository;
+import com.org.auto_mendes_back_end_java.model.dto.EmployeeRequest;
+import com.org.auto_mendes_back_end_java.model.repository.IEmployeeRepository;
 
 @Component
 public class EmployeeValidation implements IEmployeeValidation {

@@ -1,4 +1,4 @@
-package com.org.auto_mendes_back_end_java.entity;
+package com.org.auto_mendes_back_end_java.model.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

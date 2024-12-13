@@ -19,10 +19,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.f4b6a3.ulid.UlidCreator;
-import com.org.auto_mendes_back_end_java.dto.EmployeeRequest;
-import com.org.auto_mendes_back_end_java.entity.Employee;
-import com.org.auto_mendes_back_end_java.entity.EmployeeType;
-import com.org.auto_mendes_back_end_java.repository.IEmployeeRepository;
+import com.org.auto_mendes_back_end_java.model.dto.EmployeeRequest;
+import com.org.auto_mendes_back_end_java.model.entity.Employee;
+import com.org.auto_mendes_back_end_java.model.entity.EmployeeType;
+import com.org.auto_mendes_back_end_java.model.repository.IEmployeeRepository;
 
 @SpringBootTest
 @ActiveProfiles("dev")

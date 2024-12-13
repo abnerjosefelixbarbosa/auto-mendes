@@ -1,10 +1,10 @@
-package com.org.auto_mendes_back_end_java.service;
+package com.org.auto_mendes_back_end_java.model.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.org.auto_mendes_back_end_java.dto.EmployeeRequest;
-import com.org.auto_mendes_back_end_java.dto.EmployeeResponse;
+import com.org.auto_mendes_back_end_java.model.dto.EmployeeRequest;
+import com.org.auto_mendes_back_end_java.model.dto.EmployeeResponse;
 
 public interface IEmployeeService {
 	EmployeeResponse registerEmployee(EmployeeRequest request);

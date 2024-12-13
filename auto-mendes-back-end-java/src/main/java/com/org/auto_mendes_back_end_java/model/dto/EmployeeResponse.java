@@ -1,8 +1,8 @@
-package com.org.auto_mendes_back_end_java.dto;
+package com.org.auto_mendes_back_end_java.model.dto;
 
 import java.time.LocalDate;
 
-import com.org.auto_mendes_back_end_java.entity.EmployeeType;
+import com.org.auto_mendes_back_end_java.model.entity.EmployeeType;
 
 public record EmployeeResponse(
 		String id,

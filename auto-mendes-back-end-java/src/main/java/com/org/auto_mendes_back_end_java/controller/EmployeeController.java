@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.org.auto_mendes_back_end_java.dto.EmployeeRequest;
-import com.org.auto_mendes_back_end_java.dto.EmployeeResponse;
-import com.org.auto_mendes_back_end_java.service.IEmployeeService;
+import com.org.auto_mendes_back_end_java.model.dto.EmployeeRequest;
+import com.org.auto_mendes_back_end_java.model.dto.EmployeeResponse;
+import com.org.auto_mendes_back_end_java.model.service.IEmployeeService;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

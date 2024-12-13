@@ -1,4 +1,4 @@
-package com.org.auto_mendes_back_end_java.entity;
+package com.org.auto_mendes_back_end_java.model.entity;
 
 public enum EmployeeType {
 	SELLER("SELLER"), MANAGER("Manager"), ASSISTANT_MANAGER("ASSISTANT_MANAGER");

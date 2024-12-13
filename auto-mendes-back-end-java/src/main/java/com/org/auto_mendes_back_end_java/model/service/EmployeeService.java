@@ -1,4 +1,4 @@
-package com.org.auto_mendes_back_end_java.service;
+package com.org.auto_mendes_back_end_java.model.service;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +8,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.github.f4b6a3.ulid.UlidCreator;
-import com.org.auto_mendes_back_end_java.dto.EmployeeRequest;
-import com.org.auto_mendes_back_end_java.dto.EmployeeResponse;
-import com.org.auto_mendes_back_end_java.entity.Employee;
-import com.org.auto_mendes_back_end_java.mapper.IEmployeeMapper;
-import com.org.auto_mendes_back_end_java.repository.IEmployeeRepository;
-import com.org.auto_mendes_back_end_java.validation.IEmployeeValidation;
+import com.org.auto_mendes_back_end_java.model.dto.EmployeeRequest;
+import com.org.auto_mendes_back_end_java.model.dto.EmployeeResponse;
+import com.org.auto_mendes_back_end_java.model.entity.Employee;
+import com.org.auto_mendes_back_end_java.model.mapper.IEmployeeMapper;
+import com.org.auto_mendes_back_end_java.model.repository.IEmployeeRepository;
+import com.org.auto_mendes_back_end_java.model.validation.IEmployeeValidation;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;

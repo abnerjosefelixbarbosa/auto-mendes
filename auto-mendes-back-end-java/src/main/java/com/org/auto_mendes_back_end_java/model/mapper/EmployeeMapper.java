@@ -1,11 +1,11 @@
-package com.org.auto_mendes_back_end_java.mapper;
+package com.org.auto_mendes_back_end_java.model.mapper;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
-import com.org.auto_mendes_back_end_java.dto.EmployeeRequest;
-import com.org.auto_mendes_back_end_java.dto.EmployeeResponse;
-import com.org.auto_mendes_back_end_java.entity.Employee;
+import com.org.auto_mendes_back_end_java.model.dto.EmployeeRequest;
+import com.org.auto_mendes_back_end_java.model.dto.EmployeeResponse;
+import com.org.auto_mendes_back_end_java.model.entity.Employee;
 
 @Component
 public class EmployeeMapper implements IEmployeeMapper {

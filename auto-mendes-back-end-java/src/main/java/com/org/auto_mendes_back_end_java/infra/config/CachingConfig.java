@@ -1,4 +1,4 @@
-package com.org.auto_mendes_back_end_java.config;
+package com.org.auto_mendes_back_end_java.infra.config;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
