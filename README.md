@@ -4,7 +4,8 @@ API Spring Boot java da auto mendes
 
 # Modelo
 
-![diagrama-de-classe drawio](https://github.com/user-attachments/assets/0dd7d2b2-5218-4d50-a57b-b1adf7e75ddc)
+![diagrama-de-classe drawio](https://github.com/user-attachments/assets/a450c9cb-969e-4237-b23b-9f60ebcebe6e)
+
 
 # Tecnologias 
 
