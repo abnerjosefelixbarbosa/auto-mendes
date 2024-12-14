@@ -13,18 +13,18 @@ public class EmployeeValidation implements IEmployeeValidation {
 	private IEmployeeRepository employeeRepository;
 	
 	public void validateEmployeeRegistrationRequest(EmployeeRegistrationRequest request) {
-		boolean isExists = employeeRepository.existsByCpfOrRgOrEmailOrContact(request.cpf(),
-				request.rg(),
-				request.email(),
-				request.contact());
+		boolean isExists = employeeRepository.existsByCpfOrRgOrEmailOrContact(request.getCpf(),
+				request.getRg(),
+				request.getEmail(),
+				request.getContact());
 
 		if (isExists)
 			throw new RuntimeException("CPF, RG, email ou contact exists");
 	}
 	
 	public void validateEmployeeUpdateRequest(EmployeeUpdateRequest request) {
-		boolean isExists = employeeRepository.existsByEmailOrContact(request.email(),
-				request.contact());
+		boolean isExists = employeeRepository.existsByEmailOrContact(request.getEmail(),
+				request.getContact());
 
 		if (isExists)
 			throw new RuntimeException("Email ou contact exists");

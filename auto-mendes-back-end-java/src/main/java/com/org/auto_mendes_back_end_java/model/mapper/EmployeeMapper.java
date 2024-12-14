@@ -19,16 +19,9 @@ public class EmployeeMapper implements IEmployeeMapper {
 	}
 	
 	public EmployeeResponse toEmployeeResponse(Employee employee) {
-		EmployeeResponse response = new EmployeeResponse(
-				employee.getId(),
-				employee.getName(),
-				employee.getEmployeeType(),
-				employee.getBirthDate(),
-				employee.getCpf(),
-				employee.getRg(),
-				employee.getEmail(),
-				employee.getContact()
-		);
+		EmployeeResponse response = new EmployeeResponse();
+		
+		BeanUtils.copyProperties(employee, response);
 		
 		return response;
 	}
