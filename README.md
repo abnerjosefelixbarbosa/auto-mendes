@@ -11,14 +11,16 @@ API Spring Boot java da auto mendes
 - Hibernate/JPA
 - Validation
 - H2 DataBase
-- PostGree DataBase
+- PostGree DB
 - Lombok
 - Ulid
 - Sweeger
-- Cashining
 - SOLID
 - Arquitetura MVC
 - Lombok
+- Spring Boot
+- Java
+- H2 DB
 
 # Regra De Negócios
 
