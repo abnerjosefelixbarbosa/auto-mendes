@@ -54,7 +54,11 @@ API Spring Boot java da auto mendes
 - Gerente deve cadastra vendedor. 
 - Gerente deve atualizar vendedor.
 - Sistema deve listar todos funcionários que contenha mesmo nome.
-- Gerente deve procurar funcionário pelo cpf. 
+- Gerente deve procurar funcionário pelo cpf.
+
+## Clientes
+
+- Gerente deve registrar cliente. 
 
 # Requisitos Não Funcionais
 
