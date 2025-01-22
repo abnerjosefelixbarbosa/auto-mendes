@@ -1,22 +1,28 @@
 # auto-mendes
 
+## Sobre
+
 Sistema de registro de vendas entre vendedores e clientes.
 
-# Modelo
+## Modelo - Diagrama De Classe
 
-# Tecnologias 
 
-- Hibernate
-- Validation
-- H2 DB
-- PostGree DB
-- Lombok
-- Ulid
-- Swagger
-- SOLID
-- MVC
-- Spring Boot
-- Java
+
+# Recursos Do Projeto
+
+## Auto Mendes Back End Spring Boot Java
+
+- Hibernate.
+- Validation.
+- H2 SQL.
+- PostGree SQL.
+- Lombok.
+- Ulid.
+- Swagger.
+- SOLID.
+- MVC.
+- Spring Boot.
+- Java.
 
 # Regra De Negócios
 
@@ -24,11 +30,11 @@ Sistema de registro de vendas entre vendedores e clientes.
 
 # Requisitos Funcinais
 
-## Funcionários 
-
-## Clientes 
+ 
 
 # Requisitos Não Funcionais 
+
+
 
 # Requisições
 
