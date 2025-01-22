@@ -1,24 +1,22 @@
 # auto-mendes
 
-API Spring Boot java da auto mendes
+Sistema de registro de vendas entre vendedores e clientes.
 
 # Modelo
 
 # Tecnologias 
 
-- Hibernate/JPA
+- Hibernate
 - Validation
-- H2 DataBase
+- H2 DB
 - PostGree DB
 - Lombok
 - Ulid
-- Sweeger
+- Swagger
 - SOLID
-- Arquitetura MVC
-- Lombok
+- MVC
 - Spring Boot
 - Java
-- H2 DB
 
 # Regra De Negócios
 
