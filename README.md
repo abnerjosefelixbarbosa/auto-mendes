@@ -14,7 +14,7 @@ Sistema de registro de vendas entre vendedores e clientes.
 
 - Hibernate.
 - Validation.
-- H2 SQL.
+- H2 DataBase.
 - PostGree SQL.
 - Lombok.
 - Ulid.
