@@ -22,7 +22,7 @@ Sistema de registro de vendas entre vendedores e clientes.
 - SOLID.
 - MVC.
 - Spring Boot.
-- Java.
+- Java 17.
 
 # Regra De Negócios
 
