@@ -1,10 +1,10 @@
 package com.org.auto_mendes_back_end_spring_boot_java.entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
+
+import com.org.auto_mendes_back_end_spring_boot_java.enums.GearType;
+import com.org.auto_mendes_back_end_spring_boot_java.enums.VehicleType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,25 +22,26 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "sales")
-public class Sale implements Serializable {
+@Table(name = "vehicles")
+public class Vehicle implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "id")
 	private String id;
-	@Column(name = "sale_date", nullable = false)
-	private LocalDate date;
-	@Column(name = "sale_time", nullable = false)
-	private LocalTime time;
-	@Column(name = "total_value", nullable = false)
-	private BigDecimal totalValue;
+	@Column(name = "plate")
+	private String plate;
+	@Column(name = "color", nullable = false)
+	private String color;
+	@Column(name = "vehicle_value", nullable = false)
+	private String value;
+	@Column(name = "vehicle_type", nullable = false)
+	private VehicleType vehicleType;
+	@Column(name = "gear_type", nullable = false)
+	private GearType gearType;
 	@ManyToOne
-	@JoinColumn(name = "employee_id", nullable = false)
-	private Employee employee;
-	@ManyToOne
-	@JoinColumn(name = "customer_id", nullable = false)
-	private Customer customer;
-	@OneToMany(mappedBy = "sale", fetch = FetchType.LAZY)
+	@JoinColumn(name = "model_id", nullable = false)
+	private Model model;
+	@OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY)
 	private List<SalerVehicle> salerVehicles;
 }

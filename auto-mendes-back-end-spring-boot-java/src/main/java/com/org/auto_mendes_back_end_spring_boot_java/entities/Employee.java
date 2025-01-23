@@ -1,12 +1,17 @@
 package com.org.auto_mendes_back_end_spring_boot_java.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
 
 import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,18 +28,22 @@ public class Employee implements Serializable {
 	@Id
 	@Column(name = "id")
 	private String id;
-	@Column(name = "birth_date")
-	private String birthDate;
-	@Column(name = "cpf")
-	private String cpf;
-	@Column(name = "name")
+	@Column(name = "name", nullable = false)
 	private String name;
-	@Column(name = "matriculation")
-	private String matriculation;
-	@Column(name = "email")
+	@Column(name = "cpf", nullable = false, unique = true)
+	private String cpf;
+	@Column(name = "birth_date", nullable = false)
+	private LocalDate birthDate;	
+	@Column(name = "email", nullable = false, unique = true)
 	private String email;
-	@Column(name = "contact")
+	@Column(name = "contact", nullable = false, unique = true)
 	private String contact;
-	@Column(name = "type_employee")
-	private EmployeeType typeEmployee;
+	@Column(name = "matriculation", nullable = false, unique = true)
+	private String matriculation;
+	@Column(name = "commission")
+	private BigDecimal commission;
+	@Column(name = "employee_type", nullable = false)
+	private EmployeeType employeeType;
+	@OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+	private List<Sale> sales;
 }

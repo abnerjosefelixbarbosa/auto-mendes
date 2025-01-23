@@ -1,9 +1,6 @@
 package com.org.auto_mendes_back_end_spring_boot_java.entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -22,25 +19,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "sales")
-public class Sale implements Serializable {
+@Table(name = "models")
+public class Model implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "id")
 	private String id;
-	@Column(name = "sale_date", nullable = false)
-	private LocalDate date;
-	@Column(name = "sale_time", nullable = false)
-	private LocalTime time;
-	@Column(name = "total_value", nullable = false)
-	private BigDecimal totalValue;
+	@Column(name = "name", nullable = false, unique = true)
+	private String name;
 	@ManyToOne
-	@JoinColumn(name = "employee_id", nullable = false)
-	private Employee employee;
-	@ManyToOne
-	@JoinColumn(name = "customer_id", nullable = false)
-	private Customer customer;
-	@OneToMany(mappedBy = "sale", fetch = FetchType.LAZY)
-	private List<SalerVehicle> salerVehicles;
+	@JoinColumn(name = "brand_id", nullable = false)
+	private Brand brand;
+	@OneToMany(mappedBy = "model", fetch = FetchType.LAZY)
+	private List<Vehicle> vehicle;
 }

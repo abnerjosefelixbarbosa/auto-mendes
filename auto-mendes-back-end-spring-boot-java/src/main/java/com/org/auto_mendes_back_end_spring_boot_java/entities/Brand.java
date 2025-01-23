@@ -17,23 +17,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "customers")
-public class Customer implements Serializable {
+@Table(name = "brands")
+public class Brand implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "id")
 	private String id;
-	@Column(name = "name", nullable = false)
+	@Column(name = "name", nullable = false, unique = true)
 	private String name;
-	@Column(name = "cpf")
-	private String cpf;
-	@Column(name = "birth_date")
-	private String birthDate;
-	@Column(name = "cnpj")
-	private String cnpj;
-	@Column(name = "customer_type", nullable = false)
-	private String customerType;
-	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
-	private List<Sale> sales;
+	@OneToMany(mappedBy = "brand", fetch = FetchType.LAZY)
+	private List<Model> models;
 }
