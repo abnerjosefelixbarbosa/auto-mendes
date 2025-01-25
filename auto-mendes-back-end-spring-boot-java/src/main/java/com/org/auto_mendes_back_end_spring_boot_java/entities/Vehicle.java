@@ -34,7 +34,7 @@ public class Vehicle implements Serializable {
 	private String plate;
 	@Column(name = "color", nullable = false, length = 30)
 	private String color;
-	@Column(name = "vehicle_value", nullable = false)
+	@Column(name = "vehicle_value", nullable = false, scale = 2)
 	private BigDecimal vehicleValue;
 	@Column(name = "vehicle_type", nullable = false)
 	private VehicleType vehicleType;

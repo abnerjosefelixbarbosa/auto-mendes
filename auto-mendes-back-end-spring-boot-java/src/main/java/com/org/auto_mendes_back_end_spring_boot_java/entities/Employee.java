@@ -40,7 +40,7 @@ public class Employee implements Serializable {
 	private String contact;
 	@Column(name = "matriculation", nullable = false, unique = true, length = 10)
 	private String matriculation;
-	@Column(name = "commission", precision = 2)
+	@Column(name = "commission", scale = 2)
 	private BigDecimal commission;
 	@Column(name = "employee_type", nullable = false)
 	private EmployeeType employeeType;
