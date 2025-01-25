@@ -1,6 +1,7 @@
 package com.org.auto_mendes_back_end_spring_boot_java.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.org.auto_mendes_back_end_spring_boot_java.enums.ExchangeType;
@@ -29,15 +30,15 @@ public class Vehicle implements Serializable {
 	@Id
 	@Column(name = "id")
 	private String id;
-	@Column(name = "plate")
+	@Column(name = "plate", length = 10)
 	private String plate;
-	@Column(name = "color", nullable = false)
+	@Column(name = "color", nullable = false, length = 30)
 	private String color;
 	@Column(name = "vehicle_value", nullable = false)
-	private String value;
+	private BigDecimal vehicleValue;
 	@Column(name = "vehicle_type", nullable = false)
 	private VehicleType vehicleType;
-	@Column(name = "gear_type", nullable = false)
+	@Column(name = "exchange_type", nullable = false)
 	private ExchangeType exchangeType;
 	@ManyToOne
 	@JoinColumn(name = "model_id", nullable = false)

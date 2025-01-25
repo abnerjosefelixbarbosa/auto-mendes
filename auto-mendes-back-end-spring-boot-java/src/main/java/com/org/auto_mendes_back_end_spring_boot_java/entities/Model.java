@@ -26,7 +26,7 @@ public class Model implements Serializable {
 	@Id
 	@Column(name = "id")
 	private String id;
-	@Column(name = "name", nullable = false, unique = true)
+	@Column(name = "name", nullable = false, unique = true, length = 50)
 	private String name;
 	@ManyToOne
 	@JoinColumn(name = "brand_id", nullable = false)

@@ -28,19 +28,19 @@ public class Employee implements Serializable {
 	@Id
 	@Column(name = "id")
 	private String id;
-	@Column(name = "name", nullable = false)
+	@Column(name = "name", nullable = false, length = 100)
 	private String name;
-	@Column(name = "cpf", nullable = false, unique = true)
+	@Column(name = "cpf", nullable = false, unique = true, length = 20)
 	private String cpf;
 	@Column(name = "birth_date", nullable = false)
 	private LocalDate birthDate;	
-	@Column(name = "email", nullable = false, unique = true)
+	@Column(name = "email", nullable = false, unique = true, length = 50)
 	private String email;
-	@Column(name = "contact", nullable = false, unique = true)
+	@Column(name = "contact", nullable = false, unique = true, length = 30)
 	private String contact;
-	@Column(name = "matriculation", nullable = false, unique = true)
+	@Column(name = "matriculation", nullable = false, unique = true, length = 10)
 	private String matriculation;
-	@Column(name = "commission")
+	@Column(name = "commission", precision = 2)
 	private BigDecimal commission;
 	@Column(name = "employee_type", nullable = false)
 	private EmployeeType employeeType;

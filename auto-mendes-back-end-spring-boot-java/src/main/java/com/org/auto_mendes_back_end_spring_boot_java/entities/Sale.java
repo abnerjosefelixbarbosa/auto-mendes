@@ -33,8 +33,8 @@ public class Sale implements Serializable {
 	private LocalDate date;
 	@Column(name = "sale_time", nullable = false)
 	private LocalTime time;
-	@Column(name = "total_value", nullable = false)
-	private BigDecimal totalValue;
+	@Column(name = "total", nullable = false)
+	private BigDecimal total;
 	@ManyToOne
 	@JoinColumn(name = "employee_id", nullable = false)
 	private Employee employee;
