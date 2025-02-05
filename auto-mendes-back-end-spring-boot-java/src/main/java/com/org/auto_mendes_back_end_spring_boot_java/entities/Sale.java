@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.org.auto_mendes_back_end_spring_boot_java.enums.PaymentType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -35,13 +37,13 @@ public class Sale implements Serializable {
 	@Column(nullable = false, scale = 2)
 	private BigDecimal total;
 	@Column(nullable = false)
-	private String paymentType;
+	private PaymentType paymentType;
 	@ManyToOne
-	@JoinColumn(nullable = false)
+	@JoinColumn(name = "customer_id", nullable = false)
 	private Customer customer;
 	@ManyToOne
-	@JoinColumn(nullable = false)
+	@JoinColumn(name = "employee_id", nullable = false)
 	private Employee employee;
-	@OneToMany(mappedBy = "sales", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "sale", fetch = FetchType.LAZY)
 	private List<SaleVehicle> saleVehicles;
 }
