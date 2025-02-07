@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
@@ -25,8 +26,10 @@ public class SaleVehicle implements Serializable {
 	private SaleVehicleId id;
 	@MapsId("saleId")
 	@ManyToOne
+	@JoinColumn(name = "sale_id")
 	private Sale sale;
 	@MapsId("vehicleId")
 	@ManyToOne
+	@JoinColumn(name = "vehicle_id")
 	private Vehicle vehicle;
 }
