@@ -3,6 +3,7 @@ package com.org.auto_mendes_back_end_spring_boot_java.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -26,6 +27,7 @@ public class Model implements Serializable {
 
 	@Id
 	private String id;
+	@Column(nullable = false, unique = true, length = 30)
 	private String name;
 	@ManyToOne
 	@JoinColumn(name = "mark_id", nullable = false)
