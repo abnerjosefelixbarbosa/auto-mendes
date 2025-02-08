@@ -19,7 +19,7 @@ public record EmployeeRequestDTO(
 		String name,
 		@NotNull(message = "cpf deve ser obrigatório")
 		@NotEmpty(message = "cpf deve ser obrigatório")
-		@Size(message = "cpf deve ter até 14 caracteres", max = 14)
+		@Size(message = "cpf deve ter 14 caracteres", max = 14, min = 14)
 		@CPF(message = "cpf deve ser válido")
         String cpf,
         @NotNull(message = "email deve ser obrigatório")
@@ -29,10 +29,9 @@ public record EmployeeRequestDTO(
         String email,
         @NotNull(message = "telefone deve ser obrigatório")
 		@NotEmpty(message = "telefone deve ser obrigatório")
-		@Size(message = "telefone deve ter até 20 caracteres", max = 20)
+		@Size(message = "telefone deve ter de 10 até 20 caracteres", max = 20, min = 10)
         String telephone,
         @NotNull(message = "salário deve ser obrigatório")
-		@NotEmpty(message = "salário deve ser obrigatório")
         BigDecimal salary,
         @NotNull(message = "matrícula deve ser obrigatório")
 		@NotEmpty(message = "matrícula deve ser obrigatório")
