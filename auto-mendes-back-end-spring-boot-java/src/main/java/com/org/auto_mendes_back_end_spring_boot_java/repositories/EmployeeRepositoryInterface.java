@@ -7,6 +7,6 @@ import com.org.auto_mendes_back_end_spring_boot_java.entities.Employee;
 
 @Repository
 public interface EmployeeRepositoryInterface extends JpaRepository<Employee, String> {
-	boolean existsByCPFOrEmailOrTelephoneOrMatriculation(String cpf, String email, String telephone, 
+	boolean existsByCpfOrEmailOrTelephoneOrMatriculation(String cpf, String email, String telephone, 
 			String matriculation);
 }

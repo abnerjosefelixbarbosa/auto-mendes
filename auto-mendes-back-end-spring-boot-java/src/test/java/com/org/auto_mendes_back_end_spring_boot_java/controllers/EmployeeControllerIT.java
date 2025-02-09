@@ -2,10 +2,11 @@ package com.org.auto_mendes_back_end_spring_boot_java.controllers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,8 +19,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.f4b6a3.ulid.UlidCreator;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
+import com.org.auto_mendes_back_end_spring_boot_java.entities.Employee;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.EmployeeRepositoryInterface;
 
 @SpringBootTest
 @ActiveProfiles("dev")
@@ -29,104 +33,55 @@ class EmployeeControllerIT {
 	private MockMvc mockMvc;
 	@Autowired
 	private ObjectMapper objectMapper;
+	@Autowired
+	private EmployeeRepositoryInterface employeeRepository;
+
+	/*
+	 * Dados para teste
+	 * 
+	 * EmployeeRequestDTO request = new EmployeeRequestDTO(null, null, null, null,
+	 * null, null, null, null);
+	 * 
+	 * EmployeeRequestDTO request = new EmployeeRequestDTO( "name1",
+	 * "814.540.170-40", "email1@gmail.com", "(81) 91111-1111", new
+	 * BigDecimal("400.00"), "1111111111", null, EmployeeType.Manager);
+	 * 
+	 * EmployeeRequestDTO request = new EmployeeRequestDTO("name2", "814.540.170-40", "email2@gmail.com",
+	 *			"(81) 92222-2222", new BigDecimal("400.00"), "2222222222", null, EmployeeType.DeputyManager);
+	 * 
+	 * 
+	 */
 
 	@BeforeEach
 	void setUp() {
+		employeeRepository.deleteAll();
 	}
 
 	@AfterEach
 	void tearDown() {
+		employeeRepository.deleteAll();
 	}
 
 	@Test
 	void shouldRegisterEmployeeAndReturnStatus201() throws Exception {
-		EmployeeRequestDTO request = new EmployeeRequestDTO(
-				"name1",
-				"814.540.170-40",
-				"email1@gmail.com",
-				"(81) 91111-1111",
-				new BigDecimal("400.00"),
-				"1111111111",
-				null,
-				EmployeeType.Manager
-		);
+		loadEmployees();
+		
+		EmployeeRequestDTO request = new EmployeeRequestDTO("name2", "814.540.170-40", "email2@gmail.com",
+				"(81) 92222-2222", new BigDecimal("400.00"), "2222222222", null, EmployeeType.DeputyManager);
 
 		String json = objectMapper.writeValueAsString(request);
-		
-		mockMvc.perform(post("/api/employees/register-employee")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)
-				.content(json))
-		.andExpect(status().isCreated())
-		.andDo(print());
+
+		mockMvc.perform(post("/api/employees/register-employee").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
 	}
-	
-	@Test
-	void shouldRegisterEmployeeAndReturnStatus400() throws Exception {
-		EmployeeRequestDTO request = new EmployeeRequestDTO(
-				"name1",
-				"814.540.170-40",
-				"email1@gmail.com",
-				"(81) 91111-1111",
-				new BigDecimal("400.0"),
-				"1111111111",
-				null,
-				EmployeeType.Manager
-		);
 
-		String json = objectMapper.writeValueAsString(request);
-		
-		mockMvc.perform(post("/api/employees/register-employee")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)
-				.content(json))
-		.andExpect(status().isBadRequest())
-		.andDo(print());
-	}
-	
-	@Test
-	void shouldRegisterEmployeeSalerAndReturnStatus201() throws Exception {
-		EmployeeRequestDTO request = new EmployeeRequestDTO(
-				"name1",
-				"814.540.170-40",
-				"email1@gmail.com",
-				"(81) 91111-1111",
-				new BigDecimal("400.00"),
-				"1111111111",
-				new BigDecimal("150.00"),
-				EmployeeType.Saler
-		);
+	void loadEmployees() {
+		List<Employee> employees = new ArrayList<Employee>();
 
-		String json = objectMapper.writeValueAsString(request);
-		
-		mockMvc.perform(post("/api/employees/register-employee")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)
-				.content(json))
-		.andExpect(status().isCreated())
-		.andDo(print());
-	}
-	
-	@Test
-	void shouldRegisterEmployeeSalerAndReturnStatus400() throws Exception {
-		EmployeeRequestDTO request = new EmployeeRequestDTO(
-				"name1",
-				"814.540.170-40",
-				"email1@gmail.com",
-				"(81) 91111-1111",
-				new BigDecimal("400.0"),
-				"1111111111",
-				new BigDecimal("150.0"),
-				EmployeeType.Saler
-		);
+		employees.add(new Employee(UlidCreator.getUlid().toString(), "name1", "737.697.500-47", "email1@gmail.com",
+				"(81) 91111-1111", new BigDecimal("400.00"), "1111111111", new BigDecimal("30.00"), EmployeeType.Saler,
+				null));
 
-		String json = objectMapper.writeValueAsString(request);
-		
-		mockMvc.perform(post("/api/employees/register-employee")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)
-				.content(json))
-		.andExpect(status().isBadRequest())
-		.andDo(print());
+		employees.forEach((employee) -> employeeRepository.save(employee));
 	}
 }

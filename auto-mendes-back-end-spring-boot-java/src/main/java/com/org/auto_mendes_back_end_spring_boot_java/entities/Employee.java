@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.github.f4b6a3.ulid.UlidCreator;
-import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
 
 import jakarta.persistence.Column;
@@ -15,14 +13,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity
 @Table(name = "employees")
 public class Employee implements Serializable{
@@ -48,19 +44,4 @@ public class Employee implements Serializable{
 	private EmployeeType employeeType;
 	@OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
 	private List<Sale> sales;
-	
-	public Employee(EmployeeRequestDTO request) {
-		this(
-				UlidCreator.getUlid().toString(),
-				request.name(),
-				request.cpf(),
-				request.email(),
-				request.telephone(),
-				request.salary(),
-				request.matriculation(),
-				request.commission(),
-				request.employeeType(),
-				null
-		);
-	}
 }

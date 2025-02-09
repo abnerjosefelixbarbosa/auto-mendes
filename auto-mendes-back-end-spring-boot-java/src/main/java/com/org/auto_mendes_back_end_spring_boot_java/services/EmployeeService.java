@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Employee;
+import com.org.auto_mendes_back_end_spring_boot_java.mappers.EmployeeMapperInterface;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.EmployeeRepositoryInterface;
 import com.org.auto_mendes_back_end_spring_boot_java.validations.EmployeeValidationInterface;
 
@@ -17,21 +18,23 @@ public class EmployeeService implements EmployeeServiceInterface {
 	private EmployeeRepositoryInterface employeeRepository;
 	@Autowired
 	private EmployeeValidationInterface employeeValidation;
-	
+	@Autowired
+	private EmployeeMapperInterface employeeMapper;
+
 	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO request) {
-		Employee employee = new Employee(request);
-		
+		Employee employee = employeeMapper.toEmployee(request);
+
 		employeeValidation.validateEmployee(employee);
-		
+
 		employee = employeeRepository.save(employee);
-		
-		return new EmployeeResponseDTO(employee);
+
+		return employeeMapper.toEmployeeResponseDTO(employee);
 	}
 
 	public Page<EmployeeResponseDTO> listEmployees(Pageable pageable) {
-		var employees = employeeRepository.findAll(pageable);
+		Page<Employee> employeePage = employeeRepository.findAll(pageable);
 		
-		return employees.map(EmployeeResponseDTO::new);
+		return employeePage.map(employeeMapper::toEmployeeResponseDTO);
 	}
 
 }

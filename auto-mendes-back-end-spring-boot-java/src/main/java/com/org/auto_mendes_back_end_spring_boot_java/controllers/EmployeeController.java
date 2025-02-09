@@ -25,8 +25,6 @@ public class EmployeeController {
 	
 	@PostMapping(value = "/register-employee")
 	public ResponseEntity<EmployeeResponseDTO> registerEmployee(@RequestBody @Valid EmployeeRequestDTO request) {
-		System.out.println(request.salary().scale());
-		
 		EmployeeResponseDTO response = employeeService.registerEmployee(request);
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -34,8 +32,8 @@ public class EmployeeController {
 	
 	@GetMapping(value = "/list-employees")
 	public ResponseEntity<Page<EmployeeResponseDTO>> listEmployees(Pageable pageable) {
-		var responses = employeeService.listEmployees(pageable);
+		Page<EmployeeResponseDTO> EmployeeResponseDTOs = employeeService.listEmployees(pageable);
 		
-		return ResponseEntity.status(HttpStatus.OK).body(responses);
+		return ResponseEntity.status(HttpStatus.OK).body(EmployeeResponseDTOs);
 	}
 }
