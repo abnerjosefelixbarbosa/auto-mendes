@@ -64,7 +64,7 @@ class EmployeeControllerIT {
 
 	@Test
 	void shouldRegisterEmployeeAndReturnStatus201() throws Exception {
-		loadEmployees();
+		// loadEmployees();
 		
 		EmployeeRequestDTO request = new EmployeeRequestDTO("name2", "814.540.170-40", "email2@gmail.com",
 				"(81) 92222-2222", new BigDecimal("400.00"), "2222222222", null, EmployeeType.DeputyManager);
