@@ -34,5 +34,4 @@ public class EmployeeService implements EmployeeServiceInterface {
 	public Page<EmployeeResponseDTO> listEmployees(Pageable pageable) {
 		return employeeRepository.findAllEmployees(pageable);
 	}
-
 }

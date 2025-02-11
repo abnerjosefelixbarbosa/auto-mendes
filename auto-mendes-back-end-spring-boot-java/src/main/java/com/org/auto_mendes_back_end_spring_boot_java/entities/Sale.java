@@ -40,8 +40,8 @@ public class Sale implements Serializable {
 	@JoinColumn(name = "customer_id", nullable = false)
 	private Customer customer;
 	@ManyToOne
-	@JoinColumn(name = "employee_id", nullable = false)
-	private Employee employee;
+	@JoinColumn(name = "saler_id", nullable = false)
+	private Saler saler;
 	@OneToMany(mappedBy = "sale", fetch = FetchType.LAZY)
 	private List<SaleVehicle> saleVehicles;
 }

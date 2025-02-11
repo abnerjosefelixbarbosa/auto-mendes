@@ -81,9 +81,9 @@ class EmployeeControllerIT {
 
 	void loadEmployees() {
 		List<Employee> employees = new ArrayList<Employee>();
-
+		
 		employees.add(new Saler(UlidCreator.getUlid().toString(), "name1", "737.697.500-47", "email1@gmail.com", "(81) 91111-1111",
-				new BigDecimal("400.00"), "1111111111", null, new BigDecimal("30.00")));
+				new BigDecimal("400.00"), "1111111111", new BigDecimal("30.00")));
 
 		employees.forEach((item) -> employeeRepository.save(item));
 	}

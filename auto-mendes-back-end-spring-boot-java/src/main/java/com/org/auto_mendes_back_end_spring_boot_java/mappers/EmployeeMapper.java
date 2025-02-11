@@ -17,13 +17,13 @@ public class EmployeeMapper implements EmployeeMapperInterface {
 
 		if (request.getEmployeeType().ordinal() == 0) {
 			employee = new Manager(UlidCreator.getUlid().toString(), request.getName(), request.getCpf(),
-					request.getEmail(), request.getTelephone(), request.getSalary(), request.getMatriculation(), null);
+					request.getEmail(), request.getTelephone(), request.getSalary(), request.getMatriculation());
 		} else if (request.getEmployeeType().ordinal() == 1) {
 			employee = new DeputyManager(UlidCreator.getUlid().toString(), request.getName(), request.getCpf(),
-					request.getEmail(), request.getTelephone(), request.getSalary(), request.getMatriculation(), null);
+					request.getEmail(), request.getTelephone(), request.getSalary(), request.getMatriculation());
 		} else {
 			employee = new Saler(null, request.getName(), request.getCpf(), request.getEmail(), request.getTelephone(),
-					request.getSalary(), request.getMatriculation(), null, request.getCommission());
+					request.getSalary(), request.getMatriculation(), request.getCommission());
 		}
 
 		return employee;

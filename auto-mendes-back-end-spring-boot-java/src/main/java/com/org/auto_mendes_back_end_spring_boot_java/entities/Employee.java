@@ -2,17 +2,12 @@ package com.org.auto_mendes_back_end_spring_boot_java.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorColumn;
-import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,8 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "employees")
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "employee_type", discriminatorType = DiscriminatorType.INTEGER)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Employee implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -42,6 +36,4 @@ public class Employee implements Serializable{
 	private BigDecimal salary;
 	@Column(nullable = false, unique = true, length = 10)
 	private String matriculation;
-	@OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
-	private List<Sale> sales;
 }
