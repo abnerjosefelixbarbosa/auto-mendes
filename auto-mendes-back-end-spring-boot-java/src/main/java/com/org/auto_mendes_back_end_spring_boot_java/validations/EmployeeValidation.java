@@ -3,7 +3,7 @@ package com.org.auto_mendes_back_end_spring_boot_java.validations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDto;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.EmployeeRepositoryInterface;
 
 @Component
@@ -11,7 +11,7 @@ public class EmployeeValidation implements EmployeeValidationInterface {
 	@Autowired
 	private EmployeeRepositoryInterface employeeRepository;
 
-	public void validateEmployee(EmployeeRequestDto employee) {
+	public void validateEmployee(EmployeeRequestDTO employee) {
 		if (employee.getEmployeeType().ordinal() != 2 && employee.getCommission() != null) {
 			throw new RuntimeException("comissão não deve ser obrigatária");
 		}

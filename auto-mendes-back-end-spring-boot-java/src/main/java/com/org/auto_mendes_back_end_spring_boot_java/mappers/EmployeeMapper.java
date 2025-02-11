@@ -3,8 +3,8 @@ package com.org.auto_mendes_back_end_spring_boot_java.mappers;
 import org.springframework.stereotype.Component;
 
 import com.github.f4b6a3.ulid.UlidCreator;
-import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDto;
-import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeResponseDto;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.DeputyManager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Employee;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Manager;
@@ -12,7 +12,7 @@ import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
 
 @Component
 public class EmployeeMapper implements EmployeeMapperInterface {
-	public Employee toEmployee(EmployeeRequestDto request) {
+	public Employee toEmployee(EmployeeRequestDTO request) {
 		Employee employee = null;
 
 		if (request.getEmployeeType().ordinal() == 0) {
@@ -29,8 +29,8 @@ public class EmployeeMapper implements EmployeeMapperInterface {
 		return employee;
 	}
 	
-	public EmployeeResponseDto toEmployeeResponseDto(Employee employee) {
-		return new EmployeeResponseDto(employee.getId(), employee.getName(),
+	public EmployeeResponseDTO toEmployeeResponseDto(Employee employee) {
+		return new EmployeeResponseDTO(employee.getId(), employee.getName(),
 				employee.getCpf(), employee.getEmail(), employee.getTelephone(), employee.getSalary(),
 				employee.getMatriculation(), null);
 	}

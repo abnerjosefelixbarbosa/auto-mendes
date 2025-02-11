@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.org.auto_mendes_back_end_spring_boot_java.dtos.ExceptionResponseDto;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.ExceptionResponseDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -33,12 +33,8 @@ public class ExceptionController {
 	}
 	
 	@ExceptionHandler(RuntimeException.class)
-	public ResponseEntity<ExceptionResponseDto> handleValidationParamException(Exception e, HttpServletRequest request) {
-		ExceptionResponseDto response = new ExceptionResponseDto();
-		response.setLocalDateTime(LocalDateTime.now());
-		response.setMessage(e.getMessage());
-		response.setPath(request.getRequestURI());
-		response.setStatus(400);
+	public ResponseEntity<ExceptionResponseDTO> handleRuntimeException(RuntimeException e, HttpServletRequest request) {
+		ExceptionResponseDTO response = new ExceptionResponseDTO(LocalDateTime.now(), 400, e.getMessage(), request.getRequestURI());
 		
 		return ResponseEntity.status(400).body(response);
 	}

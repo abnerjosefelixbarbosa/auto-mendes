@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.f4b6a3.ulid.UlidCreator;
-import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDto;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Employee;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
@@ -47,7 +47,7 @@ class EmployeeControllerIT {
 	// "814.540.170-40", "email1@gmail.com", "(81) 91111-1111", new
 	// BigDecimal("400.00"), "1111111111", null, EmployeeType.Manager);
 
-	// EmployeeRequestDto request = new EmployeeRequestDto("name2",
+	// EmployeeRequestDTO request = new EmployeeRequestDTO("name2",
 	// "814.540.170-40", "email2@gmail.com", "(81) 92222-2222", new
 	// BigDecimal("400.00"), "2222222222", null, EmployeeType.DEPUTY_MANAGER);
 
@@ -57,12 +57,12 @@ class EmployeeControllerIT {
 
 	@AfterEach
 	void tearDown() {
-		//employeeRepository.deleteAll();
+		employeeRepository.deleteAll();
 	}
 
 	@Test
 	void shouldRegisterEmployeeAndReturnStatus201() throws Exception {
-		EmployeeRequestDto dto = new EmployeeRequestDto("name2", "814.540.170-40", "email2@gmail.com",
+		EmployeeRequestDTO dto = new EmployeeRequestDTO("name2", "814.540.170-40", "email2@gmail.com",
 				"(81) 92222-2222", new BigDecimal("400.00"), "2222222222", null, EmployeeType.DEPUTY_MANAGER);
 
 		String json = objectMapper.writeValueAsString(dto);

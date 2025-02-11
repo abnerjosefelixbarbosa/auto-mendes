@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDto;
-import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeResponseDto;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.services.EmployeeServiceInterface;
 
 import jakarta.validation.Valid;
@@ -24,15 +24,15 @@ public class EmployeeController {
 	private EmployeeServiceInterface employeeService;
 	
 	@PostMapping(value = "/register-employee")
-	public ResponseEntity<EmployeeResponseDto> registerEmployee(@RequestBody @Valid EmployeeRequestDto request) {
-		EmployeeResponseDto response = employeeService.registerEmployee(request);
+	public ResponseEntity<EmployeeResponseDTO> registerEmployee(@RequestBody @Valid EmployeeRequestDTO request) {
+		EmployeeResponseDTO response = employeeService.registerEmployee(request);
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
 	@GetMapping(value = "/list-employees")
-	public ResponseEntity<Page<EmployeeResponseDto>> listEmployees(Pageable pageable) {
-		Page<EmployeeResponseDto> responses = employeeService.listEmployees(pageable);
+	public ResponseEntity<Page<EmployeeResponseDTO>> listEmployees(Pageable pageable) {
+		Page<EmployeeResponseDTO> responses = employeeService.listEmployees(pageable);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(responses);
 	}

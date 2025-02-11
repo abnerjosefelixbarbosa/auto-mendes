@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmployeeRequestDto {
+public class EmployeeRequestDTO {
 	@NotNull(message = "nome deve ser obrigatório")
 	@NotEmpty(message = "nome deve ser obrigatório")
 	@Size(message = "nome deve ter até 100 caracteres", max = 100)

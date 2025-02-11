@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExceptionResponseDto {
+public class ExceptionResponseDTO {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:ss")
 	private LocalDateTime localDateTime;
 	private Integer status;

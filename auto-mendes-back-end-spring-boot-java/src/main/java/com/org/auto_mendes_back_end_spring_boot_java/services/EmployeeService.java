@@ -5,8 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDto;
-import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeResponseDto;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Employee;
 import com.org.auto_mendes_back_end_spring_boot_java.mappers.EmployeeMapperInterface;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.EmployeeRepositoryInterface;
@@ -21,7 +21,7 @@ public class EmployeeService implements EmployeeServiceInterface {
 	@Autowired
 	private EmployeeMapperInterface employeeMapper;
 
-	public EmployeeResponseDto registerEmployee(EmployeeRequestDto request) {
+	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO request) {
 		employeeValidation.validateEmployee(request);
 		
 		Employee employee = employeeMapper.toEmployee(request);
@@ -31,9 +31,7 @@ public class EmployeeService implements EmployeeServiceInterface {
 		return employeeMapper.toEmployeeResponseDto(employeeSaved);
 	}
 
-	public Page<EmployeeResponseDto> listEmployees(Pageable pageable) {
-		//Page<Employee> page = employeeRepository.findAllEmployees(pageable);
-		
+	public Page<EmployeeResponseDTO> listEmployees(Pageable pageable) {
 		return employeeRepository.findAllEmployees(pageable);
 	}
 
