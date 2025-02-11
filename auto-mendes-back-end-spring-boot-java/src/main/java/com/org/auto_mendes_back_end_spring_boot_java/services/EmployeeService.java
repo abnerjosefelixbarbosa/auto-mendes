@@ -26,15 +26,15 @@ public class EmployeeService implements EmployeeServiceInterface {
 		
 		Employee employee = employeeMapper.toEmployee(request);
 
-		Employee response = employeeRepository.save(employee);
+		Employee employeeSaved = employeeRepository.save(employee);
 
-		return employeeMapper.toEmployeeResponseDto(response);
+		return employeeMapper.toEmployeeResponseDto(employeeSaved);
 	}
 
 	public Page<EmployeeResponseDto> listEmployees(Pageable pageable) {
-		Page<Employee> responses = employeeRepository.findAll(pageable);
+		//Page<Employee> page = employeeRepository.findAllEmployees(pageable);
 		
-		return responses.map(employeeMapper::toEmployeeResponseDto);
+		return employeeRepository.findAllEmployees(pageable);
 	}
 
 }

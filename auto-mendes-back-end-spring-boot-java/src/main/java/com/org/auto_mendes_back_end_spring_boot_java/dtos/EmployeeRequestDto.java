@@ -13,10 +13,11 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NotEmpty
+@NoArgsConstructor
 public class EmployeeRequestDto {
 	@NotNull(message = "nome deve ser obrigatório")
 	@NotEmpty(message = "nome deve ser obrigatório")
