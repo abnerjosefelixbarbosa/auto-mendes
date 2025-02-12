@@ -22,7 +22,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
+import com.org.auto_mendes_back_end_spring_boot_java.entities.DeputyManager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Employee;
+import com.org.auto_mendes_back_end_spring_boot_java.entities.Manager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.EmployeeRepositoryInterface;
@@ -62,8 +64,8 @@ class EmployeeControllerIT {
 
 	@Test
 	void shouldRegisterEmployeeAndReturnStatus201() throws Exception {
-		EmployeeRequestDTO dto = new EmployeeRequestDTO("name2", "814.540.170-40", "email2@gmail.com",
-				"(81) 92222-2222", new BigDecimal("400.00"), "2222222222", null, EmployeeType.DEPUTY_MANAGER);
+		EmployeeRequestDTO dto = new EmployeeRequestDTO("name4", "814.540.170-40", "email4@gmail.com",
+				"(81) 94444-4444", new BigDecimal("400.00"), "4444444444", null, EmployeeType.MANAGER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -83,7 +85,13 @@ class EmployeeControllerIT {
 		List<Employee> employees = new ArrayList<Employee>();
 		
 		employees.add(new Saler(UlidCreator.getUlid().toString(), "name1", "737.697.500-47", "email1@gmail.com", "(81) 91111-1111",
-				new BigDecimal("400.00"), "1111111111", new BigDecimal("30.00")));
+				new BigDecimal("400.00"), "1111111111", new BigDecimal("30.00"), EmployeeType.SALER));
+		
+		employees.add(new Manager(UlidCreator.getUlid().toString(), "name2", "320.434.700-19", "email2@gmail.com", "(81) 92222-2222",
+				new BigDecimal("400.00"), "2222222222", EmployeeType.MANAGER));
+		
+		employees.add(new DeputyManager(UlidCreator.getUlid().toString(), "name3", "297.232.130-87", "email3@gmail.com", "(81) 93333-3333",
+				new BigDecimal("400.00"), "3333333333", EmployeeType.DEPUTY_MANAGER));
 
 		employees.forEach((item) -> employeeRepository.save(item));
 	}
