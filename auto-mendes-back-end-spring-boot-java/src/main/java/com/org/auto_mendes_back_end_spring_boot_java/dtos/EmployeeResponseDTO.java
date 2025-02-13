@@ -21,7 +21,12 @@ public class EmployeeResponseDTO {
 	private String matriculation;
 
 	public EmployeeResponseDTO(Employee employee) {
-		this(employee.getId(), employee.getName(), employee.getCpf(), employee.getEmail(), employee.getTelephone(),
-				employee.getSalary(), employee.getMatriculation());
+		this.id = employee.getId();
+		this.name = employee.getName();
+		this.cpf = employee.getCpf();
+		this.email = employee.getEmail();
+		this.telephone = employee.getTelephone();
+		this.salary = employee.getSalary();
+		this.matriculation = employee.getMatriculation();
 	}
 }

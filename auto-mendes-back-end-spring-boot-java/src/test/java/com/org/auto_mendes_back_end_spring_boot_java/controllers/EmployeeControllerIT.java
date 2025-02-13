@@ -65,7 +65,7 @@ class EmployeeControllerIT {
 	@Test
 	void shouldRegisterEmployeeAndReturnStatus201() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("5", "814.540.170-40", "email5@gmail.com",
-				"(81) 95555-5555", new BigDecimal("400.00"), "5555555555", null, EmployeeType.MANAGER);
+				"(81) 95555-5555", new BigDecimal("400.00"), "5555555555", new BigDecimal("40.00"), EmployeeType.SALER);
 
 		String json = objectMapper.writeValueAsString(dto);
 

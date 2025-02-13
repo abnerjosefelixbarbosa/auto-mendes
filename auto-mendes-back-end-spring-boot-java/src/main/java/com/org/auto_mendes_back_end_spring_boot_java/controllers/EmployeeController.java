@@ -26,10 +26,10 @@ public class EmployeeController {
 	private EmployeeServiceInterface employeeService;
 
 	@PostMapping(value = "/register-employee")
-	public ResponseEntity<EmployeeResponseDTO> registerEmployee(@RequestBody @Valid EmployeeRequestDTO request) {
-		EmployeeResponseDTO employeeResponseDTO = employeeService.registerEmployee(request);
+	public ResponseEntity<Object> registerEmployee(@RequestBody @Valid EmployeeRequestDTO request) {
+		Object object = employeeService.registerEmployee(request);
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(employeeResponseDTO);
+		return ResponseEntity.status(HttpStatus.CREATED).body(object);
 	}
 
 	@GetMapping(value = "/list-employees")

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeResponseDTO;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeSalerResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.DeputyManager;
-import com.org.auto_mendes_back_end_spring_boot_java.entities.Employee;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Manager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
@@ -34,49 +34,47 @@ public class EmployeeService implements EmployeeServiceInterface {
 	@Autowired
 	private EmployeeMapperInterface employeeMapper;
 
-	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO request) {
+	public Object registerEmployee(EmployeeRequestDTO request) {
 		employeeValidation.validateEmployee(request);
 		
-		EmployeeResponseDTO employeeResponseDTO = null;
-		
-		Employee employeeSaved = null;
+		Object object = null;
 		
 		switch (request.getEmployeeType().ordinal()) {
 		case 0:
 			Manager manager = employeeMapper.toEmployeeManager(request);
 			
-			employeeSaved = employeeRepository.save(manager);
+			employeeRepository.save(manager);
 			
-			managerRepository.save(manager);
+			Manager managerSaved = managerRepository.save(manager);
 			
-			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(employeeSaved);
+			object = new EmployeeResponseDTO(managerSaved);
 			
 			break;
 		case 1:
             DeputyManager deputyManager = employeeMapper.toEmployeeDeputyManager(request);
             
-			employeeSaved = employeeRepository.save(deputyManager);
+			employeeRepository.save(deputyManager);
 			
-			deputyManagerRepository.save(deputyManager);
+			DeputyManager deputyManagerSaved = deputyManagerRepository.save(deputyManager);
 			
-			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(employeeSaved);
+			object = new EmployeeResponseDTO(deputyManagerSaved);
 			
 			break;
 		case 2:
 			Saler saler = employeeMapper.toEmployeeSaler(request);
 			
-			employeeSaved = employeeRepository.save(saler);
+			employeeRepository.save(saler);
 			
-			salerRepository.save(saler);
+			Saler salerSaved = salerRepository.save(saler);
 			
-			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(employeeSaved);
+			object = new EmployeeSalerResponseDTO(salerSaved);
 			
 			break;
 		default:
 			throw new RuntimeException("valor invalido");
 		}
 
-		return employeeResponseDTO;
+		return object;
 	}
 
 	public Page<EmployeeResponseDTO> listEmployees(Pageable pageable) {
