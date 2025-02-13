@@ -64,8 +64,8 @@ class EmployeeControllerIT {
 
 	@Test
 	void shouldRegisterEmployeeAndReturnStatus201() throws Exception {
-		EmployeeRequestDTO dto = new EmployeeRequestDTO("name4", "814.540.170-40", "email4@gmail.com",
-				"(81) 94444-4444", new BigDecimal("400.00"), "4444444444", null, EmployeeType.MANAGER);
+		EmployeeRequestDTO dto = new EmployeeRequestDTO("5", "814.540.170-40", "email5@gmail.com",
+				"(81) 95555-5555", new BigDecimal("400.00"), "5555555555", null, EmployeeType.MANAGER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -81,17 +81,28 @@ class EmployeeControllerIT {
 				.andDo(print());
 	}
 
+	@Test
+	void shouldListEmployeesByPositionAndReturnStatus200() throws Exception {
+		loadEmployees();
+
+		mockMvc.perform(get("/api/employees/list-employees-by-position").queryParam("size", "10")
+				.queryParam("employeeType", EmployeeType.SALER.name())).andExpect(status().isOk()).andDo(print());
+	}
+
 	void loadEmployees() {
 		List<Employee> employees = new ArrayList<Employee>();
+
+		employees.add(new Saler(UlidCreator.getUlid().toString(), "name1", "737.697.500-47", "email1@gmail.com",
+				"(81) 91111-1111", new BigDecimal("400.00"), "1111111111", new BigDecimal("30.00")));
+
+		employees.add(new Manager(UlidCreator.getUlid().toString(), "name2", "320.434.700-19", "email2@gmail.com",
+				"(81) 92222-2222", new BigDecimal("400.00"), "2222222222"));
+
+		employees.add(new DeputyManager(UlidCreator.getUlid().toString(), "name3", "297.232.130-87", "email3@gmail.com",
+				"(81) 93333-3333", new BigDecimal("400.00"), "3333333333"));
 		
-		employees.add(new Saler(UlidCreator.getUlid().toString(), "name1", "737.697.500-47", "email1@gmail.com", "(81) 91111-1111",
-				new BigDecimal("400.00"), "1111111111", new BigDecimal("30.00"), EmployeeType.SALER));
-		
-		employees.add(new Manager(UlidCreator.getUlid().toString(), "name2", "320.434.700-19", "email2@gmail.com", "(81) 92222-2222",
-				new BigDecimal("400.00"), "2222222222", EmployeeType.MANAGER));
-		
-		employees.add(new DeputyManager(UlidCreator.getUlid().toString(), "name3", "297.232.130-87", "email3@gmail.com", "(81) 93333-3333",
-				new BigDecimal("400.00"), "3333333333", EmployeeType.DEPUTY_MANAGER));
+		employees.add(new Saler(UlidCreator.getUlid().toString(), "name4", "460.731.410-25", "email4@gmail.com",
+				"(81) 94444-4444", new BigDecimal("400.00"), "4444444444", new BigDecimal("30.00")));
 
 		employees.forEach((item) -> employeeRepository.save(item));
 	}

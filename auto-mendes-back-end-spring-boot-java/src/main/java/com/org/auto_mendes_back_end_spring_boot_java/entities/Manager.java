@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
-import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
@@ -24,11 +23,11 @@ public class Manager extends Employee {
 
 	public Manager(EmployeeRequestDTO request) {
 		super(UlidCreator.getUlid().toString(), request.getName(), request.getCpf(), request.getEmail(),
-				request.getTelephone(), request.getSalary(), request.getMatriculation(), request.getEmployeeType());
+				request.getTelephone(), request.getSalary(), request.getMatriculation());
 	}
 
 	public Manager(String id, String name, String cpf, String email, String telephone, BigDecimal salary,
-			String matriculation, EmployeeType employeeType) {
-		super(id, name, cpf, email, telephone, salary, matriculation, employeeType);
+			String matriculation) {
+		super(id, name, cpf, email, telephone, salary, matriculation);
 	}
 }

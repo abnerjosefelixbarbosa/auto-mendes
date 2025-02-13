@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
-import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,11 +38,9 @@ public class Employee implements Serializable {
 	private BigDecimal salary;
 	@Column(nullable = false, unique = true, length = 10)
 	private String matriculation;
-	@Column(nullable = false)
-	private EmployeeType employeeType;
 
 	public Employee(EmployeeRequestDTO request) {
 		this(null, request.getName(), request.getCpf(), request.getEmail(), request.getTelephone(), request.getSalary(),
-				request.getMatriculation(), request.getEmployeeType());
+				request.getMatriculation());
 	}
 }

@@ -1,7 +1,5 @@
 package com.org.auto_mendes_back_end_spring_boot_java.mappers;
 
-import java.math.BigDecimal;
-
 import org.springframework.stereotype.Component;
 
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
@@ -25,7 +23,7 @@ public class EmployeeMapper implements EmployeeMapperInterface {
 		return new Manager(request);
 	}
 
-	public EmployeeResponseDTO toEmployeeResponseDto(Employee employee, BigDecimal commission) {
-		return new EmployeeResponseDTO(employee, commission);
+	public EmployeeResponseDTO toEmployeeResponseDto(Employee employee) {
+		return new EmployeeResponseDTO(employee);
 	}
 }

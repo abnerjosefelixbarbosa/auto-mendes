@@ -11,6 +11,7 @@ import com.org.auto_mendes_back_end_spring_boot_java.entities.DeputyManager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Employee;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Manager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
+import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
 import com.org.auto_mendes_back_end_spring_boot_java.mappers.EmployeeMapperInterface;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.DeputyManagerRepositoryInterface;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.EmployeeRepositoryInterface;
@@ -40,8 +41,6 @@ public class EmployeeService implements EmployeeServiceInterface {
 		
 		Employee employeeSaved = null;
 		
-		Saler salerSaved = null;
-		
 		switch (request.getEmployeeType().ordinal()) {
 		case 0:
 			Manager manager = employeeMapper.toEmployeeManager(request);
@@ -50,7 +49,7 @@ public class EmployeeService implements EmployeeServiceInterface {
 			
 			managerRepository.save(manager);
 			
-			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(employeeSaved, null);
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(employeeSaved);
 			
 			break;
 		case 1:
@@ -60,7 +59,7 @@ public class EmployeeService implements EmployeeServiceInterface {
 			
 			deputyManagerRepository.save(deputyManager);
 			
-			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(employeeSaved, null);
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(employeeSaved);
 			
 			break;
 		case 2:
@@ -68,9 +67,9 @@ public class EmployeeService implements EmployeeServiceInterface {
 			
 			employeeSaved = employeeRepository.save(saler);
 			
-			salerSaved = salerRepository.save(saler);
+			salerRepository.save(saler);
 			
-			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(employeeSaved, salerSaved.getCommission());
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(employeeSaved);
 			
 			break;
 		default:
@@ -81,6 +80,29 @@ public class EmployeeService implements EmployeeServiceInterface {
 	}
 
 	public Page<EmployeeResponseDTO> listEmployees(Pageable pageable) {
-		return employeeRepository.findAllEmployees(pageable);
+		return employeeRepository.findAll(pageable).map(EmployeeResponseDTO::new);
 	}
+	
+	public Page<EmployeeResponseDTO> listEmployeesByPosition(Pageable pageable, EmployeeType employeeType) {
+		Page<EmployeeResponseDTO> employeeResponseDtoPage = null;
+		
+		switch (employeeType.ordinal()) {
+		case 0:
+			employeeResponseDtoPage = managerRepository.findAll(pageable).map(EmployeeResponseDTO::new);
+			
+			break;
+		case 1:
+			employeeResponseDtoPage = deputyManagerRepository.findAll(pageable).map(EmployeeResponseDTO::new);
+			
+			break;
+		case 2:
+			employeeResponseDtoPage = salerRepository.findAll(pageable).map(EmployeeResponseDTO::new);
+			
+			break;
+		default:
+			throw new RuntimeException("valor invalido");
+		}
+		
+		return employeeResponseDtoPage;
+	} 
 }
