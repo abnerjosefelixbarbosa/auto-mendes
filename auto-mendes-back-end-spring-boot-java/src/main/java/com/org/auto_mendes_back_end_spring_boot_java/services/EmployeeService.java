@@ -77,30 +77,30 @@ public class EmployeeService implements EmployeeServiceInterface {
 		return object;
 	}
 
-	public Page<EmployeeResponseDTO> listEmployees(Pageable pageable) {
+	public Page<Object> listEmployees(Pageable pageable) {
 		return employeeRepository.findAll(pageable).map(EmployeeResponseDTO::new);
 	}
 	
-	public Page<EmployeeResponseDTO> listEmployeesByPosition(Pageable pageable, EmployeeType employeeType) {
-		Page<EmployeeResponseDTO> employeeResponseDtoPage = null;
+	public Page<Object> listEmployeesByPosition(Pageable pageable, EmployeeType employeeType) {
+		Page<Object> object = null;
 		
 		switch (employeeType.ordinal()) {
 		case 0:
-			employeeResponseDtoPage = managerRepository.findAll(pageable).map(EmployeeResponseDTO::new);
+			object = managerRepository.findAll(pageable).map(EmployeeResponseDTO::new);
 			
 			break;
 		case 1:
-			employeeResponseDtoPage = deputyManagerRepository.findAll(pageable).map(EmployeeResponseDTO::new);
+			object = deputyManagerRepository.findAll(pageable).map(EmployeeResponseDTO::new);
 			
 			break;
 		case 2:
-			employeeResponseDtoPage = salerRepository.findAll(pageable).map(EmployeeResponseDTO::new);
+			object = salerRepository.findAll(pageable).map(EmployeeSalerResponseDTO::new);
 			
 			break;
 		default:
 			throw new RuntimeException("valor invalido");
 		}
 		
-		return employeeResponseDtoPage;
+		return object;
 	} 
 }

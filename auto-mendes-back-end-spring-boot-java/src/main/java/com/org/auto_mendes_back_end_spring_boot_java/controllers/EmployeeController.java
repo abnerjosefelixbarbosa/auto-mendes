@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
-import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
 import com.org.auto_mendes_back_end_spring_boot_java.services.EmployeeServiceInterface;
 
@@ -33,18 +32,18 @@ public class EmployeeController {
 	}
 
 	@GetMapping(value = "/list-employees")
-	public ResponseEntity<Page<EmployeeResponseDTO>> listEmployees(Pageable pageable) {
-		Page<EmployeeResponseDTO> employeeResponseDtoPage = employeeService.listEmployees(pageable);
+	public ResponseEntity<Page<Object>> listEmployees(Pageable pageable) {
+		Page<Object> object = employeeService.listEmployees(pageable);
 
-		return ResponseEntity.status(HttpStatus.OK).body(employeeResponseDtoPage);
+		return ResponseEntity.status(HttpStatus.OK).body(object);
 	}
 
 	@GetMapping(value = "/list-employees-by-position")
-	public ResponseEntity<Page<EmployeeResponseDTO>> listEmployeesByPosition(Pageable pageable,
+	public ResponseEntity<Page<Object>> listEmployeesByPosition(Pageable pageable,
 			@RequestParam String employeeType) {
-		Page<EmployeeResponseDTO> employeeResponseDtoPage = employeeService.listEmployeesByPosition(pageable,
+		Page<Object> object = employeeService.listEmployeesByPosition(pageable,
 				EmployeeType.valueOf(employeeType));
 
-		return ResponseEntity.status(HttpStatus.OK).body(employeeResponseDtoPage);
+		return ResponseEntity.status(HttpStatus.OK).body(object);
 	}
 }
