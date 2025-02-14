@@ -34,8 +34,12 @@ public class ExceptionController {
 	
 	@ExceptionHandler(RuntimeException.class)
 	public ResponseEntity<ExceptionResponseDTO> handleRuntimeException(RuntimeException e, HttpServletRequest request) {
-		ExceptionResponseDTO response = new ExceptionResponseDTO(LocalDateTime.now(), 400, e.getMessage(), request.getRequestURI());
+		ExceptionResponseDTO exceptionResponseDTO = new ExceptionResponseDTO();
+		exceptionResponseDTO.setLocalDateTime(LocalDateTime.now());
+		exceptionResponseDTO.setMessage(e.getMessage());
+		exceptionResponseDTO.setPath(request.getRequestURI());
+		exceptionResponseDTO.setStatus(400);
 		
-		return ResponseEntity.status(400).body(response);
+		return ResponseEntity.status(400).body(exceptionResponseDTO);
 	}
 }

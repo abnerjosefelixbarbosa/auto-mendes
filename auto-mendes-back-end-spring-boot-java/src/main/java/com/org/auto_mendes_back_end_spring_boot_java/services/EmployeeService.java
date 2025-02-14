@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeResponseDTO;
-import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeSalerResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.DeputyManager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Manager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
@@ -34,41 +33,29 @@ public class EmployeeService implements EmployeeServiceInterface {
 	@Autowired
 	private EmployeeMapperInterface employeeMapper;
 
-	public Object registerEmployee(EmployeeRequestDTO request) {
+	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO request) {
 		employeeValidation.validateEmployee(request);
 		
-		Object object = null;
+		EmployeeResponseDTO object = null;
 		
 		switch (request.getEmployeeType().ordinal()) {
 		case 0:
 			Manager manager = employeeMapper.toEmployeeManager(request);
-			
 			employeeRepository.save(manager);
-			
 			Manager managerSaved = managerRepository.save(manager);
-			
-			object = new EmployeeResponseDTO(managerSaved);
-			
+			object = employeeMapper.toEmployeeResponseDto(managerSaved, null);
 			break;
 		case 1:
             DeputyManager deputyManager = employeeMapper.toEmployeeDeputyManager(request);
-            
 			employeeRepository.save(deputyManager);
-			
 			DeputyManager deputyManagerSaved = deputyManagerRepository.save(deputyManager);
-			
-			object = new EmployeeResponseDTO(deputyManagerSaved);
-			
+			object = employeeMapper.toEmployeeResponseDto(deputyManagerSaved, null);
 			break;
 		case 2:
 			Saler saler = employeeMapper.toEmployeeSaler(request);
-			
 			employeeRepository.save(saler);
-			
 			Saler salerSaved = salerRepository.save(saler);
-			
-			object = new EmployeeSalerResponseDTO(salerSaved);
-			
+			object = employeeMapper.toEmployeeResponseDto(salerSaved, salerSaved);
 			break;
 		default:
 			throw new RuntimeException("valor invalido");
@@ -77,30 +64,27 @@ public class EmployeeService implements EmployeeServiceInterface {
 		return object;
 	}
 
-	public Page<Object> listEmployees(Pageable pageable) {
-		return employeeRepository.findAll(pageable).map(EmployeeResponseDTO::new);
+	public Page<EmployeeResponseDTO> listEmployees(Pageable pageable) {
+		return employeeRepository.listEmployees(pageable);
 	}
 	
-	public Page<Object> listEmployeesByPosition(Pageable pageable, EmployeeType employeeType) {
-		Page<Object> object = null;
+	public Page<EmployeeResponseDTO> listEmployeesByPosition(Pageable pageable, EmployeeType employeeType) {
+		Page<EmployeeResponseDTO> page = null;
 		
 		switch (employeeType.ordinal()) {
 		case 0:
-			object = managerRepository.findAll(pageable).map(EmployeeResponseDTO::new);
-			
+			page = managerRepository.findAll(pageable).map((manager) -> employeeMapper.toEmployeeResponseDto(manager, null));
 			break;
 		case 1:
-			object = deputyManagerRepository.findAll(pageable).map(EmployeeResponseDTO::new);
-			
+			page = deputyManagerRepository.findAll(pageable).map((deputyManager) -> employeeMapper.toEmployeeResponseDto(deputyManager, null));
 			break;
 		case 2:
-			object = salerRepository.findAll(pageable).map(EmployeeSalerResponseDTO::new);
-			
+			page = salerRepository.findAll(pageable).map((saler) -> employeeMapper.toEmployeeResponseDto(saler, saler));
 			break;
 		default:
 			throw new RuntimeException("valor invalido");
 		}
 		
-		return object;
+		return page;
 	} 
 }

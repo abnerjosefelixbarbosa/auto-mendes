@@ -61,12 +61,19 @@ class EmployeeControllerIT {
 	void tearDown() {
 		employeeRepository.deleteAll();
 	}
-
+	
 	@Test
 	void shouldRegisterEmployeeAndReturnStatus201() throws Exception {
-		EmployeeRequestDTO dto = new EmployeeRequestDTO("5", "814.540.170-40", "email5@gmail.com",
-				"(81) 95555-5555", new BigDecimal("400.00"), "5555555555", new BigDecimal("40.00"), EmployeeType.SALER);
-
+		EmployeeRequestDTO dto = new EmployeeRequestDTO();
+		dto.setCommission(new BigDecimal("40.00"));
+		dto.setCpf("814.540.170-40");
+		dto.setEmail("email5@gmail.com");
+		dto.setEmployeeType(EmployeeType.SALER);
+		dto.setMatriculation("5555555555");
+		dto.setName("name5");
+		dto.setSalary(new BigDecimal("400.00"));
+		dto.setTelephone("(81) 95555-5555");
+		
 		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(post("/api/employees/register-employee").contentType(MediaType.APPLICATION_JSON)
@@ -86,23 +93,54 @@ class EmployeeControllerIT {
 		loadEmployees();
 
 		mockMvc.perform(get("/api/employees/list-employees-by-position").queryParam("size", "10")
-				.queryParam("employeeType", EmployeeType.SALER.name())).andExpect(status().isOk()).andDo(print());
+				.queryParam("employeeType", EmployeeType.MANAGER.name())).andExpect(status().isOk()).andDo(print());
 	}
 
 	void loadEmployees() {
 		List<Employee> employees = new ArrayList<Employee>();
-
-		employees.add(new Saler(UlidCreator.getUlid().toString(), "name1", "737.697.500-47", "email1@gmail.com",
-				"(81) 91111-1111", new BigDecimal("400.00"), "1111111111", new BigDecimal("30.00")));
-
-		employees.add(new Manager(UlidCreator.getUlid().toString(), "name2", "320.434.700-19", "email2@gmail.com",
-				"(81) 92222-2222", new BigDecimal("400.00"), "2222222222"));
-
-		employees.add(new DeputyManager(UlidCreator.getUlid().toString(), "name3", "297.232.130-87", "email3@gmail.com",
-				"(81) 93333-3333", new BigDecimal("400.00"), "3333333333"));
 		
-		employees.add(new Saler(UlidCreator.getUlid().toString(), "name4", "460.731.410-25", "email4@gmail.com",
-				"(81) 94444-4444", new BigDecimal("400.00"), "4444444444", new BigDecimal("30.00")));
+		Saler employee1 = new Saler();
+		employee1.setId(UlidCreator.getUlid().toString());
+		employee1.setCpf("737.697.500-47");
+		employee1.setCommission(new BigDecimal("30.00"));
+		employee1.setEmail("email1@gmail.com");
+		employee1.setMatriculation("1111111111");
+		employee1.setName("name1");
+		employee1.setSalary(new BigDecimal("400.00"));
+		employee1.setTelephone("(81) 91111-1111");
+		
+		Manager employee2 = new Manager();
+		employee2.setCpf("320.434.700-19");
+		employee2.setEmail("email2@gmail.com");
+		employee2.setId(UlidCreator.getUlid().toString());
+		employee2.setMatriculation("2222222222");
+		employee2.setName("name2");
+		employee2.setSalary(new BigDecimal("400.00"));
+		employee2.setTelephone("(81) 92222-2222");
+		
+		DeputyManager employee3 = new DeputyManager();
+		employee3.setCpf("297.232.130-87");
+		employee3.setEmail("email3@gmail.com");
+		employee3.setId(UlidCreator.getUlid().toString());
+		employee3.setMatriculation("3333333333");
+		employee3.setName("name3");
+		employee3.setSalary(new BigDecimal("400.00"));
+		employee3.setTelephone("(81) 93333-3333");
+		
+		Saler employee4 = new Saler();
+		employee4.setId(UlidCreator.getUlid().toString());
+		employee4.setCpf("460.731.410-25");
+		employee4.setCommission(new BigDecimal("30.00"));
+		employee4.setEmail("email4@gmail.com");
+		employee4.setMatriculation("4444444444");
+		employee4.setName("name4");
+		employee4.setSalary(new BigDecimal("400.00"));
+		employee4.setTelephone("(81) 94444-4444");
+
+		employees.add(employee1);
+		employees.add(employee2);
+		employees.add(employee3);
+		employees.add(employee4);
 
 		employees.forEach((item) -> employeeRepository.save(item));
 	}

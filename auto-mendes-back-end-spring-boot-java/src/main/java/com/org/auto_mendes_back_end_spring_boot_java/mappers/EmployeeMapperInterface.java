@@ -11,5 +11,5 @@ public interface EmployeeMapperInterface {
 	Saler toEmployeeSaler(EmployeeRequestDTO request);
 	DeputyManager toEmployeeDeputyManager(EmployeeRequestDTO request);
 	Manager toEmployeeManager(EmployeeRequestDTO request);
-	EmployeeResponseDTO toEmployeeResponseDto(Employee employee);
+	EmployeeResponseDTO toEmployeeResponseDto(Employee employee, Saler saler);
 }

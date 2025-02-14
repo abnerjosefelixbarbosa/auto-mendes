@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
 import com.org.auto_mendes_back_end_spring_boot_java.services.EmployeeServiceInterface;
 
@@ -25,25 +26,25 @@ public class EmployeeController {
 	private EmployeeServiceInterface employeeService;
 
 	@PostMapping(value = "/register-employee")
-	public ResponseEntity<Object> registerEmployee(@RequestBody @Valid EmployeeRequestDTO request) {
-		Object object = employeeService.registerEmployee(request);
+	public ResponseEntity<EmployeeResponseDTO> registerEmployee(@RequestBody @Valid EmployeeRequestDTO request) {
+		EmployeeResponseDTO employeeResponseDTO = employeeService.registerEmployee(request);
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(object);
+		return ResponseEntity.status(HttpStatus.CREATED).body(employeeResponseDTO);
 	}
 
 	@GetMapping(value = "/list-employees")
-	public ResponseEntity<Page<Object>> listEmployees(Pageable pageable) {
-		Page<Object> object = employeeService.listEmployees(pageable);
+	public ResponseEntity<Page<EmployeeResponseDTO>> listEmployees(Pageable pageable) {
+		Page<EmployeeResponseDTO> page = employeeService.listEmployees(pageable);
 
-		return ResponseEntity.status(HttpStatus.OK).body(object);
+		return ResponseEntity.status(HttpStatus.OK).body(page);
 	}
 
 	@GetMapping(value = "/list-employees-by-position")
-	public ResponseEntity<Page<Object>> listEmployeesByPosition(Pageable pageable,
+	public ResponseEntity<Page<EmployeeResponseDTO>> listEmployeesByPosition(Pageable pageable,
 			@RequestParam String employeeType) {
-		Page<Object> object = employeeService.listEmployeesByPosition(pageable,
+		Page<EmployeeResponseDTO> page = employeeService.listEmployeesByPosition(pageable,
 				EmployeeType.valueOf(employeeType));
 
-		return ResponseEntity.status(HttpStatus.OK).body(object);
+		return ResponseEntity.status(HttpStatus.OK).body(page);
 	}
 }
