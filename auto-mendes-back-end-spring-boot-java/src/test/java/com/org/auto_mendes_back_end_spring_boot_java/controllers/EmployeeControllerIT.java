@@ -30,7 +30,7 @@ import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.EmployeeRepositoryInterface;
 
 @SpringBootTest
-@ActiveProfiles("dev")
+@ActiveProfiles("prod")
 @AutoConfigureMockMvc
 class EmployeeControllerIT {
 	@Autowired
@@ -40,21 +40,9 @@ class EmployeeControllerIT {
 	@Autowired
 	private EmployeeRepositoryInterface employeeRepository;
 
-	// Dados para teste
-
-	// EmployeeRequestDTO request = new EmployeeRequestDTO(null, null, null, null,
-	// null, null, null, null);
-
-	// EmployeeRequestDTO request = new EmployeeRequestDTO( "name1",
-	// "814.540.170-40", "email1@gmail.com", "(81) 91111-1111", new
-	// BigDecimal("400.00"), "1111111111", null, EmployeeType.Manager);
-
-	// EmployeeRequestDTO request = new EmployeeRequestDTO("name2",
-	// "814.540.170-40", "email2@gmail.com", "(81) 92222-2222", new
-	// BigDecimal("400.00"), "2222222222", null, EmployeeType.DEPUTY_MANAGER);
-
 	@BeforeEach
 	void setUp() {
+		employeeRepository.deleteAll();
 	}
 
 	@AfterEach
