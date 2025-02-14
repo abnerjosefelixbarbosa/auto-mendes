@@ -13,6 +13,8 @@ import com.org.auto_mendes_back_end_spring_boot_java.entities.Employee;
 public interface EmployeeRepositoryInterface extends JpaRepository<Employee, String> {
 	@Query(value = "SELECT e.id, e.name, e.cpf, e.email, e.telephone, e.salary, e.matriculation, s.commission FROM employees e LEFT JOIN salers s ON e.id = s.id", nativeQuery = true)
 	Page<EmployeeResponseDTO> listEmployees(Pageable pageable);
+	@Query(value = "SELECT e.id, e.name, e.cpf, e.email, e.telephone, e.salary, e.matriculation, s.commission FROM employees e LEFT JOIN salers s ON e.id = s.id", nativeQuery = true)
+	Page<EmployeeResponseDTO> listEmployeesByMatriculation(Pageable pageable, String matriculation);
 	boolean existsByCpfOrEmailOrTelephoneOrMatriculation(String cpf, String email, String telephone,
 			String matriculation);
 }
