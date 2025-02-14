@@ -36,32 +36,32 @@ public class EmployeeService implements EmployeeServiceInterface {
 	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO request) {
 		employeeValidation.validateEmployee(request);
 		
-		EmployeeResponseDTO object = null;
+		EmployeeResponseDTO employeeResponseDTO = null;
 		
 		switch (request.getEmployeeType().ordinal()) {
 		case 0:
 			Manager manager = employeeMapper.toEmployeeManager(request);
 			employeeRepository.save(manager);
 			Manager managerSaved = managerRepository.save(manager);
-			object = employeeMapper.toEmployeeResponseDto(managerSaved, null);
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(managerSaved, null);
 			break;
 		case 1:
             DeputyManager deputyManager = employeeMapper.toEmployeeDeputyManager(request);
 			employeeRepository.save(deputyManager);
 			DeputyManager deputyManagerSaved = deputyManagerRepository.save(deputyManager);
-			object = employeeMapper.toEmployeeResponseDto(deputyManagerSaved, null);
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(deputyManagerSaved, null);
 			break;
 		case 2:
 			Saler saler = employeeMapper.toEmployeeSaler(request);
 			employeeRepository.save(saler);
 			Saler salerSaved = salerRepository.save(saler);
-			object = employeeMapper.toEmployeeResponseDto(salerSaved, salerSaved);
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(salerSaved, salerSaved);
 			break;
 		default:
 			throw new RuntimeException("valor invalido");
 		}
 
-		return object;
+		return employeeResponseDTO;
 	}
 
 	public Page<EmployeeResponseDTO> listEmployees(Pageable pageable) {
