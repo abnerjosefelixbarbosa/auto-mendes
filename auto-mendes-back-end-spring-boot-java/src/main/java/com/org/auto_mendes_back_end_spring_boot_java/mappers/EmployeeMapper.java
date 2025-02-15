@@ -19,6 +19,10 @@ public class EmployeeMapper implements EmployeeMapperInterface {
 	@Autowired
 	private DTOFactoryInterface dtoFactory;
 	
+	public Employee toEmployee(EmployeeRequestDTO request) {
+		return employeeFactory.getEmployee(request);
+	}
+	
 	public Saler toEmployeeSaler(EmployeeRequestDTO request) {
 		return employeeFactory.getSaler(request);
 	}

@@ -8,6 +8,7 @@ import com.org.auto_mendes_back_end_spring_boot_java.entities.Manager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
 
 public interface EmployeeMapperInterface {
+	Employee toEmployee(EmployeeRequestDTO request);
 	Saler toEmployeeSaler(EmployeeRequestDTO request);
 	DeputyManager toEmployeeDeputyManager(EmployeeRequestDTO request);
 	Manager toEmployeeManager(EmployeeRequestDTO request);

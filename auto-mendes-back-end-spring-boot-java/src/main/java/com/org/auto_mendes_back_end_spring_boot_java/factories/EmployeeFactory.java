@@ -5,11 +5,26 @@ import org.springframework.stereotype.Component;
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.DeputyManager;
+import com.org.auto_mendes_back_end_spring_boot_java.entities.Employee;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Manager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
 
 @Component
 public class EmployeeFactory implements EmployeeFactoryInterface {
+	public Employee getEmployee(EmployeeRequestDTO request) {
+		Employee employee = new Employee();
+
+		employee.setCpf(request.getCpf());
+		employee.setEmail(request.getEmail());
+		employee.setId(UlidCreator.getUlid().toString());
+		employee.setMatriculation(request.getMatriculation());
+		employee.setName(request.getName());
+		employee.setSalary(request.getSalary());
+		employee.setTelephone(request.getTelephone());
+
+		return employee;
+	}
+	
 	public Manager getManager(EmployeeRequestDTO request) {
 		Manager manager = new Manager();
 
