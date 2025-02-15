@@ -89,6 +89,6 @@ public class EmployeeService implements EmployeeServiceInterface {
 	} 
 	
 	public Page<EmployeeResponseDTO> listEmployeesByMatriculation(Pageable pageable, String matriculation) {
-		return null;
+		return employeeRepository.listEmployeesByMatriculation(pageable, matriculation);
 	}
 }

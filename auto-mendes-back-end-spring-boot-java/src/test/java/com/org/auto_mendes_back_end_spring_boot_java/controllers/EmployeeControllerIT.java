@@ -39,6 +39,7 @@ class EmployeeControllerIT {
 	private ObjectMapper objectMapper;
 	@Autowired
 	private EmployeeRepositoryInterface employeeRepository;
+	private String matriculation = "";
 
 	@BeforeEach
 	void setUp() {
@@ -82,6 +83,14 @@ class EmployeeControllerIT {
 
 		mockMvc.perform(get("/api/employees/list-employees-by-position").queryParam("size", "10")
 				.queryParam("employeeType", EmployeeType.MANAGER.name())).andExpect(status().isOk()).andDo(print());
+	}
+	
+	@Test
+	void shouldListEmployeesByMatriculationAndReturnStatus200() throws Exception {
+		loadEmployees();
+
+		mockMvc.perform(get("/api/employees/list-employees-by-matriculation").queryParam("size", "10")
+				.queryParam("matriculation", this.matriculation)).andExpect(status().isOk()).andDo(print());
 	}
 
 	void loadEmployees() {
@@ -131,5 +140,7 @@ class EmployeeControllerIT {
 		employees.add(employee4);
 
 		employees.forEach((item) -> employeeRepository.save(item));
+		
+		matriculation = employee1.getMatriculation();
 	}
 }
