@@ -55,9 +55,10 @@ public class EmployeeController {
 
 		return ResponseEntity.status(HttpStatus.OK).body(page);
 	}
-	
+
 	@PostMapping(value = "/update-employee-by-id")
-	public ResponseEntity<EmployeeResponseDTO> updateEmployeeById(@RequestParam String id, @RequestBody @Valid EmployeeRequestDTO request) {
+	public ResponseEntity<EmployeeResponseDTO> updateEmployeeById(@RequestParam String id,
+			@RequestBody @Valid EmployeeRequestDTO request) {
 		EmployeeResponseDTO employeeResponseDTO = employeeService.updateEmployeeById(id, request);
 
 		return ResponseEntity.status(HttpStatus.OK).body(employeeResponseDTO);

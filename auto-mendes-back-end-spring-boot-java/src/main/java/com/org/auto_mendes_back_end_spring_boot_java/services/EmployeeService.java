@@ -97,7 +97,7 @@ public class EmployeeService implements EmployeeServiceInterface {
 	public Page<EmployeeResponseDTO> listEmployeesByMatriculation(Pageable pageable, String matriculation) {
 		return employeeRepository.listEmployeesByMatriculation(pageable, matriculation);
 	}
-	
+
 	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO request) {
 		Employee employee = employeeMapper.toEmployee(request);
 		Manager manager = employeeMapper.toEmployeeManager(request);
@@ -106,10 +106,11 @@ public class EmployeeService implements EmployeeServiceInterface {
 		EmployeeResponseDTO employeeResponseDTO = null;
 
 		employeeValidation.validateEmployee(employee, saler, request.getEmployeeType().ordinal());
-		
+
 		switch (request.getEmployeeType().ordinal()) {
 		case 0:
-			Manager managerFound = managerRepository.findById(id).orElseThrow(() -> new NotFoundException("Employee não emcontrado"));
+			Manager managerFound = managerRepository.findById(id)
+					.orElseThrow(() -> new NotFoundException("Employee não emcontrado"));
 			managerFound.setCpf(manager.getCpf());
 			managerFound.setEmail(manager.getEmail());
 			managerFound.setMatriculation(manager.getMatriculation());
@@ -121,7 +122,8 @@ public class EmployeeService implements EmployeeServiceInterface {
 			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(managerSaved, null);
 			break;
 		case 1:
-			DeputyManager deputyManagerFound = deputyManagerRepository.findById(id).orElseThrow(() -> new NotFoundException("Employee não emcontrado"));
+			DeputyManager deputyManagerFound = deputyManagerRepository.findById(id)
+					.orElseThrow(() -> new NotFoundException("Employee não emcontrado"));
 			deputyManagerFound.setCpf(deputyManager.getCpf());
 			deputyManagerFound.setEmail(deputyManager.getEmail());
 			deputyManagerFound.setMatriculation(deputyManager.getMatriculation());
@@ -133,7 +135,8 @@ public class EmployeeService implements EmployeeServiceInterface {
 			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(deputyManagerSaved, null);
 			break;
 		case 2:
-			Saler salerFound = salerRepository.findById(id).orElseThrow(() -> new NotFoundException("Employee não emcontrado"));
+			Saler salerFound = salerRepository.findById(id)
+					.orElseThrow(() -> new NotFoundException("Employee não emcontrado"));
 			salerFound.setCpf(saler.getCpf());
 			salerFound.setEmail(saler.getEmail());
 			salerFound.setMatriculation(saler.getMatriculation());
@@ -148,7 +151,7 @@ public class EmployeeService implements EmployeeServiceInterface {
 		default:
 			throw new ValidationException("Valor invalido");
 		}
-		
+
 		return employeeResponseDTO;
 	}
 }
