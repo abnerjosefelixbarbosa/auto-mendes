@@ -19,29 +19,29 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmployeeRequestDTO {
-	@NotNull(message = "nome deve ser obrigatório")
-	@NotEmpty(message = "nome deve ser obrigatório")
-	@Size(message = "nome deve ter até 100 caracteres", max = 100)
+	@NotNull(message = "Nome deve ser obrigatório")
+	@NotEmpty(message = "Nome deve ser obrigatório")
+	@Size(message = "Nome deve ter até 100 caracteres", max = 100)
 	private String name;
-	@NotNull(message = "cpf deve ser obrigatório")
-	@NotEmpty(message = "cpf deve ser obrigatório")
-	@Size(message = "cpf deve ter 14 caracteres", max = 14, min = 14)
-	@CPF(message = "cpf deve ser válido")
+	@NotNull(message = "CPF deve ser obrigatório")
+	@NotEmpty(message = "CPF deve ser obrigatório")
+	@Size(message = "CPF deve ter 14 caracteres", max = 14, min = 14)
+	@CPF(message = "CPF deve ser válido")
     private String cpf;
-    @NotNull(message = "email deve ser obrigatório")
-	@NotEmpty(message = "email deve ser obrigatório")
-	@Size(message = "emial deve ter até 50 caracteres", max = 50)
-	@Email(message = "email deve ser válido")
+    @NotNull(message = "Email deve ser obrigatório")
+	@NotEmpty(message = "Email deve ser obrigatório")
+	@Size(message = "Emial deve ter até 50 caracteres", max = 50)
+	@Email(message = "Email deve ser válido")
     private String email;
-    @NotNull(message = "telefone deve ser obrigatório")
-	@NotEmpty(message = "telefone deve ser obrigatório")
-	@Size(message = "telefone deve ter de 10 até 20 caracteres", max = 20, min = 10)
+    @NotNull(message = "Telefone deve ser obrigatório")
+	@NotEmpty(message = "Telefone deve ser obrigatório")
+	@Size(message = "Telefone deve ter de 10 até 20 caracteres", max = 20, min = 10)
     private String telephone;
-    @NotNull(message = "salário deve ser obrigatório")
+    @NotNull(message = "Salário deve ser obrigatório")
     private BigDecimal salary;
-    @NotNull(message = "matrícula deve ser obrigatório")
-	@NotEmpty(message = "matrícula deve ser obrigatório")
-	@Pattern(regexp = "^\\d{10}$", message = "matrícula deve ter 10 caracteres numéricos")
+    @NotNull(message = "Matrícula deve ser obrigatório")
+	@NotEmpty(message = "Matrícula deve ser obrigatório")
+	@Pattern(regexp = "^\\d{10}$", message = "Matrícula deve ter 10 caracteres numéricos")
     private String matriculation;
     private BigDecimal commission;
     private EmployeeType employeeType;

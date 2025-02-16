@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.ExceptionResponseDTO;
+import com.org.auto_mendes_back_end_spring_boot_java.exceptions.NotFoundException;
+import com.org.auto_mendes_back_end_spring_boot_java.exceptions.ValidationException;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -32,8 +34,19 @@ public class ExceptionController {
 		return errors;
 	}
 	
-	@ExceptionHandler(RuntimeException.class)
-	public ResponseEntity<ExceptionResponseDTO> handleRuntimeException(RuntimeException e, HttpServletRequest request) {
+	@ExceptionHandler(ValidationException.class)
+	public ResponseEntity<ExceptionResponseDTO> handleValidationException(ValidationException e, HttpServletRequest request) {
+		ExceptionResponseDTO exceptionResponseDTO = new ExceptionResponseDTO();
+		exceptionResponseDTO.setLocalDateTime(LocalDateTime.now());
+		exceptionResponseDTO.setMessage(e.getMessage());
+		exceptionResponseDTO.setPath(request.getRequestURI());
+		exceptionResponseDTO.setStatus(400);
+		
+		return ResponseEntity.status(400).body(exceptionResponseDTO);
+	}
+	
+	@ExceptionHandler(NotFoundException.class)
+	public ResponseEntity<ExceptionResponseDTO> handleNotFoundException(NotFoundException e, HttpServletRequest request) {
 		ExceptionResponseDTO exceptionResponseDTO = new ExceptionResponseDTO();
 		exceptionResponseDTO.setLocalDateTime(LocalDateTime.now());
 		exceptionResponseDTO.setMessage(e.getMessage());

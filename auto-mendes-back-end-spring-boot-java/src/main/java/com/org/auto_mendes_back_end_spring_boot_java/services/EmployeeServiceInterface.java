@@ -12,4 +12,5 @@ public interface EmployeeServiceInterface {
 	Page<EmployeeResponseDTO> listEmployees(Pageable pageable);
 	Page<EmployeeResponseDTO> listEmployeesByPosition(Pageable pageable, EmployeeType employeeType);
 	Page<EmployeeResponseDTO> listEmployeesByMatriculation(Pageable pageable, String matriculation);
+	EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO request);
 }

@@ -13,7 +13,6 @@ import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
 public class EmployeeFactory implements EmployeeFactoryInterface {
 	public Employee getEmployee(EmployeeRequestDTO request) {
 		Employee employee = new Employee();
-
 		employee.setCpf(request.getCpf());
 		employee.setEmail(request.getEmail());
 		employee.setId(UlidCreator.getUlid().toString());
@@ -27,7 +26,6 @@ public class EmployeeFactory implements EmployeeFactoryInterface {
 	
 	public Manager getManager(EmployeeRequestDTO request) {
 		Manager manager = new Manager();
-
 		manager.setCpf(request.getCpf());
 		manager.setEmail(request.getEmail());
 		manager.setId(UlidCreator.getUlid().toString());
@@ -41,7 +39,6 @@ public class EmployeeFactory implements EmployeeFactoryInterface {
 
 	public DeputyManager getDeputyManager(EmployeeRequestDTO request) {
 		DeputyManager deputyManager = new DeputyManager();
-		
 		deputyManager.setCpf(request.getCpf());
 		deputyManager.setEmail(request.getEmail());
 		deputyManager.setId(UlidCreator.getUlid().toString());
@@ -55,7 +52,6 @@ public class EmployeeFactory implements EmployeeFactoryInterface {
 
 	public Saler getSaler(EmployeeRequestDTO request) {
 		Saler saler = new Saler();
-		
 		saler.setId(UlidCreator.getUlid().toString());
 		saler.setCpf(request.getCpf());
 		saler.setCommission(request.getCommission());
