@@ -13,7 +13,6 @@ import com.org.auto_mendes_back_end_spring_boot_java.entities.Manager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
 import com.org.auto_mendes_back_end_spring_boot_java.exceptions.NotFoundException;
-import com.org.auto_mendes_back_end_spring_boot_java.exceptions.ValidationException;
 import com.org.auto_mendes_back_end_spring_boot_java.mappers.EmployeeMapperInterface;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.DeputyManagerRepositoryInterface;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.EmployeeRepositoryInterface;
@@ -49,20 +48,21 @@ public class EmployeeService implements EmployeeServiceInterface {
 		case 0:
 			employeeRepository.save(employee);
 			Manager managerSaved = managerRepository.save(manager);
-			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(managerSaved, null);
+			
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(managerSaved);
 			break;
 		case 1:
 			employeeRepository.save(deputyManager);
 			DeputyManager deputyManagerSaved = deputyManagerRepository.save(deputyManager);
-			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(deputyManagerSaved, null);
+			
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(deputyManagerSaved);
 			break;
 		case 2:
 			employeeRepository.save(saler);
 			Saler salerSaved = salerRepository.save(saler);
-			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(salerSaved, salerSaved);
+			
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(salerSaved);
 			break;
-		default:
-			throw new ValidationException("Valor invalido");
 		}
 
 		return employeeResponseDTO;
@@ -78,17 +78,15 @@ public class EmployeeService implements EmployeeServiceInterface {
 		switch (employeeType.ordinal()) {
 		case 0:
 			page = managerRepository.findAll(pageable)
-					.map((manager) -> employeeMapper.toEmployeeResponseDto(manager, null));
+					.map((manager) -> employeeMapper.toEmployeeResponseDto(manager));
 			break;
 		case 1:
 			page = deputyManagerRepository.findAll(pageable)
-					.map((deputyManager) -> employeeMapper.toEmployeeResponseDto(deputyManager, null));
+					.map((deputyManager) -> employeeMapper.toEmployeeResponseDto(deputyManager));
 			break;
 		case 2:
-			page = salerRepository.findAll(pageable).map((saler) -> employeeMapper.toEmployeeResponseDto(saler, saler));
+			page = salerRepository.findAll(pageable).map((saler) -> employeeMapper.toEmployeeResponseDto(saler));
 			break;
-		default:
-			throw new ValidationException("Valor invalido");
 		}
 
 		return page;
@@ -110,33 +108,37 @@ public class EmployeeService implements EmployeeServiceInterface {
 		switch (request.getEmployeeType().ordinal()) {
 		case 0:
 			Manager managerFound = managerRepository.findById(id)
-					.orElseThrow(() -> new NotFoundException("Employee não emcontrado"));
+					.orElseThrow(() -> new NotFoundException("Manager não emcontrado"));
 			managerFound.setCpf(manager.getCpf());
 			managerFound.setEmail(manager.getEmail());
 			managerFound.setMatriculation(manager.getMatriculation());
 			managerFound.setName(manager.getName());
 			managerFound.setSalary(manager.getSalary());
 			managerFound.setTelephone(manager.getTelephone());
+			
 			employeeRepository.save(managerFound);
 			Manager managerSaved = managerRepository.save(managerFound);
-			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(managerSaved, null);
+			
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(managerSaved);
 			break;
 		case 1:
 			DeputyManager deputyManagerFound = deputyManagerRepository.findById(id)
-					.orElseThrow(() -> new NotFoundException("Employee não emcontrado"));
+					.orElseThrow(() -> new NotFoundException("DeputyManager não emcontrado"));
 			deputyManagerFound.setCpf(deputyManager.getCpf());
 			deputyManagerFound.setEmail(deputyManager.getEmail());
 			deputyManagerFound.setMatriculation(deputyManager.getMatriculation());
 			deputyManagerFound.setName(deputyManager.getName());
 			deputyManagerFound.setSalary(deputyManager.getSalary());
 			deputyManagerFound.setTelephone(deputyManager.getTelephone());
+			
 			employeeRepository.save(deputyManagerFound);
 			DeputyManager deputyManagerSaved = deputyManagerRepository.save(deputyManagerFound);
-			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(deputyManagerSaved, null);
+			
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(deputyManagerSaved);
 			break;
 		case 2:
 			Saler salerFound = salerRepository.findById(id)
-					.orElseThrow(() -> new NotFoundException("Employee não emcontrado"));
+					.orElseThrow(() -> new NotFoundException("Saler não emcontrado"));
 			salerFound.setCpf(saler.getCpf());
 			salerFound.setEmail(saler.getEmail());
 			salerFound.setMatriculation(saler.getMatriculation());
@@ -144,12 +146,12 @@ public class EmployeeService implements EmployeeServiceInterface {
 			salerFound.setSalary(saler.getSalary());
 			salerFound.setTelephone(saler.getTelephone());
 			salerFound.setCommission(saler.getCommission());
+			
 			employeeRepository.save(salerFound);
 			Saler salerSaved = salerRepository.save(salerFound);
-			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(salerSaved, salerSaved);
+			
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(salerSaved);
 			break;
-		default:
-			throw new ValidationException("Valor invalido");
 		}
 
 		return employeeResponseDTO;

@@ -2,6 +2,7 @@ package com.org.auto_mendes_back_end_spring_boot_java.controllers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -30,7 +31,7 @@ import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.EmployeeRepositoryInterface;
 
 @SpringBootTest
-@ActiveProfiles("prod")
+@ActiveProfiles("dev")
 @AutoConfigureMockMvc
 class EmployeeControllerIT {
 	@Autowired
@@ -40,10 +41,11 @@ class EmployeeControllerIT {
 	@Autowired
 	private EmployeeRepositoryInterface employeeRepository;
 	private String matriculation = "";
+	private String id = "";
 
 	@BeforeEach
 	void setUp() {
-		employeeRepository.deleteAll();
+		//employeeRepository.deleteAll();
 	}
 
 	@AfterEach
@@ -91,6 +93,26 @@ class EmployeeControllerIT {
 
 		mockMvc.perform(get("/api/employees/list-employees-by-matriculation").queryParam("size", "10")
 				.queryParam("matriculation", this.matriculation)).andExpect(status().isOk()).andDo(print());
+	}
+	
+	@Test
+	void shouldUpdateEmployeeByIdAndReturnStatus200() throws Exception {
+		loadEmployees();
+		
+		EmployeeRequestDTO dto = new EmployeeRequestDTO();
+		//dto.setCommission(new BigDecimal("40.00"));
+		dto.setCpf("814.540.170-40");
+		dto.setEmail("email5@gmail.com");
+		dto.setEmployeeType(EmployeeType.MANAGER);
+		dto.setMatriculation("5555555555");
+		dto.setName("name6");
+		dto.setSalary(new BigDecimal("400.00"));
+		dto.setTelephone("(81) 95555-5555");
+		
+		String json = objectMapper.writeValueAsString(dto);
+
+		mockMvc.perform(put("/api/employees/update-employee-by-id").param("id", id).contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isOk()).andDo(print());
 	}
 
 	void loadEmployees() {
@@ -141,6 +163,7 @@ class EmployeeControllerIT {
 
 		employees.forEach((item) -> employeeRepository.save(item));
 		
-		matriculation = employee1.getMatriculation();
+		matriculation = employee2.getMatriculation();
+		id = employee2.getId();
 	}
 }
