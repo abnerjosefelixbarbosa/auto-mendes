@@ -53,17 +53,22 @@ Diagrama de classe
 ```JSON
 ```
 
-### Atualizar Funcionário 
+### Listar funcionários
 
 ```JSON
 ```
 
-### Procura Funcionário
+### Listar funcionários pelo cargo
 
 ```JSON
 ```
 
-### Listar Funcionário Pelo Nome
+### Listar funcionários pela matrícula
+
+```JSON
+```
+
+### Atualizar funcionário pelo id
 
 ```JSON
 ```
