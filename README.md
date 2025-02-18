@@ -4,9 +4,19 @@
 
 Sistema de registro de vendas entre vendedores e clientes.
 
-## Modelo - Diagrama De Classe
+## Modelo
 
+MER
 
+![MER](https://github.com/user-attachments/assets/3118aba3-06b1-4eba-9959-c660fc535585)
+
+DER
+
+![DER](https://github.com/user-attachments/assets/512fadd3-5711-4ac2-91c8-65456148f9f1)
+
+Diagrama de classe
+
+![diagrama-de-classe](https://github.com/user-attachments/assets/fa7f3c99-a826-47d0-883c-ae41acd962da)
 
 # Recursos Do Projeto
 
@@ -14,8 +24,8 @@ Sistema de registro de vendas entre vendedores e clientes.
 
 - Hibernate.
 - Validation.
-- H2 DataBase.
-- PostGree SQL.
+- H2DB.
+- PostGreeSQL.
 - Lombok.
 - Ulid.
 - Swagger.
@@ -24,17 +34,15 @@ Sistema de registro de vendas entre vendedores e clientes.
 - Spring Boot.
 - Java 17.
 
-# Regra De Negócios
+# Requisitos Funcionais
 
+## Funcionários
 
-
-# Requisitos Funcinais
-
- 
-
-# Requisitos Não Funcionais 
-
-
+- Gerente deve registrar funcionário.
+- Gerente deve listar funcionários.
+- Gerente deve listar funcionários pelo cargo.
+- Gerente deve listar funcionários pela matrícula.
+- Gerente deve atualizar funcionário pelo id.
 
 # Requisições
 
