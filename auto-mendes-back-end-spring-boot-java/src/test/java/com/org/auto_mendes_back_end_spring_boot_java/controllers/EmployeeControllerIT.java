@@ -84,7 +84,7 @@ class EmployeeControllerIT {
 		loadEmployees();
 
 		mockMvc.perform(get("/api/employees/list-employees-by-position").queryParam("size", "10")
-				.queryParam("employeeType", EmployeeType.MANAGER.name())).andExpect(status().isOk()).andDo(print());
+				.queryParam("employeeType", "MANAGER")).andExpect(status().isOk()).andDo(print());
 	}
 	
 	@Test

@@ -68,9 +68,9 @@ public class EmployeeController {
 	@GetMapping(value = "/list-employees-by-position")
 	public ResponseEntity<Page<EmployeeResponseDTO>> listEmployeesByPosition(
 			@Parameter(description = "Configura a pagina", required = false) Pageable pageable,
-			@Parameter(description = "Filtra por cargo", in = ParameterIn.QUERY, required = true, example = "Manager") @RequestParam String employeeType) {
-		Page<EmployeeResponseDTO> page = employeeService.listEmployeesByPosition(pageable,
-				EmployeeType.valueOf(employeeType));
+			@Parameter(description = "Filtra por cargo", in = ParameterIn.QUERY, required = true) @RequestParam EmployeeType employeeType) {
+
+		Page<EmployeeResponseDTO> page = employeeService.listEmployeesByPosition(pageable, employeeType);
 
 		return ResponseEntity.status(HttpStatus.OK).body(page);
 	}
@@ -82,19 +82,21 @@ public class EmployeeController {
 	@GetMapping(value = "/list-employees-by-matriculation")
 	public ResponseEntity<Page<EmployeeResponseDTO>> listEmployeesByMatriculation(
 			@Parameter(description = "Configura a pagina", required = false) Pageable pageable,
-			@Parameter(description = "Filtra por matricula", in = ParameterIn.QUERY, required = true, example = "1") @RequestParam String matriculation) {
+			@Parameter(description = "Filtra por matricula", in = ParameterIn.QUERY, required = true) @RequestParam String matriculation) {
 		Page<EmployeeResponseDTO> page = employeeService.listEmployeesByMatriculation(pageable, matriculation);
 
 		return ResponseEntity.status(HttpStatus.OK).body(page);
 	}
 
 	@Operation(summary = "Atualizar funcionário", description = "Atualiza um funcionário pelo id")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Atualiza um funcionário", content = @Content(schema = @Schema(implementation = EmployeeResponseDTO.class))),
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Atualiza um funcionário", content = @Content(schema = @Schema(implementation = EmployeeResponseDTO.class))),
 			@ApiResponse(responseCode = "400", description = "Retorna um erro de requesição", content = @Content(schema = @Schema(implementation = ExceptionResponseDTO.class))),
 			@ApiResponse(responseCode = "404", description = "Retorna um erro de não encontrado", content = @Content(schema = @Schema(implementation = ExceptionResponseDTO.class))), })
 	@ResponseStatus(value = HttpStatus.OK)
 	@PutMapping(value = "/update-employee-by-id")
-	public ResponseEntity<EmployeeResponseDTO> updateEmployeeById(@Parameter(description = "Filtra por id", in = ParameterIn.QUERY, required = true, example = "1") @RequestParam String id,
+	public ResponseEntity<EmployeeResponseDTO> updateEmployeeById(
+			@Parameter(description = "Filtra por id", in = ParameterIn.QUERY, required = true) @RequestParam String id,
 			@RequestBody @Valid EmployeeRequestDTO request) {
 		EmployeeResponseDTO employeeResponseDTO = employeeService.updateEmployeeById(id, request);
 
