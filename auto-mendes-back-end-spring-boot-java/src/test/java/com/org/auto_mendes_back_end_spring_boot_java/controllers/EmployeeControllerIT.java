@@ -28,7 +28,7 @@ import com.org.auto_mendes_back_end_spring_boot_java.entities.Employee;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Manager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.EmployeeRepositoryInterface;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.IEmployeeRepository;
 
 @SpringBootTest
 @ActiveProfiles("dev")
@@ -39,7 +39,7 @@ class EmployeeControllerIT {
 	@Autowired
 	private ObjectMapper objectMapper;
 	@Autowired
-	private EmployeeRepositoryInterface employeeRepository;
+	private IEmployeeRepository employeeRepository;
 	private String matriculation = "";
 	private String id = "";
 
@@ -100,7 +100,7 @@ class EmployeeControllerIT {
 		loadEmployees();
 		
 		EmployeeRequestDTO dto = new EmployeeRequestDTO();
-		//dto.setCommission(new BigDecimal("40.00"));
+		dto.setCommission(new BigDecimal("40.00"));
 		dto.setCpf("814.540.170-40");
 		dto.setEmail("email5@gmail.com");
 		dto.setEmployeeType(EmployeeType.MANAGER);

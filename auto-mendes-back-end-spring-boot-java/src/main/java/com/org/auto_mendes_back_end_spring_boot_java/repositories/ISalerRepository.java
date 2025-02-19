@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
 
 @Repository
-public interface SalerRepositoryInterface extends JpaRepository<Saler, String> {
+public interface ISalerRepository extends JpaRepository<Saler, String> {
 
 }

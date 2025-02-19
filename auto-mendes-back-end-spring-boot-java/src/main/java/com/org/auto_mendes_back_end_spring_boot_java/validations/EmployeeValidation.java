@@ -3,35 +3,54 @@ package com.org.auto_mendes_back_end_spring_boot_java.validations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.org.auto_mendes_back_end_spring_boot_java.entities.Employee;
+import com.org.auto_mendes_back_end_spring_boot_java.entities.DeputyManager;
+import com.org.auto_mendes_back_end_spring_boot_java.entities.Manager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
 import com.org.auto_mendes_back_end_spring_boot_java.exceptions.ValidationException;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.EmployeeRepositoryInterface;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.IEmployeeRepository;
 
 @Component
-public class EmployeeValidation implements EmployeeValidationInterface {
+public class EmployeeValidation implements IEmployeeValidation {
 	@Autowired
-	private EmployeeRepositoryInterface employeeRepository;
+	private IEmployeeRepository employeeRepository;
 	
-	public void validateEmployee(Employee employee, Saler saler, Integer type) {
-		if (type != 2 && saler.getCommission() != null) {
-			throw new ValidationException("Comissão não deve ser obrigatária");
-		}
-		
-		if (employee.getSalary().scale() != 2) {
+	public void validateEmployee(Manager manager) {
+		if (manager.getSalary().scale() != 2) {
 			throw new ValidationException("Salário deve ter dois dígitos");
 		}
 		
-		if (type == 2 && saler.getCommission() == null) {
+		if (employeeRepository.existsByCpfOrEmailOrTelephoneOrMatriculation(manager.getCpf(), manager.getEmail(),
+				manager.getTelephone(), manager.getMatriculation())) {
+			throw new ValidationException("CPF, email, telefone ou matrícula deve ser único");
+		}
+	}
+	
+	public void validateEmployee(DeputyManager deputyManager) {
+		if (deputyManager.getSalary().scale() != 2) {
+			throw new ValidationException("Salário deve ter dois dígitos");
+		}
+		
+		if (employeeRepository.existsByCpfOrEmailOrTelephoneOrMatriculation(deputyManager.getCpf(), deputyManager.getEmail(),
+				deputyManager.getTelephone(), deputyManager.getMatriculation())) {
+			throw new ValidationException("CPF, email, telefone ou matrícula deve ser único");
+		}
+	}
+	
+	public void validateEmployee(Saler saler) {
+		if (saler.getSalary().scale() != 2) {
+			throw new ValidationException("Salário deve ter dois dígitos");
+		}
+		
+		if (saler.getCommission() == null) {
 			throw new ValidationException("Comissão deve ser obrigatária");
 		}
 		
-		if (type == 2 && saler.getCommission().scale() != 2) {
+		if (saler.getCommission().scale() != 2) {
 			throw new ValidationException("Comissão deve ter dois dígitos");
 		}
 		
-		if (employeeRepository.existsByCpfOrEmailOrTelephoneOrMatriculation(employee.getCpf(), employee.getEmail(),
-				employee.getTelephone(), employee.getMatriculation())) {
+		if (employeeRepository.existsByCpfOrEmailOrTelephoneOrMatriculation(saler.getCpf(), saler.getEmail(),
+				saler.getTelephone(), saler.getMatriculation())) {
 			throw new ValidationException("CPF, email, telefone ou matrícula deve ser único");
 		}
 	}

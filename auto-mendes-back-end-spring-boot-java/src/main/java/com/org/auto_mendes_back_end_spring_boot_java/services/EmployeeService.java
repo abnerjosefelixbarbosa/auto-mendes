@@ -8,60 +8,65 @@ import org.springframework.stereotype.Service;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.DeputyManager;
-import com.org.auto_mendes_back_end_spring_boot_java.entities.Employee;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Manager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
 import com.org.auto_mendes_back_end_spring_boot_java.exceptions.NotFoundException;
-import com.org.auto_mendes_back_end_spring_boot_java.mappers.EmployeeMapperInterface;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.DeputyManagerRepositoryInterface;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.EmployeeRepositoryInterface;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.ManagerRepositoryInterface;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.SalerRepositoryInterface;
-import com.org.auto_mendes_back_end_spring_boot_java.validations.EmployeeValidationInterface;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.IDeputyManagerRepository;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.IEmployeeRepository;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.IManagerRepository;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.ISalerRepository;
+import com.org.auto_mendes_back_end_spring_boot_java.validations.IEmployeeValidation;
 
 @Service
-public class EmployeeService implements EmployeeServiceInterface {
+public class EmployeeService implements IEmployeeService {
 	@Autowired
-	private EmployeeRepositoryInterface employeeRepository;
+	private IEmployeeRepository employeeRepository;
 	@Autowired
-	private SalerRepositoryInterface salerRepository;
+	private ISalerRepository salerRepository;
 	@Autowired
-	private ManagerRepositoryInterface managerRepository;
+	private IManagerRepository managerRepository;
 	@Autowired
-	private DeputyManagerRepositoryInterface deputyManagerRepository;
+	private IDeputyManagerRepository deputyManagerRepository;
 	@Autowired
-	private EmployeeValidationInterface employeeValidation;
-	@Autowired
-	private EmployeeMapperInterface employeeMapper;
+	private IEmployeeValidation employeeValidation;
 
 	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO request) {
-		Employee employee = employeeMapper.toEmployee(request);
-		Manager manager = employeeMapper.toEmployeeManager(request);
-		DeputyManager deputyManager = employeeMapper.toEmployeeDeputyManager(request);
-		Saler saler = employeeMapper.toEmployeeSaler(request);
 		EmployeeResponseDTO employeeResponseDTO = null;
-
-		employeeValidation.validateEmployee(employee, saler, request.getEmployeeType().ordinal());
 
 		switch (request.getEmployeeType().ordinal()) {
 		case 0:
-			employeeRepository.save(employee);
+			Manager manager = new Manager(request);
+
+			employeeValidation.validateEmployee(manager);
+
+			employeeRepository.save(manager);
 			Manager managerSaved = managerRepository.save(manager);
+
+			employeeResponseDTO = new EmployeeResponseDTO(managerSaved);
 			
-			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(managerSaved);
 			break;
 		case 1:
+			DeputyManager deputyManager = new DeputyManager(request);
+
+			employeeValidation.validateEmployee(deputyManager);
+
 			employeeRepository.save(deputyManager);
 			DeputyManager deputyManagerSaved = deputyManagerRepository.save(deputyManager);
+
+			employeeResponseDTO = new EmployeeResponseDTO(deputyManagerSaved);
 			
-			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(deputyManagerSaved);
 			break;
 		case 2:
+			Saler saler = new Saler(request);
+			
+			employeeValidation.validateEmployee(saler);
+
 			employeeRepository.save(saler);
 			Saler salerSaved = salerRepository.save(saler);
+
+			employeeResponseDTO = new EmployeeResponseDTO(salerSaved);
 			
-			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(salerSaved);
 			break;
 		}
 
@@ -77,15 +82,16 @@ public class EmployeeService implements EmployeeServiceInterface {
 
 		switch (employeeType.ordinal()) {
 		case 0:
-			page = managerRepository.findAll(pageable)
-					.map((manager) -> employeeMapper.toEmployeeResponseDto(manager));
+			page = managerRepository.findAll(pageable).map(EmployeeResponseDTO::new);
+			
 			break;
 		case 1:
-			page = deputyManagerRepository.findAll(pageable)
-					.map((deputyManager) -> employeeMapper.toEmployeeResponseDto(deputyManager));
+			page = deputyManagerRepository.findAll(pageable).map(EmployeeResponseDTO::new);
+			
 			break;
 		case 2:
-			page = salerRepository.findAll(pageable).map((saler) -> employeeMapper.toEmployeeResponseDto(saler));
+			page = salerRepository.findAll(pageable).map(EmployeeResponseDTO::new);
+			
 			break;
 		}
 
@@ -97,16 +103,14 @@ public class EmployeeService implements EmployeeServiceInterface {
 	}
 
 	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO request) {
-		Employee employee = employeeMapper.toEmployee(request);
-		Manager manager = employeeMapper.toEmployeeManager(request);
-		DeputyManager deputyManager = employeeMapper.toEmployeeDeputyManager(request);
-		Saler saler = employeeMapper.toEmployeeSaler(request);
 		EmployeeResponseDTO employeeResponseDTO = null;
-
-		employeeValidation.validateEmployee(employee, saler, request.getEmployeeType().ordinal());
 
 		switch (request.getEmployeeType().ordinal()) {
 		case 0:
+			Manager manager = new Manager(request);
+
+			employeeValidation.validateEmployee(manager);
+			
 			Manager managerFound = managerRepository.findById(id)
 					.orElseThrow(() -> new NotFoundException("Manager não emcontrado"));
 			managerFound.setCpf(manager.getCpf());
@@ -115,13 +119,18 @@ public class EmployeeService implements EmployeeServiceInterface {
 			managerFound.setName(manager.getName());
 			managerFound.setSalary(manager.getSalary());
 			managerFound.setTelephone(manager.getTelephone());
-			
+
 			employeeRepository.save(managerFound);
 			Manager managerSaved = managerRepository.save(managerFound);
+
+			employeeResponseDTO = new EmployeeResponseDTO(managerSaved);
 			
-			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(managerSaved);
 			break;
 		case 1:
+			DeputyManager deputyManager = new DeputyManager(request);
+			
+			employeeValidation.validateEmployee(deputyManager);
+			
 			DeputyManager deputyManagerFound = deputyManagerRepository.findById(id)
 					.orElseThrow(() -> new NotFoundException("DeputyManager não emcontrado"));
 			deputyManagerFound.setCpf(deputyManager.getCpf());
@@ -130,13 +139,18 @@ public class EmployeeService implements EmployeeServiceInterface {
 			deputyManagerFound.setName(deputyManager.getName());
 			deputyManagerFound.setSalary(deputyManager.getSalary());
 			deputyManagerFound.setTelephone(deputyManager.getTelephone());
-			
+
 			employeeRepository.save(deputyManagerFound);
 			DeputyManager deputyManagerSaved = deputyManagerRepository.save(deputyManagerFound);
+
+			employeeResponseDTO = new EmployeeResponseDTO(deputyManagerSaved);
 			
-			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(deputyManagerSaved);
 			break;
 		case 2:
+			Saler saler = new Saler(request);
+			
+			employeeValidation.validateEmployee(saler);
+			
 			Saler salerFound = salerRepository.findById(id)
 					.orElseThrow(() -> new NotFoundException("Saler não emcontrado"));
 			salerFound.setCpf(saler.getCpf());
@@ -146,11 +160,12 @@ public class EmployeeService implements EmployeeServiceInterface {
 			salerFound.setSalary(saler.getSalary());
 			salerFound.setTelephone(saler.getTelephone());
 			salerFound.setCommission(saler.getCommission());
-			
+
 			employeeRepository.save(salerFound);
 			Saler salerSaved = salerRepository.save(salerFound);
+
+			employeeResponseDTO = new EmployeeResponseDTO(salerSaved);
 			
-			employeeResponseDTO = employeeMapper.toEmployeeResponseDto(salerSaved);
 			break;
 		}
 
