@@ -28,7 +28,7 @@ import com.org.auto_mendes_back_end_spring_boot_java.entities.Employee;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Manager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.IEmployeeRepository;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IEmployeeRepository;
 
 @SpringBootTest
 @ActiveProfiles("dev")

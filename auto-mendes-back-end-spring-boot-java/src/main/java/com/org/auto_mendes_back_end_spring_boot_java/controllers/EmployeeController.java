@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
-import com.org.auto_mendes_back_end_spring_boot_java.services.IEmployeeService;
+import com.org.auto_mendes_back_end_spring_boot_java.services.interfaces.IEmployeeService;
 
 import jakarta.validation.Valid;
 

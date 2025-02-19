@@ -12,11 +12,12 @@ import com.org.auto_mendes_back_end_spring_boot_java.entities.Manager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
 import com.org.auto_mendes_back_end_spring_boot_java.exceptions.NotFoundException;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.IDeputyManagerRepository;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.IEmployeeRepository;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.IManagerRepository;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.ISalerRepository;
-import com.org.auto_mendes_back_end_spring_boot_java.validations.IEmployeeValidation;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IDeputyManagerRepository;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IEmployeeRepository;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IManagerRepository;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.ISalerRepository;
+import com.org.auto_mendes_back_end_spring_boot_java.services.interfaces.IEmployeeService;
+import com.org.auto_mendes_back_end_spring_boot_java.validations.interfaces.IEmployeeValidation;
 
 @Service
 public class EmployeeService implements IEmployeeService {
