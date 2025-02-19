@@ -51,26 +51,53 @@ Diagrama de classe
 ### Registra Funcionário
 
 ```JSON
+/api/employees/register-employee
+
+{
+  "name": "string",
+  "cpf": "stringstringst",
+  "email": "string",
+  "telephone": "stringstri",
+  "salary": 0,
+  "matriculation": "7493388704",
+  "commission": 0,
+  "employeeType": "MANAGER"
+}
 ```
 
 ### Listar funcionários
 
 ```JSON
+/api/employees/list-employees
 ```
 
 ### Listar funcionários pelo cargo
 
 ```JSON
+/api/employees/list-employees-by-position?employeeType=MANAGER
 ```
 
 ### Listar funcionários pela matrícula
 
 ```JSON
+/api/employees/list-employees-by-matriculation?matriculation=1 
 ```
 
 ### Atualizar funcionário pelo id
 
 ```JSON
+/api/employees/update-employee-by-id?id=1
+
+{
+  "name": "string",
+  "cpf": "stringstringst",
+  "email": "string",
+  "telephone": "stringstri",
+  "salary": 0,
+  "matriculation": "7493388704",
+  "commission": 0,
+  "employeeType": "MANAGER"
+}
 ```
 
 # Execução Do Projeto
