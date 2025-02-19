@@ -68,19 +68,19 @@ Diagrama de classe
 ### Listar funcionários
 
 ```JSON
-/api/employees/list-employees
+/api/employees/list-employees?page=0&size=10
 ```
 
 ### Listar funcionários pelo cargo
 
 ```JSON
-/api/employees/list-employees-by-position?employeeType=MANAGER
+/api/employees/list-employees-by-position?page=0&size=10&employeeType=DEPUTY_MANAGER
 ```
 
 ### Listar funcionários pela matrícula
 
 ```JSON
-/api/employees/list-employees-by-matriculation?matriculation=1 
+/api/employees/list-employees-by-matriculation?page=0&size=10&matriculation=1 
 ```
 
 ### Atualizar funcionário pelo id
