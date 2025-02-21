@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeResponseDTO;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.EmployeeResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Employee;
 
 @Repository

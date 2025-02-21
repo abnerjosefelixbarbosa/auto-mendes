@@ -1,4 +1,4 @@
-package com.org.auto_mendes_back_end_spring_boot_java.dtos;
+package com.org.auto_mendes_back_end_spring_boot_java.dtos.responses;
 
 import java.math.BigDecimal;
 
