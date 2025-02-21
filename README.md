@@ -20,23 +20,20 @@ Diagrama de classe
 
 # Recursos Do Projeto
 
-## Auto Mendes Back End Spring Boot Java
+## Backend
 
-- Hibernate.
+- Hibernate/JPA.
 - Validation.
 - H2DB.
 - PostGreeSQL.
 - Lombok.
-- Ulid.
 - Swagger.
 - SOLID.
 - MVC.
 - Spring Boot.
 - Java 17.
 
-# Requisitos Funcionais
-
-## Funcionários
+# Requisitos Funcionais - Funcionários 
 
 - Gerente deve registrar funcionário.
 - Gerente deve listar funcionários.
@@ -44,11 +41,9 @@ Diagrama de classe
 - Gerente deve listar funcionários pela matrícula.
 - Gerente deve atualizar funcionário pelo id.
 
-# Requisições
+# Requisições - Funcionários
 
-## Funcionários
-
-### Registra Funcionário
+## Registra Funcionário
 
 ```JSON
 /api/employees/register-employee
@@ -65,25 +60,25 @@ Diagrama de classe
 }
 ```
 
-### Listar funcionários
+## Listar funcionários
 
 ```JSON
 /api/employees/list-employees?page=0&size=10
 ```
 
-### Listar funcionários pelo cargo
+## Listar funcionários pelo cargo
 
 ```JSON
 /api/employees/list-employees-by-position?page=0&size=10&employeeType=DEPUTY_MANAGER
 ```
 
-### Listar funcionários pela matrícula
+## Listar funcionários pela matrícula
 
 ```JSON
 /api/employees/list-employees-by-matriculation?page=0&size=10&matriculation=1 
 ```
 
-### Atualizar funcionário pelo id
+## Atualizar funcionário pelo id
 
 ```JSON
 /api/employees/update-employee-by-id?id=1
