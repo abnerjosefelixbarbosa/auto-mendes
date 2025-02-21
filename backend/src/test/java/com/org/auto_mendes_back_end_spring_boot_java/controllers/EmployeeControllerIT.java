@@ -40,6 +40,15 @@ class EmployeeControllerIT {
 	private ObjectMapper objectMapper;
 	@Autowired
 	private IEmployeeRepository employeeRepository;
+	@Autowired
+	private EmployeeRequestDTO dto;
+	@Autowired
+	private Saler saler;
+	@Autowired
+	private Manager manager;
+	@Autowired
+	private DeputyManager deputyManager;
+	
 	private String matriculation = "";
 	private String id = "";
 
@@ -55,7 +64,6 @@ class EmployeeControllerIT {
 	
 	@Test
 	void shouldRegisterEmployeeAndReturnStatus201() throws Exception {
-		EmployeeRequestDTO dto = new EmployeeRequestDTO();
 		dto.setCommission(new BigDecimal("40.00"));
 		dto.setCpf("814.540.170-40");
 		dto.setEmail("email5@gmail.com");
@@ -92,14 +100,13 @@ class EmployeeControllerIT {
 		loadEmployees();
 
 		mockMvc.perform(get("/api/employees/list-employees-by-matriculation").queryParam("size", "10")
-				.queryParam("matriculation", this.matriculation)).andExpect(status().isOk()).andDo(print());
+				.queryParam("matriculation", matriculation)).andExpect(status().isOk()).andDo(print());
 	}
 	
 	@Test
 	void shouldUpdateEmployeeByIdAndReturnStatus200() throws Exception {
 		loadEmployees();
 		
-		EmployeeRequestDTO dto = new EmployeeRequestDTO();
 		dto.setCommission(new BigDecimal("40.00"));
 		dto.setCpf("814.540.170-40");
 		dto.setEmail("email5@gmail.com");
@@ -118,7 +125,7 @@ class EmployeeControllerIT {
 	void loadEmployees() {
 		List<Employee> employees = new ArrayList<Employee>();
 		
-		Saler employee1 = new Saler();
+		Saler employee1 = saler;
 		employee1.setId(UlidCreator.getUlid().toString());
 		employee1.setCpf("737.697.500-47");
 		employee1.setCommission(new BigDecimal("30.00"));
@@ -128,7 +135,7 @@ class EmployeeControllerIT {
 		employee1.setSalary(new BigDecimal("400.00"));
 		employee1.setTelephone("(81) 91111-1111");
 		
-		Manager employee2 = new Manager();
+		Manager employee2 = manager;
 		employee2.setCpf("320.434.700-19");
 		employee2.setEmail("email2@gmail.com");
 		employee2.setId(UlidCreator.getUlid().toString());
@@ -137,7 +144,7 @@ class EmployeeControllerIT {
 		employee2.setSalary(new BigDecimal("400.00"));
 		employee2.setTelephone("(81) 92222-2222");
 		
-		DeputyManager employee3 = new DeputyManager();
+		DeputyManager employee3 = deputyManager;
 		employee3.setCpf("297.232.130-87");
 		employee3.setEmail("email3@gmail.com");
 		employee3.setId(UlidCreator.getUlid().toString());
@@ -146,7 +153,7 @@ class EmployeeControllerIT {
 		employee3.setSalary(new BigDecimal("400.00"));
 		employee3.setTelephone("(81) 93333-3333");
 		
-		Saler employee4 = new Saler();
+		Saler employee4 = saler;
 		employee4.setId(UlidCreator.getUlid().toString());
 		employee4.setCpf("460.731.410-25");
 		employee4.setCommission(new BigDecimal("30.00"));
