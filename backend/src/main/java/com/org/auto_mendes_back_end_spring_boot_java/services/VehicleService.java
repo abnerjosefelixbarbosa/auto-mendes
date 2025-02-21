@@ -17,6 +17,8 @@ public class VehicleService implements IVehicleService {
 	public MarkResponseDTO registerMark(MarkRequestDTO dto) {
 		Mark mark = new Mark(dto);
 		
-		return null;
+		Mark markSaved = markRepository.save(mark);
+		
+		return new MarkResponseDTO(markSaved);
 	} 
 }
