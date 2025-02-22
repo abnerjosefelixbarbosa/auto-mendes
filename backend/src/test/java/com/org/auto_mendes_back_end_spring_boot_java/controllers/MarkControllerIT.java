@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.MarkRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Mark;
+import com.org.auto_mendes_back_end_spring_boot_java.factories.interfaces.IMarkFactory;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IMarkRepository;
 
 @SpringBootTest
@@ -33,7 +34,8 @@ class MarkControllerIT {
 	private ObjectMapper objectMapper;
 	@Autowired
 	private IMarkRepository markRepository;
-	private MarkRequestDTO dto = new MarkRequestDTO();
+	@Autowired
+	private IMarkFactory markFactory;
 	
 	@BeforeEach
 	void setUp() {
@@ -49,6 +51,7 @@ class MarkControllerIT {
 	void shouldRegisterMarkAndReturnStatus201() throws Exception {
 		loadMark();
 		
+		MarkRequestDTO dto = markFactory.creatMarkRequestDTO();
 		dto.setName("name2");
 		
 		String json = objectMapper.writeValueAsString(dto);
