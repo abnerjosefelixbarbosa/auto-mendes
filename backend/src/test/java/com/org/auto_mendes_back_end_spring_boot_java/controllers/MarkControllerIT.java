@@ -34,8 +34,6 @@ class MarkControllerIT {
 	private ObjectMapper objectMapper;
 	@Autowired
 	private IMarkRepository markRepository;
-	@Autowired
-	private IMarkFactory markFactory;
 	
 	@BeforeEach
 	void setUp() {
@@ -51,7 +49,7 @@ class MarkControllerIT {
 	void shouldRegisterMarkAndReturnStatus201() throws Exception {
 		loadMark();
 		
-		MarkRequestDTO dto = markFactory.creatMarkRequestDTO();
+		MarkRequestDTO dto = new MarkRequestDTO();
 		dto.setName("name2");
 		
 		String json = objectMapper.writeValueAsString(dto);

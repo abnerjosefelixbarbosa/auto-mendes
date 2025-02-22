@@ -9,16 +9,8 @@ import com.org.auto_mendes_back_end_spring_boot_java.factories.interfaces.IMarkF
 
 @Component
 public class MarkFactory implements IMarkFactory {
-	public Mark creatMark() {
-		return new Mark();
-	}
-	
 	public Mark creatMark(MarkRequestDTO dto) {
 		return new Mark(dto);
-	}
-	
-	public MarkRequestDTO creatMarkRequestDTO() {
-		return new MarkRequestDTO();
 	}
 	
 	public MarkResponseDTO creatMarkResponseDTO(Mark mark) {

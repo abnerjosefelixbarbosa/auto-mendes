@@ -5,8 +5,6 @@ import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.MarkResponse
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Mark;
 
 public interface IMarkFactory {
-	Mark creatMark();
 	Mark creatMark(MarkRequestDTO dto);
-	MarkRequestDTO creatMarkRequestDTO();
 	MarkResponseDTO creatMarkResponseDTO(Mark mark);
 }
