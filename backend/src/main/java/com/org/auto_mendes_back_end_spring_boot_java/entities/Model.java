@@ -3,6 +3,9 @@ package com.org.auto_mendes_back_end_spring_boot_java.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import com.github.f4b6a3.ulid.UlidCreator;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.ModelRequestDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -32,4 +35,10 @@ public class Model implements Serializable {
 	private Mark mark;
 	@OneToMany(mappedBy = "model", fetch = FetchType.LAZY)
 	private List<Vehicle> vehicles;
+	
+	public Model(ModelRequestDTO dto) {
+		this.id = UlidCreator.getUlid().toString();
+		this.name = dto.getName();
+		this.mark = new Mark(null, dto.getMarkName(), null);
+	}
 }
