@@ -8,17 +8,22 @@ import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.MarkResponse
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Mark;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IMarkRepository;
 import com.org.auto_mendes_back_end_spring_boot_java.services.interfaces.IVehicleService;
+import com.org.auto_mendes_back_end_spring_boot_java.validations.interfaces.IVehicleValidation;
 
 @Service
 public class VehicleService implements IVehicleService {
 	@Autowired
 	private IMarkRepository markRepository;
+	@Autowired
+	private IVehicleValidation vehicleValidation;
 	
 	public MarkResponseDTO registerMark(MarkRequestDTO dto) {
 		Mark mark = new Mark(dto);
 		
-		Mark markSaved = markRepository.save(mark);
+		vehicleValidation.validateMark(mark);
 		
-		return new MarkResponseDTO(markSaved);
+		mark = markRepository.save(mark);
+		
+		return new MarkResponseDTO(mark);
 	} 
 }

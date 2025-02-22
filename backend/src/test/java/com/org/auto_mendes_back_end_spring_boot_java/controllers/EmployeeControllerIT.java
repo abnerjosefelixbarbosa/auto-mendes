@@ -40,14 +40,10 @@ class EmployeeControllerIT {
 	private ObjectMapper objectMapper;
 	@Autowired
 	private IEmployeeRepository employeeRepository;
-	@Autowired
-	private EmployeeRequestDTO dto;
-	@Autowired
-	private Saler saler;
-	@Autowired
-	private Manager manager;
-	@Autowired
-	private DeputyManager deputyManager;
+	private EmployeeRequestDTO dto = new EmployeeRequestDTO();
+	private Saler saler = new Saler();
+	private Manager manager = new Manager();
+	private DeputyManager deputyManager = new DeputyManager();
 	private String matriculation = "";
 	private String id = "";
 

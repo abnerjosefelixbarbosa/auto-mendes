@@ -7,5 +7,5 @@ import com.org.auto_mendes_back_end_spring_boot_java.entities.Mark;
 
 @Repository
 public interface IMarkRepository extends JpaRepository<Mark, String> {
-
+	boolean existsByName(String name);
 }

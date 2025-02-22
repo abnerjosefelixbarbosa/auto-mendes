@@ -34,7 +34,7 @@ public class EmployeeService implements IEmployeeService {
 
 	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO request) {
 		EmployeeResponseDTO employeeResponseDTO = null;
-
+		
 		switch (request.getEmployeeType().ordinal()) {
 		case 0:
 			Manager manager = new Manager(request);
@@ -42,10 +42,9 @@ public class EmployeeService implements IEmployeeService {
 			employeeValidation.validateEmployee(manager);
 
 			employeeRepository.save(manager);
-			Manager managerSaved = managerRepository.save(manager);
+			manager = managerRepository.save(manager);
 
-			employeeResponseDTO = new EmployeeResponseDTO(managerSaved);
-			
+			employeeResponseDTO = new EmployeeResponseDTO(manager);
 			break;
 		case 1:
 			DeputyManager deputyManager = new DeputyManager(request);
@@ -53,10 +52,9 @@ public class EmployeeService implements IEmployeeService {
 			employeeValidation.validateEmployee(deputyManager);
 
 			employeeRepository.save(deputyManager);
-			DeputyManager deputyManagerSaved = deputyManagerRepository.save(deputyManager);
+			deputyManager = deputyManagerRepository.save(deputyManager);
 
-			employeeResponseDTO = new EmployeeResponseDTO(deputyManagerSaved);
-			
+			employeeResponseDTO = new EmployeeResponseDTO(deputyManager);
 			break;
 		case 2:
 			Saler saler = new Saler(request);
@@ -64,10 +62,9 @@ public class EmployeeService implements IEmployeeService {
 			employeeValidation.validateEmployee(saler);
 
 			employeeRepository.save(saler);
-			Saler salerSaved = salerRepository.save(saler);
+			saler = salerRepository.save(saler);
 
-			employeeResponseDTO = new EmployeeResponseDTO(salerSaved);
-			
+			employeeResponseDTO = new EmployeeResponseDTO(saler);
 			break;
 		}
 
@@ -80,19 +77,16 @@ public class EmployeeService implements IEmployeeService {
 
 	public Page<EmployeeResponseDTO> listEmployeesByPosition(Pageable pageable, EmployeeType employeeType) {
 		Page<EmployeeResponseDTO> page = null;
-
+		
 		switch (employeeType.ordinal()) {
 		case 0:
 			page = managerRepository.findAll(pageable).map(EmployeeResponseDTO::new);
-			
 			break;
 		case 1:
 			page = deputyManagerRepository.findAll(pageable).map(EmployeeResponseDTO::new);
-			
 			break;
 		case 2:
 			page = salerRepository.findAll(pageable).map(EmployeeResponseDTO::new);
-			
 			break;
 		}
 
@@ -105,7 +99,7 @@ public class EmployeeService implements IEmployeeService {
 
 	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO request) {
 		EmployeeResponseDTO employeeResponseDTO = null;
-
+		
 		switch (request.getEmployeeType().ordinal()) {
 		case 0:
 			Manager manager = new Manager(request);
@@ -122,9 +116,9 @@ public class EmployeeService implements IEmployeeService {
 			managerFound.setTelephone(manager.getTelephone());
 
 			employeeRepository.save(managerFound);
-			Manager managerSaved = managerRepository.save(managerFound);
+			manager = managerRepository.save(managerFound);
 
-			employeeResponseDTO = new EmployeeResponseDTO(managerSaved);
+			employeeResponseDTO = new EmployeeResponseDTO(manager);
 			
 			break;
 		case 1:
@@ -142,9 +136,9 @@ public class EmployeeService implements IEmployeeService {
 			deputyManagerFound.setTelephone(deputyManager.getTelephone());
 
 			employeeRepository.save(deputyManagerFound);
-			DeputyManager deputyManagerSaved = deputyManagerRepository.save(deputyManagerFound);
+			deputyManager = deputyManagerRepository.save(deputyManagerFound);
 
-			employeeResponseDTO = new EmployeeResponseDTO(deputyManagerSaved);
+			employeeResponseDTO = new EmployeeResponseDTO(deputyManager);
 			
 			break;
 		case 2:
@@ -163,9 +157,9 @@ public class EmployeeService implements IEmployeeService {
 			salerFound.setCommission(saler.getCommission());
 
 			employeeRepository.save(salerFound);
-			Saler salerSaved = salerRepository.save(salerFound);
+			saler = salerRepository.save(salerFound);
 
-			employeeResponseDTO = new EmployeeResponseDTO(salerSaved);
+			employeeResponseDTO = new EmployeeResponseDTO(saler);
 			
 			break;
 		}
