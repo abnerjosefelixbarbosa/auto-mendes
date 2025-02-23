@@ -12,8 +12,8 @@ public class ModelFactory implements IModelFactory {
 	public Model createModel(ModelRequestDTO dto) {
 		return new Model(dto);
 	}
-	
-	public ModelResponseDTO createModel(Model model) {
+
+	public ModelResponseDTO creatMarkResponseDTO(Model model) {
 		return new ModelResponseDTO(model);
 	}
 }

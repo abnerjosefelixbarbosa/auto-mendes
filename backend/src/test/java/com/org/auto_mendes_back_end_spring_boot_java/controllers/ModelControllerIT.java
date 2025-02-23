@@ -19,41 +19,44 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.f4b6a3.ulid.UlidCreator;
-import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.MarkRequestDTO;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.ModelRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Mark;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IMarkRepository;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IModelRepository;
 
 @SpringBootTest
 @ActiveProfiles("dev")
 @AutoConfigureMockMvc
-class MarkControllerIT {
+class ModelControllerIT {
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
 	private ObjectMapper objectMapper;
 	@Autowired
+	private IModelRepository modelRepository;
+	@Autowired
 	private IMarkRepository markRepository;
 	
 	@BeforeEach
 	void setUp() {
-		//employeeRepository.deleteAll();
 	}
 
 	@AfterEach
 	void tearDown() {
-		markRepository.deleteAll();
+		modelRepository.deleteAll();
 	}
 	
 	@Test
-	void shouldRegisterMarkAndReturnStatus201() throws Exception {
+	void shouldRegisterModelAndReturnStatus201() throws Exception {
 		loadMark();
 		
-		MarkRequestDTO dto = new MarkRequestDTO();
-		dto.setName("name2");
+		ModelRequestDTO dto = new ModelRequestDTO();
+		dto.setName("name1");
+		dto.setMarkName("name1");
 		
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/api/marks/register-mark").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/api/models/register-model").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
 	}
 	

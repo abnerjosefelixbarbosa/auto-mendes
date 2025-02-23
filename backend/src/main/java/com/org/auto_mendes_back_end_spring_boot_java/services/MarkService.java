@@ -3,16 +3,38 @@ package com.org.auto_mendes_back_end_spring_boot_java.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.MarkRequestDTO;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.MarkResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Mark;
+import com.org.auto_mendes_back_end_spring_boot_java.exceptions.NotFoundException;
+import com.org.auto_mendes_back_end_spring_boot_java.factories.interfaces.IMarkFactory;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IMarkRepository;
 import com.org.auto_mendes_back_end_spring_boot_java.services.interfaces.IMarkService;
+import com.org.auto_mendes_back_end_spring_boot_java.validations.interfaces.IMarkValidation;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class MarkService implements IMarkService {
 	@Autowired
 	private IMarkRepository markRepository;
+	@Autowired
+	private IMarkFactory markFactory;
+	@Autowired
+	private IMarkValidation markValidation;
+
+	@Transactional
+	public MarkResponseDTO registerMark(MarkRequestDTO dto) {
+		Mark mark = markFactory.creatMark(dto);
+		
+		markValidation.validateMark(mark);
+		
+		mark = markRepository.save(mark);
+		
+		return markFactory.creatMarkResponseDTO(mark);
+	} 
 	
-	public Mark save(Mark mark) {
-		return markRepository.save(mark);
+	public Mark findByName(String name) {
+		return markRepository.findByName(name).orElseThrow(() -> new NotFoundException("Marca não encontrada"));
 	}
 }

@@ -20,6 +20,8 @@ import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.ISa
 import com.org.auto_mendes_back_end_spring_boot_java.services.interfaces.IEmployeeService;
 import com.org.auto_mendes_back_end_spring_boot_java.validations.interfaces.IEmployeeValidation;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class EmployeeService implements IEmployeeService {
 	@Autowired
@@ -35,6 +37,7 @@ public class EmployeeService implements IEmployeeService {
 	@Autowired
 	private IEmployeeFactory employeeFactory;
 
+	@Transactional
 	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO request) {
 		EmployeeResponseDTO employeeResponseDTO = null;
 		
@@ -100,6 +103,7 @@ public class EmployeeService implements IEmployeeService {
 		return employeeRepository.listEmployeesByMatriculation(pageable, matriculation);
 	}
 
+	@Transactional
 	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO request) {
 		EmployeeResponseDTO employeeResponseDTO = null;
 		
@@ -122,7 +126,6 @@ public class EmployeeService implements IEmployeeService {
 			manager = managerRepository.save(managerFound);
 
 			employeeResponseDTO = employeeFactory.createEmployeeResponseDTO(manager);
-			
 			break;
 		case 1:
 			DeputyManager deputyManager = employeeFactory.createEmployeeDeputyManager(request);
@@ -142,7 +145,6 @@ public class EmployeeService implements IEmployeeService {
 			deputyManager = deputyManagerRepository.save(deputyManagerFound);
 
 			employeeResponseDTO = employeeFactory.createEmployeeResponseDTO(deputyManager);
-			
 			break;
 		case 2:
 			Saler saler = employeeFactory.createEmployeeSaler(request);
@@ -163,7 +165,6 @@ public class EmployeeService implements IEmployeeService {
 			saler = salerRepository.save(salerFound);
 
 			employeeResponseDTO = employeeFactory.createEmployeeResponseDTO(saler);
-			
 			break;
 		}
 

@@ -51,8 +51,8 @@ public class ExceptionController {
 		exceptionResponseDTO.setLocalDateTime(LocalDateTime.now());
 		exceptionResponseDTO.setMessage(e.getMessage());
 		exceptionResponseDTO.setPath(request.getRequestURI());
-		exceptionResponseDTO.setStatus(400);
+		exceptionResponseDTO.setStatus(404);
 		
-		return ResponseEntity.status(400).body(exceptionResponseDTO);
+		return ResponseEntity.status(404).body(exceptionResponseDTO);
 	}
 }
