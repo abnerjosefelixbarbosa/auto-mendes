@@ -14,12 +14,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "models")
@@ -35,10 +33,4 @@ public class Model implements Serializable {
 	private Mark mark;
 	@OneToMany(mappedBy = "model", fetch = FetchType.LAZY)
 	private List<Vehicle> vehicles;
-	
-	public Model(ModelRequestDTO dto) {
-		this.id = UlidCreator.getUlid().toString();
-		this.name = dto.getName();
-		this.mark = new Mark(null, dto.getMarkName(), null);
-	}
 }

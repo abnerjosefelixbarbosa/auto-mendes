@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.MarkRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.MarkResponseDTO;
-import com.org.auto_mendes_back_end_spring_boot_java.services.interfaces.IMarkService;
+import com.org.auto_mendes_back_end_spring_boot_java.services.IMarkService;
 
 import jakarta.validation.Valid;
 

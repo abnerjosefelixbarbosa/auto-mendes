@@ -7,8 +7,7 @@ import com.org.auto_mendes_back_end_spring_boot_java.entities.DeputyManager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Manager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
 import com.org.auto_mendes_back_end_spring_boot_java.exceptions.ValidationException;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IEmployeeRepository;
-import com.org.auto_mendes_back_end_spring_boot_java.validations.interfaces.IEmployeeValidation;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.IEmployeeRepository;
 
 @Component
 public class EmployeeValidation implements IEmployeeValidation {

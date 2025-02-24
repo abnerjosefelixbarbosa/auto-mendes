@@ -12,14 +12,10 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Schema(description = "DTO de requisição do funcionário")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class EmployeeRequestDTO {
 	@Schema(description = "Nome do funcionario")
 	@NotNull(message = "Nome deve ser obrigatório")

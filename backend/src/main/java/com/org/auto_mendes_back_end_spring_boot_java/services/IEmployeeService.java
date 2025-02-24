@@ -1,4 +1,4 @@
-package com.org.auto_mendes_back_end_spring_boot_java.services.interfaces;
+package com.org.auto_mendes_back_end_spring_boot_java.services;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

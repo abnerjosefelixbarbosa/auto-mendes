@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.MarkRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Mark;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IMarkRepository;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.IMarkRepository;
 
 @SpringBootTest
 @ActiveProfiles("dev")

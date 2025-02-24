@@ -12,13 +12,11 @@ import com.org.auto_mendes_back_end_spring_boot_java.entities.Manager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
 import com.org.auto_mendes_back_end_spring_boot_java.exceptions.NotFoundException;
-import com.org.auto_mendes_back_end_spring_boot_java.factories.interfaces.IEmployeeFactory;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IDeputyManagerRepository;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IEmployeeRepository;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IManagerRepository;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.ISalerRepository;
-import com.org.auto_mendes_back_end_spring_boot_java.services.interfaces.IEmployeeService;
-import com.org.auto_mendes_back_end_spring_boot_java.validations.interfaces.IEmployeeValidation;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.IDeputyManagerRepository;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.IEmployeeRepository;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.IManagerRepository;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.ISalerRepository;
+import com.org.auto_mendes_back_end_spring_boot_java.validations.IEmployeeValidation;
 
 import jakarta.transaction.Transactional;
 
@@ -34,8 +32,6 @@ public class EmployeeService implements IEmployeeService {
 	private IDeputyManagerRepository deputyManagerRepository;
 	@Autowired
 	private IEmployeeValidation employeeValidation;
-	@Autowired
-	private IEmployeeFactory employeeFactory;
 
 	@Transactional
 	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO request) {
@@ -43,34 +39,34 @@ public class EmployeeService implements IEmployeeService {
 		
 		switch (request.getEmployeeType().ordinal()) {
 		case 0:
-			Manager manager = employeeFactory.createEmployeeManager(request);
+			Manager manager = null;
 
 			employeeValidation.validateEmployee(manager);
 
 			employeeRepository.save(manager);
 			manager = managerRepository.save(manager);
 
-			employeeResponseDTO = employeeFactory.createEmployeeResponseDTO(manager);
+			employeeResponseDTO = null;
 			break;
 		case 1:
-			DeputyManager deputyManager = employeeFactory.createEmployeeDeputyManager(request);
+			DeputyManager deputyManager = null;
 
 			employeeValidation.validateEmployee(deputyManager);
 
 			employeeRepository.save(deputyManager);
 			deputyManager = deputyManagerRepository.save(deputyManager);
 
-			employeeResponseDTO = employeeFactory.createEmployeeResponseDTO(deputyManager);
+			employeeResponseDTO = null;
 			break;
 		case 2:
-			Saler saler = employeeFactory.createEmployeeSaler(request);
+			Saler saler = null;
 			
 			employeeValidation.validateEmployee(saler);
 
 			employeeRepository.save(saler);
 			saler = salerRepository.save(saler);
 
-			employeeResponseDTO = employeeFactory.createEmployeeResponseDTO(saler);
+			employeeResponseDTO = null;
 			break;
 		}
 
@@ -86,13 +82,13 @@ public class EmployeeService implements IEmployeeService {
 		
 		switch (employeeType.ordinal()) {
 		case 0:
-			page = managerRepository.findAll(pageable).map(employeeFactory::createEmployeeResponseDTO);
+			page = managerRepository.findAll(pageable).map(null);
 			break;
 		case 1:
-			page = deputyManagerRepository.findAll(pageable).map(employeeFactory::createEmployeeResponseDTO);
+			page = deputyManagerRepository.findAll(pageable).map(null);
 			break;
 		case 2:
-			page = salerRepository.findAll(pageable).map(employeeFactory::createEmployeeResponseDTO);
+			page = salerRepository.findAll(pageable).map(null);
 			break;
 		}
 
@@ -109,7 +105,7 @@ public class EmployeeService implements IEmployeeService {
 		
 		switch (request.getEmployeeType().ordinal()) {
 		case 0:
-			Manager manager = employeeFactory.createEmployeeManager(request);
+			Manager manager = null;
 
 			employeeValidation.validateEmployee(manager);
 			
@@ -125,10 +121,10 @@ public class EmployeeService implements IEmployeeService {
 			employeeRepository.save(managerFound);
 			manager = managerRepository.save(managerFound);
 
-			employeeResponseDTO = employeeFactory.createEmployeeResponseDTO(manager);
+			employeeResponseDTO = null;
 			break;
 		case 1:
-			DeputyManager deputyManager = employeeFactory.createEmployeeDeputyManager(request);
+			DeputyManager deputyManager = null;
 			
 			employeeValidation.validateEmployee(deputyManager);
 			
@@ -144,10 +140,10 @@ public class EmployeeService implements IEmployeeService {
 			employeeRepository.save(deputyManagerFound);
 			deputyManager = deputyManagerRepository.save(deputyManagerFound);
 
-			employeeResponseDTO = employeeFactory.createEmployeeResponseDTO(deputyManager);
+			employeeResponseDTO = null;
 			break;
 		case 2:
-			Saler saler = employeeFactory.createEmployeeSaler(request);
+			Saler saler = null;
 			
 			employeeValidation.validateEmployee(saler);
 			
@@ -164,7 +160,7 @@ public class EmployeeService implements IEmployeeService {
 			employeeRepository.save(salerFound);
 			saler = salerRepository.save(salerFound);
 
-			employeeResponseDTO = employeeFactory.createEmployeeResponseDTO(saler);
+			employeeResponseDTO = null;
 			break;
 		}
 

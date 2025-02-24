@@ -18,7 +18,7 @@ import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.EmployeeReque
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.EmployeeResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.ExceptionResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
-import com.org.auto_mendes_back_end_spring_boot_java.services.interfaces.IEmployeeService;
+import com.org.auto_mendes_back_end_spring_boot_java.services.IEmployeeService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

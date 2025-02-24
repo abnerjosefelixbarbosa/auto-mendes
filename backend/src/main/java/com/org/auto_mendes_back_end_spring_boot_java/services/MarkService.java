@@ -7,10 +7,9 @@ import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.MarkRequestDT
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.MarkResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Mark;
 import com.org.auto_mendes_back_end_spring_boot_java.exceptions.NotFoundException;
-import com.org.auto_mendes_back_end_spring_boot_java.factories.interfaces.IMarkFactory;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IMarkRepository;
-import com.org.auto_mendes_back_end_spring_boot_java.services.interfaces.IMarkService;
-import com.org.auto_mendes_back_end_spring_boot_java.validations.interfaces.IMarkValidation;
+import com.org.auto_mendes_back_end_spring_boot_java.mappers.IMarkMapper;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.IMarkRepository;
+import com.org.auto_mendes_back_end_spring_boot_java.validations.IMarkValidation;
 
 import jakarta.transaction.Transactional;
 
@@ -19,19 +18,19 @@ public class MarkService implements IMarkService {
 	@Autowired
 	private IMarkRepository markRepository;
 	@Autowired
-	private IMarkFactory markFactory;
+	private IMarkMapper markMapper;
 	@Autowired
 	private IMarkValidation markValidation;
 
 	@Transactional
 	public MarkResponseDTO registerMark(MarkRequestDTO dto) {
-		Mark mark = markFactory.creatMark(dto);
+		Mark mark = markMapper.toMark(dto);
 		
 		markValidation.validateMark(mark);
 		
 		mark = markRepository.save(mark);
 		
-		return markFactory.creatMarkResponseDTO(mark);
+		return markMapper.toMarkResponseDTO(mark);
 	} 
 	
 	public Mark findByName(String name) {
