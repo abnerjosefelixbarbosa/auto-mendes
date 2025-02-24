@@ -12,6 +12,7 @@ import com.org.auto_mendes_back_end_spring_boot_java.entities.Manager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
 import com.org.auto_mendes_back_end_spring_boot_java.exceptions.NotFoundException;
+import com.org.auto_mendes_back_end_spring_boot_java.mappers.IEmployeeMapper;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.IDeputyManagerRepository;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.IEmployeeRepository;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.IManagerRepository;
@@ -32,6 +33,8 @@ public class EmployeeService implements IEmployeeService {
 	private IDeputyManagerRepository deputyManagerRepository;
 	@Autowired
 	private IEmployeeValidation employeeValidation;
+	@Autowired
+	private IEmployeeMapper employeeMapper;
 
 	@Transactional
 	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO request) {
@@ -39,34 +42,34 @@ public class EmployeeService implements IEmployeeService {
 		
 		switch (request.getEmployeeType().ordinal()) {
 		case 0:
-			Manager manager = null;
+			Manager manager = employeeMapper.toManager(request);
 
 			employeeValidation.validateEmployee(manager);
 
 			employeeRepository.save(manager);
 			manager = managerRepository.save(manager);
 
-			employeeResponseDTO = null;
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(manager);
 			break;
 		case 1:
-			DeputyManager deputyManager = null;
+			DeputyManager deputyManager = employeeMapper.toDeputyManager(request);
 
 			employeeValidation.validateEmployee(deputyManager);
 
 			employeeRepository.save(deputyManager);
 			deputyManager = deputyManagerRepository.save(deputyManager);
 
-			employeeResponseDTO = null;
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(deputyManager);
 			break;
 		case 2:
-			Saler saler = null;
+			Saler saler = employeeMapper.toSaler(request);
 			
 			employeeValidation.validateEmployee(saler);
 
 			employeeRepository.save(saler);
 			saler = salerRepository.save(saler);
 
-			employeeResponseDTO = null;
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(saler);
 			break;
 		}
 
@@ -82,13 +85,13 @@ public class EmployeeService implements IEmployeeService {
 		
 		switch (employeeType.ordinal()) {
 		case 0:
-			page = managerRepository.findAll(pageable).map(null);
+			page = managerRepository.findAll(pageable).map(employeeMapper::toEmployeeResponseDTO);
 			break;
 		case 1:
-			page = deputyManagerRepository.findAll(pageable).map(null);
+			page = deputyManagerRepository.findAll(pageable).map(employeeMapper::toEmployeeResponseDTO);
 			break;
 		case 2:
-			page = salerRepository.findAll(pageable).map(null);
+			page = salerRepository.findAll(pageable).map(employeeMapper::toEmployeeResponseDTO);
 			break;
 		}
 
@@ -105,7 +108,7 @@ public class EmployeeService implements IEmployeeService {
 		
 		switch (request.getEmployeeType().ordinal()) {
 		case 0:
-			Manager manager = null;
+			Manager manager = employeeMapper.toManager(request);
 
 			employeeValidation.validateEmployee(manager);
 			
@@ -121,10 +124,10 @@ public class EmployeeService implements IEmployeeService {
 			employeeRepository.save(managerFound);
 			manager = managerRepository.save(managerFound);
 
-			employeeResponseDTO = null;
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(manager);
 			break;
 		case 1:
-			DeputyManager deputyManager = null;
+			DeputyManager deputyManager = employeeMapper.toDeputyManager(request);
 			
 			employeeValidation.validateEmployee(deputyManager);
 			
@@ -140,10 +143,10 @@ public class EmployeeService implements IEmployeeService {
 			employeeRepository.save(deputyManagerFound);
 			deputyManager = deputyManagerRepository.save(deputyManagerFound);
 
-			employeeResponseDTO = null;
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(deputyManager);
 			break;
 		case 2:
-			Saler saler = null;
+			Saler saler = employeeMapper.toSaler(request);
 			
 			employeeValidation.validateEmployee(saler);
 			
@@ -160,7 +163,7 @@ public class EmployeeService implements IEmployeeService {
 			employeeRepository.save(salerFound);
 			saler = salerRepository.save(salerFound);
 
-			employeeResponseDTO = null;
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(saler);
 			break;
 		}
 

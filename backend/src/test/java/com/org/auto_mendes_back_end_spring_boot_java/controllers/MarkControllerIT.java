@@ -36,7 +36,6 @@ class MarkControllerIT {
 	
 	@BeforeEach
 	void setUp() {
-		//employeeRepository.deleteAll();
 	}
 
 	@AfterEach

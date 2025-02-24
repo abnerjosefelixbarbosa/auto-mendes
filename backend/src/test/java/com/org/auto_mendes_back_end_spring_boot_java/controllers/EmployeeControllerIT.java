@@ -49,7 +49,6 @@ class EmployeeControllerIT {
 
 	@BeforeEach
 	void setUp() {
-		//employeeRepository.deleteAll();
 	}
 
 	@AfterEach
@@ -120,7 +119,7 @@ class EmployeeControllerIT {
 	void loadEmployees() {
 		List<Employee> employees = new ArrayList<Employee>();
 		
-		Saler employee1 = saler;
+		Saler employee1 = new Saler();
 		employee1.setId(UlidCreator.getUlid().toString());
 		employee1.setCpf("737.697.500-47");
 		employee1.setCommission(new BigDecimal("30.00"));
