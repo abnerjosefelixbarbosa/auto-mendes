@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.ModelRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Mark;
+import com.org.auto_mendes_back_end_spring_boot_java.entities.Model;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.IMarkRepository;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.IModelRepository;
 
@@ -44,14 +45,15 @@ class ModelControllerIT {
 	@AfterEach
 	void tearDown() {
 		modelRepository.deleteAll();
+		markRepository.deleteAll();
 	}
 	
 	@Test
 	void shouldRegisterModelAndReturnStatus201() throws Exception {
-		loadMark();
+		loadModel();
 		
 		ModelRequestDTO dto = new ModelRequestDTO();
-		dto.setName("name1");
+		dto.setName("name2");
 		dto.setMarkName("name1");
 		
 		String json = objectMapper.writeValueAsString(dto);
@@ -60,15 +62,18 @@ class ModelControllerIT {
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
 	}
 	
-	void loadMark() {
-		List<Mark> marks = new ArrayList<Mark>();
-		
+	void loadModel() {
 		Mark mark1 = new Mark();
 		mark1.setId(UlidCreator.getUlid().toString());
 		mark1.setName("name1");
 		
-		marks.add(mark1);
+		markRepository.save(mark1);
 		
-		marks.forEach((item) -> markRepository.save(item));
+		Model model1 = new Model();
+		model1.setId(UlidCreator.getUlid().toString());
+		model1.setMark(mark1);
+		model1.setName("name1");
+		
+		modelRepository.save(model1);
 	}
 }

@@ -42,8 +42,6 @@ public class Vehicle implements Serializable {
 	private String vehicleYear;
 	@Column(nullable = false)
 	private ExchangeType exchangeType;
-	@Column(nullable = false)
-	private VehicleType vehicleType;
 	@ManyToOne
 	@JoinColumn(name = "model_id", nullable = false)
 	private Model model;
