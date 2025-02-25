@@ -40,10 +40,6 @@ class EmployeeControllerIT {
 	private ObjectMapper objectMapper;
 	@Autowired
 	private IEmployeeRepository employeeRepository;
-	private EmployeeRequestDTO dto = new EmployeeRequestDTO();
-	private Saler saler = new Saler();
-	private Manager manager = new Manager();
-	private DeputyManager deputyManager = new DeputyManager();
 	private String matriculation = "";
 	private String id = "";
 
@@ -58,6 +54,7 @@ class EmployeeControllerIT {
 	
 	@Test
 	void shouldRegisterEmployeeAndReturnStatus201() throws Exception {
+		EmployeeRequestDTO dto = new EmployeeRequestDTO();
 		dto.setCommission(new BigDecimal("40.00"));
 		dto.setCpf("814.540.170-40");
 		dto.setEmail("email5@gmail.com");
@@ -101,6 +98,7 @@ class EmployeeControllerIT {
 	void shouldUpdateEmployeeByIdAndReturnStatus200() throws Exception {
 		loadEmployees();
 		
+		EmployeeRequestDTO dto = new EmployeeRequestDTO();
 		dto.setCommission(new BigDecimal("40.00"));
 		dto.setCpf("814.540.170-40");
 		dto.setEmail("email5@gmail.com");
@@ -129,7 +127,7 @@ class EmployeeControllerIT {
 		employee1.setSalary(new BigDecimal("400.00"));
 		employee1.setTelephone("(81) 91111-1111");
 		
-		Manager employee2 = manager;
+		Manager employee2 = new Manager();
 		employee2.setCpf("320.434.700-19");
 		employee2.setEmail("email2@gmail.com");
 		employee2.setId(UlidCreator.getUlid().toString());
@@ -138,7 +136,7 @@ class EmployeeControllerIT {
 		employee2.setSalary(new BigDecimal("400.00"));
 		employee2.setTelephone("(81) 92222-2222");
 		
-		DeputyManager employee3 = deputyManager;
+		DeputyManager employee3 = new DeputyManager();
 		employee3.setCpf("297.232.130-87");
 		employee3.setEmail("email3@gmail.com");
 		employee3.setId(UlidCreator.getUlid().toString());
@@ -147,7 +145,7 @@ class EmployeeControllerIT {
 		employee3.setSalary(new BigDecimal("400.00"));
 		employee3.setTelephone("(81) 93333-3333");
 		
-		Saler employee4 = saler;
+		Saler employee4 = new Saler();
 		employee4.setId(UlidCreator.getUlid().toString());
 		employee4.setCpf("460.731.410-25");
 		employee4.setCommission(new BigDecimal("30.00"));
