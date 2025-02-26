@@ -11,7 +11,9 @@ import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.VehicleReques
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.VehicleResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.services.interfaces.IVehicleService;
 
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/api/vehicles")
@@ -21,7 +23,7 @@ public class VehicleController {
 	private IVehicleService vehicleService;
 	
 	@PostMapping(value = "/register-vehicle")
-	public ResponseEntity<VehicleResponseDTO> registerVehicle(VehicleRequestDTO dto) {
+	public ResponseEntity<VehicleResponseDTO> registerVehicle(@RequestBody @Valid VehicleRequestDTO dto) {
 		VehicleResponseDTO vehicleResponseDTO = vehicleService.registerVehicle(dto);
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(vehicleResponseDTO);
