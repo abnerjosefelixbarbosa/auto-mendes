@@ -7,10 +7,9 @@ import com.github.f4b6a3.ulid.UlidCreator;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.MarkRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.MarkResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Mark;
-import com.org.auto_mendes_back_end_spring_boot_java.mappers.interfaces.IMarkMapper;
 
 @Component
-public class MarkMapper implements IMarkMapper {
+public class MarkMapper {
 	public Mark toMark(MarkRequestDTO dto) {
 		Mark mark = new Mark();
 		mark.setId(UlidCreator.getUlid().toString());

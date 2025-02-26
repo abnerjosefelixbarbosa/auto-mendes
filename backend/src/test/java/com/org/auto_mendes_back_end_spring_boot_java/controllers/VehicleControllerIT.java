@@ -2,6 +2,7 @@ package com.org.auto_mendes_back_end_spring_boot_java.controllers;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,5 +26,10 @@ class VehicleControllerIT {
 
 	@AfterEach
 	void tearDown() {
+	}
+	
+	@Test
+	void shouldRegisterVehicleAndReturnStatus201() throws Exception {
+		
 	}
 }

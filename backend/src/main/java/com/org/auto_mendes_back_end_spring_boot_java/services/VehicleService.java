@@ -21,7 +21,7 @@ public class VehicleService implements IVehicleService {
 		
 		switch (dto.getVehicleType().ordinal()) {
 		case 0:
-			Car car = vehicleMapper.toCar(dto); 
+			Car car = vehicleMapper.toCar(dto);
 			
 			vehicleResponseDTO = vehicleMapper.toVehicleResponseDTO(car);
 			break;
