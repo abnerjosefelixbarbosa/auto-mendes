@@ -9,6 +9,7 @@ import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.EmployeeResp
 import com.org.auto_mendes_back_end_spring_boot_java.entities.DeputyManager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Manager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
+import com.org.auto_mendes_back_end_spring_boot_java.mappers.interfaces.IEmployeeMapper;
 
 @Component
 public class EmployeeMapper implements IEmployeeMapper {

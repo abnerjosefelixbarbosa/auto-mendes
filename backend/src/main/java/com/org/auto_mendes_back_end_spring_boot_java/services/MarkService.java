@@ -7,9 +7,10 @@ import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.MarkRequestDT
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.MarkResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Mark;
 import com.org.auto_mendes_back_end_spring_boot_java.exceptions.NotFoundException;
-import com.org.auto_mendes_back_end_spring_boot_java.mappers.IMarkMapper;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.IMarkRepository;
-import com.org.auto_mendes_back_end_spring_boot_java.validations.IMarkValidation;
+import com.org.auto_mendes_back_end_spring_boot_java.mappers.interfaces.IMarkMapper;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IMarkRepository;
+import com.org.auto_mendes_back_end_spring_boot_java.services.interfaces.IMarkService;
+import com.org.auto_mendes_back_end_spring_boot_java.validations.interfaces.IMarkValidation;
 
 import jakarta.transaction.Transactional;
 

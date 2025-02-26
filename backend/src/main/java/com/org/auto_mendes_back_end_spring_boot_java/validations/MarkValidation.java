@@ -5,7 +5,8 @@ import org.springframework.stereotype.Component;
 
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Mark;
 import com.org.auto_mendes_back_end_spring_boot_java.exceptions.ValidationException;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.IMarkRepository;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IMarkRepository;
+import com.org.auto_mendes_back_end_spring_boot_java.validations.interfaces.IMarkValidation;
 
 @Component
 public class MarkValidation implements IMarkValidation {

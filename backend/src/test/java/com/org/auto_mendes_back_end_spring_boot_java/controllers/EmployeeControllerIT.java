@@ -7,8 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,11 +22,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.EmployeeRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.DeputyManager;
-import com.org.auto_mendes_back_end_spring_boot_java.entities.Employee;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Manager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
-import com.org.auto_mendes_back_end_spring_boot_java.repositories.IEmployeeRepository;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IEmployeeRepository;
 
 @SpringBootTest
 @ActiveProfiles("dev")
@@ -115,8 +112,6 @@ class EmployeeControllerIT {
 	}
 
 	void loadEmployees() {
-		List<Employee> employees = new ArrayList<Employee>();
-		
 		Saler employee1 = new Saler();
 		employee1.setId(UlidCreator.getUlid().toString());
 		employee1.setCpf("737.697.500-47");
@@ -155,12 +150,10 @@ class EmployeeControllerIT {
 		employee4.setSalary(new BigDecimal("400.00"));
 		employee4.setTelephone("(81) 94444-4444");
 
-		employees.add(employee1);
-		employees.add(employee2);
-		employees.add(employee3);
-		employees.add(employee4);
-
-		employees.forEach((item) -> employeeRepository.save(item));
+		employeeRepository.save(employee1);
+		employeeRepository.save(employee2);
+		employeeRepository.save(employee3);
+		employeeRepository.save(employee4);
 		
 		matriculation = employee2.getMatriculation();
 		id = employee2.getId();

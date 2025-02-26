@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.org.auto_mendes_back_end_spring_boot_java.enums.ExchangeType;
-import com.org.auto_mendes_back_end_spring_boot_java.enums.VehicleType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

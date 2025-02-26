@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.VehicleRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.VehicleResponseDTO;
-import com.org.auto_mendes_back_end_spring_boot_java.services.IVehicleService;
+import com.org.auto_mendes_back_end_spring_boot_java.services.interfaces.IVehicleService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 

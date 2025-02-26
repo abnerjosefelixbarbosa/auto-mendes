@@ -7,7 +7,9 @@ import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.VehicleReques
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.VehicleResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Car;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Motorcycle;
-import com.org.auto_mendes_back_end_spring_boot_java.mappers.IVehicleMapper;
+import com.org.auto_mendes_back_end_spring_boot_java.exceptions.ValidationException;
+import com.org.auto_mendes_back_end_spring_boot_java.mappers.interfaces.IVehicleMapper;
+import com.org.auto_mendes_back_end_spring_boot_java.services.interfaces.IVehicleService;
 
 @Service
 public class VehicleService implements IVehicleService {
@@ -21,14 +23,16 @@ public class VehicleService implements IVehicleService {
 		case 0:
 			Car car = vehicleMapper.toCar(dto); 
 			
-			
+			vehicleResponseDTO = vehicleMapper.toVehicleResponseDTO(car);
 			break;
         case 1:
         	Motorcycle motorcycle = vehicleMapper.toMotorcycle(dto); 
 			
-			break;
+        	vehicleResponseDTO = vehicleMapper.toVehicleResponseDTO(motorcycle);
+			break;	
+        default:
+			throw new ValidationException("Valor inexperado: " + dto.getVehicleType().ordinal());
 		}
-		
 		
 		return vehicleResponseDTO;
 	}	
