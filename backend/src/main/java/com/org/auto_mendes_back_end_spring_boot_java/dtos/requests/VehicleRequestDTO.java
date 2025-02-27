@@ -27,7 +27,7 @@ public class VehicleRequestDTO {
 	private BigDecimal vehicleValue;
 	@NotEmpty(message = "Ano do veiculo deve ser obrigatório")
 	@NotNull(message = "Ano do veiculo deve ser obrigatório")
-	@Pattern(message = "Ano do veiculo deve ter 4 caracteres", regexp = "^\\d{4}$\r")
+	@Pattern(message = "Ano do veiculo deve ter 4 caracteres", regexp = "^\\d{4}$")
 	private String vehicleYear;
 	@NotNull(message = "Tipo do câmbio veiculo deve ser obrigatória")
 	private ExchangeType exchangeType;
@@ -35,6 +35,6 @@ public class VehicleRequestDTO {
 	private VehicleType vehicleType;
 	@NotEmpty(message = "Nome do modelo deve ser obrigatório")
 	@NotNull(message = "Nome do modelo deve ser obrigatório")
-	@Size(message = "Placa deve ter até 30 caracteres", max = 30)
+	@Size(message = "Nome do modelo deve ter até 30 caracteres", max = 30)
 	private String modelName;
 }

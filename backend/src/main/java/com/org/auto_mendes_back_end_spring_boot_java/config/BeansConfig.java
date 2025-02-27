@@ -1,33 +1,50 @@
 package com.org.auto_mendes_back_end_spring_boot_java.config;
 
-import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.org.auto_mendes_back_end_spring_boot_java.mappers.interfaces.IEmployeeMapper;
-import com.org.auto_mendes_back_end_spring_boot_java.mappers.interfaces.IMarkMapper;
-import com.org.auto_mendes_back_end_spring_boot_java.mappers.interfaces.IModelMapper;
-import com.org.auto_mendes_back_end_spring_boot_java.mappers.interfaces.IVehicleMapper;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.ModelRequestDTO;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.VehicleRequestDTO;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.MarkResponseDTO;
+import com.org.auto_mendes_back_end_spring_boot_java.entities.Employee;
+import com.org.auto_mendes_back_end_spring_boot_java.entities.Mark;
+import com.org.auto_mendes_back_end_spring_boot_java.entities.Model;
+import com.org.auto_mendes_back_end_spring_boot_java.entities.Vehicle;
 
 @Configuration
 public class BeansConfig {
 	@Bean
-	IMarkMapper getMarkMapper() {
-		return Mappers.getMapper(IMarkMapper.class);
+	Mark createMark() {
+		return new Mark();
 	}
 	
 	@Bean
-	IModelMapper getModelMapper() {
-		return Mappers.getMapper(IModelMapper.class);
+	Model createModel() {
+		return new Model();
 	}
 	
 	@Bean
-	IEmployeeMapper getIEmployeeMapper() {
-		return Mappers.getMapper(IEmployeeMapper.class);
+	Employee createEmployee() {
+		return new Employee();
 	}
 	
 	@Bean
-	IVehicleMapper getIVehicleMapper() {
-		return Mappers.getMapper(IVehicleMapper.class);
+	Vehicle createVehicle() {
+		return new Vehicle();
+	}
+	
+	@Bean
+	VehicleRequestDTO createVehicleRequestDTO() {
+		return new VehicleRequestDTO(); 
+	}
+	
+	@Bean
+	ModelRequestDTO createModelRequestDTO() {
+		return new ModelRequestDTO();
+	}
+	
+	@Bean
+	MarkResponseDTO createMarkResponseDTO() {
+		return new MarkResponseDTO();
 	}
 }
