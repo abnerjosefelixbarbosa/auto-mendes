@@ -17,12 +17,15 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.f4b6a3.ulid.UlidCreator;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.VehicleRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Car;
+import com.org.auto_mendes_back_end_spring_boot_java.entities.Mark;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Model;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Motorcycle;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.ExchangeType;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.VehicleType;
+import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IMarkRepository;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IModelRepository;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IVehicleRepository;
 
@@ -39,13 +42,7 @@ class VehicleControllerIT {
 	@Autowired
 	private IModelRepository modelRepository;
 	@Autowired
-	private VehicleRequestDTO dto;
-	@Autowired
-	private Car car;
-	@Autowired
-	private Motorcycle motorcycle;
-	@Autowired
-	private Model model;
+	private IMarkRepository markRepository;
 	
 	@BeforeEach
 	void setUp() {
@@ -59,6 +56,7 @@ class VehicleControllerIT {
 	
 	@Test
 	void shouldRegisterVehicleAndReturnStatus201() throws Exception {
+		VehicleRequestDTO dto = new VehicleRequestDTO();
 		dto.setModelName("name1");
 		dto.setColor("cor1");
 		dto.setExchangeType(ExchangeType.Automatic);
@@ -74,28 +72,37 @@ class VehicleControllerIT {
 	
 	
 	void loadVehicles() {
-		model.setId(null);
-		model.setMark(null);
-		model.setName(null);
+		Mark mark1 = new Mark();
+		mark1.setId(UlidCreator.getUlid().toString());
+		mark1.setName("nome1");
 		
-		modelRepository.save(model);
+		markRepository.save(mark1);
 		
-		car.setColor(null);
-		car.setExchangeType(null);
-		car.setId(null);
-		car.setModel(null);
-		car.setVehicleValue(new BigDecimal("2500.00"));
-		car.setVehicleYear("2010");
+		Model model1 = new Model();
+		model1.setId(UlidCreator.getUlid().toString());
+		model1.setMark(mark1);
+		model1.setName("nome1");
 		
-		vehicleRepository.save(car);
+		modelRepository.save(model1);
 		
-		motorcycle.setColor(null);
-		motorcycle.setExchangeType(null);
-		motorcycle.setId(null);
-		motorcycle.setModel(null);
-		motorcycle.setVehicleValue(new BigDecimal("2500.00"));
-		motorcycle.setVehicleYear("2010");
+		Car car1 = new Car();
+		car1.setColor("cor1");
+		car1.setExchangeType(ExchangeType.Automatic);
+		car1.setId(UlidCreator.getUlid().toString());
+		car1.setModel(model1);
+		car1.setVehicleValue(new BigDecimal("2500.00"));
+		car1.setVehicleYear("2010");
 		
-		vehicleRepository.save(motorcycle);
+		vehicleRepository.save(car1);
+		
+		Motorcycle motorcycle1 = new Motorcycle();
+		motorcycle1.setColor("cor1");
+		motorcycle1.setExchangeType(ExchangeType.DCT);
+		motorcycle1.setId(UlidCreator.getUlid().toString());
+		motorcycle1.setModel(model1);
+		motorcycle1.setVehicleValue(new BigDecimal("2500.00"));
+		motorcycle1.setVehicleYear("2010");
+		
+		vehicleRepository.save(motorcycle1);
 	}
 }
