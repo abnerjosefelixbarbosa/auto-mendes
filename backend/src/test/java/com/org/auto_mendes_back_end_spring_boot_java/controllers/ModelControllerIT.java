@@ -34,12 +34,6 @@ class ModelControllerIT {
 	private IModelRepository modelRepository;
 	@Autowired
 	private IMarkRepository markRepository;
-	@Autowired
-	private ModelRequestDTO dto;
-	@Autowired
-	private Mark mark;
-	@Autowired
-	private Model model;
 	
 	@BeforeEach
 	void setUp() {
@@ -55,6 +49,7 @@ class ModelControllerIT {
 	void shouldRegisterModelAndReturnStatus201() throws Exception {
 		loadModel();
 		
+		ModelRequestDTO dto = new ModelRequestDTO();
 		dto.setName("name2");
 		dto.setMarkName("name1");
 		
@@ -65,15 +60,17 @@ class ModelControllerIT {
 	}
 	
 	void loadModel() {
-		mark.setId(UlidCreator.getUlid().toString());
-		mark.setName("name1");
+		Mark mark1 = new Mark();
+		mark1.setId(UlidCreator.getUlid().toString());
+		mark1.setName("name1");
 		
-		markRepository.save(mark);
+		markRepository.save(mark1);
 		
-		model.setId(UlidCreator.getUlid().toString());
-		model.setMark(mark);
-		model.setName("name1");
+		Model model1 = new Model();
+		model1.setId(UlidCreator.getUlid().toString());
+		model1.setMark(mark1);
+		model1.setName("name1");
 		
-		modelRepository.save(model);
+		modelRepository.save(model1);
 	}
 }

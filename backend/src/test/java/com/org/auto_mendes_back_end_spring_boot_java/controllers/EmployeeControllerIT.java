@@ -48,7 +48,7 @@ class EmployeeControllerIT {
 	void tearDown() {
 		employeeRepository.deleteAll();
 	}
-	
+
 	@Test
 	void shouldRegisterEmployeeAndReturnStatus201() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO();
@@ -60,7 +60,7 @@ class EmployeeControllerIT {
 		dto.setName("name5");
 		dto.setSalary(new BigDecimal("400.00"));
 		dto.setTelephone("(81) 95555-5555");
-		
+
 		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(post("/api/employees/register-employee").contentType(MediaType.APPLICATION_JSON)
@@ -82,7 +82,7 @@ class EmployeeControllerIT {
 		mockMvc.perform(get("/api/employees/list-employees-by-position").queryParam("size", "10")
 				.queryParam("employeeType", "MANAGER")).andExpect(status().isOk()).andDo(print());
 	}
-	
+
 	@Test
 	void shouldListEmployeesByMatriculationAndReturnStatus200() throws Exception {
 		loadEmployees();
@@ -90,11 +90,11 @@ class EmployeeControllerIT {
 		mockMvc.perform(get("/api/employees/list-employees-by-matriculation").queryParam("size", "10")
 				.queryParam("matriculation", matriculation)).andExpect(status().isOk()).andDo(print());
 	}
-	
+
 	@Test
 	void shouldUpdateEmployeeByIdAndReturnStatus200() throws Exception {
 		loadEmployees();
-		
+
 		EmployeeRequestDTO dto = new EmployeeRequestDTO();
 		dto.setCommission(new BigDecimal("40.00"));
 		dto.setCpf("814.540.170-40");
@@ -104,11 +104,12 @@ class EmployeeControllerIT {
 		dto.setName("name6");
 		dto.setSalary(new BigDecimal("400.00"));
 		dto.setTelephone("(81) 95555-5555");
-		
+
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/api/employees/update-employee-by-id").param("id", id).contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isOk()).andDo(print());
+		mockMvc.perform(put("/api/employees/update-employee-by-id").param("id", id)
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(json))
+				.andExpect(status().isOk()).andDo(print());
 	}
 
 	void loadEmployees() {
@@ -121,7 +122,7 @@ class EmployeeControllerIT {
 		employee1.setName("name1");
 		employee1.setSalary(new BigDecimal("400.00"));
 		employee1.setTelephone("(81) 91111-1111");
-		
+
 		Manager employee2 = new Manager();
 		employee2.setCpf("320.434.700-19");
 		employee2.setEmail("email2@gmail.com");
@@ -130,7 +131,7 @@ class EmployeeControllerIT {
 		employee2.setName("name2");
 		employee2.setSalary(new BigDecimal("400.00"));
 		employee2.setTelephone("(81) 92222-2222");
-		
+
 		DeputyManager employee3 = new DeputyManager();
 		employee3.setCpf("297.232.130-87");
 		employee3.setEmail("email3@gmail.com");
@@ -139,7 +140,7 @@ class EmployeeControllerIT {
 		employee3.setName("name3");
 		employee3.setSalary(new BigDecimal("400.00"));
 		employee3.setTelephone("(81) 93333-3333");
-		
+
 		Saler employee4 = new Saler();
 		employee4.setId(UlidCreator.getUlid().toString());
 		employee4.setCpf("460.731.410-25");
@@ -154,7 +155,7 @@ class EmployeeControllerIT {
 		employeeRepository.save(employee2);
 		employeeRepository.save(employee3);
 		employeeRepository.save(employee4);
-		
+
 		matriculation = employee2.getMatriculation();
 		id = employee2.getId();
 	}
