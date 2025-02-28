@@ -7,6 +7,7 @@ import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.ModelRequestD
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.ModelResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Mark;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Model;
+import com.org.auto_mendes_back_end_spring_boot_java.exceptions.NotFoundException;
 import com.org.auto_mendes_back_end_spring_boot_java.mappers.interfaces.IModelMapper;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IModelRepository;
 import com.org.auto_mendes_back_end_spring_boot_java.services.interfaces.IMarkService;
@@ -25,19 +26,23 @@ public class ModelService implements IModelService {
 	private IMarkService markService;
 	@Autowired
 	private IModelValidation modelValidation;
-	
+
 	@Transactional
 	public ModelResponseDTO registerModel(ModelRequestDTO dto) {
 		Model model = modelMapper.toModel(dto);
-		
+
 		modelValidation.validateModel(model);
-		
+
 		Mark mark = markService.findByName(model.getMark().getName());
-		
+
 		model.setMark(mark);
-		
+
 		model = modelRepository.save(model);
-		
+
 		return modelMapper.toModelResponseDTO(model);
-	} 
+	}
+
+	public Model findByName(String name) {
+		return modelRepository.findByName(name).orElseThrow(() -> new NotFoundException("Modelo não encontrado"));
+	}
 }

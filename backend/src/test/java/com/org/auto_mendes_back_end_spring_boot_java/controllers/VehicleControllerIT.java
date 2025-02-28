@@ -56,13 +56,16 @@ class VehicleControllerIT {
 	
 	@Test
 	void shouldRegisterVehicleAndReturnStatus201() throws Exception {
+		loadVehicles();
+		
 		VehicleRequestDTO dto = new VehicleRequestDTO();
 		dto.setModelName("name1");
 		dto.setColor("cor1");
 		dto.setExchangeType(ExchangeType.Automatic);
 		dto.setVehicleType(VehicleType.CAR);
-		dto.setVehicleValue(new BigDecimal(3000.00));
+		dto.setVehicleValue(new BigDecimal("3000.00"));
 		dto.setVehicleYear("2010");
+		dto.setModelName("nome1");
 		
 		String json = objectMapper.writeValueAsString(dto);
 
