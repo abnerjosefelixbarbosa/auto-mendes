@@ -1,6 +1,8 @@
 package com.org.auto_mendes_back_end_spring_boot_java.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.VehicleRequestDTO;
@@ -73,5 +75,9 @@ public class VehicleService implements IVehicleService {
 		}
 		
 		return vehicleResponseDTO;
+	}
+
+	public Page<VehicleResponseDTO> listVehicle(Pageable pageable) {
+		return vehicleRepository.listVehicle(pageable);
 	}	
 }

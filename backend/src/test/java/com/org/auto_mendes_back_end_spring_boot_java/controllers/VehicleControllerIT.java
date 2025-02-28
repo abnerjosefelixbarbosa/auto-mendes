@@ -1,5 +1,6 @@
 package com.org.auto_mendes_back_end_spring_boot_java.controllers;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -43,7 +44,7 @@ class VehicleControllerIT {
 	private IModelRepository modelRepository;
 	@Autowired
 	private IMarkRepository markRepository;
-	
+
 	@BeforeEach
 	void setUp() {
 	}
@@ -53,11 +54,11 @@ class VehicleControllerIT {
 		vehicleRepository.deleteAll();
 		modelRepository.deleteAll();
 	}
-	
+
 	@Test
 	void shouldRegisterVehicleAndReturnStatus201() throws Exception {
 		loadVehicles();
-		
+
 		VehicleRequestDTO dto = new VehicleRequestDTO();
 		dto.setColor("cor1");
 		dto.setExchangeType(ExchangeType.Automatic);
@@ -65,28 +66,35 @@ class VehicleControllerIT {
 		dto.setVehicleValue(new BigDecimal("3000.00"));
 		dto.setVehicleYear("2010");
 		dto.setModelName("nome1");
-		
+
 		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(post("/api/vehicles/register-vehicle").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
 	}
-	
-	
+
+	@Test
+	void shouldListVehiclesAndReturnStatus200() throws Exception {
+		loadVehicles();
+
+		mockMvc.perform(get("/api/vehicles/list-vehicles").queryParam("page", "0").queryParam("size", "10"))
+				.andExpect(status().isOk()).andDo(print());
+	}
+
 	void loadVehicles() {
 		Mark mark1 = new Mark();
 		mark1.setId(UlidCreator.getUlid().toString());
 		mark1.setName("nome1");
-		
+
 		markRepository.save(mark1);
-		
+
 		Model model1 = new Model();
 		model1.setId(UlidCreator.getUlid().toString());
 		model1.setMark(mark1);
 		model1.setName("nome1");
-		
+
 		modelRepository.save(model1);
-		
+
 		Car car1 = new Car();
 		car1.setColor("cor1");
 		car1.setExchangeType(ExchangeType.Automatic);
@@ -94,9 +102,9 @@ class VehicleControllerIT {
 		car1.setModel(model1);
 		car1.setVehicleValue(new BigDecimal("2500.00"));
 		car1.setVehicleYear("2010");
-		
+
 		vehicleRepository.save(car1);
-		
+
 		Motorcycle motorcycle1 = new Motorcycle();
 		motorcycle1.setColor("cor1");
 		motorcycle1.setExchangeType(ExchangeType.DCT);
@@ -104,7 +112,7 @@ class VehicleControllerIT {
 		motorcycle1.setModel(model1);
 		motorcycle1.setVehicleValue(new BigDecimal("2500.00"));
 		motorcycle1.setVehicleYear("2010");
-		
+
 		vehicleRepository.save(motorcycle1);
 	}
 }
