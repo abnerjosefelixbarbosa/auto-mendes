@@ -53,5 +53,6 @@ public class EmployeeRequestDTO {
     private String matriculation;
 	@Schema(description = "Comissão do funcionario")
     private BigDecimal commission;
+	@Schema(description = "Tipo do funcionario")
     private EmployeeType employeeType;
 }

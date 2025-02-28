@@ -41,6 +41,7 @@ public class VehicleMapper implements IVehicleMapper {
 
 	public VehicleResponseDTO toVehicleResponseDTO(Motorcycle motorcycle) {
 		VehicleResponseDTO dto = new VehicleResponseDTO();
+		dto.setModelName(motorcycle.getModel().getName());
 		
 		BeanUtils.copyProperties(motorcycle, dto);
 		
@@ -49,6 +50,7 @@ public class VehicleMapper implements IVehicleMapper {
 
 	public VehicleResponseDTO toVehicleResponseDTO(Car car) {
         VehicleResponseDTO dto = new VehicleResponseDTO();
+        dto.setModelName(car.getModel().getName());
 		
 		BeanUtils.copyProperties(car, dto);
 		
