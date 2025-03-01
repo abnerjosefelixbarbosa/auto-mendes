@@ -9,6 +9,7 @@ import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.VehicleRespo
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Car;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Model;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Motorcycle;
+import com.org.auto_mendes_back_end_spring_boot_java.entities.Vehicle;
 import com.org.auto_mendes_back_end_spring_boot_java.mappers.interfaces.IVehicleMapper;
 
 @Component
@@ -53,6 +54,15 @@ public class VehicleMapper implements IVehicleMapper {
         dto.setModelName(car.getModel().getName());
 		
 		BeanUtils.copyProperties(car, dto);
+		
+		return dto;
+	}
+	
+	public VehicleResponseDTO toVehicleResponseDTO(Vehicle vehicle) {
+        VehicleResponseDTO dto = new VehicleResponseDTO();
+        dto.setModelName(vehicle.getModel().getName());
+		
+		BeanUtils.copyProperties(vehicle, dto);
 		
 		return dto;
 	}

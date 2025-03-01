@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 
 @Schema(description = "DTO de resposta do veiculo")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class VehicleResponseDTO {
 	@Schema(description = "ID do veiculo")
 	private String id;

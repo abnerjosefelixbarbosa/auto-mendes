@@ -61,7 +61,7 @@ class VehicleControllerIT {
 
 		VehicleRequestDTO dto = new VehicleRequestDTO();
 		dto.setColor("cor1");
-		dto.setExchangeType(ExchangeType.Automatic);
+		dto.setExchangeType(ExchangeType.AUTOMATIC);
 		dto.setVehicleType(VehicleType.MOTORCYCLE);
 		dto.setVehicleValue(new BigDecimal("3000.00"));
 		dto.setVehicleYear("2010");
@@ -97,7 +97,7 @@ class VehicleControllerIT {
 
 		Car car1 = new Car();
 		car1.setColor("cor1");
-		car1.setExchangeType(ExchangeType.Automatic);
+		car1.setExchangeType(ExchangeType.AUTOMATIC);
 		car1.setId(UlidCreator.getUlid().toString());
 		car1.setModel(model1);
 		car1.setVehicleValue(new BigDecimal("2500.00"));
