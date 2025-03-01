@@ -10,7 +10,6 @@ import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.VehicleRespo
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Car;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Model;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Motorcycle;
-import com.org.auto_mendes_back_end_spring_boot_java.entities.Vehicle;
 import com.org.auto_mendes_back_end_spring_boot_java.exceptions.ValidationException;
 import com.org.auto_mendes_back_end_spring_boot_java.mappers.interfaces.IVehicleMapper;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.ICarRepository;
@@ -79,8 +78,6 @@ public class VehicleService implements IVehicleService {
 	}
 
 	public Page<VehicleResponseDTO> listVehicle(Pageable pageable) {
-		Page<Vehicle> page = vehicleRepository.findAll(pageable);
-		
-		return page.map(vehicleMapper::toVehicleResponseDTO);
+		return vehicleRepository.listVehicle(pageable);
 	}	
 }
