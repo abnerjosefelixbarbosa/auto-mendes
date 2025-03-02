@@ -1,5 +1,6 @@
 package com.org.auto_mendes_back_end_spring_boot_java.mappers.interfaces;
 
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.queries.ListVehiclesQueryDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.VehicleRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.VehicleResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Car;
@@ -13,4 +14,6 @@ public interface IVehicleMapper {
 	VehicleResponseDTO toVehicleResponseDTO(Motorcycle motorcycle);
 
 	VehicleResponseDTO toVehicleResponseDTO(Car car);
+	
+	VehicleResponseDTO toVehicleResponseDTO(ListVehiclesQueryDTO listVehiclesQueryDTO);
 }

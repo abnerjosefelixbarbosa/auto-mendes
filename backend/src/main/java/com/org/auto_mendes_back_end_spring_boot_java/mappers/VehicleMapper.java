@@ -4,11 +4,13 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import com.github.f4b6a3.ulid.UlidCreator;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.queries.ListVehiclesQueryDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.VehicleRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.VehicleResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Car;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Model;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Motorcycle;
+import com.org.auto_mendes_back_end_spring_boot_java.enums.ExchangeType;
 import com.org.auto_mendes_back_end_spring_boot_java.mappers.interfaces.IVehicleMapper;
 
 @Component
@@ -40,20 +42,29 @@ public class VehicleMapper implements IVehicleMapper {
 	}
 
 	public VehicleResponseDTO toVehicleResponseDTO(Motorcycle motorcycle) {
-		VehicleResponseDTO dto = new VehicleResponseDTO();
-		dto.setModelName(motorcycle.getModel().getName());
+		VehicleResponseDTO vehicleResponseDTO = new VehicleResponseDTO();
+		vehicleResponseDTO.setModelName(motorcycle.getModel().getName());
 		
-		BeanUtils.copyProperties(motorcycle, dto);
+		BeanUtils.copyProperties(motorcycle, vehicleResponseDTO);
 		
-		return dto;
+		return vehicleResponseDTO;
 	}
 
 	public VehicleResponseDTO toVehicleResponseDTO(Car car) {
-        VehicleResponseDTO dto = new VehicleResponseDTO();
-        dto.setModelName(car.getModel().getName());
+        VehicleResponseDTO vehicleResponseDTO = new VehicleResponseDTO();
+        vehicleResponseDTO.setModelName(car.getModel().getName());
 		
-		BeanUtils.copyProperties(car, dto);
+		BeanUtils.copyProperties(car, vehicleResponseDTO);
 		
-		return dto;
+		return vehicleResponseDTO;
+	}
+	
+	public VehicleResponseDTO toVehicleResponseDTO(ListVehiclesQueryDTO dto) {
+        VehicleResponseDTO vehicleResponseDTO = new VehicleResponseDTO();
+        vehicleResponseDTO.setExchangeType(ExchangeType.valueOf(dto.getExchangeType()));
+        
+		BeanUtils.copyProperties(dto, vehicleResponseDTO);
+		
+		return vehicleResponseDTO;
 	}
 }

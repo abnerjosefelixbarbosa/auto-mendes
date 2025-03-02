@@ -25,7 +25,6 @@ import com.org.auto_mendes_back_end_spring_boot_java.entities.Mark;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Model;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Motorcycle;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.ExchangeType;
-import com.org.auto_mendes_back_end_spring_boot_java.enums.VehicleType;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IMarkRepository;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IModelRepository;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IVehicleRepository;
@@ -53,23 +52,40 @@ class VehicleControllerIT {
 	void tearDown() {
 		vehicleRepository.deleteAll();
 		modelRepository.deleteAll();
+		markRepository.deleteAll();
 	}
-
+	
 	@Test
-	void shouldRegisterVehicleAndReturnStatus201() throws Exception {
+	void shouldRegisterVehicleCarAndReturnStatus201() throws Exception {
 		loadVehicles();
 
 		VehicleRequestDTO dto = new VehicleRequestDTO();
 		dto.setColor("cor1");
 		dto.setExchangeType(ExchangeType.AUTOMATIC);
-		dto.setVehicleType(VehicleType.MOTORCYCLE);
 		dto.setVehicleValue(new BigDecimal("3000.00"));
 		dto.setVehicleYear("2010");
 		dto.setModelName("nome1");
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/api/vehicles/register-vehicle").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/api/vehicles/register-vehicle-car").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
+	}
+	
+	@Test
+	void shouldRegisterVehicleMotorcycleAndReturnStatus201() throws Exception {
+		loadVehicles();
+
+		VehicleRequestDTO dto = new VehicleRequestDTO();
+		dto.setColor("cor1");
+		dto.setExchangeType(ExchangeType.AUTOMATIC);
+		dto.setVehicleValue(new BigDecimal("2500.00"));
+		dto.setVehicleYear("2012");
+		dto.setModelName("nome1");
+
+		String json = objectMapper.writeValueAsString(dto);
+
+		mockMvc.perform(post("/api/vehicles/register-vehicle-motorcycle").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
 	}
 

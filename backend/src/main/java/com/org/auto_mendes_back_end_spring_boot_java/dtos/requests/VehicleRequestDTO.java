@@ -3,7 +3,6 @@ package com.org.auto_mendes_back_end_spring_boot_java.dtos.requests;
 import java.math.BigDecimal;
 
 import com.org.auto_mendes_back_end_spring_boot_java.enums.ExchangeType;
-import com.org.auto_mendes_back_end_spring_boot_java.enums.VehicleType;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
@@ -38,9 +37,6 @@ public class VehicleRequestDTO {
 	@Schema(description = "Tipo do câmbio do veiculo")
 	@NotNull(message = "Tipo do câmbio veiculo deve ser obrigatória")
 	private ExchangeType exchangeType;
-	@Schema(description = "Tipo do veiculo")
-	@NotNull(message = "Tipo do veiculo deve ser obrigatória")
-	private VehicleType vehicleType;
 	@Schema(description = "Nome do modelo do veiculo")
 	@NotEmpty(message = "Nome do modelo deve ser obrigatório")
 	@NotNull(message = "Nome do modelo deve ser obrigatório")

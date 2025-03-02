@@ -10,7 +10,6 @@ import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.VehicleRespo
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Car;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Model;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Motorcycle;
-import com.org.auto_mendes_back_end_spring_boot_java.exceptions.ValidationException;
 import com.org.auto_mendes_back_end_spring_boot_java.mappers.interfaces.IVehicleMapper;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.ICarRepository;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IMotorcycleRepository;
@@ -18,6 +17,8 @@ import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IVe
 import com.org.auto_mendes_back_end_spring_boot_java.services.interfaces.IModelService;
 import com.org.auto_mendes_back_end_spring_boot_java.services.interfaces.IVehicleService;
 import com.org.auto_mendes_back_end_spring_boot_java.validations.interfaces.IVehicleValidation;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class VehicleService implements IVehicleService {
@@ -34,50 +35,41 @@ public class VehicleService implements IVehicleService {
 	@Autowired
 	private IMotorcycleRepository motorcycleRepository;
 	
+	@Transactional
+	public VehicleResponseDTO registerVehicleCar(VehicleRequestDTO dto) {
+		Car car = vehicleMapper.toCar(dto);
+		
+		vehicleValidation.validateCar(car);
+		
+		Model model = modelService.findByName(car.getModel().getName());
+		
+		car.setModel(model);
+		
+		vehicleRepository.save(car);
+		
+		car = carRepository.save(car);
+		
+		return vehicleMapper.toVehicleResponseDTO(car);
+	}
 	
-	public VehicleResponseDTO registerVehicle(VehicleRequestDTO dto) {
-		VehicleResponseDTO vehicleResponseDTO = null;
-		Model model = null;
+	@Transactional
+	public VehicleResponseDTO registerVehicleMotorcycle(VehicleRequestDTO dto) {
+		Motorcycle motorcycle = vehicleMapper.toMotorcycle(dto);
+    	
+    	vehicleValidation.validateMotorcycle(motorcycle);
+    	
+        Model model = modelService.findByName(motorcycle.getModel().getName());
 		
-		switch (dto.getVehicleType().ordinal()) {
-		case 0:
-			Car car = vehicleMapper.toCar(dto);
-			
-			vehicleValidation.validateCar(car);
-			
-			model = modelService.findByName(car.getModel().getName());
-			
-			car.setModel(model);
-			
-			vehicleRepository.save(car);
-			
-			car = carRepository.save(car);
-			
-			vehicleResponseDTO = vehicleMapper.toVehicleResponseDTO(car);
-			break;
-        case 1:
-        	Motorcycle motorcycle = vehicleMapper.toMotorcycle(dto);
-        	
-        	vehicleValidation.validateMotorcycle(motorcycle);
-        	
-            model = modelService.findByName(motorcycle.getModel().getName());
-			
-            motorcycle.setModel(model);
-            
-            vehicleRepository.save(motorcycle);
-            
-            motorcycle = motorcycleRepository.save(motorcycle);
-			
-        	vehicleResponseDTO = vehicleMapper.toVehicleResponseDTO(motorcycle);
-			break;	
-        default:
-			throw new ValidationException("Valor inexperado: " + dto.getVehicleType().ordinal());
-		}
+        motorcycle.setModel(model);
+        
+        vehicleRepository.save(motorcycle);
+        
+        motorcycle = motorcycleRepository.save(motorcycle);
 		
-		return vehicleResponseDTO;
+		return vehicleMapper.toVehicleResponseDTO(motorcycle);
 	}
 
 	public Page<VehicleResponseDTO> listVehicle(Pageable pageable) {
-		return vehicleRepository.listVehicle(pageable);
+		return vehicleRepository.listVehicle(pageable).map(vehicleMapper::toVehicleResponseDTO);
 	}	
 }

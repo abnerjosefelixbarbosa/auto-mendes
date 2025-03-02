@@ -8,6 +8,8 @@ import com.org.auto_mendes_back_end_spring_boot_java.enums.ExchangeType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
@@ -40,6 +42,7 @@ public class Vehicle implements Serializable {
 	@Column(nullable = false, length = 4)
 	private String vehicleYear;
 	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private ExchangeType exchangeType;
 	@ManyToOne
 	@JoinColumn(name = "model_id", nullable = false)
