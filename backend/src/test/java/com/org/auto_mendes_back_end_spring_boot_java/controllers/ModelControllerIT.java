@@ -1,6 +1,7 @@
 package com.org.auto_mendes_back_end_spring_boot_java.controllers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,6 +35,7 @@ class ModelControllerIT {
 	private IModelRepository modelRepository;
 	@Autowired
 	private IMarkRepository markRepository;
+	private String id;
 	
 	@BeforeEach
 	void setUp() {
@@ -59,6 +61,20 @@ class ModelControllerIT {
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
 	}
 	
+	@Test
+	void shouldUpdateModelByIdAndReturnStatus200() throws Exception {
+		loadModel();
+		
+		ModelRequestDTO dto = new ModelRequestDTO();
+		dto.setName("name2");
+		dto.setMarkName("name1");
+		
+		String json = objectMapper.writeValueAsString(dto);
+
+		mockMvc.perform(put("/api/models/update-model-by-id").queryParam("id", id).contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isOk()).andDo(print());
+	}
+	
 	void loadModel() {
 		Mark mark1 = new Mark();
 		mark1.setId(UlidCreator.getUlid().toString());
@@ -72,5 +88,7 @@ class ModelControllerIT {
 		model1.setName("name1");
 		
 		modelRepository.save(model1);
+		
+		id = model1.getId();
 	}
 }

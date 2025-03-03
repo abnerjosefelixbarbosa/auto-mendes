@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,8 +38,11 @@ public class MarkController {
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@PostMapping(value = "/register-mark")
 	public ResponseEntity<MarkResponseDTO> registerMark(@Valid @RequestBody MarkRequestDTO dto) {
-		MarkResponseDTO markResponseDTO = markService.registerMark(dto);
-		
-		return ResponseEntity.status(HttpStatus.CREATED).body(markResponseDTO);
+		return ResponseEntity.status(HttpStatus.CREATED).body(markService.registerMark(dto));
+	}
+	
+	@PutMapping(value = "/update-mark-by-id")
+	public ResponseEntity<MarkResponseDTO> updateMarkById(@RequestParam String id, @Valid @RequestBody MarkRequestDTO dto) {
+		return ResponseEntity.status(HttpStatus.OK).body(markService.updateMark(id, dto));
 	}
 }

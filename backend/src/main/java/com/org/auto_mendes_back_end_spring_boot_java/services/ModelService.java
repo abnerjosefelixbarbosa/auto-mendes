@@ -43,6 +43,26 @@ public class ModelService implements IModelService {
 	}
 
 	public Model findByName(String name) {
-		return modelRepository.findByName(name).orElseThrow(() -> new NotFoundException("Modelo não encontrado"));
+		return modelRepository.findByName(name)
+				.orElseThrow(() -> new NotFoundException("Nome do modelo não foi encontrado"));
+	}
+
+	@Transactional
+	public ModelResponseDTO updateModelById(String id, ModelRequestDTO dto) {
+		Model model = modelMapper.toModel(dto);
+
+		modelValidation.validateModel(model);
+
+		Mark mark = markService.findByName(model.getMark().getName());
+
+		model.setMark(mark);
+
+		Model modelFound = modelRepository.findById(id).orElseThrow(() -> new NotFoundException("ID não foi encontrado"));
+		modelFound.setMark(mark);
+		modelFound.setName(model.getName());
+
+		model = modelRepository.save(modelFound);
+
+		return modelMapper.toModelResponseDTO(model);
 	}
 }

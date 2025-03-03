@@ -1,6 +1,7 @@
 package com.org.auto_mendes_back_end_spring_boot_java.controllers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -30,7 +31,8 @@ class MarkControllerIT {
 	private ObjectMapper objectMapper;
 	@Autowired
 	private IMarkRepository markRepository;
-	
+	private String id;
+
 	@BeforeEach
 	void setUp() {
 	}
@@ -39,25 +41,40 @@ class MarkControllerIT {
 	void tearDown() {
 		markRepository.deleteAll();
 	}
-	
+
 	@Test
 	void shouldRegisterMarkAndReturnStatus201() throws Exception {
 		loadMark();
-		
+
 		MarkRequestDTO dto = new MarkRequestDTO();
 		dto.setName("name2");
-		
+
 		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(post("/api/marks/register-mark").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
 	}
-	
+
+	@Test
+	void shouldUpdateMarkAndReturnStatus200() throws Exception {
+		loadMark();
+
+		MarkRequestDTO dto = new MarkRequestDTO();
+		dto.setName("name2");
+
+		String json = objectMapper.writeValueAsString(dto);
+
+		mockMvc.perform(put("/api/marks/update-mark-by-id").queryParam("id", id).contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isOk()).andDo(print());
+	}
+
 	void loadMark() {
 		Mark mark1 = new Mark();
 		mark1.setId(UlidCreator.getUlid().toString());
 		mark1.setName("name1");
-		
+
 		markRepository.save(mark1);
+
+		id = mark1.getId();
 	}
 }

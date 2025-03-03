@@ -8,4 +8,6 @@ public interface IMarkService {
 	Mark findByName(String name);
 
 	MarkResponseDTO registerMark(MarkRequestDTO dto);
+
+	MarkResponseDTO updateMark(String id, MarkRequestDTO dto);
 }

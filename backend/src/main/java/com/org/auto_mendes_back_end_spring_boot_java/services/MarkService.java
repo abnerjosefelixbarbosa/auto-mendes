@@ -26,15 +26,29 @@ public class MarkService implements IMarkService {
 	@Transactional
 	public MarkResponseDTO registerMark(MarkRequestDTO dto) {
 		Mark mark = markMapper.toMark(dto);
-		
+
 		markValidation.validateMark(mark);
-		
+
 		mark = markRepository.save(mark);
-		
+
 		return markMapper.toMarkResponseDTO(mark);
-	} 
-	
+	}
+
 	public Mark findByName(String name) {
-		return markRepository.findByName(name).orElseThrow(() -> new NotFoundException("Marca não encontrada"));
+		return markRepository.findByName(name)
+				.orElseThrow(() -> new NotFoundException("Nome da marca não foi encontrado"));
+	}
+
+	public MarkResponseDTO updateMark(String id, MarkRequestDTO dto) {
+		Mark mark = markMapper.toMark(dto);
+
+		markValidation.validateMark(mark);
+
+		Mark markFound = markRepository.findById(id).orElseThrow(() -> new NotFoundException("ID não foi encontrado"));
+		markFound.setName(mark.getName());
+
+		mark = markRepository.save(markFound);
+
+		return markMapper.toMarkResponseDTO(mark);
 	}
 }

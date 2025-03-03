@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MarkRequestDTO {
 	@Schema(description = "Nome da marca")
-	@NotEmpty(message =  "Nome deve ser obrigatório")
-	@NotNull(message = "Nome deve ser obrigatório")
+	@NotEmpty(message =  "Nome não deve ser vazio")
+	@NotNull(message = "Nome não deve ser nulo")
 	@Size(message = "Nome deve ter 30 até caracteres", max = 30)
 	private String name;
 }

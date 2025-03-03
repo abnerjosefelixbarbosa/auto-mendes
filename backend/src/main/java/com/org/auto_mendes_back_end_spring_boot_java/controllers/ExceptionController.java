@@ -55,4 +55,15 @@ public class ExceptionController {
 		
 		return ResponseEntity.status(404).body(exceptionResponseDTO);
 	}
+	
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<ExceptionResponseDTO> handleException(NotFoundException e, HttpServletRequest request) {
+		ExceptionResponseDTO exceptionResponseDTO = new ExceptionResponseDTO();
+		exceptionResponseDTO.setLocalDateTime(LocalDateTime.now());
+		exceptionResponseDTO.setMessage(e.getMessage());
+		exceptionResponseDTO.setPath(request.getRequestURI());
+		exceptionResponseDTO.setStatus(500);
+		
+		return ResponseEntity.status(500).body(exceptionResponseDTO);
+	}
 }

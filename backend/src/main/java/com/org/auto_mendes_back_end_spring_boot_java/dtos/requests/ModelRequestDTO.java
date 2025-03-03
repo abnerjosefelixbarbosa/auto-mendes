@@ -14,13 +14,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ModelRequestDTO {
 	@Schema(description = "Nome do modelo")
-	@NotNull(message = "Nome deve ser obrigatório")
-	@NotEmpty(message = "Nome deve ser obrigatório")
+	@NotNull(message = "Nome não deve ser nulo")
+	@NotEmpty(message = "Nome não deve ser vazio")
 	@Size(message = "Nome deve ter até 30 caracteres", max = 30)
 	private String name;
 	@Schema(description = "Nome da marca")
-	@NotNull(message = "Nome da marca deve ser obrigatório")
-	@NotEmpty(message = "Nome da marca deve ser obrigatório")
+	@NotNull(message = "Nome da marca não deve ser nulo")
+	@NotEmpty(message = "Nome da marca não deve ser vazio")
 	@Size(message = "Nome da marca deve ter até 30 caracteres", max = 30)
 	private String markName;
 }
