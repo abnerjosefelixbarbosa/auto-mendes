@@ -47,7 +47,7 @@ class MarkControllerIT {
 		loadMark();
 
 		MarkRequestDTO dto = new MarkRequestDTO();
-		dto.setName("name2");
+		dto.setName("name3");
 
 		String json = objectMapper.writeValueAsString(dto);
 
