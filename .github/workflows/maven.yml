@@ -10,9 +10,9 @@ name: Maven
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "development" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "development" ]
 
 jobs:
   build:
@@ -29,6 +29,7 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn package
+      working-directory: backend
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
