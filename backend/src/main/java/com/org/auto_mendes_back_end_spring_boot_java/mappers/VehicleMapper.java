@@ -11,6 +11,7 @@ import com.org.auto_mendes_back_end_spring_boot_java.entities.Car;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Model;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Motorcycle;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.ExchangeType;
+import com.org.auto_mendes_back_end_spring_boot_java.enums.VehicleType;
 import com.org.auto_mendes_back_end_spring_boot_java.mappers.interfaces.IVehicleMapper;
 
 @Component
@@ -62,6 +63,7 @@ public class VehicleMapper implements IVehicleMapper {
 	public VehicleResponseDTO toVehicleResponseDTO(ListVehiclesQueryDTO dto) {
         VehicleResponseDTO vehicleResponseDTO = new VehicleResponseDTO();
         vehicleResponseDTO.setExchangeType(ExchangeType.valueOf(dto.getExchangeType()));
+        vehicleResponseDTO.setVehicleType(VehicleType.valueOf(dto.getVehicleType()));
         
 		BeanUtils.copyProperties(dto, vehicleResponseDTO);
 		

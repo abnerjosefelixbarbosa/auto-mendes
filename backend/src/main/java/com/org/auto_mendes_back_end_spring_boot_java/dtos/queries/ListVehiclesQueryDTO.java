@@ -16,5 +16,6 @@ public class ListVehiclesQueryDTO {
 	private BigDecimal vehicleValue;
 	private String vehicleYear;
 	private String exchangeType;
+	private String vehicleType;
 	private String modelName;
 }

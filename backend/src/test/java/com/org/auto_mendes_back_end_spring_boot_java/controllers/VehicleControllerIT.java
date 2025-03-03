@@ -25,6 +25,7 @@ import com.org.auto_mendes_back_end_spring_boot_java.entities.Mark;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Model;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Motorcycle;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.ExchangeType;
+import com.org.auto_mendes_back_end_spring_boot_java.enums.VehicleType;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IMarkRepository;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IModelRepository;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IVehicleRepository;
@@ -65,6 +66,7 @@ class VehicleControllerIT {
 		dto.setVehicleValue(new BigDecimal("3000.00"));
 		dto.setVehicleYear("2010");
 		dto.setModelName("nome1");
+		dto.setVehicleType(VehicleType.CAR);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -82,6 +84,7 @@ class VehicleControllerIT {
 		dto.setVehicleValue(new BigDecimal("2500.00"));
 		dto.setVehicleYear("2012");
 		dto.setModelName("nome1");
+		dto.setVehicleType(VehicleType.MOTORCYCLE);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -118,6 +121,7 @@ class VehicleControllerIT {
 		car1.setModel(model1);
 		car1.setVehicleValue(new BigDecimal("2500.00"));
 		car1.setVehicleYear("2010");
+		car1.setVehicleType(VehicleType.CAR);
 
 		vehicleRepository.save(car1);
 
@@ -128,6 +132,7 @@ class VehicleControllerIT {
 		motorcycle1.setModel(model1);
 		motorcycle1.setVehicleValue(new BigDecimal("2500.00"));
 		motorcycle1.setVehicleYear("2010");
+		motorcycle1.setVehicleType(VehicleType.MOTORCYCLE);
 
 		vehicleRepository.save(motorcycle1);
 	}

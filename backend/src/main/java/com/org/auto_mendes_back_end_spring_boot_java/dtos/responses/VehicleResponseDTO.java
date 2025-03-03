@@ -3,6 +3,7 @@ package com.org.auto_mendes_back_end_spring_boot_java.dtos.responses;
 import java.math.BigDecimal;
 
 import com.org.auto_mendes_back_end_spring_boot_java.enums.ExchangeType;
+import com.org.auto_mendes_back_end_spring_boot_java.enums.VehicleType;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -28,4 +29,5 @@ public class VehicleResponseDTO {
 	private ExchangeType exchangeType;
 	@Schema(description = "Nome do modelo do veiculo")
 	private String modelName;
+	private VehicleType vehicleType;
 }

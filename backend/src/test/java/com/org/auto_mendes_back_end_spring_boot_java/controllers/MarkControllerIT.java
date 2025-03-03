@@ -47,7 +47,7 @@ class MarkControllerIT {
 		loadMark();
 
 		MarkRequestDTO dto = new MarkRequestDTO();
-		dto.setName("name3");
+		dto.setName("name2");
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -56,7 +56,7 @@ class MarkControllerIT {
 	}
 
 	@Test
-	void shouldUpdateMarkAndReturnStatus200() throws Exception {
+	void shouldUpdateMarkByIdAndReturnStatus200() throws Exception {
 		loadMark();
 
 		MarkRequestDTO dto = new MarkRequestDTO();
