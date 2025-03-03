@@ -5,19 +5,23 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
-import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeResponseDTO;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.EmployeeRequestDTO;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.responses.EmployeeResponseDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.DeputyManager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Manager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
 import com.org.auto_mendes_back_end_spring_boot_java.exceptions.NotFoundException;
+import com.org.auto_mendes_back_end_spring_boot_java.exceptions.ValidationException;
+import com.org.auto_mendes_back_end_spring_boot_java.mappers.interfaces.IEmployeeMapper;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IDeputyManagerRepository;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IEmployeeRepository;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.IManagerRepository;
 import com.org.auto_mendes_back_end_spring_boot_java.repositories.interfaces.ISalerRepository;
 import com.org.auto_mendes_back_end_spring_boot_java.services.interfaces.IEmployeeService;
 import com.org.auto_mendes_back_end_spring_boot_java.validations.interfaces.IEmployeeValidation;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class EmployeeService implements IEmployeeService {
@@ -31,44 +35,46 @@ public class EmployeeService implements IEmployeeService {
 	private IDeputyManagerRepository deputyManagerRepository;
 	@Autowired
 	private IEmployeeValidation employeeValidation;
+	@Autowired
+	private IEmployeeMapper employeeMapper;
 
-	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO request) {
+	@Transactional
+	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO dto) {
 		EmployeeResponseDTO employeeResponseDTO = null;
-
-		switch (request.getEmployeeType().ordinal()) {
+		
+		switch (dto.getEmployeeType().ordinal()) {
 		case 0:
-			Manager manager = new Manager(request);
+			Manager manager = employeeMapper.toManager(dto);
 
 			employeeValidation.validateEmployee(manager);
 
 			employeeRepository.save(manager);
-			Manager managerSaved = managerRepository.save(manager);
+			manager = managerRepository.save(manager);
 
-			employeeResponseDTO = new EmployeeResponseDTO(managerSaved);
-			
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(manager);
 			break;
 		case 1:
-			DeputyManager deputyManager = new DeputyManager(request);
+			DeputyManager deputyManager = employeeMapper.toDeputyManager(dto);
 
 			employeeValidation.validateEmployee(deputyManager);
 
 			employeeRepository.save(deputyManager);
-			DeputyManager deputyManagerSaved = deputyManagerRepository.save(deputyManager);
+			deputyManager = deputyManagerRepository.save(deputyManager);
 
-			employeeResponseDTO = new EmployeeResponseDTO(deputyManagerSaved);
-			
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(deputyManager);
 			break;
 		case 2:
-			Saler saler = new Saler(request);
+			Saler saler = employeeMapper.toSaler(dto);
 			
 			employeeValidation.validateEmployee(saler);
 
 			employeeRepository.save(saler);
-			Saler salerSaved = salerRepository.save(saler);
+			saler = salerRepository.save(saler);
 
-			employeeResponseDTO = new EmployeeResponseDTO(salerSaved);
-			
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(saler);
 			break;
+		default:
+			throw new ValidationException("Valor inexperado: " + dto.getEmployeeType().ordinal());
 		}
 
 		return employeeResponseDTO;
@@ -80,19 +86,16 @@ public class EmployeeService implements IEmployeeService {
 
 	public Page<EmployeeResponseDTO> listEmployeesByPosition(Pageable pageable, EmployeeType employeeType) {
 		Page<EmployeeResponseDTO> page = null;
-
+		
 		switch (employeeType.ordinal()) {
 		case 0:
-			page = managerRepository.findAll(pageable).map(EmployeeResponseDTO::new);
-			
+			page = managerRepository.findAll(pageable).map(employeeMapper::toEmployeeResponseDTO);
 			break;
 		case 1:
-			page = deputyManagerRepository.findAll(pageable).map(EmployeeResponseDTO::new);
-			
+			page = deputyManagerRepository.findAll(pageable).map(employeeMapper::toEmployeeResponseDTO);
 			break;
 		case 2:
-			page = salerRepository.findAll(pageable).map(EmployeeResponseDTO::new);
-			
+			page = salerRepository.findAll(pageable).map(employeeMapper::toEmployeeResponseDTO);
 			break;
 		}
 
@@ -103,12 +106,13 @@ public class EmployeeService implements IEmployeeService {
 		return employeeRepository.listEmployeesByMatriculation(pageable, matriculation);
 	}
 
-	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO request) {
+	@Transactional
+	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO dto) {
 		EmployeeResponseDTO employeeResponseDTO = null;
-
-		switch (request.getEmployeeType().ordinal()) {
+		
+		switch (dto.getEmployeeType().ordinal()) {
 		case 0:
-			Manager manager = new Manager(request);
+			Manager manager = employeeMapper.toManager(dto);
 
 			employeeValidation.validateEmployee(manager);
 			
@@ -122,13 +126,12 @@ public class EmployeeService implements IEmployeeService {
 			managerFound.setTelephone(manager.getTelephone());
 
 			employeeRepository.save(managerFound);
-			Manager managerSaved = managerRepository.save(managerFound);
+			manager = managerRepository.save(managerFound);
 
-			employeeResponseDTO = new EmployeeResponseDTO(managerSaved);
-			
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(manager);
 			break;
 		case 1:
-			DeputyManager deputyManager = new DeputyManager(request);
+			DeputyManager deputyManager = employeeMapper.toDeputyManager(dto);
 			
 			employeeValidation.validateEmployee(deputyManager);
 			
@@ -142,13 +145,12 @@ public class EmployeeService implements IEmployeeService {
 			deputyManagerFound.setTelephone(deputyManager.getTelephone());
 
 			employeeRepository.save(deputyManagerFound);
-			DeputyManager deputyManagerSaved = deputyManagerRepository.save(deputyManagerFound);
+			deputyManager = deputyManagerRepository.save(deputyManagerFound);
 
-			employeeResponseDTO = new EmployeeResponseDTO(deputyManagerSaved);
-			
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(deputyManager);
 			break;
 		case 2:
-			Saler saler = new Saler(request);
+			Saler saler = employeeMapper.toSaler(dto);
 			
 			employeeValidation.validateEmployee(saler);
 			
@@ -163,11 +165,12 @@ public class EmployeeService implements IEmployeeService {
 			salerFound.setCommission(saler.getCommission());
 
 			employeeRepository.save(salerFound);
-			Saler salerSaved = salerRepository.save(salerFound);
+			saler = salerRepository.save(salerFound);
 
-			employeeResponseDTO = new EmployeeResponseDTO(salerSaved);
-			
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(saler);
 			break;
+		default:
+			throw new ValidationException("Valor inexperado: " + dto.getEmployeeType().ordinal());
 		}
 
 		return employeeResponseDTO;

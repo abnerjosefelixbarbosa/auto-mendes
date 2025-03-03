@@ -14,8 +14,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "employees")
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

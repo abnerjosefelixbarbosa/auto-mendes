@@ -1,4 +1,4 @@
-package com.org.auto_mendes_back_end_spring_boot_java.dtos;
+package com.org.auto_mendes_back_end_spring_boot_java.dtos.requests;
 
 import java.math.BigDecimal;
 
@@ -18,8 +18,8 @@ import lombok.NoArgsConstructor;
 
 @Schema(description = "DTO de requisição do funcionário")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class EmployeeRequestDTO {
 	@Schema(description = "Nome do funcionario")
 	@NotNull(message = "Nome deve ser obrigatório")
@@ -53,5 +53,6 @@ public class EmployeeRequestDTO {
     private String matriculation;
 	@Schema(description = "Comissão do funcionario")
     private BigDecimal commission;
+	@Schema(description = "Tipo do funcionario")
     private EmployeeType employeeType;
 }

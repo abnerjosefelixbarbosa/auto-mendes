@@ -7,8 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,9 +20,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.f4b6a3.ulid.UlidCreator;
-import com.org.auto_mendes_back_end_spring_boot_java.dtos.EmployeeRequestDTO;
+import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.EmployeeRequestDTO;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.DeputyManager;
-import com.org.auto_mendes_back_end_spring_boot_java.entities.Employee;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Manager;
 import com.org.auto_mendes_back_end_spring_boot_java.entities.Saler;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
@@ -40,30 +37,21 @@ class EmployeeControllerIT {
 	private ObjectMapper objectMapper;
 	@Autowired
 	private IEmployeeRepository employeeRepository;
-	@Autowired
-	private EmployeeRequestDTO dto;
-	@Autowired
-	private Saler saler;
-	@Autowired
-	private Manager manager;
-	@Autowired
-	private DeputyManager deputyManager;
-	
 	private String matriculation = "";
 	private String id = "";
 
 	@BeforeEach
 	void setUp() {
-		//employeeRepository.deleteAll();
 	}
 
 	@AfterEach
 	void tearDown() {
 		employeeRepository.deleteAll();
 	}
-	
+
 	@Test
 	void shouldRegisterEmployeeAndReturnStatus201() throws Exception {
+		EmployeeRequestDTO dto = new EmployeeRequestDTO();
 		dto.setCommission(new BigDecimal("40.00"));
 		dto.setCpf("814.540.170-40");
 		dto.setEmail("email5@gmail.com");
@@ -72,7 +60,7 @@ class EmployeeControllerIT {
 		dto.setName("name5");
 		dto.setSalary(new BigDecimal("400.00"));
 		dto.setTelephone("(81) 95555-5555");
-		
+
 		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(post("/api/employees/register-employee").contentType(MediaType.APPLICATION_JSON)
@@ -94,7 +82,7 @@ class EmployeeControllerIT {
 		mockMvc.perform(get("/api/employees/list-employees-by-position").queryParam("size", "10")
 				.queryParam("employeeType", "MANAGER")).andExpect(status().isOk()).andDo(print());
 	}
-	
+
 	@Test
 	void shouldListEmployeesByMatriculationAndReturnStatus200() throws Exception {
 		loadEmployees();
@@ -102,11 +90,12 @@ class EmployeeControllerIT {
 		mockMvc.perform(get("/api/employees/list-employees-by-matriculation").queryParam("size", "10")
 				.queryParam("matriculation", matriculation)).andExpect(status().isOk()).andDo(print());
 	}
-	
+
 	@Test
 	void shouldUpdateEmployeeByIdAndReturnStatus200() throws Exception {
 		loadEmployees();
-		
+
+		EmployeeRequestDTO dto = new EmployeeRequestDTO();
 		dto.setCommission(new BigDecimal("40.00"));
 		dto.setCpf("814.540.170-40");
 		dto.setEmail("email5@gmail.com");
@@ -115,17 +104,16 @@ class EmployeeControllerIT {
 		dto.setName("name6");
 		dto.setSalary(new BigDecimal("400.00"));
 		dto.setTelephone("(81) 95555-5555");
-		
+
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/api/employees/update-employee-by-id").param("id", id).contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isOk()).andDo(print());
+		mockMvc.perform(put("/api/employees/update-employee-by-id").param("id", id)
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(json))
+				.andExpect(status().isOk()).andDo(print());
 	}
 
 	void loadEmployees() {
-		List<Employee> employees = new ArrayList<Employee>();
-		
-		Saler employee1 = saler;
+		Saler employee1 = new Saler();
 		employee1.setId(UlidCreator.getUlid().toString());
 		employee1.setCpf("737.697.500-47");
 		employee1.setCommission(new BigDecimal("30.00"));
@@ -134,8 +122,8 @@ class EmployeeControllerIT {
 		employee1.setName("name1");
 		employee1.setSalary(new BigDecimal("400.00"));
 		employee1.setTelephone("(81) 91111-1111");
-		
-		Manager employee2 = manager;
+
+		Manager employee2 = new Manager();
 		employee2.setCpf("320.434.700-19");
 		employee2.setEmail("email2@gmail.com");
 		employee2.setId(UlidCreator.getUlid().toString());
@@ -143,8 +131,8 @@ class EmployeeControllerIT {
 		employee2.setName("name2");
 		employee2.setSalary(new BigDecimal("400.00"));
 		employee2.setTelephone("(81) 92222-2222");
-		
-		DeputyManager employee3 = deputyManager;
+
+		DeputyManager employee3 = new DeputyManager();
 		employee3.setCpf("297.232.130-87");
 		employee3.setEmail("email3@gmail.com");
 		employee3.setId(UlidCreator.getUlid().toString());
@@ -152,8 +140,8 @@ class EmployeeControllerIT {
 		employee3.setName("name3");
 		employee3.setSalary(new BigDecimal("400.00"));
 		employee3.setTelephone("(81) 93333-3333");
-		
-		Saler employee4 = saler;
+
+		Saler employee4 = new Saler();
 		employee4.setId(UlidCreator.getUlid().toString());
 		employee4.setCpf("460.731.410-25");
 		employee4.setCommission(new BigDecimal("30.00"));
@@ -163,13 +151,11 @@ class EmployeeControllerIT {
 		employee4.setSalary(new BigDecimal("400.00"));
 		employee4.setTelephone("(81) 94444-4444");
 
-		employees.add(employee1);
-		employees.add(employee2);
-		employees.add(employee3);
-		employees.add(employee4);
+		employeeRepository.save(employee1);
+		employeeRepository.save(employee2);
+		employeeRepository.save(employee3);
+		employeeRepository.save(employee4);
 
-		employees.forEach((item) -> employeeRepository.save(item));
-		
 		matriculation = employee2.getMatriculation();
 		id = employee2.getId();
 	}

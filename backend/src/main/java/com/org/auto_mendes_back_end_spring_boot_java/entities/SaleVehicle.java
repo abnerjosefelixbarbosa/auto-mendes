@@ -13,8 +13,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "sales_vehicles")
 public class SaleVehicle implements Serializable {

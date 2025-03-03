@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 
 @Embeddable
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class SaleVehicleId implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
