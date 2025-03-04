@@ -9,5 +9,5 @@ public interface IMarkService {
 
 	MarkResponseDTO registerMark(MarkRequestDTO dto);
 
-	MarkResponseDTO updateMark(String id, MarkRequestDTO dto);
+	MarkResponseDTO updateMarkById(String id, MarkRequestDTO dto);
 }

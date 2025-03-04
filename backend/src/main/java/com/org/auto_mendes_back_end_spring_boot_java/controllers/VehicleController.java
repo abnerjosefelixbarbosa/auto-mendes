@@ -7,8 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.org.auto_mendes_back_end_spring_boot_java.dtos.requests.VehicleRequestDTO;
@@ -30,9 +32,19 @@ public class VehicleController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(vehicleService.registerVehicleCar(dto));
 	}
 	
+	@PutMapping(value = "/update-vehicle-car-by-id")
+	public ResponseEntity<VehicleResponseDTO> updateVehicleCarById(@RequestParam String id, @RequestBody @Valid VehicleRequestDTO dto) {
+		return ResponseEntity.status(HttpStatus.OK).body(vehicleService.updateVehicleCarById(id, dto));
+	}
+	
 	@PostMapping(value = "/register-vehicle-motorcycle")
 	public ResponseEntity<VehicleResponseDTO> registerVehicleMotorcycle(@RequestBody @Valid VehicleRequestDTO dto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(vehicleService.registerVehicleMotorcycle(dto));
+	}
+	
+	@PutMapping(value = "/update-vehicle-motorcycle-by-id")
+	public ResponseEntity<VehicleResponseDTO> updateVehicleMotorcycleById(@RequestParam String id, @RequestBody @Valid VehicleRequestDTO dto) {
+		return ResponseEntity.status(HttpStatus.OK).body(vehicleService.updateVehicleMotorById(id, dto));
 	}
 
 	@GetMapping(value = "/list-vehicles")

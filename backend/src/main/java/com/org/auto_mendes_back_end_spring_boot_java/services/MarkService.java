@@ -39,7 +39,7 @@ public class MarkService implements IMarkService {
 				.orElseThrow(() -> new NotFoundException("Nome da marca não foi encontrado"));
 	}
 
-	public MarkResponseDTO updateMark(String id, MarkRequestDTO dto) {
+	public MarkResponseDTO updateMarkById(String id, MarkRequestDTO dto) {
 		Mark mark = markMapper.toMark(dto);
 
 		markValidation.validateMark(mark);

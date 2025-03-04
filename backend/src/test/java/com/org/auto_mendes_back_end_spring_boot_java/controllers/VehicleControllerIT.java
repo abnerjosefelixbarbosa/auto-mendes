@@ -2,6 +2,7 @@ package com.org.auto_mendes_back_end_spring_boot_java.controllers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -44,6 +45,8 @@ class VehicleControllerIT {
 	private IModelRepository modelRepository;
 	@Autowired
 	private IMarkRepository markRepository;
+	private String carId;
+	private String motorcycleId;
 
 	@BeforeEach
 	void setUp() {
@@ -72,6 +75,24 @@ class VehicleControllerIT {
 
 		mockMvc.perform(post("/api/vehicles/register-vehicle-car").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
+	}
+	
+	@Test
+	void shouldUpdateVehicleCarByIdAndReturnStatus200() throws Exception {
+		loadVehicles();
+
+		VehicleRequestDTO dto = new VehicleRequestDTO();
+		dto.setColor("cor1");
+		dto.setExchangeType(ExchangeType.AUTOMATIC);
+		dto.setVehicleValue(new BigDecimal("3000.00"));
+		dto.setVehicleYear("2010");
+		dto.setModelName("nome1");
+		dto.setVehicleType(VehicleType.CAR);
+
+		String json = objectMapper.writeValueAsString(dto);
+
+		mockMvc.perform(put("/api/vehicles/update-vehicle-car-by-id").queryParam("id", carId).contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isOk()).andDo(print());
 	}
 	
 	@Test
@@ -135,5 +156,8 @@ class VehicleControllerIT {
 		motorcycle1.setVehicleType(VehicleType.MOTORCYCLE);
 
 		vehicleRepository.save(motorcycle1);
+		
+		carId = car1.getId();
+		motorcycleId = motorcycle1.getId();
 	}
 }

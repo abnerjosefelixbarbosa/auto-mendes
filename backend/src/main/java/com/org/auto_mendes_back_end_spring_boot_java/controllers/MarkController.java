@@ -43,6 +43,6 @@ public class MarkController {
 	
 	@PutMapping(value = "/update-mark-by-id")
 	public ResponseEntity<MarkResponseDTO> updateMarkById(@RequestParam String id, @Valid @RequestBody MarkRequestDTO dto) {
-		return ResponseEntity.status(HttpStatus.OK).body(markService.updateMark(id, dto));
+		return ResponseEntity.status(HttpStatus.OK).body(markService.updateMarkById(id, dto));
 	}
 }

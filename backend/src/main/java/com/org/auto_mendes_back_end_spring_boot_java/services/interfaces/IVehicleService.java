@@ -12,4 +12,8 @@ public interface IVehicleService {
 	VehicleResponseDTO registerVehicleMotorcycle(VehicleRequestDTO dto);
 
 	Page<VehicleResponseDTO> listVehicle(Pageable pageable);
+
+	VehicleResponseDTO updateVehicleCarById(String id, VehicleRequestDTO dto);
+
+	VehicleResponseDTO updateVehicleMotorById(String id, VehicleRequestDTO dto);
 }

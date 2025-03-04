@@ -55,8 +55,6 @@ public class ModelService implements IModelService {
 
 		Mark mark = markService.findByName(model.getMark().getName());
 
-		model.setMark(mark);
-
 		Model modelFound = modelRepository.findById(id).orElseThrow(() -> new NotFoundException("ID não foi encontrado"));
 		modelFound.setMark(mark);
 		modelFound.setName(model.getName());
