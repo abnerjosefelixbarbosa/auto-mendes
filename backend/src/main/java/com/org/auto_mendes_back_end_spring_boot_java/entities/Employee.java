@@ -3,8 +3,12 @@ package com.org.auto_mendes_back_end_spring_boot_java.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.org.auto_mendes_back_end_spring_boot_java.enums.EmployeeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
@@ -36,4 +40,7 @@ public class Employee implements Serializable {
 	private BigDecimal salary;
 	@Column(nullable = false, unique = true, length = 10)
 	private String matriculation;
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	private EmployeeType employeeType;
 }

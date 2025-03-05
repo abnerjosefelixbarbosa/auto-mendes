@@ -7,6 +7,7 @@ import java.util.List;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.ExchangeType;
 import com.org.auto_mendes_back_end_spring_boot_java.enums.VehicleType;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -50,6 +51,6 @@ public class Vehicle implements Serializable {
 	private Model model;
 	@Enumerated(EnumType.STRING)
 	private VehicleType vehicleType;
-	@OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	private List<SaleVehicle> saleVehicles;
 }

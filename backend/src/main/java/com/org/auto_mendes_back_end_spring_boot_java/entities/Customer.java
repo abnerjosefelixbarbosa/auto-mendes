@@ -3,8 +3,13 @@ package com.org.auto_mendes_back_end_spring_boot_java.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import com.org.auto_mendes_back_end_spring_boot_java.enums.CustomerType;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
@@ -30,6 +35,9 @@ public class Customer implements Serializable {
 	private String name;
 	@Column(nullable = false, unique = true)
 	private String telephone;
-	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	private CustomerType customerType;
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	private List<Sale> sales;
 }
