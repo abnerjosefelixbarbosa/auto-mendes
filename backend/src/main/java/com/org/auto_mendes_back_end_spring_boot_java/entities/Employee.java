@@ -28,7 +28,7 @@ public class Employee implements Serializable {
 
 	@Id
 	private String id;
-	@Column(nullable = false, unique = true, length = 100)
+	@Column(nullable = false, length = 100)
 	private String name;
 	@Column(nullable = false, unique = true, length = 14)
 	private String cpf;
