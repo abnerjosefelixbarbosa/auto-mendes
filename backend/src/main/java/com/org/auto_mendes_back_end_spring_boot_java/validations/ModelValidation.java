@@ -17,6 +17,6 @@ public class ModelValidation implements IModelValidation {
 		boolean isExistsModel = modelRepository.existsByName(model.getName());
 		
 		if (isExistsModel)
-			throw new ValidationException("Nome não deve existir");
+			throw new ValidationException("Nome já existe");
 	}
 }

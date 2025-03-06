@@ -44,7 +44,7 @@ public class ModelService implements IModelService {
 
 	public Model findByName(String name) {
 		return modelRepository.findByName(name)
-				.orElseThrow(() -> new NotFoundException("Nome do modelo não foi encontrado"));
+				.orElseThrow(() -> new NotFoundException("Nome do modelo não encontrado"));
 	}
 
 	@Transactional
