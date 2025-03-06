@@ -3,7 +3,6 @@ package com.org.auto_mendes_back_end_spring_boot_java.entities;
 import java.io.Serializable;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -26,6 +25,6 @@ public class Mark implements Serializable {
 	private String id;
 	@Column(nullable = false, unique = true, length = 30)
 	private String name;
-	@OneToMany(mappedBy = "mark", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "mark", fetch = FetchType.LAZY)
 	private List<Model> models;
 }

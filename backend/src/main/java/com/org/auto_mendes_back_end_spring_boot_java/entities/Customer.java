@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.org.auto_mendes_back_end_spring_boot_java.enums.CustomerType;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -38,6 +37,6 @@ public class Customer implements Serializable {
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private CustomerType customerType;
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	private List<Sale> sales;
 }

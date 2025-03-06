@@ -8,7 +8,6 @@ import java.util.List;
 
 import com.org.auto_mendes_back_end_spring_boot_java.enums.PaymentType;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -46,6 +45,6 @@ public class Sale implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "saler_id", nullable = false)
 	private Saler saler;
-	@OneToMany(mappedBy = "sale", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "sale", fetch = FetchType.LAZY)
 	private List<SaleVehicle> saleVehicles;
 }

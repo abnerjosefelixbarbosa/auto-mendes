@@ -3,7 +3,6 @@ package com.org.auto_mendes_back_end_spring_boot_java.entities;
 import java.math.BigDecimal;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -25,6 +24,6 @@ public class Saler extends Employee {
 
 	@Column(scale = 2)
 	private BigDecimal commission;
-	@OneToMany(mappedBy = "saler", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "saler", fetch = FetchType.LAZY)
 	private List<Sale> sales;
 }
