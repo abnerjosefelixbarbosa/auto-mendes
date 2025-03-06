@@ -16,8 +16,7 @@ public class MarkValidation implements IMarkValidation {
 	public void validateMark(Mark mark) {
 		boolean isExistsMark = markRepository.existsByName(mark.getName());
 		
-		if (isExistsMark) {
-			throw new ValidationException("Nome não deve existir");
-		}
+		if (isExistsMark)
+			throw new ValidationException("Nome já existe");
 	}
 }

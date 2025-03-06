@@ -36,7 +36,7 @@ public class MarkService implements IMarkService {
 
 	public Mark findByName(String name) {
 		return markRepository.findByName(name)
-				.orElseThrow(() -> new NotFoundException("Nome da marca não foi encontrado"));
+				.orElseThrow(() -> new NotFoundException("Nome da marca não encontrado"));
 	}
 
 	public MarkResponseDTO updateMarkById(String id, MarkRequestDTO dto) {
@@ -44,7 +44,7 @@ public class MarkService implements IMarkService {
 
 		markValidation.validateMark(mark);
 
-		Mark markFound = markRepository.findById(id).orElseThrow(() -> new NotFoundException("ID não foi encontrado"));
+		Mark markFound = markRepository.findById(id).orElseThrow(() -> new NotFoundException("Id não encontrado"));
 		markFound.setName(mark.getName());
 
 		mark = markRepository.save(markFound);
