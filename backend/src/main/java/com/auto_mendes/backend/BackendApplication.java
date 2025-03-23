@@ -1,13 +1,13 @@
-package com.org.auto_mendes_back_end_spring_boot_java;
+package com.auto_mendes.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AutoMendesBackEndSpringBootJavaApplication {
+public class BackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AutoMendesBackEndSpringBootJavaApplication.class, args);
+		SpringApplication.run(BackendApplication.class, args);
 	}
 
 }
