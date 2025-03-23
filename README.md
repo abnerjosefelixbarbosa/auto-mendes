@@ -128,11 +128,13 @@ classDiagram
 
 ## Funcionários 
 
-- Gerente deve registrar funcionário.
-- Gerente deve listar funcionários.
-- Gerente deve listar funcionários pelo cargo.
-- Gerente deve listar funcionários pela matrícula.
-- Gerente deve atualizar funcionário pelo id.
+- Registrar funcionário gerente.
+- Registrar funcionário subgerente.
+- Registrar funcionário vendedor.
+- Atualizar funcionário gerente pelo id.
+- Atualizar funcionário subgerente pelo id.
+- Atualizar funcionário vendedor pelo id.
+- Listar funcionários pelo tipo.
 
 # Requisições 
 
