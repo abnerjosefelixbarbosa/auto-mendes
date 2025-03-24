@@ -1,4 +1,4 @@
-# auto-mendes [![Java CI with Maven](https://github.com/abnerjosefelixbarbosa/auto-mendes/actions/workflows/maven.yml/badge.svg)](https://github.com/abnerjosefelixbarbosa/auto-mendes/actions/workflows/maven.yml)
+# auto-mendes 
 
 ## Sobre
 
