@@ -26,11 +26,11 @@ public class SaleVehicle implements Serializable {
 	@Column(nullable = false)
 	private Integer quantity;
 	@MapKey(name = "saleId")
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "sale_id")
 	private Sale sale;
 	@MapKey(name = "vehicleId")
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "vehicle_id")
 	private Vehicle vehicle;
 }
