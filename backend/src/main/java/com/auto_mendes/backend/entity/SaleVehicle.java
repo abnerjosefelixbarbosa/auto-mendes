@@ -7,7 +7,7 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapKey;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,12 +25,12 @@ public class SaleVehicle implements Serializable {
 	private SaleVehicleId saleVehicleId;
 	@Column(nullable = false)
 	private Integer quantity;
-	@MapKey(name = "saleId")
-	@ManyToOne(optional = false)
+	@MapsId("saleId")
+	@ManyToOne
 	@JoinColumn(name = "sale_id")
 	private Sale sale;
-	@MapKey(name = "vehicleId")
-	@ManyToOne(optional = false)
+	@MapsId("vehicleId")
+	@ManyToOne
 	@JoinColumn(name = "vehicle_id")
 	private Vehicle vehicle;
 }
