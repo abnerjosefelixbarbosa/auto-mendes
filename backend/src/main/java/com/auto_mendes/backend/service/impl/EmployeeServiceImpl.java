@@ -9,6 +9,7 @@ import com.auto_mendes.backend.entity.Manager;
 import com.auto_mendes.backend.entity.Saler;
 import com.auto_mendes.backend.mapper.EmployeeMapper;
 import com.auto_mendes.backend.repository.AssistantManagerRepository;
+import com.auto_mendes.backend.repository.EmployeeRepository;
 import com.auto_mendes.backend.repository.ManagerRepository;
 import com.auto_mendes.backend.repository.SalerRepository;
 import com.auto_mendes.backend.service.EmployeeService;
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
+	private final EmployeeRepository employeeRepository;
 	private final ManagerRepository managerRepository;
 	private final AssistantManagerRepository assistantManagerRepository;
 	private final SalerRepository salerRepository;
@@ -29,6 +31,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 		switch (request.employeeType().ordinal()) {
 		case 0: {
 			Manager manager = employeeMapper.toManager(request);
+			
+			employeeRepository.save(manager);
 			
 			manager = managerRepository.save(manager);
 			

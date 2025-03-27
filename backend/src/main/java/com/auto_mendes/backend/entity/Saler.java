@@ -1,9 +1,8 @@
 package com.auto_mendes.backend.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
-
-import com.auto_mendes.backend.dto.request.EmployeeRequestDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,9 +29,12 @@ public class Saler extends Employee {
 	@OneToMany(mappedBy = "saler")
 	private List<Sale> sales;
 	
-	public Saler(EmployeeRequestDTO request) {
-		super(null, request.name(), request.email(), request.registration(), request.phone(), request.birthDate());
-		
-		this.commission = request.commission();
+	public Saler(String id, String name, String email, String registration, String phone, LocalDate birthDate,
+			BigDecimal commission, List<Sale> sales) {
+		super(id, name, email, registration, phone, birthDate);
+		this.commission = commission;
+		this.sales = sales;
 	}
+	
+	
 }
