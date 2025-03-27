@@ -7,4 +7,5 @@ import com.auto_mendes.backend.entity.Manager;
 
 @Repository
 public interface ManagerRepository extends JpaRepository<Manager, String> {
+	boolean existsByEmailOrMatriculationOrPhone(String email, String matriculation, String phone);
 }

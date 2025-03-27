@@ -7,4 +7,5 @@ import com.auto_mendes.backend.entity.Saler;
 
 @Repository
 public interface SalerRepository extends JpaRepository<Saler, String> {
+	boolean existsByEmailOrMatriculationOrPhone(String email, String matriculation, String phone);
 }

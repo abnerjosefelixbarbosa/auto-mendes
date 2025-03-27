@@ -1,5 +1,7 @@
 package com.auto_mendes.backend.service.impl;
 
+import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.auto_mendes.backend.dto.request.EmployeeRequestDTO;
@@ -9,62 +11,95 @@ import com.auto_mendes.backend.entity.Manager;
 import com.auto_mendes.backend.entity.Saler;
 import com.auto_mendes.backend.mapper.EmployeeMapper;
 import com.auto_mendes.backend.repository.AssistantManagerRepository;
-import com.auto_mendes.backend.repository.EmployeeRepository;
 import com.auto_mendes.backend.repository.ManagerRepository;
 import com.auto_mendes.backend.repository.SalerRepository;
 import com.auto_mendes.backend.service.EmployeeService;
 
-import lombok.RequiredArgsConstructor;
+import jakarta.transaction.Transactional;
 
 @Service
-@RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
-	private final EmployeeRepository employeeRepository;
-	private final ManagerRepository managerRepository;
-	private final AssistantManagerRepository assistantManagerRepository;
-	private final SalerRepository salerRepository;
-	private final EmployeeMapper employeeMapper;
+	@Autowired
+	private ManagerRepository managerRepository;
+	@Autowired
+	private AssistantManagerRepository assistantManagerRepository;
+	@Autowired
+	private SalerRepository salerRepository;
+	private EmployeeMapper employeeMapper = Mappers.getMapper(EmployeeMapper.class);
 
-	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO request) {
-		EmployeeResponseDTO response = null;
+	@Transactional
+	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO dto) {
+		EmployeeResponseDTO employeeResponseDTO = null;
 
-		switch (request.employeeType().ordinal()) {
+		switch (dto.employeeType().ordinal()) {
 		case 0: {
-			Manager manager = employeeMapper.toManager(request);
-			
-			employeeRepository.save(manager);
-			
-			manager = managerRepository.save(manager);
-			
-			response = employeeMapper.toEmployeeResponseDTO(manager);
+			Manager manager = employeeMapper.toManager(dto);
+
+			validadeEmployee(manager);
+
+			Manager managerSaved = managerRepository.save(manager);
+
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(managerSaved);
+
+			break;
 		}
 		case 1: {
-			AssistantManager assistantManager = employeeMapper.toAssistantManager(request);
-		
-			assistantManager = assistantManagerRepository.save(assistantManager);
-			
-			response = employeeMapper.toEmployeeResponseDTO(assistantManager);
+			AssistantManager assistantManager = employeeMapper.toAssistantManager(dto);
+
+			validadeEmployee(assistantManager);
+
+			AssistantManager assistantManagerSaved = assistantManagerRepository.save(assistantManager);
+
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(assistantManagerSaved);
+
+			break;
 		}
 		case 2: {
-			Saler saler = employeeMapper.toSaler(request);
-			
+			Saler saler = employeeMapper.toSaler(dto);
+
 			validadeEmployee(saler);
-			
-			saler = salerRepository.save(saler);
-			
-			response = employeeMapper.toEmployeeResponseDTO(saler);
+
+			Saler salerSaved = salerRepository.save(saler);
+
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(salerSaved);
+
+			break;
 		}
 		}
 
-		return response;
+		return employeeResponseDTO;
 	}
-	
+
+	private void validadeEmployee(Manager manager) {
+		boolean isExists = managerRepository.existsByEmailOrMatriculationOrPhone(manager.getEmail(),
+				manager.getMatriculation(), manager.getPhone());
+
+		if (isExists) {
+			throw new RuntimeException("Email, matrícula ou telefone não ser repedidos.");
+		}
+	}
+
+	private void validadeEmployee(AssistantManager assistantManager) {
+		boolean isExists = assistantManagerRepository.existsByEmailOrMatriculationOrPhone(assistantManager.getEmail(),
+				assistantManager.getMatriculation(), assistantManager.getPhone());
+
+		if (isExists) {
+			throw new RuntimeException("Email, matrícula ou telefone não ser repedidos.");
+		}
+	}
+
 	private void validadeEmployee(Saler saler) {
+		boolean isExists = salerRepository.existsByEmailOrMatriculationOrPhone(saler.getEmail(),
+				saler.getMatriculation(), saler.getPhone());
+		
+		if (isExists) {
+			throw new RuntimeException("Email, matrícula ou telefone não ser repedidos.");
+		}
 		if (saler.getCommission().precision() > 20) {
-			throw new RuntimeException("Comissoa deve ter menos de 20 digitos antes da virgula.");
+			throw new RuntimeException("Comissão deve ter menos de 20 digitos antes da vírgula.");
 		}
 		if (saler.getCommission().scale() != 2) {
-			throw new RuntimeException("Comissoa deve ter 2 digitos depois da virgula.");
+			throw new RuntimeException("Comissão deve ter 2 digitos depois da vírgula.");
 		}
 	}
 }

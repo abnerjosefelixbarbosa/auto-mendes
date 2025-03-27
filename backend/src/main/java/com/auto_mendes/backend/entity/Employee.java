@@ -32,7 +32,7 @@ public class Employee implements Serializable {
 	@Column(nullable = false, unique = true, length = 100)
 	String email;
 	@Column(nullable = false, unique = true, length = 10)
-	String registration;
+	String matriculation;
 	@Column(nullable = false, unique = true, length = 30)
 	String phone;
 	@Column(nullable = false)
