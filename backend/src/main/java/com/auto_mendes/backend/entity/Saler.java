@@ -3,6 +3,8 @@ package com.auto_mendes.backend.entity;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.auto_mendes.backend.dto.request.EmployeeRequestDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -27,4 +29,10 @@ public class Saler extends Employee {
 	private BigDecimal commission;
 	@OneToMany(mappedBy = "saler")
 	private List<Sale> sales;
+	
+	public Saler(EmployeeRequestDTO request) {
+		super(null, request.name(), request.email(), request.registration(), request.phone(), request.birthDate());
+		
+		this.commission = request.commission();
+	}
 }

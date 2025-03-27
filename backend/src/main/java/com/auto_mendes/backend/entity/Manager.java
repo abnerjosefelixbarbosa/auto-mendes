@@ -1,5 +1,7 @@
 package com.auto_mendes.backend.entity;
 
+import com.auto_mendes.backend.dto.request.EmployeeRequestDTO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
@@ -13,4 +15,8 @@ import lombok.EqualsAndHashCode;
 @PrimaryKeyJoinColumn(name = "id")
 public class Manager extends Employee {
 	private static final long serialVersionUID = 1L;
+
+	public Manager(EmployeeRequestDTO request) {
+		super(null, request.name(), request.email(), request.registration(), request.phone(), request.birthDate());
+	}
 }
