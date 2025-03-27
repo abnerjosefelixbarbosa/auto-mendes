@@ -26,7 +26,7 @@ classDiagram
         - id: String
         - name: String
         - email: String
-        - registration: String
+        - matriculation: String
         - phone: String
         - birthDate: LocalDate
     }
