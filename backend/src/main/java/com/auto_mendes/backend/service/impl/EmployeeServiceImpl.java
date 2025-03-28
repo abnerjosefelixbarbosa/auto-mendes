@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 
 import com.auto_mendes.backend.dto.request.EmployeeRequestDTO;
 import com.auto_mendes.backend.dto.response.EmployeeResponseDTO;
-import com.auto_mendes.backend.entity.AssistantManager;
-import com.auto_mendes.backend.entity.Manager;
-import com.auto_mendes.backend.entity.Saler;
 import com.auto_mendes.backend.mapper.EmployeeMapper;
-import com.auto_mendes.backend.repository.AssistantManagerRepository;
-import com.auto_mendes.backend.repository.ManagerRepository;
-import com.auto_mendes.backend.repository.SalerRepository;
+import com.auto_mendes.backend.persistence.entity.AssistantManager;
+import com.auto_mendes.backend.persistence.entity.Manager;
+import com.auto_mendes.backend.persistence.entity.Saler;
+import com.auto_mendes.backend.persistence.repository.AssistantManagerRepository;
+import com.auto_mendes.backend.persistence.repository.ManagerRepository;
+import com.auto_mendes.backend.persistence.repository.SalerRepository;
 import com.auto_mendes.backend.service.EmployeeService;
 import com.auto_mendes.backend.validation.EmployeeValidation;
 

@@ -19,13 +19,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.auto_mendes.backend.dto.request.EmployeeRequestDTO;
-import com.auto_mendes.backend.entity.AssistantManager;
-import com.auto_mendes.backend.entity.Manager;
-import com.auto_mendes.backend.entity.Saler;
 import com.auto_mendes.backend.enums.EmployeeType;
-import com.auto_mendes.backend.repository.AssistantManagerRepository;
-import com.auto_mendes.backend.repository.ManagerRepository;
-import com.auto_mendes.backend.repository.SalerRepository;
+import com.auto_mendes.backend.persistence.entity.AssistantManager;
+import com.auto_mendes.backend.persistence.entity.Manager;
+import com.auto_mendes.backend.persistence.entity.Saler;
+import com.auto_mendes.backend.persistence.repository.AssistantManagerRepository;
+import com.auto_mendes.backend.persistence.repository.ManagerRepository;
+import com.auto_mendes.backend.persistence.repository.SalerRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest

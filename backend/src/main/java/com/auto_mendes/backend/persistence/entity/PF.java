@@ -1,4 +1,4 @@
-package com.auto_mendes.backend.entity;
+package com.auto_mendes.backend.persistence.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
@@ -9,8 +9,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "car_tb")
+@Table(name = "pf_tb")
 @PrimaryKeyJoinColumn(name = "id")
-public class Car extends Vehicle {
+public class PF extends Customer {
 	private static final long serialVersionUID = 1L;
 }

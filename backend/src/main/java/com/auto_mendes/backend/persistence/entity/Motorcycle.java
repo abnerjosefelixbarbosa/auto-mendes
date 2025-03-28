@@ -1,4 +1,4 @@
-package com.auto_mendes.backend.entity;
+package com.auto_mendes.backend.persistence.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;

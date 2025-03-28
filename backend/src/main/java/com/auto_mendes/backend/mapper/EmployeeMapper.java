@@ -4,10 +4,10 @@ import org.mapstruct.Mapper;
 
 import com.auto_mendes.backend.dto.request.EmployeeRequestDTO;
 import com.auto_mendes.backend.dto.response.EmployeeResponseDTO;
-import com.auto_mendes.backend.entity.AssistantManager;
-import com.auto_mendes.backend.entity.Employee;
-import com.auto_mendes.backend.entity.Manager;
-import com.auto_mendes.backend.entity.Saler;
+import com.auto_mendes.backend.persistence.entity.AssistantManager;
+import com.auto_mendes.backend.persistence.entity.Employee;
+import com.auto_mendes.backend.persistence.entity.Manager;
+import com.auto_mendes.backend.persistence.entity.Saler;
 
 @Mapper
 public interface EmployeeMapper {
