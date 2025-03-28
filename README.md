@@ -128,12 +128,8 @@ classDiagram
 
 ## Funcionários 
 
-- Registrar funcionário gerente.
-- Registrar funcionário subgerente.
-- Registrar funcionário vendedor.
-- Atualizar funcionário gerente pelo id.
-- Atualizar funcionário subgerente pelo id.
-- Atualizar funcionário vendedor pelo id.
+- Registrar funcionário.
+- Atualizar funcionário pelo id.
 - Listar funcionários pelo tipo.
 
 # Requisições 
