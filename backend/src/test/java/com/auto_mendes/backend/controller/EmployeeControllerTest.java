@@ -1,6 +1,7 @@
 package com.auto_mendes.backend.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import java.math.BigDecimal;
@@ -41,12 +42,15 @@ class EmployeeControllerTest {
 	private AssistantManagerRepository assistantManagerRepository;
 	@Autowired
 	private SalerRepository salerRepository;
+	private String idManager;
+	private String idAssistantManager;
+	private String idSaler;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		managerRepository.deleteAll();
 		assistantManagerRepository.deleteAll();
-		salerRepository.deleteAll();
+	    salerRepository.deleteAll();
 	}
 
 	@AfterEach
@@ -58,15 +62,29 @@ class EmployeeControllerTest {
 
 	@Test
 	void shouldRegisterEmployeeAndReturnStatus201() throws Exception {
-		//loadEmployee();
+		loadEmployee();
 		
-		EmployeeRequestDTO request = new EmployeeRequestDTO("name1", "email1@gmail.com", "1111111111", "(81) 91111-1111",
+		EmployeeRequestDTO request = new EmployeeRequestDTO("name4", "email4@gmail.com", "4444444444", "(81) 94444-4444",
 				LocalDate.of(1999, 01, 01), EmployeeType.SALER, new BigDecimal("10.00"));
 		
 		String obj = objectMapper.writeValueAsString(request);
 
 		mockMvc.perform(post("/api/employees/register-employee").contentType(MediaType.APPLICATION_JSON)
 				.content(obj)).andExpect(MockMvcResultMatchers.status().isCreated())
+				.andDo(print());
+	}
+	
+	@Test
+	void shouldUpdateEmployeeByIdAndReturnStatus200() throws Exception {
+		loadEmployee();
+		
+		EmployeeRequestDTO request = new EmployeeRequestDTO("name4", "email4@gmail.com", "4444444444", "(81) 94444-4444",
+				LocalDate.of(1999, 01, 01), EmployeeType.ASSISTANT_MANAGER, new BigDecimal("10.00"));
+		
+		String obj = objectMapper.writeValueAsString(request);
+		
+		mockMvc.perform(put("/api/employees/update-employee-by-id").queryParam("id", idAssistantManager).contentType(MediaType.APPLICATION_JSON)
+				.content(obj)).andExpect(MockMvcResultMatchers.status().isOk())
 				.andDo(print());
 	}
 	
@@ -93,10 +111,16 @@ class EmployeeControllerTest {
 		saler1.setPhone("(81) 93333-3333");
 		saler1.setCommission(new BigDecimal("10.00"));
 		
-		managerRepository.save(manager1);
+		Manager manager = managerRepository.save(manager1);
 		
-		assistantManagerRepository.save(assistantManager1);
+		AssistantManager assistantManager = assistantManagerRepository.save(assistantManager1);
 		
-		salerRepository.save(saler1);
+		Saler saler = salerRepository.save(saler1);
+		
+		idManager = manager.getId();
+		
+		idAssistantManager = assistantManager.getId();
+		
+		idSaler = saler.getId();
 	}
 }

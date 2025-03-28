@@ -14,7 +14,9 @@ import com.auto_mendes.backend.repository.AssistantManagerRepository;
 import com.auto_mendes.backend.repository.ManagerRepository;
 import com.auto_mendes.backend.repository.SalerRepository;
 import com.auto_mendes.backend.service.EmployeeService;
+import com.auto_mendes.backend.validation.EmployeeValidation;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -25,6 +27,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private AssistantManagerRepository assistantManagerRepository;
 	@Autowired
 	private SalerRepository salerRepository;
+	@Autowired
+	private EmployeeValidation employeeValidation;
 	private EmployeeMapper employeeMapper = Mappers.getMapper(EmployeeMapper.class);
 
 	@Transactional
@@ -35,7 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		case 0: {
 			Manager manager = employeeMapper.toManager(dto);
 
-			validadeEmployee(manager);
+			employeeValidation.validadeEmployee(manager);
 
 			Manager managerSaved = managerRepository.save(manager);
 
@@ -46,7 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		case 1: {
 			AssistantManager assistantManager = employeeMapper.toAssistantManager(dto);
 
-			validadeEmployee(assistantManager);
+			employeeValidation.validadeEmployee(assistantManager);
 
 			AssistantManager assistantManagerSaved = assistantManagerRepository.save(assistantManager);
 
@@ -57,7 +61,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		case 2: {
 			Saler saler = employeeMapper.toSaler(dto);
 
-			validadeEmployee(saler);
+			employeeValidation.validadeEmployee(saler);
 
 			Saler salerSaved = salerRepository.save(saler);
 
@@ -70,36 +74,77 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeResponseDTO;
 	}
 
-	private void validadeEmployee(Manager manager) {
-		boolean isExists = managerRepository.existsByEmailOrMatriculationOrPhone(manager.getEmail(),
-				manager.getMatriculation(), manager.getPhone());
+	@Transactional
+	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO dto) {
+		EmployeeResponseDTO employeeResponseDTO = null;
 
-		if (isExists) {
-			throw new RuntimeException("Email, matrícula ou telefone não ser repedidos.");
-		}
-	}
+		switch (dto.employeeType().ordinal()) {
+		case 0: {
+			Manager manager = employeeMapper.toManager(dto);
 
-	private void validadeEmployee(AssistantManager assistantManager) {
-		boolean isExists = assistantManagerRepository.existsByEmailOrMatriculationOrPhone(assistantManager.getEmail(),
-				assistantManager.getMatriculation(), assistantManager.getPhone());
+			employeeValidation.validadeEmployee(manager);
 
-		if (isExists) {
-			throw new RuntimeException("Email, matrícula ou telefone não ser repedidos.");
-		}
-	}
+			Manager managerFound = managerRepository.findById(id).orElseThrow(() -> {
+				throw new EntityNotFoundException("Id não encontrado.");
+			});
 
-	private void validadeEmployee(Saler saler) {
-		boolean isExists = salerRepository.existsByEmailOrMatriculationOrPhone(saler.getEmail(),
-				saler.getMatriculation(), saler.getPhone());
-		
-		if (isExists) {
-			throw new RuntimeException("Email, matrícula ou telefone não ser repedidos.");
+			managerFound.setEmail(manager.getEmail());
+			managerFound.setBirthDate(manager.getBirthDate());
+			managerFound.setMatriculation(manager.getMatriculation());
+			managerFound.setName(manager.getName());
+			managerFound.setPhone(manager.getPhone());
+
+			Manager managerSaved = managerRepository.save(managerFound);
+
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(managerSaved);
+
+			break;
 		}
-		if (saler.getCommission().precision() > 20) {
-			throw new RuntimeException("Comissão deve ter menos de 20 digitos antes da vírgula.");
+		case 1: {
+			AssistantManager assistantManager = employeeMapper.toAssistantManager(dto);
+
+			employeeValidation.validadeEmployee(assistantManager);
+
+			AssistantManager assistantManagerFound = assistantManagerRepository.findById(id).orElseThrow(() -> {
+				throw new EntityNotFoundException("Id não encontrado.");
+			});
+
+			assistantManagerFound.setEmail(assistantManager.getEmail());
+			assistantManagerFound.setBirthDate(assistantManager.getBirthDate());
+			assistantManagerFound.setMatriculation(assistantManager.getMatriculation());
+			assistantManagerFound.setName(assistantManager.getName());
+			assistantManagerFound.setPhone(assistantManager.getPhone());
+
+			AssistantManager assistantManagerSaved = assistantManagerRepository.save(assistantManagerFound);
+
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(assistantManagerSaved);
+
+			break;
 		}
-		if (saler.getCommission().scale() != 2) {
-			throw new RuntimeException("Comissão deve ter 2 digitos depois da vírgula.");
+		case 2: {
+			Saler saler = employeeMapper.toSaler(dto);
+
+			employeeValidation.validadeEmployee(saler);
+			
+			Saler salerFound = salerRepository.findById(id).orElseThrow(() -> {
+				throw new EntityNotFoundException("Id não encontrado.");
+			});
+
+			salerFound.setEmail(saler.getEmail());
+			salerFound.setBirthDate(saler.getBirthDate());
+			salerFound.setMatriculation(saler.getMatriculation());
+			salerFound.setName(saler.getName());
+			salerFound.setPhone(saler.getPhone());
+			salerFound.setCommission(saler.getCommission());
+
+			Saler salerSaved = salerRepository.save(salerFound);
+
+			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(salerSaved);
+
+			break;
 		}
+		}
+
+		return employeeResponseDTO;
 	}
 }

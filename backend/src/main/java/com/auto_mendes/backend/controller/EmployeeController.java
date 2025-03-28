@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.auto_mendes.backend.dto.request.EmployeeRequestDTO;
@@ -25,5 +27,12 @@ public class EmployeeController {
 		EmployeeResponseDTO employeeResponseDTO = employeeService.registerEmployee(dto);
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(employeeResponseDTO);
+	}
+	
+	@PutMapping(value = "/update-employee-by-id")
+	public ResponseEntity<EmployeeResponseDTO> updateEmployeeById(@RequestParam String id, @Valid @RequestBody EmployeeRequestDTO dto) {
+		EmployeeResponseDTO employeeResponseDTO = employeeService.updateEmployeeById(id, dto);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(employeeResponseDTO);
 	}
 }
