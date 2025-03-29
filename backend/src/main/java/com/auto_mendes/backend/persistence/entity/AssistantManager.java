@@ -1,7 +1,5 @@
 package com.auto_mendes.backend.persistence.entity;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
@@ -17,9 +15,4 @@ import lombok.NoArgsConstructor;
 @PrimaryKeyJoinColumn(name = "id")
 public class AssistantManager extends Employee {
 	private static final long serialVersionUID = 1L;
-
-	public AssistantManager(String id, String name, String email, String registration, String phone,
-			LocalDate birthDate) {
-		super(id, name, email, registration, phone, birthDate);
-	}
 }

@@ -1,5 +1,6 @@
 package com.auto_mendes.backend.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -50,7 +51,7 @@ class EmployeeControllerTest {
 	void setUp() throws Exception {
 		managerRepository.deleteAll();
 		assistantManagerRepository.deleteAll();
-	    salerRepository.deleteAll();
+		salerRepository.deleteAll();
 	}
 
 	@AfterEach
@@ -63,31 +64,38 @@ class EmployeeControllerTest {
 	@Test
 	void shouldRegisterEmployeeAndReturnStatus201() throws Exception {
 		loadEmployee();
-		
-		EmployeeRequestDTO request = new EmployeeRequestDTO("name4", "email4@gmail.com", "4444444444", "(81) 94444-4444",
-				LocalDate.of(1999, 01, 01), EmployeeType.SALER, new BigDecimal("10.00"));
-		
+
+		EmployeeRequestDTO request = new EmployeeRequestDTO("name4", "email4@gmail.com", "4444444444",
+				"(81) 94444-4444", LocalDate.of(1999, 01, 01), EmployeeType.SALER, new BigDecimal("10.00"));
+
 		String obj = objectMapper.writeValueAsString(request);
 
-		mockMvc.perform(post("/api/employees/register-employee").contentType(MediaType.APPLICATION_JSON)
-				.content(obj)).andExpect(MockMvcResultMatchers.status().isCreated())
-				.andDo(print());
+		mockMvc.perform(post("/api/employees/register-employee").contentType(MediaType.APPLICATION_JSON).content(obj))
+				.andExpect(MockMvcResultMatchers.status().isCreated()).andDo(print());
 	}
-	
+
 	@Test
 	void shouldUpdateEmployeeByIdAndReturnStatus200() throws Exception {
 		loadEmployee();
-		
-		EmployeeRequestDTO request = new EmployeeRequestDTO("name4", "email4@gmail.com", "4444444444", "(81) 94444-4444",
-				LocalDate.of(1999, 01, 01), EmployeeType.ASSISTANT_MANAGER, new BigDecimal("10.00"));
-		
+
+		EmployeeRequestDTO request = new EmployeeRequestDTO("name4", "email4@gmail.com", "4444444444",
+				"(81) 94444-4444", LocalDate.of(1999, 01, 01), EmployeeType.ASSISTANT_MANAGER, new BigDecimal("10.00"));
+
 		String obj = objectMapper.writeValueAsString(request);
-		
-		mockMvc.perform(put("/api/employees/update-employee-by-id").queryParam("id", idAssistantManager).contentType(MediaType.APPLICATION_JSON)
-				.content(obj)).andExpect(MockMvcResultMatchers.status().isOk())
+
+		mockMvc.perform(put("/api/employees/update-employee-by-id").queryParam("id", idAssistantManager)
+				.contentType(MediaType.APPLICATION_JSON).content(obj)).andExpect(MockMvcResultMatchers.status().isOk())
 				.andDo(print());
 	}
-	
+
+	@Test
+	void shouldListEmployeeByTypeAndReturnStatus200() throws Exception {
+		loadEmployee();
+
+		mockMvc.perform(get("/api/employees/list-employee-by-type").queryParam("type", EmployeeType.SALER.name()))
+				.andExpect(MockMvcResultMatchers.status().isOk()).andDo(print());
+	}
+
 	void loadEmployee() {
 		Manager manager1 = new Manager();
 		manager1.setBirthDate(LocalDate.of(1999, 01, 01));
@@ -95,14 +103,14 @@ class EmployeeControllerTest {
 		manager1.setMatriculation("1111111111");
 		manager1.setName("name1");
 		manager1.setPhone("(81) 91111-1111");
-		
+
 		AssistantManager assistantManager1 = new AssistantManager();
 		assistantManager1.setBirthDate(LocalDate.of(1999, 02, 02));
 		assistantManager1.setEmail("email2@gmail.com");
 		assistantManager1.setMatriculation("2222222222");
 		assistantManager1.setName("name2");
 		assistantManager1.setPhone("(81) 92222-2222");
-		
+
 		Saler saler1 = new Saler();
 		saler1.setBirthDate(LocalDate.of(1999, 03, 03));
 		saler1.setEmail("email3@gmail.com");
@@ -110,17 +118,17 @@ class EmployeeControllerTest {
 		saler1.setName("name3");
 		saler1.setPhone("(81) 93333-3333");
 		saler1.setCommission(new BigDecimal("10.00"));
-		
+
 		Manager manager = managerRepository.save(manager1);
-		
+
 		AssistantManager assistantManager = assistantManagerRepository.save(assistantManager1);
-		
+
 		Saler saler = salerRepository.save(saler1);
-		
+
 		idManager = manager.getId();
-		
+
 		idAssistantManager = assistantManager.getId();
-		
+
 		idSaler = saler.getId();
 	}
 }

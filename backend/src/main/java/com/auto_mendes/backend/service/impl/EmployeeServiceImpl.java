@@ -2,10 +2,13 @@ package com.auto_mendes.backend.service.impl;
 
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.auto_mendes.backend.dto.request.EmployeeRequestDTO;
 import com.auto_mendes.backend.dto.response.EmployeeResponseDTO;
+import com.auto_mendes.backend.enums.EmployeeType;
 import com.auto_mendes.backend.mapper.EmployeeMapper;
 import com.auto_mendes.backend.persistence.entity.AssistantManager;
 import com.auto_mendes.backend.persistence.entity.Manager;
@@ -125,7 +128,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			Saler saler = employeeMapper.toSaler(dto);
 
 			employeeValidation.validadeEmployee(saler);
-			
+
 			Saler salerFound = salerRepository.findById(id).orElseThrow(() -> {
 				throw new EntityNotFoundException("Id não encontrado.");
 			});
@@ -146,5 +149,29 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 
 		return employeeResponseDTO;
+	}
+
+	public Page<EmployeeResponseDTO> listEmployeeByType(EmployeeType type, Pageable pageable) {
+		Page<EmployeeResponseDTO> page = null;
+
+		switch (type.ordinal()) {
+		case 0: {
+			page = managerRepository.findAll(pageable).map(employeeMapper::toEmployeeResponseDTO);
+
+			break;
+		}
+		case 1: {
+			page = assistantManagerRepository.findAll(pageable).map(employeeMapper::toEmployeeResponseDTO);
+			
+			break;
+		}
+		case 2: {
+			page = salerRepository.findAll(pageable).map(employeeMapper::toEmployeeResponseDTO);
+
+			break;
+		}
+		}
+
+		return page;
 	}
 }
