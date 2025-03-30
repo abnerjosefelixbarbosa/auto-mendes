@@ -1,8 +1,8 @@
 package com.auto_mendes.backend.validation;
 
-import com.auto_mendes.backend.persistence.entity.AssistantManager;
-import com.auto_mendes.backend.persistence.entity.Manager;
-import com.auto_mendes.backend.persistence.entity.Saler;
+import com.auto_mendes.backend.model.entity.AssistantManager;
+import com.auto_mendes.backend.model.entity.Manager;
+import com.auto_mendes.backend.model.entity.Saler;
 
 public interface EmployeeValidation {
 	void validadeEmployee(Manager manager);

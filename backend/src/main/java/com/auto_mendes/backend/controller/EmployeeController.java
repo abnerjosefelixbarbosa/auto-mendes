@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.auto_mendes.backend.dto.request.EmployeeRequestDTO;
-import com.auto_mendes.backend.dto.response.EmployeeResponseDTO;
-import com.auto_mendes.backend.enums.EmployeeType;
+import com.auto_mendes.backend.model.dto.request.EmployeeRequestDTO;
+import com.auto_mendes.backend.model.dto.response.EmployeeResponseDTO;
+import com.auto_mendes.backend.model.enums.EmployeeType;
 import com.auto_mendes.backend.service.EmployeeService;
 
 import jakarta.validation.Valid;

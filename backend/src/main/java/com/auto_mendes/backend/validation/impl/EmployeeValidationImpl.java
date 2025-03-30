@@ -3,13 +3,15 @@ package com.auto_mendes.backend.validation.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.auto_mendes.backend.persistence.entity.AssistantManager;
-import com.auto_mendes.backend.persistence.entity.Manager;
-import com.auto_mendes.backend.persistence.entity.Saler;
-import com.auto_mendes.backend.persistence.repository.AssistantManagerRepository;
-import com.auto_mendes.backend.persistence.repository.ManagerRepository;
-import com.auto_mendes.backend.persistence.repository.SalerRepository;
+import com.auto_mendes.backend.model.entity.AssistantManager;
+import com.auto_mendes.backend.model.entity.Manager;
+import com.auto_mendes.backend.model.entity.Saler;
+import com.auto_mendes.backend.repository.AssistantManagerRepository;
+import com.auto_mendes.backend.repository.ManagerRepository;
+import com.auto_mendes.backend.repository.SalerRepository;
 import com.auto_mendes.backend.validation.EmployeeValidation;
+
+import jakarta.persistence.EntityExistsException;
 
 @Component
 public class EmployeeValidationImpl implements EmployeeValidation {
@@ -25,7 +27,7 @@ public class EmployeeValidationImpl implements EmployeeValidation {
 				manager.getMatriculation(), manager.getPhone());
 
 		if (isExists) {
-			throw new RuntimeException("Email, matrícula ou telefone não ser repedidos.");
+			throw new EntityExistsException("Email, matrícula ou telefone não ser repedidos.");
 		}
 	}
 
@@ -34,7 +36,7 @@ public class EmployeeValidationImpl implements EmployeeValidation {
 				assistantManager.getMatriculation(), assistantManager.getPhone());
 
 		if (isExists) {
-			throw new RuntimeException("Email, matrícula ou telefone não ser repedidos.");
+			throw new EntityExistsException("Email, matrícula ou telefone não ser repedidos.");
 		}
 	}
 
