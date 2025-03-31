@@ -1,7 +1,5 @@
 package com.auto_mendes.backend.service.impl;
 
-import org.mapstruct.factory.Mappers;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -21,18 +19,16 @@ import com.auto_mendes.backend.validation.EmployeeValidation;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
-	@Autowired
-	private ManagerRepository managerRepository;
-	@Autowired
-	private AssistantManagerRepository assistantManagerRepository;
-	@Autowired
-	private SalerRepository salerRepository;
-	@Autowired
-	private EmployeeValidation employeeValidation;
-	private EmployeeMapper employeeMapper = Mappers.getMapper(EmployeeMapper.class);
+	private final ManagerRepository managerRepository;
+	private final AssistantManagerRepository assistantManagerRepository;
+	private final SalerRepository salerRepository;
+	private final EmployeeValidation employeeValidation;
+	private final EmployeeMapper employeeMapper;
 
 	@Transactional
 	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO dto) {

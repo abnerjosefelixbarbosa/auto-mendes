@@ -1,6 +1,5 @@
 package com.auto_mendes.backend.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -19,13 +18,14 @@ import com.auto_mendes.backend.model.enums.EmployeeType;
 import com.auto_mendes.backend.service.EmployeeService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping(value = "/api/employees")
+@RequiredArgsConstructor
 public class EmployeeController {
-	@Autowired
-	private EmployeeService employeeService;
-	
+	private final EmployeeService employeeService;
+
 	@PostMapping(value = "/register-employee")
 	public ResponseEntity<EmployeeResponseDTO> registerEmployee(@Valid @RequestBody EmployeeRequestDTO dto) {
 		EmployeeResponseDTO employeeResponseDTO = employeeService.registerEmployee(dto);

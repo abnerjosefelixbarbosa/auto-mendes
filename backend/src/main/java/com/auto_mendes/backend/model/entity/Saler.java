@@ -1,6 +1,7 @@
 package com.auto_mendes.backend.model.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "saler_tb")
 @PrimaryKeyJoinColumn(name = "id")
@@ -25,4 +26,10 @@ public class Saler extends Employee {
 	private BigDecimal commission;
 	@OneToMany(mappedBy = "saler")
 	private List<Sale> sales;
+	
+	public Saler(String id, String name, String email, String matriculation, String phone, LocalDate birthDate,
+			BigDecimal commission) {
+		super(id, name, email, matriculation, phone, birthDate);
+		this.commission = commission;
+	}
 }

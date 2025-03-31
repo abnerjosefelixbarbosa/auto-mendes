@@ -43,9 +43,9 @@ class EmployeeControllerTest {
 	private AssistantManagerRepository assistantManagerRepository;
 	@Autowired
 	private SalerRepository salerRepository;
-	private String idManager;
-	private String idAssistantManager;
-	private String idSaler;
+	private String idManager = "";
+	private String idAssistantManager = "";
+	private String idSaler = "";
 
 	@BeforeEach
 	void setUp() throws Exception {
