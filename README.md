@@ -26,7 +26,7 @@ classDiagram
         - id: String
         - name: String
         - email: String
-        - registration: String
+        - matriculation: String
         - phone: String
         - birthDate: LocalDate
     }
@@ -61,6 +61,7 @@ classDiagram
     class Vehicle {
         - id: String
         - plate: String
+        - code: String
         - transmissionType: TransmissionType
         - price: BigDecimal
     }
@@ -128,12 +129,8 @@ classDiagram
 
 ## Funcionários 
 
-- Registrar funcionário gerente.
-- Registrar funcionário subgerente.
-- Registrar funcionário vendedor.
-- Atualizar funcionário gerente pelo id.
-- Atualizar funcionário subgerente pelo id.
-- Atualizar funcionário vendedor pelo id.
+- Registrar funcionário.
+- Atualizar funcionário pelo id.
 - Listar funcionários pelo tipo.
 
 # Requisições 

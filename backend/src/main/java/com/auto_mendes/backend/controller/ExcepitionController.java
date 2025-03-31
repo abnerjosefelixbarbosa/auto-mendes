@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.auto_mendes.backend.dto.response.ExceptionResponseDTO;
+import com.auto_mendes.backend.model.dto.response.ExceptionResponseDTO;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -35,6 +36,14 @@ public class ExcepitionController {
 
 	@ExceptionHandler(RuntimeException.class)
 	public ResponseEntity<ExceptionResponseDTO> handleRuntimeException(RuntimeException e, HttpServletRequest request) {
+		ExceptionResponseDTO response = new ExceptionResponseDTO(LocalDateTime.now(), 400, e.getMessage(),
+				request.getRequestURI());
+
+		return ResponseEntity.status(400).body(response);
+	}
+	
+	@ExceptionHandler(EntityExistsException.class)
+	public ResponseEntity<ExceptionResponseDTO> handleEntityExistsException(EntityExistsException e, HttpServletRequest request) {
 		ExceptionResponseDTO response = new ExceptionResponseDTO(LocalDateTime.now(), 400, e.getMessage(),
 				request.getRequestURI());
 
