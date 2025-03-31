@@ -9,16 +9,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.auto_mendes.backend.model.dto.request.BrandRequestDTO;
 import com.auto_mendes.backend.model.dto.response.BrandResponseDTO;
+import com.auto_mendes.backend.service.BrandService;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping(value = "/api/brands")
+@RequiredArgsConstructor
 public class BrandController {
-
+	private final BrandService brandService;
 	
 	@PostMapping(value = "/register-brand")
 	public ResponseEntity<BrandResponseDTO> registerBrand(@Valid @RequestBody BrandRequestDTO dto) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(null);
+		BrandResponseDTO response = brandService.registerBrand(dto);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 }

@@ -1,5 +1,8 @@
 package com.auto_mendes.backend.service;
 
-public interface BrandService {
+import com.auto_mendes.backend.model.dto.request.BrandRequestDTO;
+import com.auto_mendes.backend.model.dto.response.BrandResponseDTO;
 
+public interface BrandService {
+	BrandResponseDTO registerBrand(BrandRequestDTO dto);
 }

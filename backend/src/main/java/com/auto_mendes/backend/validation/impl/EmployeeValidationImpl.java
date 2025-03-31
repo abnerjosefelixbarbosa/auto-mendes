@@ -1,6 +1,5 @@
 package com.auto_mendes.backend.validation.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.auto_mendes.backend.model.entity.AssistantManager;
@@ -12,15 +11,14 @@ import com.auto_mendes.backend.repository.SalerRepository;
 import com.auto_mendes.backend.validation.EmployeeValidation;
 
 import jakarta.persistence.EntityExistsException;
+import lombok.RequiredArgsConstructor;
 
 @Component
+@RequiredArgsConstructor
 public class EmployeeValidationImpl implements EmployeeValidation {
-	@Autowired
-	private ManagerRepository managerRepository;
-	@Autowired
-	private AssistantManagerRepository assistantManagerRepository;
-	@Autowired
-	private SalerRepository salerRepository;
+	private final ManagerRepository managerRepository;
+	private final AssistantManagerRepository assistantManagerRepository;
+	private final SalerRepository salerRepository;
 
 	public void validadeEmployee(Manager manager) {
 		boolean isExists = managerRepository.existsByEmailOrMatriculationOrPhone(manager.getEmail(),
