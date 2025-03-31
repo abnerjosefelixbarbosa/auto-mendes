@@ -61,6 +61,7 @@ classDiagram
     class Vehicle {
         - id: String
         - plate: String
+        - code: String
         - transmissionType: TransmissionType
         - price: BigDecimal
     }
