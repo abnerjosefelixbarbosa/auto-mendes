@@ -68,6 +68,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 			break;
 		}
+		default:
+			break;
 		}
 
 		return employeeResponseDTO;
@@ -83,9 +85,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 			employeeValidation.validadeEmployee(manager);
 
-			Manager managerFound = managerRepository.findById(id).orElseThrow(() -> {
-				throw new EntityNotFoundException("Id não encontrado.");
-			});
+			Manager managerFound = managerRepository.findById(id)
+					.orElseThrow(() ->  new EntityNotFoundException("Gerente não encontrado."));
 
 			managerFound.setEmail(manager.getEmail());
 			managerFound.setBirthDate(manager.getBirthDate());
@@ -104,9 +105,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 			employeeValidation.validadeEmployee(assistantManager);
 
-			AssistantManager assistantManagerFound = assistantManagerRepository.findById(id).orElseThrow(() -> {
-				throw new EntityNotFoundException("Id não encontrado.");
-			});
+			AssistantManager assistantManagerFound = assistantManagerRepository.findById(id)
+					.orElseThrow(() -> new EntityNotFoundException("Subgerente não encontrado."));
 
 			assistantManagerFound.setEmail(assistantManager.getEmail());
 			assistantManagerFound.setBirthDate(assistantManager.getBirthDate());
@@ -125,9 +125,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 			employeeValidation.validadeEmployee(saler);
 
-			Saler salerFound = salerRepository.findById(id).orElseThrow(() -> {
-				throw new EntityNotFoundException("Id não encontrado.");
-			});
+			Saler salerFound = salerRepository.findById(id)
+					.orElseThrow(() -> new EntityNotFoundException("Vendedor não encontrado."));
 
 			salerFound.setEmail(saler.getEmail());
 			salerFound.setBirthDate(saler.getBirthDate());
@@ -142,6 +141,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 			break;
 		}
+		default:
+			break;
 		}
 
 		return employeeResponseDTO;
@@ -166,6 +167,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 			break;
 		}
+		default: 
+			break;
 		}
 
 		return page;

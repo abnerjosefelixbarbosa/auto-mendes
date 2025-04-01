@@ -34,28 +34,28 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @AutoConfigureMockMvc
 class EmployeeControllerTest {
 	@Autowired
-	private MockMvc mockMvc;
+	MockMvc mockMvc;
 	@Autowired
-	private ObjectMapper objectMapper;
+	ObjectMapper objectMapper;
 	@Autowired
-	private ManagerRepository managerRepository;
+	ManagerRepository managerRepository;
 	@Autowired
-	private AssistantManagerRepository assistantManagerRepository;
+	AssistantManagerRepository assistantManagerRepository;
 	@Autowired
-	private SalerRepository salerRepository;
-	private String idManager = "";
-	private String idAssistantManager = "";
-	private String idSaler = "";
+	SalerRepository salerRepository;
+	String idManager;
+	String idAssistantManager;
+	String idSaler;
 
 	@BeforeEach
-	void setUp() throws Exception {
+	void setUp() {
 		managerRepository.deleteAll();
 		assistantManagerRepository.deleteAll();
 		salerRepository.deleteAll();
 	}
 
 	@AfterEach
-	void tearDown() throws Exception {
+	void tearDown() {
 		managerRepository.deleteAll();
 		assistantManagerRepository.deleteAll();
 		salerRepository.deleteAll();
