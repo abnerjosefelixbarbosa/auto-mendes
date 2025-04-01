@@ -3,9 +3,6 @@ package com.auto_mendes.backend.controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,27 +19,24 @@ import com.auto_mendes.backend.model.entity.Brand;
 import com.auto_mendes.backend.repository.BrandRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lombok.RequiredArgsConstructor;
-
 @SpringBootTest
 @ActiveProfiles("dev")
 @AutoConfigureMockMvc
-@RequiredArgsConstructor
-public class BrandControllerTest {
+class BrandControllerTest {
 	@Autowired
-	private MockMvc mockMvc;
+	MockMvc mockMvc;
 	@Autowired
-	private ObjectMapper objectMapper;
+	ObjectMapper objectMapper;
 	@Autowired
-	private BrandRepository brandRepository;
+	BrandRepository brandRepository;
 
 	@BeforeEach
-	void setUp() throws Exception {
+	void setUp() {
 		brandRepository.deleteAll();
 	}
 
 	@AfterEach
-	void tearDown() throws Exception {
+	void tearDown() {
 		brandRepository.deleteAll();
 	}
 	

@@ -13,9 +13,15 @@ public interface EmployeeMapper {
 
 	Saler toSaler(EmployeeRequestDTO dto);
 	
-	EmployeeResponseDTO toEmployeeResponseDTO(Manager manager);
+	EmployeeResponseDTO toEmployeeResponseDTO(Manager entity);
 	
-	EmployeeResponseDTO toEmployeeResponseDTO(AssistantManager assistantManager);
+	EmployeeResponseDTO toEmployeeResponseDTO(AssistantManager entity);
 	
-	EmployeeResponseDTO toEmployeeResponseDTO(Saler saler);
+	EmployeeResponseDTO toEmployeeResponseDTO(Saler entity);
+	
+	Manager toManager(String id, Manager entity);
+	
+	AssistantManager toAssistantManager(String id, AssistantManager entity);
+	
+	Saler toSaler(String id, Saler entity);
 }
