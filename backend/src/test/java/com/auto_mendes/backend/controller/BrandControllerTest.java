@@ -1,6 +1,8 @@
 package com.auto_mendes.backend.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import org.junit.jupiter.api.AfterEach;
@@ -29,6 +31,8 @@ class BrandControllerTest {
 	ObjectMapper objectMapper;
 	@Autowired
 	BrandRepository brandRepository;
+	String brandName;
+	String brandId;
 
 	@BeforeEach
 	void setUp() {
@@ -52,9 +56,33 @@ class BrandControllerTest {
 				.andExpect(MockMvcResultMatchers.status().isCreated()).andDo(print());
 	}
 	
+	@Test
+	void shouldUpdateBrandByIdAndReturnStatus200() throws Exception {
+		loadBrand();
+		
+		BrandRequestDTO request = new BrandRequestDTO("name2");
+
+		String obj = objectMapper.writeValueAsString(request);
+
+		mockMvc.perform(put("/api/brands/update-brand-by-id").queryParam("id", brandId).contentType(MediaType.APPLICATION_JSON).content(obj))
+				.andExpect(MockMvcResultMatchers.status().isOk()).andDo(print());
+	}
+	
+	@Test
+	void shouldListBrandByNameAndReturnStatus200() throws Exception {
+		loadBrand();
+
+		mockMvc.perform(get("/api/brands/list-brand-by-name").queryParam("name", brandName))
+				.andExpect(MockMvcResultMatchers.status().isOk()).andDo(print());
+	}
+	
 	void loadBrand() {
 		Brand brand1 = new Brand(null, "name1", null);
 		
-		brandRepository.save(brand1);
+		Brand brand = brandRepository.save(brand1);
+		
+		brandName = brand.getName();
+		
+		brandId = brand.getId();
 	}
 }
