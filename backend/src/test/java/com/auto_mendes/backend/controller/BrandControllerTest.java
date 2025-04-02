@@ -72,16 +72,18 @@ class BrandControllerTest {
 	void shouldListBrandByNameAndReturnStatus200() throws Exception {
 		loadBrand();
 
-		mockMvc.perform(get("/api/brands/list-brand-by-name").queryParam("name", brandName))
+		mockMvc.perform(get("/api/brands/list-brand-by-name").queryParam("name", "name1"))
 				.andExpect(MockMvcResultMatchers.status().isOk()).andDo(print());
 	}
 	
 	void loadBrand() {
 		Brand brand1 = new Brand(null, "name1", null);
 		
+		Brand brand2 = new Brand(null, "name2", null);
+		
 		Brand brand = brandRepository.save(brand1);
 		
-		brandName = brand.getName();
+		brandRepository.save(brand2);
 		
 		brandId = brand.getId();
 	}
