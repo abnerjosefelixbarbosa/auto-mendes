@@ -21,4 +21,12 @@ public class Manager extends Employee {
 	public Manager(String id, String name, String email, String matriculation, String phone, LocalDate birthDate) {
 		super(id, name, email, matriculation, phone, birthDate);
 	}
+	
+	public void update(Manager manager) {
+		this.birthDate = manager.getBirthDate();
+		this.email = manager.getEmail();
+		this.matriculation = manager.getMatriculation();
+		this.name = manager.getName();
+		this.phone = manager.getPhone();
+	}
 }

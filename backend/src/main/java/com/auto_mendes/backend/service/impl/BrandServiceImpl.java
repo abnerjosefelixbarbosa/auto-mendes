@@ -40,7 +40,7 @@ public class BrandServiceImpl implements BrandService {
 		Brand brandFound = brandRepository.findById(id)
 				.orElseThrow(() -> new EntityExistsException("Marca não encontrada."));
 		
-		brandFound.setName(dto.name());
+		brandFound.update(brand);
 		
 		Brand brandSaved = brandRepository.save(brandFound);
 		

@@ -48,7 +48,7 @@ class BrandControllerTest {
 	void shouldRegisterBrandAndReturnStatus201() throws Exception {
 		loadBrand();
 		
-		BrandRequestDTO request = new BrandRequestDTO("name2");
+		BrandRequestDTO request = new BrandRequestDTO("name3");
 
 		String obj = objectMapper.writeValueAsString(request);
 
@@ -60,7 +60,7 @@ class BrandControllerTest {
 	void shouldUpdateBrandByIdAndReturnStatus200() throws Exception {
 		loadBrand();
 		
-		BrandRequestDTO request = new BrandRequestDTO("name2");
+		BrandRequestDTO request = new BrandRequestDTO("name3");
 
 		String obj = objectMapper.writeValueAsString(request);
 

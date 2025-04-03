@@ -88,12 +88,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 			Manager managerFound = managerRepository.findById(id)
 					.orElseThrow(() ->  new EntityNotFoundException("Gerente não encontrado."));
 
-			managerFound.setEmail(manager.getEmail());
-			managerFound.setBirthDate(manager.getBirthDate());
-			managerFound.setMatriculation(manager.getMatriculation());
-			managerFound.setName(manager.getName());
-			managerFound.setPhone(manager.getPhone());
+			//managerFound.setEmail(manager.getEmail());
+			//managerFound.setBirthDate(manager.getBirthDate());
+			//managerFound.setMatriculation(manager.getMatriculation());
+			//managerFound.setName(manager.getName());
+			//managerFound.setPhone(manager.getPhone());
 
+			managerFound.update(manager);
+			
 			Manager managerSaved = managerRepository.save(managerFound);
 
 			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(managerSaved);
@@ -108,11 +110,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			AssistantManager assistantManagerFound = assistantManagerRepository.findById(id)
 					.orElseThrow(() -> new EntityNotFoundException("Subgerente não encontrado."));
 
-			assistantManagerFound.setEmail(assistantManager.getEmail());
-			assistantManagerFound.setBirthDate(assistantManager.getBirthDate());
-			assistantManagerFound.setMatriculation(assistantManager.getMatriculation());
-			assistantManagerFound.setName(assistantManager.getName());
-			assistantManagerFound.setPhone(assistantManager.getPhone());
+			assistantManagerFound.update(assistantManager);
 
 			AssistantManager assistantManagerSaved = assistantManagerRepository.save(assistantManagerFound);
 
@@ -128,12 +126,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			Saler salerFound = salerRepository.findById(id)
 					.orElseThrow(() -> new EntityNotFoundException("Vendedor não encontrado."));
 
-			salerFound.setEmail(saler.getEmail());
-			salerFound.setBirthDate(saler.getBirthDate());
-			salerFound.setMatriculation(saler.getMatriculation());
-			salerFound.setName(saler.getName());
-			salerFound.setPhone(saler.getPhone());
-			salerFound.setCommission(saler.getCommission());
+			salerFound.update(saler);
 
 			Saler salerSaved = salerRepository.save(salerFound);
 
