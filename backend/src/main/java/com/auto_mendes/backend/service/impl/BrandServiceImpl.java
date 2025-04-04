@@ -13,6 +13,7 @@ import com.auto_mendes.backend.service.BrandService;
 import com.auto_mendes.backend.validation.BrandValidation;
 
 import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -40,7 +41,7 @@ public class BrandServiceImpl implements BrandService {
 		Brand brandFound = brandRepository.findById(id)
 				.orElseThrow(() -> new EntityExistsException("Marca não encontrada."));
 		
-		brandFound.setName(dto.name());
+		brandFound.update(brand);
 		
 		Brand brandSaved = brandRepository.save(brandFound);
 		
@@ -50,5 +51,10 @@ public class BrandServiceImpl implements BrandService {
 	public Page<BrandResponseDTO> listBrandByName(String name, Pageable pageable) {
 		return brandRepository.findAllByNameContaining(name, pageable)
 				.map(brandMapper::toBrandResponseDTO);
+	}
+	
+	public Brand findBrandByName(String name) {
+		return brandRepository.findByName(name)
+				.orElseThrow(() -> new EntityNotFoundException("Nome da marca não encontrado."));
 	}
 }

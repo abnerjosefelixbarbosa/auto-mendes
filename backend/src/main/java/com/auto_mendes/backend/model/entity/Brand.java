@@ -29,4 +29,8 @@ public class Brand implements Serializable {
 	private String name;
 	@OneToMany(mappedBy = "brand")
 	private List<Model> models;
+	
+	public void update(Brand brand) {
+		this.name = brand.getName();
+	}
 }

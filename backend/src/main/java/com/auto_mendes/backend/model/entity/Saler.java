@@ -32,4 +32,13 @@ public class Saler extends Employee {
 		super(id, name, email, matriculation, phone, birthDate);
 		this.commission = commission;
 	}
+	
+	public void update(Saler saler) {
+		this.birthDate = saler.getBirthDate();
+		this.email = saler.getEmail();
+		this.matriculation = saler.getMatriculation();
+		this.name = saler.getName();
+		this.phone = saler.getPhone();
+		this.commission = saler.getCommission();
+	}
 }

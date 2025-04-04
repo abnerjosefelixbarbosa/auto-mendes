@@ -38,19 +38,4 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 		return new EmployeeResponseDTO(entity.getId(), entity.getName(), entity.getEmail(), entity.getMatriculation(),
 				entity.getPhone(), entity.getBirthDate(), entity.getCommission());
 	}
-
-	public Manager toManager(String id, Manager entity) {
-		return new Manager(id, entity.getName(), entity.getEmail(), entity.getMatriculation(),
-				entity.getPhone(), entity.getBirthDate());
-	}
-
-	public AssistantManager toAssistantManager(String id, AssistantManager entity) {
-		return new AssistantManager(id, entity.getName(), entity.getEmail(), entity.getMatriculation(),
-				entity.getPhone(), entity.getBirthDate());
-	}
-
-	public Saler toSaler(String id,  Saler entity) {
-		return new Saler(id, entity.getName(), entity.getEmail(), entity.getMatriculation(),
-				entity.getPhone(), entity.getBirthDate(), entity.getCommission());
-	}
 }

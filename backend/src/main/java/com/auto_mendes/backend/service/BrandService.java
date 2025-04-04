@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.auto_mendes.backend.model.dto.request.BrandRequestDTO;
 import com.auto_mendes.backend.model.dto.response.BrandResponseDTO;
+import com.auto_mendes.backend.model.entity.Brand;
 
 public interface BrandService {
 	BrandResponseDTO registerBrand(BrandRequestDTO dto);
@@ -12,4 +13,6 @@ public interface BrandService {
     BrandResponseDTO updateBrandByid(String id, BrandRequestDTO dto);
 	
 	Page<BrandResponseDTO> listBrandByName(String name, Pageable pageable);
+	
+	Brand findBrandByName(String name);
 }

@@ -16,75 +16,85 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.auto_mendes.backend.model.dto.request.BrandRequestDTO;
+import com.auto_mendes.backend.model.dto.request.ModelRequestDTO;
 import com.auto_mendes.backend.model.entity.Brand;
+import com.auto_mendes.backend.model.entity.Model;
 import com.auto_mendes.backend.repository.BrandRepository;
+import com.auto_mendes.backend.repository.ModelRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 @ActiveProfiles("dev")
 @AutoConfigureMockMvc
-class BrandControllerTest {
+public class ModelControllerTest {
 	@Autowired
 	MockMvc mockMvc;
 	@Autowired
 	ObjectMapper objectMapper;
 	@Autowired
+	ModelRepository modelRepository;
+	@Autowired
 	BrandRepository brandRepository;
-	String brandName;
-	String brandId;
+	String modelId;
 
 	@BeforeEach
 	void setUp() {
+		modelRepository.deleteAll();
 		brandRepository.deleteAll();
 	}
 
 	@AfterEach
 	void tearDown() {
+		modelRepository.deleteAll();
 		brandRepository.deleteAll();
 	}
-	
+
 	@Test
-	void shouldRegisterBrandAndReturnStatus201() throws Exception {
-		loadBrand();
-		
-		BrandRequestDTO request = new BrandRequestDTO("name3");
+	void shouldRegisterModelAndReturnStatus201() throws Exception {
+		loadModel();
+
+		ModelRequestDTO request = new ModelRequestDTO("name2", "name1");
 
 		String obj = objectMapper.writeValueAsString(request);
 
-		mockMvc.perform(post("/api/brands/register-brand").contentType(MediaType.APPLICATION_JSON).content(obj))
+		mockMvc.perform(post("/api/models/register-model").contentType(MediaType.APPLICATION_JSON).content(obj))
 				.andExpect(MockMvcResultMatchers.status().isCreated()).andDo(print());
 	}
-	
+
 	@Test
-	void shouldUpdateBrandByIdAndReturnStatus200() throws Exception {
-		loadBrand();
-		
-		BrandRequestDTO request = new BrandRequestDTO("name3");
+	void shouldUpdateModelByIdAndReturnStatus200() throws Exception {
+		loadModel();
+
+		ModelRequestDTO request = new ModelRequestDTO("name2", "name1");
 
 		String obj = objectMapper.writeValueAsString(request);
 
-		mockMvc.perform(put("/api/brands/update-brand-by-id").queryParam("id", brandId).contentType(MediaType.APPLICATION_JSON).content(obj))
+		mockMvc.perform(put("/api/models/update-model-by-id").queryParam("id", modelId)
+				.contentType(MediaType.APPLICATION_JSON).content(obj))
 				.andExpect(MockMvcResultMatchers.status().isOk()).andDo(print());
 	}
 	
 	@Test
-	void shouldListBrandByNameAndReturnStatus200() throws Exception {
-		loadBrand();
+	void shouldListModelByNameAndReturnStatus200() throws Exception {
+		loadModel();
 
-		mockMvc.perform(get("/api/brands/list-brand-by-name").queryParam("name", "name1"))
+		mockMvc.perform(get("/api/models/list-model-by-name").queryParam("name", "name1"))
 				.andExpect(MockMvcResultMatchers.status().isOk()).andDo(print());
 	}
-	
-	void loadBrand() {
+
+	void loadModel() {
 		Brand brand1 = new Brand(null, "name1", null);
-		
-		Brand brand2 = new Brand(null, "name2", null);
-		
+
 		Brand brand = brandRepository.save(brand1);
+
+		Model model1 = new Model(null, "name1", brand, null);
 		
-		brandRepository.save(brand2);
+		Model model2 = new Model(null, "name2", brand, null);
+
+		Model model = modelRepository.save(model1);
 		
-		brandId = brand.getId();
+		modelRepository.save(model2);
+
+		modelId = model.getId();
 	}
 }

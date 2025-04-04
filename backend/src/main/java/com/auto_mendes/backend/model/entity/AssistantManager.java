@@ -22,4 +22,12 @@ public class AssistantManager extends Employee {
 			LocalDate birthDate) {
 		super(id, name, email, matriculation, phone, birthDate);
 	}
+	
+	public void update(AssistantManager assistantManager) {
+		this.birthDate = assistantManager.getBirthDate();
+		this.email = assistantManager.getEmail();
+		this.matriculation = assistantManager.getMatriculation();
+		this.name = assistantManager.getName();
+		this.phone = assistantManager.getPhone();
+	}
 }
