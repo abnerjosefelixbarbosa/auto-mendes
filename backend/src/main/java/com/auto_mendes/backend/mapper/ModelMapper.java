@@ -5,7 +5,7 @@ import com.auto_mendes.backend.model.dto.response.ModelResponseDTO;
 import com.auto_mendes.backend.model.entity.Model;
 
 public interface ModelMapper {
-	Model toEntity(ModelRequestDTO dto);
+	Model toModel(ModelRequestDTO dto);
 
-	ModelResponseDTO toDTO(Model entity); 
+	ModelResponseDTO toModelResponseDTO(Model entity); 
 }

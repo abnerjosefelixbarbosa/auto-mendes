@@ -88,12 +88,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 			Manager managerFound = managerRepository.findById(id)
 					.orElseThrow(() ->  new EntityNotFoundException("Gerente não encontrado."));
 
-			//managerFound.setEmail(manager.getEmail());
-			//managerFound.setBirthDate(manager.getBirthDate());
-			//managerFound.setMatriculation(manager.getMatriculation());
-			//managerFound.setName(manager.getName());
-			//managerFound.setPhone(manager.getPhone());
-
 			managerFound.update(manager);
 			
 			Manager managerSaved = managerRepository.save(managerFound);

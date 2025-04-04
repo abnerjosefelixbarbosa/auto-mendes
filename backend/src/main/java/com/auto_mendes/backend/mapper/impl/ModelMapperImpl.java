@@ -10,13 +10,13 @@ import com.auto_mendes.backend.model.entity.Model;
 
 @Component
 public class ModelMapperImpl implements ModelMapper {
-	public Model toEntity(ModelRequestDTO dto) {
+	public Model toModel(ModelRequestDTO dto) {
 		Brand brand = new Brand(null, dto.brandName(), null);
 
 		return new Model(null, dto.name(), brand, null);
 	}
 
-	public ModelResponseDTO toDTO(Model entity) {
+	public ModelResponseDTO toModelResponseDTO(Model entity) {
 		return new ModelResponseDTO(entity.getId(), entity.getName(), entity.getBrand().getName());
 	}
 }
