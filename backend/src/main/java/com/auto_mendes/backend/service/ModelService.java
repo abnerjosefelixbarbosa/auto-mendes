@@ -1,5 +1,8 @@
 package com.auto_mendes.backend.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.auto_mendes.backend.model.dto.request.ModelRequestDTO;
 import com.auto_mendes.backend.model.dto.response.ModelResponseDTO;
 
@@ -8,5 +11,5 @@ public interface ModelService {
 	
 	ModelResponseDTO updateModelById(String id, ModelRequestDTO dto);
 	
-	ModelResponseDTO listModelByName(String name);
+	Page<ModelResponseDTO> listModelByName(String name, Pageable pageable);
 }

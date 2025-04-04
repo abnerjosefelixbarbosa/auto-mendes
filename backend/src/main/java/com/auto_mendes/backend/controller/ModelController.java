@@ -1,5 +1,7 @@
 package com.auto_mendes.backend.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,9 +40,9 @@ public class ModelController {
 	}
 	
 	@GetMapping(value = "/list-model-by-name")
-	public ResponseEntity<ModelResponseDTO> listModelByName(@RequestParam String name) {
-		ModelResponseDTO response = modelService.listModelByName(name);
+	public ResponseEntity<Page<ModelResponseDTO>> listModelByName(@RequestParam String name, Pageable pageable) {
+		Page<ModelResponseDTO> page = modelService.listModelByName(name, pageable);
 		
-		return ResponseEntity.status(HttpStatus.OK).body(response);
+		return ResponseEntity.status(HttpStatus.OK).body(page);
 	}
 }

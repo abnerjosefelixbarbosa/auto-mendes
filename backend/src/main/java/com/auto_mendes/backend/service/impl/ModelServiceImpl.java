@@ -1,5 +1,7 @@
 package com.auto_mendes.backend.service.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.auto_mendes.backend.mapper.ModelMapper;
@@ -12,6 +14,7 @@ import com.auto_mendes.backend.service.BrandService;
 import com.auto_mendes.backend.service.ModelService;
 import com.auto_mendes.backend.validation.ModelValidation;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -38,10 +41,27 @@ public class ModelServiceImpl implements ModelService {
 	}
 
 	public ModelResponseDTO updateModelById(String id, ModelRequestDTO dto) {
-		return null;
+		Model model = modelMapper.toModel(dto);
+
+		modelValidation.valiadteModel(model);
+
+		Brand brandFound = brandService
+				.findBrandByName(model.getBrand().getName());
+
+		model.setBrand(brandFound);
+		
+		Model modelFound = modelRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException("Id não encontrado."));
+		
+		modelFound.update(model);
+
+		Model modelSaved = modelRepository.save(modelFound);
+
+		return modelMapper.toModelResponseDTO(modelSaved);
 	}
 
-	public ModelResponseDTO listModelByName(String name) {
-		return null;
+	public Page<ModelResponseDTO> listModelByName(String name, Pageable pageable) {
+		return modelRepository.findAllByNameContaining(name, pageable)
+				.map(modelMapper::toModelResponseDTO);
 	}
 }
