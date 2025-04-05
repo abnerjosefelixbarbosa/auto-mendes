@@ -35,6 +35,7 @@ public class Vehicle implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
+	@Column(length = 20)
 	private String plate;
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
