@@ -12,6 +12,7 @@ import com.auto_mendes.backend.repository.CarRepository;
 import com.auto_mendes.backend.repository.ModelRepository;
 import com.auto_mendes.backend.repository.MotorcycleRepository;
 import com.auto_mendes.backend.service.VehicleService;
+import com.auto_mendes.backend.validation.VehicleValidation;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class VehicleServiceImpl implements VehicleService {
-	private final VehicleMapper vehicleMapper; 
+	private final VehicleMapper vehicleMapper;
+	private final VehicleValidation vehicleValidation;
 	private final ModelRepository modelRepository;
 	private final CarRepository carRepository;
 	private final MotorcycleRepository motorcycleRepository;
@@ -31,24 +33,32 @@ public class VehicleServiceImpl implements VehicleService {
 		case 0: {
 			Car car = vehicleMapper.toCar(dto);
 			
+			vehicleValidation.validateVehicle(car);
+			
 			Model modelFound = modelRepository.findByName(car.getModel().getName())
 					.orElseThrow(() -> new EntityNotFoundException("Nome do modelo não encontrado."));
 			
 			car.setModel(modelFound);
 			
-			response = vehicleMapper.toVehicleResponseDTO(car);
+			Car carSaved = carRepository.save(car);
+			
+			response = vehicleMapper.toVehicleResponseDTO(carSaved);
 			
 			break;
 		}
         case 1: {
         	Motorcycle motorcycle = vehicleMapper.toMotorcycle(dto);
         	
+        	vehicleValidation.validateVehicle(motorcycle);
+        	
         	Model modelFound = modelRepository.findByName(motorcycle.getModel().getName())
 					.orElseThrow(() -> new EntityNotFoundException("Nome do modelo não encontrado."));
 	
         	motorcycle.setModel(modelFound);
         	
-        	response = vehicleMapper.toVehicleResponseDTO(motorcycle);
+        	Motorcycle motorcycleSaved = motorcycleRepository.save(motorcycle);
+        	
+        	response = vehicleMapper.toVehicleResponseDTO(motorcycleSaved);
 			
 			break;
 		}
