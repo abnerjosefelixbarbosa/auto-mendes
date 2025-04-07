@@ -4,6 +4,7 @@ import com.auto_mendes.backend.model.dto.request.VehicleRequestDTO;
 import com.auto_mendes.backend.model.dto.response.VehicleResponseDTO;
 import com.auto_mendes.backend.model.entity.Car;
 import com.auto_mendes.backend.model.entity.Motorcycle;
+import com.auto_mendes.backend.model.entity.Vehicle;
 
 public interface VehicleMapper {
 	Car toCar(VehicleRequestDTO dto);
@@ -13,4 +14,6 @@ public interface VehicleMapper {
     VehicleResponseDTO toVehicleResponseDTO(Car car);
 	
     VehicleResponseDTO toVehicleResponseDTO(Motorcycle motorcycle);
+    
+    VehicleResponseDTO toVehicleResponseDTO(Vehicle vehicle);
 }

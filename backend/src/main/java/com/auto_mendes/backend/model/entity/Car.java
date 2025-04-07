@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @Entity
 @Table(name = "car_tb")
@@ -24,5 +24,12 @@ public class Car extends Vehicle {
 	public Car(String id, String plate, TransmissionType transmissionType, BigDecimal price, Model model,
 			List<SaleVehicle> saleVehicles) {
 		super(id, plate, transmissionType, price, model, saleVehicles);
+	}
+
+	public void update(Car car) {
+		this.setModel(car.getModel());
+		this.setPlate(car.getPlate());
+		this.setPrice(car.getPrice());
+		this.setTransmissionType(car.getTransmissionType());
 	}
 }

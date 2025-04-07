@@ -25,4 +25,11 @@ public class Motorcycle extends Vehicle {
 			List<SaleVehicle> saleVehicles) {
 		super(id, plate, transmissionType, price, model, saleVehicles);
 	}
+
+	public void update(Motorcycle motorcycle) {
+		this.setModel(motorcycle.getModel());
+		this.setPlate(motorcycle.getPlate());
+		this.setPrice(motorcycle.getPrice());
+		this.setTransmissionType(motorcycle.getTransmissionType());
+	}
 }

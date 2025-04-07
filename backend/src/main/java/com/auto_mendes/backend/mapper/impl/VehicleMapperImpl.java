@@ -8,6 +8,7 @@ import com.auto_mendes.backend.model.dto.response.VehicleResponseDTO;
 import com.auto_mendes.backend.model.entity.Car;
 import com.auto_mendes.backend.model.entity.Model;
 import com.auto_mendes.backend.model.entity.Motorcycle;
+import com.auto_mendes.backend.model.entity.Vehicle;
 
 @Component
 public class VehicleMapperImpl implements VehicleMapper {
@@ -31,5 +32,10 @@ public class VehicleMapperImpl implements VehicleMapper {
 	public VehicleResponseDTO toVehicleResponseDTO(Motorcycle motorcycle) {
 		return new VehicleResponseDTO(motorcycle.getId(), motorcycle.getPlate(), motorcycle.getTransmissionType(), motorcycle.getPrice(),
 				motorcycle.getModel().getName());
+	}
+	
+	public VehicleResponseDTO toVehicleResponseDTO(Vehicle vehicle) {
+		return new VehicleResponseDTO(vehicle.getId(), vehicle.getPlate(), vehicle.getTransmissionType(), vehicle.getPrice(),
+				vehicle.getModel().getName());
 	}
 }
