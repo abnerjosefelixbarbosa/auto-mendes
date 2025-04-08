@@ -124,13 +124,31 @@ classDiagram
 - Spring Boot.
 - Java 17.
 
-# Requisitos Funcionais 
+# Funcionalidades 
 
 ## Funcionários 
 
-- Registrar funcionário.
-- Atualizar funcionário pelo id.
-- Listar funcionários pelo tipo.
+- Registra funcionário.
+- Atualiza funcionário pelo id.
+- Lista funcionários pelo tipo.
+
+## Veículos
+
+- Registra veículo.
+- Atualiza veículo pelo id.
+- Lista veículo pelo modelo.
+
+## Marca
+
+- Registra marca.
+- Atualiza marca pelo id.
+- Lista marca pelo nome.
+
+## Modelo
+
+- Registra modelo.
+- Atualiza modelo pelo id.
+- Lista modelo pelo nome.
 
 # Requisições 
 
