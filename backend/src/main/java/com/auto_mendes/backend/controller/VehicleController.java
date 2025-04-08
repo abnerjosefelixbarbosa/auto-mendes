@@ -32,7 +32,7 @@ public class VehicleController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
-	@PutMapping(value = "/update-vehicle-by-Id")
+	@PutMapping(value = "/update-vehicle-by-id")
 	public ResponseEntity<VehicleResponseDTO> updateVehicleById(@RequestParam String id, @Valid @RequestBody VehicleRequestDTO dto) {
 		VehicleResponseDTO response = vehicleService.updateVehicleById(id, dto);
 		

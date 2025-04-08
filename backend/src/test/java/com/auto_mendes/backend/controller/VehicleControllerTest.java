@@ -1,6 +1,8 @@
 package com.auto_mendes.backend.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import java.math.BigDecimal;
@@ -44,6 +46,7 @@ public class VehicleControllerTest {
 	MotorcycleRepository motorcycleRepository;
 	@Autowired
 	BrandRepository brandRepository;
+	String id;
 
 	@BeforeEach
 	void setUp() {
@@ -63,26 +66,54 @@ public class VehicleControllerTest {
 	void shouldRegisterVehicleAndReturnStatus201() throws Exception {
 		loadVehicle();
 
-		VehicleRequestDTO request = new VehicleRequestDTO(null, TransmissionType.AUTO, new BigDecimal("1500.00"), "name1",
-				VehicleType.CAR);
+		VehicleRequestDTO request = new VehicleRequestDTO(null, TransmissionType.AUTO, new BigDecimal("1500.00"),
+				"name1", VehicleType.CAR);
 
 		String obj = objectMapper.writeValueAsString(request);
 
 		mockMvc.perform(post("/api/vehicles/register-vehicle").contentType(MediaType.APPLICATION_JSON).content(obj))
 				.andExpect(MockMvcResultMatchers.status().isCreated()).andDo(print());
 	}
-	
+
+	@Test
+	void shouldUpdateVehicleByIdAndReturnStatus200() throws Exception {
+		loadVehicle();
+
+		VehicleRequestDTO request = new VehicleRequestDTO(null, TransmissionType.AUTO, new BigDecimal("1500.00"),
+				"name1", VehicleType.CAR);
+
+		String obj = objectMapper.writeValueAsString(request);
+
+		mockMvc.perform(put("/api/vehicles/update-vehicle-by-id").queryParam("id", id)
+				.contentType(MediaType.APPLICATION_JSON).content(obj)).andExpect(MockMvcResultMatchers.status().isOk())
+				.andDo(print());
+	}
+
+	@Test
+	void shouldListVehicleByModelAndReturnStatus200() throws Exception {
+		loadVehicle();
+
+		mockMvc.perform(get("/api/vehicles/list-vehicle-by-model").queryParam("model", "name")).andExpect(MockMvcResultMatchers.status().isOk())
+				.andDo(print());
+	}
+
 	void loadVehicle() {
 		Brand brand1 = new Brand(null, "name1", null);
-		
+
 		brand1 = brandRepository.save(brand1);
-		
+
 		Model model1 = new Model(null, "name1", brand1, null);
-		
+
 		model1 = modelRepository.save(model1);
-		
+
 		Car car1 = new Car(null, null, TransmissionType.AUTO, new BigDecimal("1500.00"), model1, null);
-		
+
 		car1 = carRepository.save(car1);
+		
+		Car car2 = new Car(null, null, TransmissionType.AUTO, new BigDecimal("1500.00"), model1, null);
+
+		car2 = carRepository.save(car2);
+
+		id = car1.getId();
 	}
 }
