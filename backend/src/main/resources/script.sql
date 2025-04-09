@@ -1,0 +1,1 @@
+INSERT INTO BRAND_TB (ID, NAME) VALUES ('cc815ab4-35d6-453c-9ff0-ee9ce36129b4', 'name1');
