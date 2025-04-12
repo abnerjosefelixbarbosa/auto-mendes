@@ -1,5 +1,33 @@
-<main>
-    <div class="card flex justify-center">
-        <p-button label="Check" />
+<header>
+  <nav class="px-6 py-4">
+    <div class="flex justify-between items-center">
+      <span>Auto Mendes</span>
+
+      <button class="md:hidden focus:outline-none" onclick="document.getElementById('mobileMenu').classList.toggle('hidden')">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
+      <div class="hidden md:flex space-x-0.5 items-center relative">
+        <div>
+          <a href="#" class="p-[16px] rounded-[10px]">Home</a>
+        </div>
+  
+        <div>
+          <a href="#" class="p-[16px] rounded-[10px]">Funcionário</a>
+        </div>
+      </div>
     </div>
-</main>
+
+    <div id="mobileMenu" class="md:hidden hidden mt-4 space-y-2">
+      <div>
+        <a href="#" class="p-[16px] block px-2 rounded-[10px]">Home</a>
+      </div>
+
+      <div>
+        <a href="#" class="p-[16px] block px-2 rounded-[10px]">Funcionário</a>
+      </div>
+    </div>
+  </nav>
+</header>
