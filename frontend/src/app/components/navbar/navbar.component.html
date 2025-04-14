@@ -1,40 +1,52 @@
 <header>
-  <nav class="px-6 py-4">
-    <div class="flex justify-between items-center">
-      <span>Auto Mendes</span>
-
-      <button class="md:hidden focus:outline-none" onclick="document.getElementById('mobileMenu').classList.toggle('hidden')">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <span class="navbar-brand">Auto Mendes</span>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
       </button>
-
-      <div class="hidden md:flex space-x-0.5 items-center relative">
-        <div>
-          <a href="#" class="p-[16px] rounded-md" routerLink='/'>Home</a>
-        </div>
-  
-        <div>
-          <a href="#" class="p-[16px] rounded-md" routerLink='/employees'>Funcionário</a>
-        </div>
-
-        <div>
-          <a href="#" class="p-[16px] rounded-md" routerLink='/vehicles'>Veicuílos</a>
-        </div>
-      </div>
-    </div>
-
-    <div id="mobileMenu" class="md:hidden hidden mt-4 space-y-2">
-      <div>
-        <a href="#" class="p-[16px] block px-2 rounded-md">Home</a>
-      </div>
-
-      <div>
-        <a href="#" class="p-[16px] block px-2 rounded-md">Funcionário</a>
-      </div>
-
-      <div>
-        <a href="#" class="p-[16px] block px-2 rounded-md">Veicuílos</a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link navbar-link" routerLink="home">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link navbar-link"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Funcionarios
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a
+                  class="dropdown-item navbar-sub-link"
+                  routerLink="employee-registration"
+                  >Registro</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item navbar-sub-link"
+                  routerLink="employee-listing"
+                  >Listagem</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
