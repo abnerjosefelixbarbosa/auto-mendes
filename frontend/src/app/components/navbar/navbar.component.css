@@ -5,12 +5,3 @@ nav {
 span, .navbar-link {
     color: #ffffff !important;
 }
-
-nav a:hover {
-    background-color: #708090 !important;
-    border-radius: 10px !important;
-}
-
-.navbar-sub-link:hover {
-    border-radius: 1px !important;
-}
