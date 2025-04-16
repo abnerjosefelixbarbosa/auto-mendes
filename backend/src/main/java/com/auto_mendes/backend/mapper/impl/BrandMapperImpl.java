@@ -2,10 +2,10 @@ package com.auto_mendes.backend.mapper.impl;
 
 import org.springframework.stereotype.Component;
 
+import com.auto_mendes.backend.dto.BrandRequestDTO;
+import com.auto_mendes.backend.dto.BrandResponseDTO;
+import com.auto_mendes.backend.entity.Brand;
 import com.auto_mendes.backend.mapper.BrandMapper;
-import com.auto_mendes.backend.model.dto.request.BrandRequestDTO;
-import com.auto_mendes.backend.model.dto.response.BrandResponseDTO;
-import com.auto_mendes.backend.model.entity.Brand;
 
 @Component
 public class BrandMapperImpl implements BrandMapper {

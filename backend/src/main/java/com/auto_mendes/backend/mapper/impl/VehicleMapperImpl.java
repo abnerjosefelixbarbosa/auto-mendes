@@ -2,13 +2,13 @@ package com.auto_mendes.backend.mapper.impl;
 
 import org.springframework.stereotype.Component;
 
+import com.auto_mendes.backend.dto.VehicleRequestDTO;
+import com.auto_mendes.backend.dto.VehicleResponseDTO;
+import com.auto_mendes.backend.entity.Car;
+import com.auto_mendes.backend.entity.Model;
+import com.auto_mendes.backend.entity.Motorcycle;
+import com.auto_mendes.backend.entity.Vehicle;
 import com.auto_mendes.backend.mapper.VehicleMapper;
-import com.auto_mendes.backend.model.dto.request.VehicleRequestDTO;
-import com.auto_mendes.backend.model.dto.response.VehicleResponseDTO;
-import com.auto_mendes.backend.model.entity.Car;
-import com.auto_mendes.backend.model.entity.Model;
-import com.auto_mendes.backend.model.entity.Motorcycle;
-import com.auto_mendes.backend.model.entity.Vehicle;
 
 @Component
 public class VehicleMapperImpl implements VehicleMapper {

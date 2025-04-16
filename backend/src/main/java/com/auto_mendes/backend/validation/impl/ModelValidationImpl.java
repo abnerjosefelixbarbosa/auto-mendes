@@ -2,7 +2,7 @@ package com.auto_mendes.backend.validation.impl;
 
 import org.springframework.stereotype.Component;
 
-import com.auto_mendes.backend.model.entity.Model;
+import com.auto_mendes.backend.entity.Model;
 import com.auto_mendes.backend.repository.ModelRepository;
 import com.auto_mendes.backend.validation.ModelValidation;
 

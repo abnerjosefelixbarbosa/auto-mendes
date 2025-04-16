@@ -1,10 +1,10 @@
 package com.auto_mendes.backend.mapper;
 
-import com.auto_mendes.backend.model.dto.request.VehicleRequestDTO;
-import com.auto_mendes.backend.model.dto.response.VehicleResponseDTO;
-import com.auto_mendes.backend.model.entity.Car;
-import com.auto_mendes.backend.model.entity.Motorcycle;
-import com.auto_mendes.backend.model.entity.Vehicle;
+import com.auto_mendes.backend.dto.VehicleRequestDTO;
+import com.auto_mendes.backend.dto.VehicleResponseDTO;
+import com.auto_mendes.backend.entity.Car;
+import com.auto_mendes.backend.entity.Motorcycle;
+import com.auto_mendes.backend.entity.Vehicle;
 
 public interface VehicleMapper {
 	Car toCar(VehicleRequestDTO dto);

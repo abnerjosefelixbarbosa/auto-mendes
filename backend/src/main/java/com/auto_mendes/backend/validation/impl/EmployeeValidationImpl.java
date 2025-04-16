@@ -2,9 +2,9 @@ package com.auto_mendes.backend.validation.impl;
 
 import org.springframework.stereotype.Component;
 
-import com.auto_mendes.backend.model.entity.AssistantManager;
-import com.auto_mendes.backend.model.entity.Manager;
-import com.auto_mendes.backend.model.entity.Saler;
+import com.auto_mendes.backend.entity.AssistantManager;
+import com.auto_mendes.backend.entity.Manager;
+import com.auto_mendes.backend.entity.Saler;
 import com.auto_mendes.backend.repository.AssistantManagerRepository;
 import com.auto_mendes.backend.repository.ManagerRepository;
 import com.auto_mendes.backend.repository.SalerRepository;

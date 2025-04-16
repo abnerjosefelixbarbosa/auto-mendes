@@ -2,12 +2,12 @@ package com.auto_mendes.backend.mapper.impl;
 
 import org.springframework.stereotype.Component;
 
+import com.auto_mendes.backend.dto.EmployeeRequestDTO;
+import com.auto_mendes.backend.dto.EmployeeResponseDTO;
+import com.auto_mendes.backend.entity.AssistantManager;
+import com.auto_mendes.backend.entity.Manager;
+import com.auto_mendes.backend.entity.Saler;
 import com.auto_mendes.backend.mapper.EmployeeMapper;
-import com.auto_mendes.backend.model.dto.request.EmployeeRequestDTO;
-import com.auto_mendes.backend.model.dto.response.EmployeeResponseDTO;
-import com.auto_mendes.backend.model.entity.AssistantManager;
-import com.auto_mendes.backend.model.entity.Manager;
-import com.auto_mendes.backend.model.entity.Saler;
 
 @Component
 public class EmployeeMapperImpl implements EmployeeMapper {

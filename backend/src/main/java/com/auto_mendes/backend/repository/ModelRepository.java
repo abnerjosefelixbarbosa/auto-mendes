@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.auto_mendes.backend.model.entity.Model;
+import com.auto_mendes.backend.entity.Model;
 
 @Repository
 public interface ModelRepository extends JpaRepository<Model, String> {

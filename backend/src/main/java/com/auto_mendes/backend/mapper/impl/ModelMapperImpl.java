@@ -2,11 +2,11 @@ package com.auto_mendes.backend.mapper.impl;
 
 import org.springframework.stereotype.Component;
 
+import com.auto_mendes.backend.dto.ModelRequestDTO;
+import com.auto_mendes.backend.dto.ModelResponseDTO;
+import com.auto_mendes.backend.entity.Brand;
+import com.auto_mendes.backend.entity.Model;
 import com.auto_mendes.backend.mapper.ModelMapper;
-import com.auto_mendes.backend.model.dto.request.ModelRequestDTO;
-import com.auto_mendes.backend.model.dto.response.ModelResponseDTO;
-import com.auto_mendes.backend.model.entity.Brand;
-import com.auto_mendes.backend.model.entity.Model;
 
 @Component
 public class ModelMapperImpl implements ModelMapper {

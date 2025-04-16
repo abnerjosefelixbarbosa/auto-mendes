@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.auto_mendes.backend.model.dto.request.ModelRequestDTO;
-import com.auto_mendes.backend.model.dto.response.ModelResponseDTO;
+import com.auto_mendes.backend.dto.ModelRequestDTO;
+import com.auto_mendes.backend.dto.ModelResponseDTO;
 import com.auto_mendes.backend.service.ModelService;
 
 import jakarta.validation.Valid;

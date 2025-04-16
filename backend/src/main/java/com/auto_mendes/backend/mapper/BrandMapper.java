@@ -1,8 +1,8 @@
 package com.auto_mendes.backend.mapper;
 
-import com.auto_mendes.backend.model.dto.request.BrandRequestDTO;
-import com.auto_mendes.backend.model.dto.response.BrandResponseDTO;
-import com.auto_mendes.backend.model.entity.Brand;
+import com.auto_mendes.backend.dto.BrandRequestDTO;
+import com.auto_mendes.backend.dto.BrandResponseDTO;
+import com.auto_mendes.backend.entity.Brand;
 
 public interface BrandMapper {
 	Brand toBrand(BrandRequestDTO dto);
