@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { EmployeeService } from '../../service/employee/employee.service';
 
 @Component({
   selector: 'app-employee-registration',
@@ -10,6 +11,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class EmployeeRegistrationComponent {
   form: FormGroup;
+  employeeService = inject(EmployeeService);
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
