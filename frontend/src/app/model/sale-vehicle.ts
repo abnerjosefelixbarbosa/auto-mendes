@@ -1,5 +1,5 @@
 import { Sale } from './sale';
-import { SaleVehicleId } from './sale_vehicle_id';
+import { SaleVehicleId } from './sale-vehicle-id';
 import { Vehicle } from './vehicle';
 
 export interface SaleVehicle {

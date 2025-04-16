@@ -1,5 +1,5 @@
-import { TransmissionType } from '../../enums/transmission_type';
-import { VehicleType } from '../../enums/vehicle_type';
+import { TransmissionType } from '../enum/transmission.type';
+import { VehicleType } from '../enum/vehicle.type';
 
 export interface VehicleRequestDTO {
   plate: string;

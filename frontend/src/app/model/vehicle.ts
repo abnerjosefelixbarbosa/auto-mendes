@@ -1,4 +1,4 @@
-import { TransmissionType } from '../enums/transmission_type';
+import { TransmissionType } from '../enum/transmission.type';
 import { Model } from './model';
 
 export interface Vehicle {
