@@ -27,7 +27,7 @@
 
       <div class="mb-3">
         <label for="matriculation" class="form-label">Matrícula</label>
-        <input type="text" class="form-control" formControlName="matriculation"/>
+        <input type="number" class="form-control" formControlName="matriculation"/>
 
         @if (form.get('matriculation')?.touched && form.get('matriculation')?.invalid) {
           <div class="text-danger">
