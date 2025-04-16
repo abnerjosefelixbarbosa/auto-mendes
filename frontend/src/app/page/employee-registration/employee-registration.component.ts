@@ -4,24 +4,30 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 
 @Component({
   selector: 'app-employee-registration',
-  imports: [NavbarComponent],
+  imports: [NavbarComponent, ReactiveFormsModule],
   templateUrl: './employee-registration.component.html',
   styleUrl: './employee-registration.component.css',
 })
 export class EmployeeRegistrationComponent {
-  fg!: FormGroup;
+  form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    this.fg = this.fb.group({
+  constructor(private formBuilder: FormBuilder) {
+    this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
+      email: ['', [Validators.required, Validators.email]],
+      matriculation: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
+      birthDate: ['', [Validators.required]],
+      employeeType: ['', [Validators.required]],
+      commission: ['', [Validators.required]]
     });
   }
 
-  onSubmit() {
-    if (this.fg.valid) {
-      console.log(this.fg.value);
+  register() {
+    if (this.form.valid) {
+      console.log(this.form.value);
     } else {
-      this.fg.markAllAsTouched();
+      this.form.markAllAsTouched();
     }
   }
 }

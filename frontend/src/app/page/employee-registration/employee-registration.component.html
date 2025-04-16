@@ -2,74 +2,99 @@
   <app-navbar></app-navbar>
 
   <div class="container border rounded-1 p-5 mt-5">
-    <form formGroup="fg" (submit)="onSubmit()">
+    <form class="" [formGroup]="form" (ngSubmit)="register()">
       <div class="mb-3">
         <label for="name" class="form-label">Nome</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="name"
-        />
+        <input type="text" class="form-control" formControlName="name" />
         
-        @if (fg.get('nome')?.touched && fg.get('nome')?.invalid) {
-          <div>
-            Nome é obrigatório.
+        @if (form.get('name')?.touched && form.get('name')?.invalid) {
+          <div class="text-danger">
+            Nome invalido.
           </div>
         }
       </div>
 
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
-        <input
-          type="email"
-          class="form-control"
-        />
+        <input type="email" class="form-control" formControlName="email" />
+
+        @if (form.get('email')?.touched && form.get('email')?.invalid) {
+          <div class="text-danger">
+            Email invalido.
+          </div>
+        }
       </div>
 
       <div class="mb-3">
         <label for="matriculation" class="form-label">Matrícula</label>
-        <input
-          type="text"
-          class="form-control"
-        />
+        <input type="text" class="form-control" formControlName="matriculation"/>
+
+        @if (form.get('matriculation')?.touched && form.get('matriculation')?.invalid) {
+          <div class="text-danger">
+            Matriculation invalido.
+          </div>
+        }
       </div>
 
       <div class="mb-3">
         <label for="phone" class="form-label">Telefone</label>
-        <input
-          type="tel"
-          class="form-control"
-        />
+        <input type="tel" class="form-control" formControlName="phone"/>
+
+        @if (form.get('phone')?.touched && form.get('phone')?.invalid) {
+          <div class="text-danger">
+            Telefone invalido.
+          </div>
+        }
       </div>
 
       <div class="mb-3">
         <label for="birth-date" class="form-label">Data de nascimento</label>
-        <input
-          type="date"
-          class="form-control"
-        />
+        <input type="date" class="form-control" formControlName="birthDate" />
+
+        @if (form.get('birthDate')?.touched && form.get('birthDate')?.invalid) {
+          <div class="text-danger">
+            Data de nascimento invalido.
+          </div>
+        }
       </div>
-       
+
       <div class="mb-3">
-        <select class="form-select form-select-lg form-select-sm" >
-            <option selected></option>
-            <option value="1">Gerente</option>
-            <option value="2">Subgerente</option>
-            <option value="3">Vendedor</option>
-          </select>
+        <select class="form-select form-select-lg form-select-sm" formControlName="employeeType">
+          <option selected></option>
+          <option value="1">Gerente</option>
+          <option value="2">Subgerente</option>
+          <option value="3">Vendedor</option>
+        </select>
+
+        @if (form.get('employeeType')?.touched && form.get('employeeType')?.invalid) {
+          <div class="text-danger">
+            Tipo do funcionário invalido.
+          </div>
+        }
       </div>
-      
+
       <div class="mb-3">
         <label for="commission" class="form-label">Comissão</label>
-        <input
-          type="number"
-          class="form-control"
-        />
+        <input type="number" class="form-control" formControlName="commission" />
+
+        @if (form.get('commission')?.touched && form.get('commission')?.invalid) {
+          <div class="text-danger">
+            Comissão invalido.
+          </div>
+        }
       </div>
 
       <div class="d-grid gap-2">
-        <button type="submit" class="btn btn-primary btn-lg">Registra</button>
+        <button type="submit"  class="btn btn-primary btn-lg">Registra</button>
       </div>
     </form>
   </div>
+
+  <!--
+  [disabled]="!form.valid"
+
+  @if (form.get('nome')?.touched && form.get('nome')?.invalid) {
+          <div class="invalid-feedback">Nome é obrigatório.</div>
+        }
+  -->
 </main>
