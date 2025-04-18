@@ -33,9 +33,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Transactional
 	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO dto) {
 		EmployeeResponseDTO employeeResponseDTO = null;
-
-		switch (dto.employeeType().ordinal()) {
-		case 0: {
+		
+		if (dto.employeeType().ordinal() == 0) {
 			Manager manager = employeeMapper.toManager(dto);
 
 			employeeValidation.validadeEmployee(manager);
@@ -43,10 +42,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 			Manager managerSaved = managerRepository.save(manager);
 
 			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(managerSaved);
-
-			break;
 		}
-		case 1: {
+		
+		if (dto.employeeType().ordinal() == 1) {
 			AssistantManager assistantManager = employeeMapper.toAssistantManager(dto);
 
 			employeeValidation.validadeEmployee(assistantManager);
@@ -54,10 +52,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 			AssistantManager assistantManagerSaved = assistantManagerRepository.save(assistantManager);
 
 			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(assistantManagerSaved);
-
-			break;
 		}
-		case 2: {
+		
+		if (dto.employeeType().ordinal() == 2) {
 			Saler saler = employeeMapper.toSaler(dto);
 
 			employeeValidation.validadeEmployee(saler);
@@ -65,11 +62,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 			Saler salerSaved = salerRepository.save(saler);
 
 			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(salerSaved);
-
-			break;
-		}
-		default:
-			break;
 		}
 
 		return employeeResponseDTO;
@@ -78,9 +70,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Transactional
 	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO dto) {
 		EmployeeResponseDTO employeeResponseDTO = null;
-
-		switch (dto.employeeType().ordinal()) {
-		case 0: {
+		
+		if (dto.employeeType().ordinal() == 0) {
 			Manager manager = employeeMapper.toManager(dto);
 
 			employeeValidation.validadeEmployee(manager);
@@ -93,10 +84,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 			Manager managerSaved = managerRepository.save(managerFound);
 
 			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(managerSaved);
-
-			break;
 		}
-		case 1: {
+		
+		if (dto.employeeType().ordinal() == 1) {
 			AssistantManager assistantManager = employeeMapper.toAssistantManager(dto);
 
 			employeeValidation.validadeEmployee(assistantManager);
@@ -109,10 +99,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 			AssistantManager assistantManagerSaved = assistantManagerRepository.save(assistantManagerFound);
 
 			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(assistantManagerSaved);
-
-			break;
 		}
-		case 2: {
+		
+		if (dto.employeeType().ordinal() == 2) {
 			Saler saler = employeeMapper.toSaler(dto);
 
 			employeeValidation.validadeEmployee(saler);
@@ -125,11 +114,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 			Saler salerSaved = salerRepository.save(salerFound);
 
 			employeeResponseDTO = employeeMapper.toEmployeeResponseDTO(salerSaved);
-
-			break;
-		}
-		default:
-			break;
 		}
 
 		return employeeResponseDTO;
@@ -137,25 +121,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	public Page<EmployeeResponseDTO> listEmployeeByType(EmployeeType type, Pageable pageable) {
 		Page<EmployeeResponseDTO> page = null;
-
-		switch (type.ordinal()) {
-		case 0: {
+		
+		if (type.ordinal() == 0) {
 			page = managerRepository.findAll(pageable).map(employeeMapper::toEmployeeResponseDTO);
-
-			break;
 		}
-		case 1: {
+		
+		if (type.ordinal() == 1) {
 			page = assistantManagerRepository.findAll(pageable).map(employeeMapper::toEmployeeResponseDTO);
-			
-			break;
 		}
-		case 2: {
+		
+		if (type.ordinal() == 2) {
 			page = salerRepository.findAll(pageable).map(employeeMapper::toEmployeeResponseDTO);
-
-			break;
-		}
-		default: 
-			break;
 		}
 
 		return page;
