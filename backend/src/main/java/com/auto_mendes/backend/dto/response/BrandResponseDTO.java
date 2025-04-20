@@ -1,4 +1,4 @@
-package com.auto_mendes.backend.dto;
+package com.auto_mendes.backend.dto.response;
 
 public record BrandResponseDTO(
 		String id,

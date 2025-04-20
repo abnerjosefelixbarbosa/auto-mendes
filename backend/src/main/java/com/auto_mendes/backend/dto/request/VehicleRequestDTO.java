@@ -1,4 +1,4 @@
-package com.auto_mendes.backend.dto;
+package com.auto_mendes.backend.dto.request;
 
 import java.math.BigDecimal;
 

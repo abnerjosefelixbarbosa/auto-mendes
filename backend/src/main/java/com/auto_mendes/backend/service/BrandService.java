@@ -3,8 +3,8 @@ package com.auto_mendes.backend.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.auto_mendes.backend.dto.BrandRequestDTO;
-import com.auto_mendes.backend.dto.BrandResponseDTO;
+import com.auto_mendes.backend.dto.request.BrandRequestDTO;
+import com.auto_mendes.backend.dto.response.BrandResponseDTO;
 import com.auto_mendes.backend.entity.Brand;
 
 public interface BrandService {

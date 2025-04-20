@@ -16,7 +16,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.auto_mendes.backend.dto.ModelRequestDTO;
+import com.auto_mendes.backend.dto.request.ModelRequestDTO;
 import com.auto_mendes.backend.entity.Brand;
 import com.auto_mendes.backend.entity.Model;
 import com.auto_mendes.backend.repository.BrandRepository;

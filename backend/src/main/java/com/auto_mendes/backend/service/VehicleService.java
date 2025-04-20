@@ -3,8 +3,8 @@ package com.auto_mendes.backend.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.auto_mendes.backend.dto.VehicleRequestDTO;
-import com.auto_mendes.backend.dto.VehicleResponseDTO;
+import com.auto_mendes.backend.dto.request.VehicleRequestDTO;
+import com.auto_mendes.backend.dto.response.VehicleResponseDTO;
 
 public interface VehicleService {
 	VehicleResponseDTO registerVehicle(VehicleRequestDTO dto);

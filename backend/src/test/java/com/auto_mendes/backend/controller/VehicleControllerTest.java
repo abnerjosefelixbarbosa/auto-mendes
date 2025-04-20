@@ -18,7 +18,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.auto_mendes.backend.dto.VehicleRequestDTO;
+import com.auto_mendes.backend.dto.request.VehicleRequestDTO;
 import com.auto_mendes.backend.entity.Brand;
 import com.auto_mendes.backend.entity.Car;
 import com.auto_mendes.backend.entity.Model;

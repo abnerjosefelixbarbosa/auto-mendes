@@ -1,9 +1,7 @@
-package com.auto_mendes.backend.dto;
+package com.auto_mendes.backend.dto.request;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
-import com.auto_mendes.backend.enums.EmployeeType;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -12,7 +10,7 @@ import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-public record EmployeeRequestDTO(
+public record SalerRequestDTO(
 		@NotEmpty(message = "Nome não deve ser vazio.")
 		@NotNull(message = "Nome não deve ser nulo.")
 		@Size(max = 100, message = "Nome não deve ter mais de 100 caracteres.")
@@ -33,7 +31,6 @@ public record EmployeeRequestDTO(
 		@Past(message = "Data de nascimento não deve ser a data presente ou futura.")
 		@NotNull(message = "Data de nascimento não deve ser nulo.")
 		LocalDate birthDate,
-		@NotNull(message = "Tipo de funcionário não deve ser nulo.")
-		EmployeeType employeeType,
+		@NotNull(message = "Comissão não deve ser nulo.")
 		BigDecimal commission
 ) {}

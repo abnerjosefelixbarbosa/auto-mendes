@@ -4,8 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.auto_mendes.backend.dto.ModelRequestDTO;
-import com.auto_mendes.backend.dto.ModelResponseDTO;
+import com.auto_mendes.backend.dto.request.ModelRequestDTO;
+import com.auto_mendes.backend.dto.response.ModelResponseDTO;
 import com.auto_mendes.backend.entity.Brand;
 import com.auto_mendes.backend.entity.Model;
 import com.auto_mendes.backend.mapper.ModelMapper;
@@ -22,11 +22,10 @@ import lombok.RequiredArgsConstructor;
 public class ModelServiceImpl implements ModelService {
 	private final ModelRepository modelRepository;
 	private final ModelValidation modelValidation;
-	private final ModelMapper modelMapper;
 	private final BrandService brandService;
 
 	public ModelResponseDTO registerModel(ModelRequestDTO dto) {
-		Model model = modelMapper.toModel(dto);
+		Model model = ModelMapper.toModel(dto);
 
 		modelValidation.valiadteModel(model);
 
@@ -37,11 +36,11 @@ public class ModelServiceImpl implements ModelService {
 
 		Model modelSaved = modelRepository.save(model);
 
-		return modelMapper.toModelResponseDTO(modelSaved);
+		return ModelMapper.toModelResponseDTO(modelSaved);
 	}
 
 	public ModelResponseDTO updateModelById(String id, ModelRequestDTO dto) {
-		Model model = modelMapper.toModel(dto);
+		Model model = ModelMapper.toModel(dto);
 
 		modelValidation.valiadteModel(model);
 
@@ -57,11 +56,11 @@ public class ModelServiceImpl implements ModelService {
 
 		Model modelSaved = modelRepository.save(modelFound);
 
-		return modelMapper.toModelResponseDTO(modelSaved);
+		return ModelMapper.toModelResponseDTO(modelSaved);
 	}
 
 	public Page<ModelResponseDTO> listModelByName(String name, Pageable pageable) {
 		return modelRepository.findAllByNameContaining(name, pageable)
-				.map(modelMapper::toModelResponseDTO);
+				.map(ModelMapper::toModelResponseDTO);
 	}
 }

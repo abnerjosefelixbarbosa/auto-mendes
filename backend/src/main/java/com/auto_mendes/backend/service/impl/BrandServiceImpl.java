@@ -4,8 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.auto_mendes.backend.dto.BrandRequestDTO;
-import com.auto_mendes.backend.dto.BrandResponseDTO;
+import com.auto_mendes.backend.dto.request.BrandRequestDTO;
+import com.auto_mendes.backend.dto.response.BrandResponseDTO;
 import com.auto_mendes.backend.entity.Brand;
 import com.auto_mendes.backend.mapper.BrandMapper;
 import com.auto_mendes.backend.repository.BrandRepository;
@@ -20,21 +20,20 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BrandServiceImpl implements BrandService {
 	private final BrandRepository brandRepository;
-	private final BrandMapper brandMapper;
 	private final BrandValidation brandValidation;
 	
 	public BrandResponseDTO registerBrand(BrandRequestDTO dto) {
-		Brand brand = brandMapper.toBrand(dto);
+		Brand brand = BrandMapper.toBrand(dto);
 		
 		brandValidation.validateBrand(brand);
 		
 		Brand brandSaved = brandRepository.save(brand);
 		
-		return brandMapper.toBrandResponseDTO(brandSaved);
+		return BrandMapper.toBrandResponseDTO(brandSaved);
 	}
 
 	public BrandResponseDTO updateBrandByid(String id, BrandRequestDTO dto) {
-        Brand brand = brandMapper.toBrand(dto);
+        Brand brand = BrandMapper.toBrand(dto);
 		
 		brandValidation.validateBrand(brand);
 		
@@ -45,12 +44,12 @@ public class BrandServiceImpl implements BrandService {
 		
 		Brand brandSaved = brandRepository.save(brandFound);
 		
-		return brandMapper.toBrandResponseDTO(brandSaved);
+		return BrandMapper.toBrandResponseDTO(brandSaved);
 	}
 
 	public Page<BrandResponseDTO> listBrandByName(String name, Pageable pageable) {
 		return brandRepository.findAllByNameContaining(name, pageable)
-				.map(brandMapper::toBrandResponseDTO);
+				.map(BrandMapper::toBrandResponseDTO);
 	}
 	
 	public Brand findBrandByName(String name) {

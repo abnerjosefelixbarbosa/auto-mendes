@@ -1,4 +1,4 @@
-package com.auto_mendes.backend.controller;
+package com.auto_mendes.backend.config;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.auto_mendes.backend.dto.ExceptionResponseDTO;
+import com.auto_mendes.backend.dto.response.ExceptionResponseDTO;
 
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
-public class ExcepitionController {
+public class ExcepitionConfig {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {

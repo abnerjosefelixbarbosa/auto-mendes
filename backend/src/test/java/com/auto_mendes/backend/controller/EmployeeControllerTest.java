@@ -19,7 +19,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.auto_mendes.backend.dto.EmployeeRequestDTO;
+import com.auto_mendes.backend.dto.request.EmployeeRequestDTO;
 import com.auto_mendes.backend.entity.AssistantManager;
 import com.auto_mendes.backend.entity.Manager;
 import com.auto_mendes.backend.entity.Saler;

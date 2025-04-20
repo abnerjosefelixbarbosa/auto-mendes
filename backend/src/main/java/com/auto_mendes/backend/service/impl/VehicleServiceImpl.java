@@ -4,8 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.auto_mendes.backend.dto.VehicleRequestDTO;
-import com.auto_mendes.backend.dto.VehicleResponseDTO;
+import com.auto_mendes.backend.dto.request.VehicleRequestDTO;
+import com.auto_mendes.backend.dto.response.VehicleResponseDTO;
 import com.auto_mendes.backend.entity.Car;
 import com.auto_mendes.backend.entity.Model;
 import com.auto_mendes.backend.entity.Motorcycle;
@@ -24,7 +24,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class VehicleServiceImpl implements VehicleService {
-	private final VehicleMapper vehicleMapper;
 	private final VehicleValidation vehicleValidation;
 	private final ModelRepository modelRepository;
 	private final CarRepository carRepository;
@@ -36,7 +35,7 @@ public class VehicleServiceImpl implements VehicleService {
 
 		switch (dto.vehicleType().ordinal()) {
 		case 0: {
-			Car car = vehicleMapper.toCar(dto);
+			Car car = VehicleMapper.toCar(dto);
 
 			vehicleValidation.validateVehicle(car);
 
@@ -47,12 +46,12 @@ public class VehicleServiceImpl implements VehicleService {
 
 			Car carSaved = carRepository.save(car);
 
-			response = vehicleMapper.toVehicleResponseDTO(carSaved);
+			response = VehicleMapper.toVehicleResponseDTO(carSaved);
 
 			break;
 		}
 		case 1: {
-			Motorcycle motorcycle = vehicleMapper.toMotorcycle(dto);
+			Motorcycle motorcycle = VehicleMapper.toMotorcycle(dto);
 
 			vehicleValidation.validateVehicle(motorcycle);
 
@@ -63,7 +62,7 @@ public class VehicleServiceImpl implements VehicleService {
 
 			Motorcycle motorcycleSaved = motorcycleRepository.save(motorcycle);
 
-			response = vehicleMapper.toVehicleResponseDTO(motorcycleSaved);
+			response = VehicleMapper.toVehicleResponseDTO(motorcycleSaved);
 
 			break;
 		}
@@ -79,7 +78,7 @@ public class VehicleServiceImpl implements VehicleService {
 
 		switch (dto.vehicleType().ordinal()) {
 		case 0: {
-			Car car = vehicleMapper.toCar(dto);
+			Car car = VehicleMapper.toCar(dto);
 
 			vehicleValidation.validateVehicle(car);
 
@@ -95,12 +94,12 @@ public class VehicleServiceImpl implements VehicleService {
 
 			Car carSaved = carRepository.save(carFound);
 
-			response = vehicleMapper.toVehicleResponseDTO(carSaved);
+			response = VehicleMapper.toVehicleResponseDTO(carSaved);
 
 			break;
 		}
 		case 1: {
-			Motorcycle motorcycle = vehicleMapper.toMotorcycle(dto);
+			Motorcycle motorcycle = VehicleMapper.toMotorcycle(dto);
 
 			vehicleValidation.validateVehicle(motorcycle);
 
@@ -116,7 +115,7 @@ public class VehicleServiceImpl implements VehicleService {
 
 			Motorcycle motorcycleSaved = motorcycleRepository.save(motorcycleFound);
 
-			response = vehicleMapper.toVehicleResponseDTO(motorcycleSaved);
+			response = VehicleMapper.toVehicleResponseDTO(motorcycleSaved);
 
 			break;
 		}
@@ -130,6 +129,6 @@ public class VehicleServiceImpl implements VehicleService {
 	public Page<VehicleResponseDTO> listVehicleByModel(String model, Pageable pageable) {
 		Page<Vehicle> page = vehicleRepository.findAllByModelNameContaining(model, pageable);
 
-		return page.map(vehicleMapper::toVehicleResponseDTO);
+		return page.map(VehicleMapper::toVehicleResponseDTO);
 	}
 }

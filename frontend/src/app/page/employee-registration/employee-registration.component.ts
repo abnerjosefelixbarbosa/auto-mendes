@@ -20,7 +20,7 @@ export class EmployeeRegistrationComponent {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(100)]],
-      matriculation: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      matriculation: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.maxLength(30)]],
       birthDate: ['', [Validators.required]],
       employeeType: ['', [Validators.required]],
@@ -30,19 +30,19 @@ export class EmployeeRegistrationComponent {
 
   register() {
     if (this.form.valid) {
-      console.log(this.form.value);
-
-      this.employeeRequestDTO = {
-        birthDate: this.form.get('birthDate'),
-        commission: this.form.get('commission'),
-        email: this.form.get('email'),
-        employeeType: EmployeeType.MANAGER,
-        matriculation: this.form.get('matriculation'),
-        name: this.form.get('name'),
-        phone: this.form.get('phone'),
-      }
+      
+      this.validateForm()
+      
     } else {
       this.form.markAllAsTouched();
+    }
+  }
+
+  validateForm() {
+    let matriculation: string = this.form.get('matriculation')?.value
+
+    if (matriculation.length != 10) {
+      this.form.get('matriculation')?.setErrors()
     }
   }
 }
