@@ -4,14 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.auto_mendes.backend.dto.request.AssistantManagerRequestDTO;
 import com.auto_mendes.backend.dto.request.EmployeeRequestDTO;
-import com.auto_mendes.backend.dto.request.ManagerRequestDTO;
-import com.auto_mendes.backend.dto.request.SalerRequestDTO;
-import com.auto_mendes.backend.dto.response.AssistantManagerResponseDTO;
 import com.auto_mendes.backend.dto.response.EmployeeResponseDTO;
-import com.auto_mendes.backend.dto.response.ManagerResponseDTO;
-import com.auto_mendes.backend.dto.response.SalerResponseDTO;
 import com.auto_mendes.backend.entity.AssistantManager;
 import com.auto_mendes.backend.entity.Manager;
 import com.auto_mendes.backend.entity.Saler;
@@ -38,8 +32,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Transactional
 	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO dto) {
 		EmployeeResponseDTO employeeResponseDTO = null;
-		
-		/*
+
 		if (dto.employeeType().ordinal() == 0) {
 			Manager manager = EmployeeMapper.toManager(dto);
 
@@ -49,7 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 			employeeResponseDTO = EmployeeMapper.toEmployeeResponseDTO(managerSaved);
 		}
-		
+
 		if (dto.employeeType().ordinal() == 1) {
 			AssistantManager assistantManager = EmployeeMapper.toAssistantManager(dto);
 
@@ -59,7 +52,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 			employeeResponseDTO = EmployeeMapper.toEmployeeResponseDTO(assistantManagerSaved);
 		}
-		
+
 		if (dto.employeeType().ordinal() == 2) {
 			Saler saler = EmployeeMapper.toSaler(dto);
 
@@ -69,63 +62,29 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 			employeeResponseDTO = EmployeeMapper.toEmployeeResponseDTO(salerSaved);
 		}
-		*/
 
 		return employeeResponseDTO;
-	}
-	
-	@Transactional
-	public ManagerResponseDTO registerManager(ManagerRequestDTO dto) {
-		Manager manager = EmployeeMapper.toManager(dto);
-
-		employeeValidation.validadeEmployee(manager);
-
-		Manager managerSaved = managerRepository.save(manager);
-
-		return EmployeeMapper.toManagerResponseDTO(managerSaved);
-	}
-
-	@Transactional
-	public AssistantManagerResponseDTO registerAssistantManager(AssistantManagerRequestDTO dto) {
-		AssistantManager assistantManager = EmployeeMapper.toAssistantManager(dto);
-
-		employeeValidation.validadeEmployee(assistantManager);
-
-		AssistantManager assistantManagerSaved = assistantManagerRepository.save(assistantManager); 
-	
-		return EmployeeMapper.toAssistantManagerResponseDTO(assistantManagerSaved);
-	}
-
-	@Transactional
-	public SalerResponseDTO registerSaler(SalerRequestDTO dto) {
-		Saler saler = EmployeeMapper.toSaler(dto);
-
-		employeeValidation.validadeEmployee(saler);
-
-		Saler salerSaved = salerRepository.save(saler);
-
-		return EmployeeMapper.toSalerResponseDTO(salerSaved);
 	}
 
 	@Transactional
 	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO dto) {
 		EmployeeResponseDTO employeeResponseDTO = null;
-		
+
 		if (dto.employeeType().ordinal() == 0) {
 			Manager manager = EmployeeMapper.toManager(dto);
 
 			employeeValidation.validadeEmployee(manager);
 
 			Manager managerFound = managerRepository.findById(id)
-					.orElseThrow(() ->  new EntityNotFoundException("Gerente não encontrado."));
+					.orElseThrow(() -> new EntityNotFoundException("Gerente não encontrado."));
 
 			managerFound.update(manager);
-			
+
 			Manager managerSaved = managerRepository.save(managerFound);
 
 			employeeResponseDTO = EmployeeMapper.toEmployeeResponseDTO(managerSaved);
 		}
-		
+
 		if (dto.employeeType().ordinal() == 1) {
 			AssistantManager assistantManager = EmployeeMapper.toAssistantManager(dto);
 
@@ -140,7 +99,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 			employeeResponseDTO = EmployeeMapper.toEmployeeResponseDTO(assistantManagerSaved);
 		}
-		
+
 		if (dto.employeeType().ordinal() == 2) {
 			Saler saler = EmployeeMapper.toSaler(dto);
 
@@ -161,15 +120,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	public Page<EmployeeResponseDTO> listEmployeeByType(EmployeeType type, Pageable pageable) {
 		Page<EmployeeResponseDTO> page = null;
-		
+
 		if (type.ordinal() == 0) {
 			page = managerRepository.findAll(pageable).map(EmployeeMapper::toEmployeeResponseDTO);
 		}
-		
+
 		if (type.ordinal() == 1) {
 			page = assistantManagerRepository.findAll(pageable).map(EmployeeMapper::toEmployeeResponseDTO);
 		}
-		
+
 		if (type.ordinal() == 2) {
 			page = salerRepository.findAll(pageable).map(EmployeeMapper::toEmployeeResponseDTO);
 		}
