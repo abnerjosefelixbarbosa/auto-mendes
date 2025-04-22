@@ -14,7 +14,7 @@ import { EmployeeType } from '../../enum/employee.type';
 export class EmployeeRegistrationComponent {
   form: FormGroup;
   employeeService = inject(EmployeeService);
-  employeeRequestDTO: EmployeeRequestDTO | null = null;
+  request: EmployeeRequestDTO | null = null;
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -30,7 +30,18 @@ export class EmployeeRegistrationComponent {
 
   register() {
     if (this.form.valid) {
-      
+      this.request = {
+        birthDate: new Date(this.form.get('birthDate')?.value),
+        commission: 0,
+        email: '',
+        employeeType: EmployeeType.ASSISTANT_MANAGER,
+        matriculation: '',
+        name: '',
+        phone: ''
+      }
+
+      console.log(this.request);
+
       this.validateForm()
       
     } else {
