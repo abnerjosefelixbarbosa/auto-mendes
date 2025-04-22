@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EmployeeService } from '../../service/employee/employee.service';
-import { EmployeeRequestDTO } from './../../dto/employee-request-dto';
+import { EmployeeRequestDTO } from '../../dto/request/employee.request.dto';
 import { EmployeeType } from '../../enum/employee.type';
 @Component({
   selector: 'app-employee-registration',
@@ -40,9 +40,5 @@ export class EmployeeRegistrationComponent {
 
   validateForm() {
     let matriculation: string = this.form.get('matriculation')?.value
-
-    if (matriculation.length != 10) {
-      this.form.get('matriculation')?.setErrors()
-    }
   }
 }

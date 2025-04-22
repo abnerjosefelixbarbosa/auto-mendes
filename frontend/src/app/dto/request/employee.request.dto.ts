@@ -1,4 +1,4 @@
-import { EmployeeType } from '../enum/employee.type';
+import { EmployeeType } from '../../enum/employee.type';
 
 export interface EmployeeRequestDTO {
   name: string;
