@@ -30,14 +30,40 @@ export class EmployeeRegistrationComponent {
 
   register() {
     if (this.form.valid) {
-      this.request = {
-        birthDate: new Date(this.form.get('birthDate')?.value),
-        commission: 0,
-        email: '',
-        employeeType: EmployeeType.ASSISTANT_MANAGER,
-        matriculation: '',
-        name: '',
-        phone: ''
+      if (this.form.get('employeeType')?.value == 1) {
+        this.request = {
+          birthDate: new Date(this.form.get('birthDate')?.value),
+          commission: this.form.get('commission')?.value,
+          email: this.form.get('email')?.value,
+          employeeType: EmployeeType.MANAGER,
+          matriculation: this.form.get('matriculation')?.value,
+          name: this.form.get('name')?.value,
+          phone: this.form.get('phone')?.value
+        }
+      }
+
+      if (this.form.get('employeeType')?.value == 2) {
+        this.request = {
+          birthDate: new Date(this.form.get('birthDate')?.value),
+          commission: this.form.get('commission')?.value,
+          email: this.form.get('email')?.value,
+          employeeType: EmployeeType.ASSISTANT_MANAGER,
+          matriculation: this.form.get('matriculation')?.value,
+          name: this.form.get('name')?.value,
+          phone: this.form.get('phone')?.value
+        }
+      }
+
+      if (this.form.get('employeeType')?.value == 3) {
+        this.request = {
+          birthDate: new Date(this.form.get('birthDate')?.value),
+          commission: this.form.get('commission')?.value,
+          email: this.form.get('email')?.value,
+          employeeType: EmployeeType.SALER,
+          matriculation: this.form.get('matriculation')?.value,
+          name: this.form.get('name')?.value,
+          phone: this.form.get('phone')?.value
+        }
       }
 
       console.log(this.request);
