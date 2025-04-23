@@ -9,9 +9,9 @@ export class EmployeeService {
 
   constructor() { }
 
-  registreEmployee(dto: EmployeeRequestDTO): Promise<any>  {
+  registreEmployee(dto: EmployeeRequestDTO): Promise<EmployeeResponseDTO | null>  {
     return new Promise((resolve, reject) => {
-      resolve('sucesso');
+      resolve(null);
     });
   }
 }

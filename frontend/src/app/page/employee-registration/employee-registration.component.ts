@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { EmployeeService } from '../../service/employee/employee.service';
 import { EmployeeRequestDTO } from '../../dto/request/employee.request.dto';
 import { EmployeeType } from '../../enum/employee.type';
+import { EmployeeResponseDTO } from '../../dto/response/employee.response.dto';
 @Component({
   selector: 'app-employee-registration',
   imports: [NavbarComponent, ReactiveFormsModule],
@@ -30,52 +31,60 @@ export class EmployeeRegistrationComponent {
 
   register() {
     if (this.form.valid) {
-      if (this.form.get('employeeType')?.value == 1) {
-        this.request = {
-          birthDate: new Date(this.form.get('birthDate')?.value),
-          commission: this.form.get('commission')?.value,
-          email: this.form.get('email')?.value,
-          employeeType: EmployeeType.MANAGER,
-          matriculation: this.form.get('matriculation')?.value,
-          name: this.form.get('name')?.value,
-          phone: this.form.get('phone')?.value
-        }
-      }
+      this.toEmployeeRequestDTO();
 
-      if (this.form.get('employeeType')?.value == 2) {
-        this.request = {
-          birthDate: new Date(this.form.get('birthDate')?.value),
-          commission: this.form.get('commission')?.value,
-          email: this.form.get('email')?.value,
-          employeeType: EmployeeType.ASSISTANT_MANAGER,
-          matriculation: this.form.get('matriculation')?.value,
-          name: this.form.get('name')?.value,
-          phone: this.form.get('phone')?.value
-        }
-      }
+      const response = this.employeeService.registreEmployee(this.request!);
 
-      if (this.form.get('employeeType')?.value == 3) {
-        this.request = {
-          birthDate: new Date(this.form.get('birthDate')?.value),
-          commission: this.form.get('commission')?.value,
-          email: this.form.get('email')?.value,
-          employeeType: EmployeeType.SALER,
-          matriculation: this.form.get('matriculation')?.value,
-          name: this.form.get('name')?.value,
-          phone: this.form.get('phone')?.value
-        }
-      }
-
-      console.log(this.request);
-
-      this.validateForm()
-      
+      response
+      .then((val) => console.log(val))
+      .catch((e) => console.log(e));
     } else {
       this.form.markAllAsTouched();
     }
   }
 
-  validateForm() {
-    let matriculation: string = this.form.get('matriculation')?.value
+  toEmployeeRequestDTO() {
+    if (this.form.get('employeeType')?.value == 1) {
+      this.request = {
+        birthDate: new Date(this.form.get('birthDate')?.value),
+        commission: this.form.get('commission')?.value,
+        email: this.form.get('email')?.value,
+        employeeType: EmployeeType.MANAGER,
+        matriculation: this.form.get('matriculation')?.value,
+        name: this.form.get('name')?.value,
+        phone: this.form.get('phone')?.value
+      }
+    }
+
+    if (this.form.get('employeeType')?.value == 2) {
+      this.request = {
+        birthDate: new Date(this.form.get('birthDate')?.value),
+        commission: this.form.get('commission')?.value,
+        email: this.form.get('email')?.value,
+        employeeType: EmployeeType.ASSISTANT_MANAGER,
+        matriculation: this.form.get('matriculation')?.value,
+        name: this.form.get('name')?.value,
+        phone: this.form.get('phone')?.value
+      }
+    }
+
+    if (this.form.get('employeeType')?.value == 3) {
+      this.request = {
+        birthDate: new Date(this.form.get('birthDate')?.value),
+        commission: this.form.get('commission')?.value,
+        email: this.form.get('email')?.value,
+        employeeType: EmployeeType.SALER,
+        matriculation: this.form.get('matriculation')?.value,
+        name: this.form.get('name')?.value,
+        phone: this.form.get('phone')?.value
+      }
+    }
   }
+
+  //name1
+    //email1@gmail.com
+    //11
+    //(81) 91111-1111
+    //01/01/1991
+    //11
 }
