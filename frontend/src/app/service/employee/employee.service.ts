@@ -1,17 +1,21 @@
-import { Injectable } from '@angular/core';
-import { EmployeeRequestDTO } from './../../dto/request/employee.request.dto';
-import { EmployeeResponseDTO } from './../../dto/response/employee.response.dto';
+import { Injectable, inject } from '@angular/core';import { EmployeeResponseDTO } from './../../dto/response/employee.response.dto';
+import { FormGroup } from '@angular/forms';
+import { EmployeeMapper } from '../../mapper/employee/employee.mapper';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
+  employeeMapper = inject(EmployeeMapper);
+  private url = 'http://localhost:8080/api/employees'
 
-  constructor() { }
+  constructor(private http: HttpClient) { }  
 
-  registreEmployee(dto: EmployeeRequestDTO): Promise<EmployeeResponseDTO | null>  {
-    return new Promise((resolve, reject) => {
-      resolve(null);
-    });
+  registreEmployee(form: FormGroup) {
+    const request = this.employeeMapper.toEmployeeRequestDTO(form);
+
+    return firstValueFrom(this.http.post<EmployeeResponseDTO>(`${this.url}/register-employee`, request));
   }
 }
