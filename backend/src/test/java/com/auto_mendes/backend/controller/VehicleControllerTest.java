@@ -19,11 +19,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.auto_mendes.backend.dto.request.VehicleRequestDTO;
-import com.auto_mendes.backend.entity.Brand;
-import com.auto_mendes.backend.entity.Car;
-import com.auto_mendes.backend.entity.Model;
 import com.auto_mendes.backend.enums.TransmissionType;
 import com.auto_mendes.backend.enums.VehicleType;
+import com.auto_mendes.backend.model.Brand;
+import com.auto_mendes.backend.model.Car;
+import com.auto_mendes.backend.model.Model;
 import com.auto_mendes.backend.repository.BrandRepository;
 import com.auto_mendes.backend.repository.CarRepository;
 import com.auto_mendes.backend.repository.ModelRepository;

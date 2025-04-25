@@ -2,10 +2,9 @@ package com.auto_mendes.backend.mapper;
 
 import com.auto_mendes.backend.dto.request.EmployeeRequestDTO;
 import com.auto_mendes.backend.dto.response.EmployeeResponseDTO;
-import com.auto_mendes.backend.entity.AssistantManager;
-import com.auto_mendes.backend.entity.Manager;
-import com.auto_mendes.backend.entity.Saler;
-import com.auto_mendes.backend.enums.EmployeeType;
+import com.auto_mendes.backend.model.AssistantManager;
+import com.auto_mendes.backend.model.Manager;
+import com.auto_mendes.backend.model.Saler;
 
 public class EmployeeMapper {
 	public static Manager toManager(EmployeeRequestDTO dto) {
@@ -23,16 +22,16 @@ public class EmployeeMapper {
 
 	public static EmployeeResponseDTO toEmployeeResponseDTO(Manager entity) {
 		return new EmployeeResponseDTO(entity.getId(), entity.getName(), entity.getEmail(), entity.getMatriculation(),
-				entity.getPhone(), entity.getBirthDate(), EmployeeType.MANAGER, null);
+				entity.getPhone(), entity.getBirthDate(), null);
 	}
 
 	public static EmployeeResponseDTO toEmployeeResponseDTO(AssistantManager entity) {
 		return new EmployeeResponseDTO(entity.getId(), entity.getName(), entity.getEmail(), entity.getMatriculation(),
-				entity.getPhone(), entity.getBirthDate(), EmployeeType.ASSISTANT_MANAGER, null);
+				entity.getPhone(), entity.getBirthDate(), null);
 	}
 
 	public static EmployeeResponseDTO toEmployeeResponseDTO(Saler entity) {
 		return new EmployeeResponseDTO(entity.getId(), entity.getName(), entity.getEmail(), entity.getMatriculation(),
-				entity.getPhone(), entity.getBirthDate(), EmployeeType.SALER, entity.getCommission());
+				entity.getPhone(), entity.getBirthDate(), entity.getCommission());
 	}
 }

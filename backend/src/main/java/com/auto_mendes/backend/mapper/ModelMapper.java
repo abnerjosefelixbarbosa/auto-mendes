@@ -2,8 +2,8 @@ package com.auto_mendes.backend.mapper;
 
 import com.auto_mendes.backend.dto.request.ModelRequestDTO;
 import com.auto_mendes.backend.dto.response.ModelResponseDTO;
-import com.auto_mendes.backend.entity.Brand;
-import com.auto_mendes.backend.entity.Model;
+import com.auto_mendes.backend.model.Brand;
+import com.auto_mendes.backend.model.Model;
 
 public class ModelMapper {
 	public static Model toModel(ModelRequestDTO dto) {

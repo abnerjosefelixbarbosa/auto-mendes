@@ -2,9 +2,9 @@ package com.auto_mendes.backend.validation.impl;
 
 import org.springframework.stereotype.Component;
 
-import com.auto_mendes.backend.entity.AssistantManager;
-import com.auto_mendes.backend.entity.Manager;
-import com.auto_mendes.backend.entity.Saler;
+import com.auto_mendes.backend.model.AssistantManager;
+import com.auto_mendes.backend.model.Manager;
+import com.auto_mendes.backend.model.Saler;
 import com.auto_mendes.backend.repository.AssistantManagerRepository;
 import com.auto_mendes.backend.repository.ManagerRepository;
 import com.auto_mendes.backend.repository.SalerRepository;
@@ -44,12 +44,6 @@ public class EmployeeValidationImpl implements EmployeeValidation {
 
 		if (isExists) {
 			throw new RuntimeException("Email, matrícula ou telefone não ser repedidos.");
-		}
-		if (saler.getCommission().precision() > 20) {
-			throw new RuntimeException("Comissão deve ter menos de 20 digitos antes da vírgula.");
-		}
-		if (saler.getCommission().scale() != 2) {
-			throw new RuntimeException("Comissão deve ter 2 digitos depois da vírgula.");
 		}
 	}
 }

@@ -2,7 +2,7 @@ package com.auto_mendes.backend.validation.impl;
 
 import org.springframework.stereotype.Component;
 
-import com.auto_mendes.backend.entity.Brand;
+import com.auto_mendes.backend.model.Brand;
 import com.auto_mendes.backend.repository.BrandRepository;
 import com.auto_mendes.backend.validation.BrandValidation;
 

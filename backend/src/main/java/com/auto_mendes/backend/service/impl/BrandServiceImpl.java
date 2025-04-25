@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.auto_mendes.backend.dto.request.BrandRequestDTO;
 import com.auto_mendes.backend.dto.response.BrandResponseDTO;
-import com.auto_mendes.backend.entity.Brand;
 import com.auto_mendes.backend.mapper.BrandMapper;
+import com.auto_mendes.backend.model.Brand;
 import com.auto_mendes.backend.repository.BrandRepository;
 import com.auto_mendes.backend.service.BrandService;
 import com.auto_mendes.backend.validation.BrandValidation;

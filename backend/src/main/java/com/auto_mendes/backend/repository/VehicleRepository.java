@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.auto_mendes.backend.entity.Vehicle;
+import com.auto_mendes.backend.model.Vehicle;
 
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle, String> {

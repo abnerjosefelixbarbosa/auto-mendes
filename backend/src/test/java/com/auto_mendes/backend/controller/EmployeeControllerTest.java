@@ -20,10 +20,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.auto_mendes.backend.dto.request.EmployeeRequestDTO;
-import com.auto_mendes.backend.entity.AssistantManager;
-import com.auto_mendes.backend.entity.Manager;
-import com.auto_mendes.backend.entity.Saler;
 import com.auto_mendes.backend.enums.EmployeeType;
+import com.auto_mendes.backend.model.AssistantManager;
+import com.auto_mendes.backend.model.Manager;
+import com.auto_mendes.backend.model.Saler;
 import com.auto_mendes.backend.repository.AssistantManagerRepository;
 import com.auto_mendes.backend.repository.ManagerRepository;
 import com.auto_mendes.backend.repository.SalerRepository;

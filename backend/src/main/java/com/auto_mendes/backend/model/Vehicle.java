@@ -1,11 +1,10 @@
-package com.auto_mendes.backend.entity;
+package com.auto_mendes.backend.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
-import com.auto_mendes.backend.enums.PaymentType;
+import com.auto_mendes.backend.enums.TransmissionType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,6 +13,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -26,26 +27,24 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "sale_tb")
-public class Sale implements Serializable {
+@Table(name = "vehicle_tb")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Vehicle implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
-	@Column(name = "sale_date_time", nullable = false)
-	private LocalDateTime dateTime;
+	@Column(length = 20)
+	private String plate;
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private PaymentType paymentType;
+	private TransmissionType transmissionType;
 	@Column(nullable = false, precision = 20, scale = 2)
-	private BigDecimal total;
+	private BigDecimal price;
 	@ManyToOne
-	@JoinColumn(name = "saler_id")
-	private Saler saler;
-	@ManyToOne
-	@JoinColumn(name = "customer_id")
-	private Customer customer;
-	@OneToMany(mappedBy = "sale")
+	@JoinColumn(name = "model_id")
+	private Model model;
+	@OneToMany(mappedBy = "vehicle")
 	private List<SaleVehicle> saleVehicles;
 }

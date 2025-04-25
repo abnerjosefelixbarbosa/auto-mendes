@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.auto_mendes.backend.dto.request.BrandRequestDTO;
 import com.auto_mendes.backend.dto.response.BrandResponseDTO;
-import com.auto_mendes.backend.entity.Brand;
+import com.auto_mendes.backend.model.Brand;
 
 public interface BrandService {
 	BrandResponseDTO registerBrand(BrandRequestDTO dto);

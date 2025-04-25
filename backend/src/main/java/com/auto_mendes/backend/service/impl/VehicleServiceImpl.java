@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 
 import com.auto_mendes.backend.dto.request.VehicleRequestDTO;
 import com.auto_mendes.backend.dto.response.VehicleResponseDTO;
-import com.auto_mendes.backend.entity.Car;
-import com.auto_mendes.backend.entity.Model;
-import com.auto_mendes.backend.entity.Motorcycle;
-import com.auto_mendes.backend.entity.Vehicle;
 import com.auto_mendes.backend.mapper.VehicleMapper;
+import com.auto_mendes.backend.model.Car;
+import com.auto_mendes.backend.model.Model;
+import com.auto_mendes.backend.model.Motorcycle;
+import com.auto_mendes.backend.model.Vehicle;
 import com.auto_mendes.backend.repository.CarRepository;
 import com.auto_mendes.backend.repository.ModelRepository;
 import com.auto_mendes.backend.repository.MotorcycleRepository;

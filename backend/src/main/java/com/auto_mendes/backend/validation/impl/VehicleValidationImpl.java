@@ -2,8 +2,8 @@ package com.auto_mendes.backend.validation.impl;
 
 import org.springframework.stereotype.Component;
 
-import com.auto_mendes.backend.entity.Car;
-import com.auto_mendes.backend.entity.Motorcycle;
+import com.auto_mendes.backend.model.Car;
+import com.auto_mendes.backend.model.Motorcycle;
 import com.auto_mendes.backend.validation.VehicleValidation;
 
 @Component
