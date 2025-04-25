@@ -46,13 +46,9 @@ export class EmployeeRegistrationComponent {
     if (this.form.valid) {
       const response = this.employeeService.registreEmployee(this.form);
 
-      response.then((val) => {
-        console.log(val);
-
+      response.then(() => {
         this.message.success = 'Funcionário registrado com sucesso'
       }).catch((e) => { 
-        console.log(e);
-
         this.message.error = e.error.message
       });
     } else {
