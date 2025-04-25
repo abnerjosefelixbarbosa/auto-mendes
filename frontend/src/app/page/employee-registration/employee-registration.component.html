@@ -2,6 +2,16 @@
   <app-navbar></app-navbar>
 
   <div class="container border rounded-1 p-5 mt-5">
+    @if (message.success != '') {
+      <div class="alert alert-success" role="alert">
+        {{ message.success }}
+      </div>
+    }
+    @if (message.error != '') {
+      <div class="alert alert-danger" role="alert">
+        {{ message.error }}
+      </div>
+    }
     <form class="" [formGroup]="form" (ngSubmit)="register()">
       <div class="mb-3">
         <label for="name" class="form-label">Nome</label>
@@ -27,7 +37,7 @@
 
       <div class="mb-3">
         <label for="matriculation" class="form-label">Matrícula</label>
-        <input type="number" class="form-control" formControlName="matriculation"/>
+        <input type="number" mask="0000000000" class="form-control" formControlName="matriculation"/>
 
         @if (form.get('matriculation')?.touched && form.get('matriculation')?.invalid) {
           <div class="text-danger">
@@ -38,7 +48,7 @@
 
       <div class="mb-3">
         <label for="phone" class="form-label">Telefone</label>
-        <input type="tel" class="form-control" formControlName="phone"/>
+        <input type="tel" mask="(00) 00000-0000" class="form-control" formControlName="phone"/>
 
         @if (form.get('phone')?.touched && form.get('phone')?.invalid) {
           <div class="text-danger">

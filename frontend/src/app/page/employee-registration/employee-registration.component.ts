@@ -1,18 +1,25 @@
 import { Component, inject } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { EmployeeService } from '../../service/employee.service';
 import { EmployeeRequestDTO } from '../../dto/employee.request.dto';
 import { EmployeeValidation } from '../../utils/employee.validation';
 
 @Component({
   selector: 'app-employee-registration',
-  imports: [NavbarComponent, ReactiveFormsModule],
+  imports: [
+    NavbarComponent,
+    ReactiveFormsModule
+  ],
   templateUrl: './employee-registration.component.html',
   styleUrl: './employee-registration.component.css',
-  standalone: true
+  standalone: true,
 })
 export class EmployeeRegistrationComponent {
+  message = {
+    success: '',
+    error: ''
+  }
   dto: EmployeeRequestDTO | null = null;
   form: FormGroup;
   employeeService = inject(EmployeeService);
@@ -21,25 +28,35 @@ export class EmployeeRegistrationComponent {
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
-      email: ['', [Validators.required, Validators.email, Validators.maxLength(100)]],
-      matriculation: ['', [Validators.required, ]],
+      email: ['',[Validators.required, Validators.email, Validators.maxLength(100)],],
+      matriculation: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.maxLength(30)]],
       birthDate: ['', [Validators.required]],
       employeeType: ['', [Validators.required]],
-      commission: ['', [Validators.required]]
-    }
-  );
+      commission: ['', [Validators.required]],
+    });
   }
 
   register() {
-    this.employeeValidation.validateRegisterForm(this.form)
+    this.message.success = ''
+    this.message.error = ''
+
+    this.employeeValidation.validateRegisterForm(this.form);
 
     if (this.form.valid) {
       const response = this.employeeService.registreEmployee(this.form);
 
-      response
-      .then((val) => console.log(val))
-      .catch((e) => console.log(e));
+      response.then((val) => {
+        console.log(val);
+
+        this.message.success = 'Funcionário registrado com sucesso'
+      }).catch((e) => { 
+        console.log(e);
+
+        this.message.error = e.error.message
+      });
+    } else {
+      this.form.markAllAsTouched();
     }
   }
 
