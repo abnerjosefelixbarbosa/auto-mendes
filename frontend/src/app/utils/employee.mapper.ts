@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { EmployeeRequestDTO } from '../../dto/request/employee.request.dto';
-import { EmployeeType } from '../../enum/employee.type';
+import { EmployeeRequestDTO } from '../dto/employee.request.dto';
+import { EmployeeType } from './employee.type';
 
 @Injectable({
   providedIn: 'root',
 })
-export class EmployeeMapper {
+export class EmployeeConverter {
   constructor() {}
 
-  toEmployeeRequestDTO(form: FormGroup) {
+  convertFormToEmployeeRequestDTO(form: FormGroup) {
     let dto: EmployeeRequestDTO | null = null;
 
     if (form.get('employeeType')?.value == 1) {

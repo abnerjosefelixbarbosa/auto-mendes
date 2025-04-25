@@ -1,6 +1,6 @@
-import { Injectable, inject } from '@angular/core';import { EmployeeResponseDTO } from './../../dto/response/employee.response.dto';
+import { Injectable, inject } from '@angular/core';import { EmployeeResponseDTO } from '../dto/employee.response.dto';
 import { FormGroup } from '@angular/forms';
-import { EmployeeMapper } from '../../mapper/employee/employee.mapper';
+import { EmployeeMapper } from '../utils/employee.mapper';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
@@ -14,7 +14,7 @@ export class EmployeeService {
   constructor(private http: HttpClient) { }  
 
   registreEmployee(form: FormGroup) {
-    const request = this.employeeMapper.toEmployeeRequestDTO(form);
+    const request = this.employeeMapper.convertFormToEmployeeRequestDTO(form);
 
     return firstValueFrom(this.http.post<EmployeeResponseDTO>(`${this.url}/register-employee`, request));
   }

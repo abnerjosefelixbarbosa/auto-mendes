@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { EmployeeService } from '../../service/employee/employee.service';
-import { EmployeeRequestDTO } from '../../dto/request/employee.request.dto';
+import { EmployeeService } from '../../service/employee.service';
+import { EmployeeRequestDTO } from '../../dto/employee.request.dto';
+import { EmployeeValidation } from '../../utils/employee.validation';
 
 @Component({
   selector: 'app-employee-registration',
@@ -15,6 +16,7 @@ export class EmployeeRegistrationComponent {
   dto: EmployeeRequestDTO | null = null;
   form: FormGroup;
   employeeService = inject(EmployeeService);
+  employeeValidation = inject(EmployeeValidation);
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -30,7 +32,7 @@ export class EmployeeRegistrationComponent {
   }
 
   register() {
-    this.validateForm();
+    this.employeeValidation.validateRegisterForm(this.form)
 
     if (this.form.valid) {
       const response = this.employeeService.registreEmployee(this.form);
@@ -38,14 +40,6 @@ export class EmployeeRegistrationComponent {
       response
       .then((val) => console.log(val))
       .catch((e) => console.log(e));
-    }
-  }
-
-  validateForm() {
-    const matriculation = new String(this.form.get('matriculation')?.value);
-    
-    if (matriculation.length != 10) {
-      this.form.get('matriculation')?.setErrors({ matriculationInvalid: true })
     }
   }
 
