@@ -2,14 +2,14 @@
   <app-navbar></app-navbar>
 
   <div class="container border rounded-1 p-5 mt-5">
-    @if (message.success != '') {
+    @if (message.SUCCESS != '') {
       <div class="alert alert-success" role="alert">
-        {{ message.success }}
+        {{ message.SUCCESS }}
       </div>
     }
-    @if (message.error != '') {
+    @if (message.ERROR != '') {
       <div class="alert alert-danger" role="alert">
-        {{ message.error }}
+        {{ message.ERROR }}
       </div>
     }
     <form class="" [formGroup]="form" (ngSubmit)="register()">

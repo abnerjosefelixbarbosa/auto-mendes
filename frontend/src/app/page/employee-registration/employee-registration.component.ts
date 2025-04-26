@@ -4,22 +4,23 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular
 import { EmployeeService } from '../../service/employee.service';
 import { EmployeeRequestDTO } from '../../dto/employee.request.dto';
 import { EmployeeValidation } from '../../utils/employee.validation';
+import { Message } from '../../utils/message';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @Component({
   selector: 'app-employee-registration',
   imports: [
     NavbarComponent,
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+    NgxMaskDirective
+],
   templateUrl: './employee-registration.component.html',
   styleUrl: './employee-registration.component.css',
   standalone: true,
+  providers: [provideNgxMask()]
 })
 export class EmployeeRegistrationComponent {
-  message = {
-    success: '',
-    error: ''
-  }
+  message = Message; 
   dto: EmployeeRequestDTO | null = null;
   form: FormGroup;
   employeeService = inject(EmployeeService);
@@ -38,8 +39,8 @@ export class EmployeeRegistrationComponent {
   }
 
   register() {
-    this.message.success = ''
-    this.message.error = ''
+    this.message.SUCCESS = ''
+    this.message.ERROR = ''
 
     this.employeeValidation.validateRegisterForm(this.form);
 
@@ -47,9 +48,9 @@ export class EmployeeRegistrationComponent {
       const response = this.employeeService.registreEmployee(this.form);
 
       response.then(() => {
-        this.message.success = 'Funcionário registrado com sucesso'
+        this.message.SUCCESS = 'Funcionário registrado com sucesso'
       }).catch((e) => { 
-        this.message.error = e.error.message
+        this.message.ERROR = e.error.message
       });
     } else {
       this.form.markAllAsTouched();

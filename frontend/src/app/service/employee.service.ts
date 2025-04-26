@@ -18,4 +18,15 @@ export class EmployeeService {
 
     return firstValueFrom(this.http.post<EmployeeResponseDTO>(`${this.url}/register-employee`, request));
   }
+
+  listEmployee() {
+    return firstValueFrom(this.http.get<any>(`${this.url}/list-employee`))
+    .then((value) => {
+      const dtos = new Array<EmployeeResponseDTO>();
+
+      console.log(value.content)
+
+      return dtos;
+    });
+  }
 }
