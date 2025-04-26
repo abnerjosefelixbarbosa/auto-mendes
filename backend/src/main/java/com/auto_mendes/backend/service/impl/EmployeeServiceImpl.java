@@ -12,6 +12,7 @@ import com.auto_mendes.backend.model.AssistantManager;
 import com.auto_mendes.backend.model.Manager;
 import com.auto_mendes.backend.model.Saler;
 import com.auto_mendes.backend.repository.AssistantManagerRepository;
+import com.auto_mendes.backend.repository.EmployeeRepository;
 import com.auto_mendes.backend.repository.ManagerRepository;
 import com.auto_mendes.backend.repository.SalerRepository;
 import com.auto_mendes.backend.service.EmployeeService;
@@ -27,6 +28,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private final ManagerRepository managerRepository;
 	private final AssistantManagerRepository assistantManagerRepository;
 	private final SalerRepository salerRepository;
+	private final EmployeeRepository employeeRepository;
 	private final EmployeeValidation employeeValidation;
 
 	@Transactional
@@ -134,5 +136,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 
 		return page;
+	}
+	
+	public Page<EmployeeResponseDTO> listEmployee(Pageable pageable) {
+		return employeeRepository.listEmployee(pageable);
 	}
 }

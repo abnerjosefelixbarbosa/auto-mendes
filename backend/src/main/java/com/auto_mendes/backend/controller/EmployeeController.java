@@ -46,4 +46,11 @@ public class EmployeeController {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(page);
 	}
+	
+	@GetMapping(value = "/list-employee")
+	public ResponseEntity<Page<EmployeeResponseDTO>> listEmployee(Pageable pageable) {
+		Page<EmployeeResponseDTO> page = employeeService.listEmployee(pageable);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(page);
+	}
 }
