@@ -24,7 +24,7 @@ export class EmployeeService {
     .then((value) => {
       const dtos = new Array<EmployeeResponseDTO>();
 
-      console.log(value.content)
+      dtos.push( ...value.content )
 
       return dtos;
     });

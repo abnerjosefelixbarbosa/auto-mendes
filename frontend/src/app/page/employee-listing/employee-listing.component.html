@@ -14,6 +14,16 @@
               </tr>
             </thead>
             <tbody>
+              @for (i of items; track $index) {
+                <tr>
+                  <td>{{ i.name }}</td>
+                  <td>{{ i.email }}</td>
+                  <td>{{ i.matriculation }}</td>
+                  <td>{{ i.phone }}</td>
+                  <td>{{ i.birthDate }}</td>
+                  <td>{{ i.commission }}</td>
+                </tr>
+              }
               <!--
               <tr>
                 <th scope="row">1</th>
