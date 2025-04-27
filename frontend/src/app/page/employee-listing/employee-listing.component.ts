@@ -31,10 +31,9 @@ export class EmployeeListingComponent implements OnInit {
   listEmployee() {
     this.employeeService.listEmployee()
     .then((value) => { 
-      //this.list = value
       value.forEach((dto) => {
         this.items.push({ 
-          birthDate: ``,
+          birthDate: this.getDate(dto),
           commission: dto.commission,
           email: dto.email,
           matriculation: dto.matriculation,
@@ -44,5 +43,9 @@ export class EmployeeListingComponent implements OnInit {
       });
     })
     .catch((e) => console.log(e))
+  }
+
+  getDate(dto: EmployeeResponseDTO) {
+    return `${0}-${0}-${0}`;
   }
 }
