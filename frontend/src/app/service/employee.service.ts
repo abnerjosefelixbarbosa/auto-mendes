@@ -23,8 +23,9 @@ export class EmployeeService {
     return firstValueFrom(this.http.get<any>(`${this.url}/list-employee`))
     .then((value) => {
       const dtos = new Array<EmployeeResponseDTO>();
+      const content = value.content;
 
-      dtos.push( ...value.content )
+      dtos.push(...content)
 
       return dtos;
     });
