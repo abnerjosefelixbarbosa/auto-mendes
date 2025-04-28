@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { EmployeeConverter } from '../utils/employee.converter';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { EmployeeType } from '../utils/employee.type'
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,18 @@ export class EmployeeService {
 
   listEmployee() {
     return firstValueFrom(this.http.get<any>(`${this.url}/list-employee`))
+    .then((value) => {
+      const dtos = new Array<EmployeeResponseDTO>();
+      const content = value.content;
+
+      dtos.push(...content)
+
+      return dtos;
+    });
+  }
+
+  listEmployeeByType(type: EmployeeType) {
+    return firstValueFrom(this.http.get<any>(`${this.url}/list-employee-by-type?type=${type.toString()}`))
     .then((value) => {
       const dtos = new Array<EmployeeResponseDTO>();
       const content = value.content;
