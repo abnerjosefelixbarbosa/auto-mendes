@@ -1,15 +1,25 @@
 <main>
   <app-navbar></app-navbar>
 
-  <div class="container border rounded-1 p-5 mt-5">
+  <div class="container-xxl border rounded-1 p-5 mt-5">
     <div>
-      <select class="form-select form-select-lg mb-3" [formControl]="select" aria-label=".form-select-lg example">
+      <select
+        class="form-select form-select-lg mb-3"
+        [formControl]="select"
+        aria-label=".form-select-lg example"
+      >
         <option value="1">Gerente</option>
         <option value="2">Subgerente</option>
         <option value="3">Vendedor</option>
-      </select>   
-      
-      <button type="button" class="btn btn-primary" (click)="listByTypeEmployee()">Buscar</button>
+      </select>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="listByTypeEmployee()"
+      >
+        Buscar
+      </button>
     </div>
 
     <table class="table">
@@ -30,8 +40,11 @@
           <td>{{ i.email }}</td>
           <td>{{ i.matriculation }}</td>
           <td>{{ i.phone }}</td>
-          <td>{{ i.birthDate | date: 'dd-MM-yyyy' }}</td>
+          <td>{{ i.birthDate | date : "dd-MM-yyyy" }}</td>
           <td>{{ i.commission.toFixed(2) }}</td>
+          <td>
+            <button type="button" class="btn btn-primary">Atualizar</button>
+          </td>
         </tr>
         }
       </tbody>
