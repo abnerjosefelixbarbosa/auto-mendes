@@ -24,14 +24,14 @@
         </tr>
       </thead>
       <tbody>
-        @for (i of items; track $index) {
+        @for (i of items; track i.id) {
         <tr>
           <td>{{ i.name }}</td>
           <td>{{ i.email }}</td>
           <td>{{ i.matriculation }}</td>
           <td>{{ i.phone }}</td>
           <td>{{ i.birthDate | date: 'dd-MM-yyyy' }}</td>
-          <td>{{ i.commission }}</td>
+          <td>{{ i.commission.toFixed(2) }}</td>
         </tr>
         }
       </tbody>
