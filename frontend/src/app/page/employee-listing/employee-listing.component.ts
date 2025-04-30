@@ -3,7 +3,7 @@ import { NavbarComponent } from "../../components/navbar/navbar.component";
 import { EmployeeService } from './../../service/employee.service';
 import { EmployeeResponseDTO } from '../../dto/employee.response.dto';
 import { DatePipe } from '@angular/common';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EmployeeType } from '../../utils/employee.type';
 
 @Component({
@@ -16,9 +16,10 @@ export class EmployeeListingComponent implements OnInit {
   items = new Array<EmployeeResponseDTO>();
   employeeService = inject(EmployeeService);
   select = new FormControl('1');
-  type: EmployeeType = EmployeeType.MANAGER; 
+  type: EmployeeType = EmployeeType.MANAGER;
+  form: FormGroup;
 
-  constructor() {
+  constructor(private formBuilder: FormBuilder) {
     this.select.valueChanges.subscribe(value => {
       const option = value!
 
@@ -34,6 +35,18 @@ export class EmployeeListingComponent implements OnInit {
         this.type = EmployeeType.SALER
       }
     });
+
+    this.form = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.maxLength(100)]],
+      email: ['',[Validators.required, Validators.email, Validators.maxLength(100)],],
+      matriculation: ['', [Validators.required]],
+      phone: ['', [Validators.required, Validators.maxLength(30)]],
+      birthDate: ['', [Validators.required]],
+      //employeeType: ['', [Validators.required]],
+      commission: ['', [Validators.required]],
+    });
+
+    
   }
 
   ngOnInit(): void {
@@ -50,5 +63,22 @@ export class EmployeeListingComponent implements OnInit {
     this.employeeService.listEmployeeByType(this.type)
     .then((values) =>  this.items = values)
     .catch((e) => console.log(e))
+  }
+
+  update(item: EmployeeResponseDTO) {
+    this.replace(item);
+  }
+
+  confirm() {
+    console.log(this.form.value)
+  }
+
+  replace(item: EmployeeResponseDTO) {
+    this.form.get('name')?.setValue(item.name)
+    this.form.get('email')?.setValue(item.email)
+    this.form.get('matriculation')?.setValue(item.matriculation)
+    this.form.get('phone')?.setValue(item.phone)
+    this.form.get('birthDate')?.setValue(item.birthDate)
+    this.form.get('commission')?.setValue(item.commission)
   }
 }

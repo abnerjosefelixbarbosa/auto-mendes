@@ -12,7 +12,7 @@
         {{ message.ERROR }}
       </div>
     }
-    <form class="" [formGroup]="form" (ngSubmit)="register()">
+    <form [formGroup]="form" (ngSubmit)="register()">
       <div class="mb-3">
         <label for="name" class="form-label">Nome</label>
         <input type="text" class="form-control" formControlName="name" />

@@ -56,11 +56,4 @@ export class EmployeeRegistrationComponent {
       this.form.markAllAsTouched();
     }
   }
-
-  //name1
-  //email1@gmail.com
-  //1111111111
-  //(81) 91111-1111
-  //01/01/1991
-  //11
 }
