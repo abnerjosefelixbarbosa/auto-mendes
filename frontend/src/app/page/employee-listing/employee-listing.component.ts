@@ -1,16 +1,22 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { NavbarComponent } from "../../components/navbar/navbar.component";
+import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { EmployeeService } from './../../service/employee.service';
 import { EmployeeResponseDTO } from '../../dto/employee.response.dto';
 import { DatePipe } from '@angular/common';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { EmployeeType } from '../../utils/employee.type';
 
 @Component({
   selector: 'app-employee-listing',
   imports: [NavbarComponent, DatePipe, ReactiveFormsModule],
   templateUrl: './employee-listing.component.html',
-  styleUrl: './employee-listing.component.css'
+  styleUrl: './employee-listing.component.css',
 })
 export class EmployeeListingComponent implements OnInit {
   items = new Array<EmployeeResponseDTO>();
@@ -20,33 +26,34 @@ export class EmployeeListingComponent implements OnInit {
   form: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
-    this.select.valueChanges.subscribe(value => {
-      const option = value!
+    this.select.valueChanges.subscribe((value) => {
+      const option = value!;
 
       if (option === '1') {
-        this.type = EmployeeType.MANAGER
+        this.type = EmployeeType.MANAGER;
       }
 
       if (option === '2') {
-        this.type = EmployeeType.ASSISTANT_MANAGER
+        this.type = EmployeeType.ASSISTANT_MANAGER;
       }
 
       if (option === '3') {
-        this.type = EmployeeType.SALER
+        this.type = EmployeeType.SALER;
       }
     });
 
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
-      email: ['',[Validators.required, Validators.email, Validators.maxLength(100)],],
+      email: [
+        '',
+        [Validators.required, Validators.email, Validators.maxLength(100)],
+      ],
       matriculation: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.maxLength(30)]],
       birthDate: ['', [Validators.required]],
       //employeeType: ['', [Validators.required]],
       commission: ['', [Validators.required]],
     });
-
-    
   }
 
   ngOnInit(): void {
@@ -54,15 +61,17 @@ export class EmployeeListingComponent implements OnInit {
   }
 
   listEmployee() {
-    this.employeeService.listEmployee()
-    .then((values) =>  this.items = values)
-    .catch((e) => console.log(e))
+    this.employeeService
+      .listEmployee()
+      .then((values) => (this.items = values))
+      .catch((e) => console.log(e));
   }
 
   listByTypeEmployee() {
-    this.employeeService.listEmployeeByType(this.type)
-    .then((values) =>  this.items = values)
-    .catch((e) => console.log(e))
+    this.employeeService
+      .listEmployeeByType(this.type)
+      .then((values) => (this.items = values))
+      .catch((e) => console.log(e));
   }
 
   update(item: EmployeeResponseDTO) {
@@ -70,15 +79,23 @@ export class EmployeeListingComponent implements OnInit {
   }
 
   confirm() {
-    console.log(this.form.value)
+    console.log(this.form.value);
   }
 
   replace(item: EmployeeResponseDTO) {
-    this.form.get('name')?.setValue(item.name)
-    this.form.get('email')?.setValue(item.email)
-    this.form.get('matriculation')?.setValue(item.matriculation)
-    this.form.get('phone')?.setValue(item.phone)
-    this.form.get('birthDate')?.setValue(item.birthDate)
-    this.form.get('commission')?.setValue(item.commission)
+    const date = new Date(item.birthDate);
+
+    const dateTransformed = this.transformeDate(date);
+
+    this.form.get('name')?.setValue(item.name);
+    this.form.get('email')?.setValue(item.email);
+    this.form.get('matriculation')?.setValue(item.matriculation);
+    this.form.get('phone')?.setValue(item.phone);
+    this.form.get('birthDate')?.setValue(dateTransformed);
+    this.form.get('commission')?.setValue(item.commission);
+  }
+
+  transformeDate(date: Date) {
+    return (`${date.getFullYear()}-${date.getMonth().toPrecision(1) + 1}-${0 + date.getDate().toPrecision(1)}`)
   }
 }
