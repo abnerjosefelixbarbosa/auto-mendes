@@ -75,6 +75,8 @@ export class EmployeeListingComponent implements OnInit {
   }
 
   update(item: EmployeeResponseDTO) {
+    console.log(item)
+
     this.replace(item);
   }
 
