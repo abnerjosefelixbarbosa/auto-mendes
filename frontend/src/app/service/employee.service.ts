@@ -4,18 +4,19 @@ import { EmployeeConverter } from '../utils/employee.converter';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { EmployeeType } from '../utils/employee.type'
+import { EmployeeRequestDTO } from '../dto/employee.request.dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
-  employeeMapper = inject(EmployeeConverter);
+  employeeConverter = inject(EmployeeConverter);
   private url = 'http://localhost:8080/api/employees'
 
   constructor(private http: HttpClient) { }  
 
   registreEmployee(form: FormGroup) {
-    const request = this.employeeMapper.convertFormToEmployeeRequestDTO(form);
+    const request = this.employeeConverter.convertFormToEmployeeRequestDTO(form);
 
     return firstValueFrom(this.http.post<EmployeeResponseDTO>(`${this.url}/register-employee`, request));
   }
@@ -42,5 +43,9 @@ export class EmployeeService {
 
       return dtos;
     });
+  }
+
+  updateEmployeeById(id: string, data: EmployeeRequestDTO) {
+    return firstValueFrom(this.http.put<EmployeeResponseDTO>(`${this.url}/update-employee-by-id?id=${id}`, data));
   }
 }

@@ -17,6 +17,7 @@ import { EmployeeType } from '../../utils/employee.type';
   imports: [NavbarComponent, DatePipe, ReactiveFormsModule],
   templateUrl: './employee-listing.component.html',
   styleUrl: './employee-listing.component.css',
+  standalone: true,
 })
 export class EmployeeListingComponent implements OnInit {
   items = new Array<EmployeeResponseDTO>();
@@ -51,7 +52,6 @@ export class EmployeeListingComponent implements OnInit {
       matriculation: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.maxLength(30)]],
       birthDate: ['', [Validators.required]],
-      //employeeType: ['', [Validators.required]],
       commission: ['', [Validators.required]],
     });
   }
@@ -63,7 +63,7 @@ export class EmployeeListingComponent implements OnInit {
   listEmployee() {
     this.employeeService
       .listEmployee()
-      .then((values) => (this.items = values))
+      .then((values) => this.items = values)
       .catch((e) => console.log(e));
   }
 
@@ -87,17 +87,17 @@ export class EmployeeListingComponent implements OnInit {
   replace(item: EmployeeResponseDTO) {
     const date = new Date(item.birthDate);
 
-    const dateTransformed = this.transformeDate(date);
+    const dateFormated = this.formatDate(date);
 
     this.form.get('name')?.setValue(item.name);
     this.form.get('email')?.setValue(item.email);
     this.form.get('matriculation')?.setValue(item.matriculation);
     this.form.get('phone')?.setValue(item.phone);
-    this.form.get('birthDate')?.setValue(dateTransformed);
+    this.form.get('birthDate')?.setValue(dateFormated);
     this.form.get('commission')?.setValue(item.commission);
   }
 
-  transformeDate(date: Date) {
+  formatDate(date: Date) {
     return (`${date.getFullYear()}-${date.getMonth().toPrecision(1) + 1}-${0 + date.getDate().toPrecision(1)}`)
   }
 }

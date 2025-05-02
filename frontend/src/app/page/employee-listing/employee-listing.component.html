@@ -41,7 +41,7 @@
           <td>{{ i.matriculation }}</td>
           <td>{{ i.phone }}</td>
           <td>{{ i.birthDate | date : "dd-MM-yyyy" }}</td>
-          <td>{{ i.commission.toFixed(2) }}</td>
+          <td>{{ i.commission?.toFixed(2) }}</td>
           <td>
             <button
               type="button"

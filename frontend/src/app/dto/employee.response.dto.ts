@@ -7,5 +7,6 @@ export interface EmployeeResponseDTO {
   matriculation: string;
   phone: string;
   birthDate: Date;
-  commission: number;
+  employeeType: EmployeeType;
+  commission: number | null;
 }
