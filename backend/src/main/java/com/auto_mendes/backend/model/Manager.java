@@ -2,6 +2,8 @@ package com.auto_mendes.backend.model;
 
 import java.time.LocalDate;
 
+import com.auto_mendes.backend.enums.EmployeeType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
@@ -18,10 +20,11 @@ import lombok.NoArgsConstructor;
 public class Manager extends Employee {
 	private static final long serialVersionUID = 1L;
 
-	public Manager(String id, String name, String email, String matriculation, String phone, LocalDate birthDate) {
-		super(id, name, email, matriculation, phone, birthDate);
+	public Manager(String id, String name, String email, String matriculation, String phone, LocalDate birthDate,
+			EmployeeType employeeType) {
+		super(id, name, email, matriculation, phone, birthDate, employeeType);
 	}
-	
+
 	public void update(Manager manager) {
 		this.birthDate = manager.getBirthDate();
 		this.email = manager.getEmail();

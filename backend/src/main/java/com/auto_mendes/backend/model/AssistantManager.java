@@ -2,6 +2,8 @@ package com.auto_mendes.backend.model;
 
 import java.time.LocalDate;
 
+import com.auto_mendes.backend.enums.EmployeeType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
@@ -19,8 +21,8 @@ public class AssistantManager extends Employee {
 	private static final long serialVersionUID = 1L;
 
 	public AssistantManager(String id, String name, String email, String matriculation, String phone,
-			LocalDate birthDate) {
-		super(id, name, email, matriculation, phone, birthDate);
+			LocalDate birthDate, EmployeeType employeeType) {
+		super(id, name, email, matriculation, phone, birthDate, employeeType);
 	}
 	
 	public void update(AssistantManager assistantManager) {

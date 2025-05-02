@@ -9,16 +9,16 @@ import com.auto_mendes.backend.model.Saler;
 
 public class EmployeeMapper {
 	public static Manager toManager(EmployeeRequestDTO dto) {
-		return new Manager(null, dto.name(), dto.email(), dto.matriculation(), dto.phone(), dto.birthDate());
+		return new Manager(null, dto.name(), dto.email(), dto.matriculation(), dto.phone(), dto.birthDate(), dto.employeeType());
 	}
 
 	public static AssistantManager toAssistantManager(EmployeeRequestDTO dto) {
-		return new AssistantManager(null, dto.name(), dto.email(), dto.matriculation(), dto.phone(), dto.birthDate());
+		return new AssistantManager(null, dto.name(), dto.email(), dto.matriculation(), dto.phone(), dto.birthDate(), dto.employeeType());
 	}
 
 	public static Saler toSaler(EmployeeRequestDTO dto) {
-		return new Saler(null, dto.name(), dto.email(), dto.matriculation(), dto.phone(), dto.birthDate(),
-				dto.commission());
+		return new Saler(null, dto.name(), dto.email(), dto.matriculation(), dto.phone(), dto.birthDate(), 
+				dto.employeeType(), dto.commission());
 	}
 
 	public static EmployeeResponseDTO toEmployeeResponseDTO(Manager entity) {
@@ -34,5 +34,11 @@ public class EmployeeMapper {
 	public static EmployeeResponseDTO toEmployeeResponseDTO(Saler entity) {
 		return new EmployeeResponseDTO(entity.getId(), entity.getName(), entity.getEmail(), entity.getMatriculation(),
 				entity.getPhone(), entity.getBirthDate(), EmployeeType.SALER, entity.getCommission());
+	}
+	
+	public static EmployeeResponseDTO toEmployeeResponseDTO(Object[] objects) {
+		
+		
+		return null;
 	}
 }

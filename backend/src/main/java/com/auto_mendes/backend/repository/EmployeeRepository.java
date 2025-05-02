@@ -11,6 +11,6 @@ import com.auto_mendes.backend.model.Employee;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, String> {
-	@Query(value = "SELECT new com.auto_mendes.backend.dto.response.EmployeeResponseDTO(e.id, e.name, e.email, e.matriculation, e.phone, e.birthDate, s.commission) FROM Employee e LEFT JOIN Saler s ON e.id = s.id")
+	@Query(value = "SELECT new com.auto_mendes.backend.dto.response.EmployeeResponseDTO(e.id, e.name, e.email, e.matriculation, e.phone, e.birthDate, e.employeeType, s.commission) FROM Employee e LEFT JOIN Saler s ON e.id = s.id")
 	Page<EmployeeResponseDTO> listEmployee(Pageable pageable);
 }
