@@ -11,22 +11,25 @@ import {
   Validators,
 } from '@angular/forms';
 import { EmployeeType } from '../../utils/employee.type';
+import { EmployeeRequestDTO } from '../../dto/employee.request.dto';
 
 @Component({
   selector: 'app-employee-listing',
-  imports: [NavbarComponent, DatePipe, ReactiveFormsModule],
+  imports: [NavbarComponent, ReactiveFormsModule, DatePipe],
   templateUrl: './employee-listing.component.html',
   styleUrl: './employee-listing.component.css',
   standalone: true,
+  providers: [DatePipe]
 })
 export class EmployeeListingComponent implements OnInit {
   items = new Array<EmployeeResponseDTO>();
+  item: EmployeeResponseDTO | null = null;
   employeeService = inject(EmployeeService);
   select = new FormControl('1');
   type: EmployeeType = EmployeeType.MANAGER;
   form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private datePipe: DatePipe) {
     this.select.valueChanges.subscribe((value) => {
       const option = value!;
 
@@ -44,14 +47,13 @@ export class EmployeeListingComponent implements OnInit {
     });
 
     this.form = this.formBuilder.group({
+      id: [''],
       name: ['', [Validators.required, Validators.maxLength(100)]],
-      email: [
-        '',
-        [Validators.required, Validators.email, Validators.maxLength(100)],
-      ],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(100)]],
       matriculation: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.maxLength(30)]],
       birthDate: ['', [Validators.required]],
+      employeeType: [''],
       commission: ['', [Validators.required]],
     });
   }
@@ -75,13 +77,25 @@ export class EmployeeListingComponent implements OnInit {
   }
 
   update(item: EmployeeResponseDTO) {
-    console.log(item)
-
     this.replace(item);
   }
 
   confirm() {
-    console.log(this.form.value);
+    const id = this.form.get('id')?.value 
+    const data: EmployeeRequestDTO = { 
+      birthDate: this.form.get('birthDate')?.value,
+      commission: this.form.get('commission')?.value,
+      email: this.form.get('email')?.value,
+      employeeType: this.form.get('employeeType')?.value,
+      matriculation: this.form.get('matriculation')?.value,
+      name: this.form.get('name')?.value,
+      phone: this.form.get('phone')?.value 
+    }
+
+    this.employeeService.updateEmployeeById(id, data)
+    .then((value) => {
+      console.log(value)
+    });
   }
 
   replace(item: EmployeeResponseDTO) {
@@ -89,15 +103,17 @@ export class EmployeeListingComponent implements OnInit {
 
     const dateFormated = this.formatDate(date);
 
+    this.form.get('id')?.setValue(item.id);
     this.form.get('name')?.setValue(item.name);
     this.form.get('email')?.setValue(item.email);
     this.form.get('matriculation')?.setValue(item.matriculation);
     this.form.get('phone')?.setValue(item.phone);
     this.form.get('birthDate')?.setValue(dateFormated);
+    this.form.get('employeeType')?.setValue(item.employeeType);
     this.form.get('commission')?.setValue(item.commission);
   }
 
   formatDate(date: Date) {
-    return (`${date.getFullYear()}-${date.getMonth().toPrecision(1) + 1}-${0 + date.getDate().toPrecision(1)}`)
+    return this.datePipe.transform(date, 'yyyy-MM-dd')
   }
 }
