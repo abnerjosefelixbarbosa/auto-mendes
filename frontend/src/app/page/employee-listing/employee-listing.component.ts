@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { EmployeeService } from './../../service/employee.service';
-import { EmployeeResponseDTO } from '../../dto/employee.response.dto';
+import { EmployeeRequestDTO, EmployeeResponseDTO, EmployeeService } from './../../service/employee.service';
 import { DatePipe } from '@angular/common';
 import {
   FormBuilder,
@@ -11,15 +10,16 @@ import {
   Validators,
 } from '@angular/forms';
 import { EmployeeType } from '../../utils/employee.type';
-import { EmployeeRequestDTO } from '../../dto/employee.request.dto';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { PhonePipe } from '../../pipe/phone.pipe';
 
 @Component({
   selector: 'app-employee-listing',
-  imports: [NavbarComponent, ReactiveFormsModule, DatePipe],
+  imports: [NavbarComponent, ReactiveFormsModule, DatePipe, PhonePipe, NgxMaskDirective],
   templateUrl: './employee-listing.component.html',
   styleUrl: './employee-listing.component.css',
   standalone: true,
-  providers: [DatePipe]
+  providers: [DatePipe, provideNgxMask()]
 })
 export class EmployeeListingComponent implements OnInit {
   items = new Array<EmployeeResponseDTO>();
@@ -82,6 +82,7 @@ export class EmployeeListingComponent implements OnInit {
 
   confirm() {
     const id = this.form.get('id')?.value 
+
     const data: EmployeeRequestDTO = { 
       birthDate: this.form.get('birthDate')?.value,
       commission: this.form.get('commission')?.value,
@@ -95,6 +96,11 @@ export class EmployeeListingComponent implements OnInit {
     this.employeeService.updateEmployeeById(id, data)
     .then((value) => {
       console.log(value)
+    })
+    .catch((e) => {
+      const message = e.error.message
+
+      console.log(message);
     });
   }
 

@@ -1,35 +1,35 @@
 import { Component, inject } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { EmployeeService } from '../../service/employee.service';
-import { EmployeeRequestDTO } from '../../dto/employee.request.dto';
-import { EmployeeValidation } from '../../utils/employee.validation';
+import { EmployeeRequestDTO } from '../../service/employee.service';
 import { Message } from '../../utils/message';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { EmployeeType } from '../../utils/employee.type';
 
 @Component({
   selector: 'app-employee-registration',
-  imports: [
-    NavbarComponent,
-    ReactiveFormsModule,
-    NgxMaskDirective
-],
+  imports: [NavbarComponent, ReactiveFormsModule, NgxMaskDirective],
   templateUrl: './employee-registration.component.html',
   styleUrl: './employee-registration.component.css',
   standalone: true,
-  providers: [provideNgxMask()]
+  providers: [provideNgxMask()],
 })
 export class EmployeeRegistrationComponent {
-  message = Message; 
+  message = Message;
   dto: EmployeeRequestDTO | null = null;
   form: FormGroup;
   employeeService = inject(EmployeeService);
-  employeeValidation = inject(EmployeeValidation);
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
-      email: ['',[Validators.required, Validators.email, Validators.maxLength(100)],],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(100)]],
       matriculation: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.maxLength(30)]],
       birthDate: ['', [Validators.required]],
@@ -39,21 +39,76 @@ export class EmployeeRegistrationComponent {
   }
 
   register() {
-    this.message.SUCCESS = ''
-    this.message.ERROR = ''
+    this.message.SUCCESS = '';
+    this.message.ERROR = '';
 
-    this.employeeValidation.validateRegisterForm(this.form);
+    this.validateRegisterForm(this.form);
 
     if (this.form.valid) {
-      const response = this.employeeService.registreEmployee(this.form);
+      const data = this.createEmployeeRequestDTO(this.form)
 
-      response.then(() => {
-        this.message.SUCCESS = 'Funcionário registrado com sucesso'
-      }).catch((e) => { 
-        this.message.ERROR = e.error.message
-      });
+      const response = this.employeeService.registreEmployee(data);
+
+      response
+        .then(() => {
+          this.message.SUCCESS = 'Funcionário registrado com sucesso';
+        })
+        .catch((e) => {
+          this.message.ERROR = e.error.message;
+        });
     } else {
       this.form.markAllAsTouched();
     }
+  }
+
+  validateRegisterForm(form: FormGroup) {
+    const matriculation = new String(form.get('matriculation')?.value);
+    const employeeType = form.get('employeeType')?.value;
+
+    if (matriculation.length !== 10 || employeeType === 3) {
+      form.get('matriculation')?.setErrors({ matriculationInvalid: true });
+    }
+  }
+
+  createEmployeeRequestDTO(form: FormGroup) {
+    let data: EmployeeRequestDTO;
+
+    if (form.get('employeeType')?.value == 1) {
+      data = {
+        birthDate: this.form.get('birthDate')?.value,
+        commission: this.form.get('commission')?.value,
+        email: this.form.get('email')?.value,
+        employeeType: EmployeeType.MANAGER,
+        matriculation: this.form.get('matriculation')?.value,
+        name: this.form.get('name')?.value,
+        phone: this.form.get('phone')?.value,
+      };
+    }
+
+    if (form.get('employeeType')?.value == 2) {
+      data = {
+        birthDate: this.form.get('birthDate')?.value,
+        commission: this.form.get('commission')?.value,
+        email: this.form.get('email')?.value,
+        employeeType: EmployeeType.ASSISTANT_MANAGER,
+        matriculation: this.form.get('matriculation')?.value,
+        name: this.form.get('name')?.value,
+        phone: this.form.get('phone')?.value,
+      };
+    }
+
+    if (form.get('employeeType')?.value == 3) {
+      data = {
+        birthDate: this.form.get('birthDate')?.value,
+        commission: this.form.get('commission')?.value,
+        email: this.form.get('email')?.value,
+        employeeType: EmployeeType.SALER,
+        matriculation: this.form.get('matriculation')?.value,
+        name: this.form.get('name')?.value,
+        phone: this.form.get('phone')?.value,
+      };
+    }
+
+    return data!;
   }
 }

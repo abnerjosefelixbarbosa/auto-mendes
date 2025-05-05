@@ -39,7 +39,7 @@
           <td>{{ i.name }}</td>
           <td>{{ i.email }}</td>
           <td>{{ i.matriculation }}</td>
-          <td>{{ i.phone }}</td>
+          <td>{{ i.phone | phone }}</td>
           <td>{{ i.birthDate | date : "dd-MM-yyyy" }}</td>
           <td>{{ i.commission?.toFixed(2) }}</td>
           <td>
@@ -110,6 +110,7 @@
                   type="tel"
                   class="form-control"
                   formControlName="phone"
+                  mask="(00) 00000-0000"
                 />
               </div>
 
@@ -121,16 +122,6 @@
                   formControlName="birthDate"
                 />
               </div>
-<!--
-              <div class="mb-3">
-                <select class="form-select form-select-lg form-select-sm" formControlName="employeeType">
-                  <option selected></option>
-                  <option value="1">Gerente</option>
-                  <option value="2">Subgerente</option>
-                  <option value="3">Vendedor</option>
-                </select>
-              </div>
-              -->
 
               <div class="mb-3">
                 <label for="name" class="form-label">Comissão</label>

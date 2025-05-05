@@ -1,24 +1,39 @@
-import { Injectable, inject } from '@angular/core';import { EmployeeResponseDTO } from '../dto/employee.response.dto';
-import { FormGroup } from '@angular/forms';
-import { EmployeeConverter } from '../utils/employee.converter';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { EmployeeType } from '../utils/employee.type'
-import { EmployeeRequestDTO } from '../dto/employee.request.dto';
+
+export interface EmployeeRequestDTO {
+  name: string;
+  email: string;
+  matriculation: string;
+  phone: string;
+  birthDate: Date;
+  employeeType: EmployeeType;
+  commission: number;
+}
+
+export interface EmployeeResponseDTO {
+  id: string;
+  name: string;
+  email: string;
+  matriculation: string;
+  phone: string;
+  birthDate: Date;
+  employeeType: EmployeeType;
+  commission: number | null;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
-  employeeConverter = inject(EmployeeConverter);
   private url = 'http://localhost:8080/api/employees'
 
   constructor(private http: HttpClient) { }  
 
-  registreEmployee(form: FormGroup) {
-    const request = this.employeeConverter.convertFormToEmployeeRequestDTO(form);
-
-    return firstValueFrom(this.http.post<EmployeeResponseDTO>(`${this.url}/register-employee`, request));
+  registreEmployee(data: EmployeeRequestDTO) {
+    return firstValueFrom(this.http.post<EmployeeResponseDTO>(`${this.url}/register-employee`, data));
   }
 
   listEmployee() {
@@ -46,6 +61,9 @@ export class EmployeeService {
   }
 
   updateEmployeeById(id: string, data: EmployeeRequestDTO) {
+    console.log(id);
+    console.log(data)
+
     return firstValueFrom(this.http.put<EmployeeResponseDTO>(`${this.url}/update-employee-by-id?id=${id}`, data));
   }
 }
