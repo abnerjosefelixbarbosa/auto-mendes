@@ -61,9 +61,6 @@ export class EmployeeService {
   }
 
   updateEmployeeById(id: string, data: EmployeeRequestDTO) {
-    console.log(id);
-    console.log(data)
-
     return firstValueFrom(this.http.put<EmployeeResponseDTO>(`${this.url}/update-employee-by-id?id=${id}`, data));
   }
 }
