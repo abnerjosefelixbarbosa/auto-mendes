@@ -12,6 +12,7 @@ import {
 import { EmployeeType } from '../../utils/employee.type';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { PhonePipe } from '../../pipe/phone.pipe';
+import { Message } from '../../utils/message'
 
 @Component({
   selector: 'app-employee-listing',
@@ -28,6 +29,7 @@ export class EmployeeListingComponent implements OnInit {
   select = new FormControl('1');
   type: EmployeeType = EmployeeType.MANAGER;
   form: FormGroup;
+  message = Message;
 
   constructor(private formBuilder: FormBuilder, private datePipe: DatePipe) {
     this.select.valueChanges.subscribe((value) => {
@@ -77,11 +79,17 @@ export class EmployeeListingComponent implements OnInit {
   }
 
   update(item: EmployeeResponseDTO) {
+    this.cleanMessage()
+
     this.replace(item);
   }
 
   confirm() {
-    const id = this.form.get('id')?.value 
+    this.cleanMessage();
+
+    this.validateForm(this.form);
+
+    const id = this.form.get('id')?.value;
 
     const data: EmployeeRequestDTO = { 
       birthDate: this.form.get('birthDate')?.value,
@@ -94,13 +102,11 @@ export class EmployeeListingComponent implements OnInit {
     }
 
     this.employeeService.updateEmployeeById(id, data)
-    .then((value) => {
-      console.log(value)
+    .then(() => {
+      this.message.SUCCESS = 'Funcionário atualizado com sucesso!'
     })
     .catch((e) => {
-      const message = e.error.message
-
-      console.log(message);
+      this.message.ERROR = e.error.message;
     });
   }
 
@@ -121,5 +127,19 @@ export class EmployeeListingComponent implements OnInit {
 
   formatDate(date: Date) {
     return this.datePipe.transform(date, 'yyyy-MM-dd')
+  }
+
+  cleanMessage() {
+    this.message.SUCCESS = ""
+    this.message.ERROR = ""
+  }
+
+  validateForm(form: FormGroup) {
+    const employeeType: string = form.get('employeeType')?.value
+    const commission = form.get('commission')?.value
+
+    if (employeeType === 'SALER' && commission === null || commission === 0.00) {
+      this.message.ERROR = 'Comissão obrigatória'
+    } 
   }
 }

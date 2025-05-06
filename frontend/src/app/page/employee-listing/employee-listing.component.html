@@ -66,9 +66,22 @@
       aria-hidden="true"
     >
       <div class="modal-dialog">
+        @if (message.SUCCESS != '') {
+          <div class="alert alert-success" role="alert">
+            {{ message.SUCCESS }}
+          </div>
+        }
+
+        @if (message.ERROR != '') {
+          <div class="alert alert-danger" role="alert">
+            {{ message.ERROR }}
+          </div>
+        }
+        
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Atualização de funcionario</h5>
+
             <button
               type="button"
               class="btn-close"

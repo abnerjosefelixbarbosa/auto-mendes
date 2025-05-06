@@ -7,11 +7,13 @@
         {{ message.SUCCESS }}
       </div>
     }
+
     @if (message.ERROR != '') {
       <div class="alert alert-danger" role="alert">
         {{ message.ERROR }}
       </div>
     }
+    
     <form [formGroup]="form" (ngSubmit)="register()">
       <div class="mb-3">
         <label for="name" class="form-label">Nome</label>

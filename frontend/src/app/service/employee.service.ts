@@ -10,7 +10,7 @@ export interface EmployeeRequestDTO {
   phone: string;
   birthDate: Date;
   employeeType: EmployeeType;
-  commission: number;
+  commission: number | null;
 }
 
 export interface EmployeeResponseDTO {
@@ -21,7 +21,7 @@ export interface EmployeeResponseDTO {
   phone: string;
   birthDate: Date;
   employeeType: EmployeeType;
-  commission: number | null;
+  commission: number;
 }
 
 @Injectable({
