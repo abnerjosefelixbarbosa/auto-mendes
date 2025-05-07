@@ -52,9 +52,9 @@ export class EmployeeRegistrationComponent {
       if (this.form.valid) {
         const data = this.createEmployeeRequestDTO(this.form);
 
-        const response = this.employeeService.registreEmployee(data);
-
         /*
+        const response = this.employeeService.registreEmployee(data);
+        
         response
           .then(() => {
             this.message.SUCCESS = 'Funcionário registrado com sucesso';
