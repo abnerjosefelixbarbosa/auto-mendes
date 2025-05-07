@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { EmployeeType } from '../utils/employee.type'
+import { EmployeeType } from '../utils/employee.type';
 
 export interface EmployeeRequestDTO {
   name: string;
@@ -25,42 +25,70 @@ export interface EmployeeResponseDTO {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EmployeeService {
-  private url = 'http://localhost:8080/api/employees'
+  private url = 'http://localhost:8080/api/employees';
 
-  constructor(private http: HttpClient) { }  
+  constructor(private http: HttpClient) {}
 
   registreEmployee(data: EmployeeRequestDTO) {
-    return firstValueFrom(this.http.post<EmployeeResponseDTO>(`${this.url}/register-employee`, data));
+    this.validadeEmployee(data);
+
+    return firstValueFrom(
+      this.http.post<EmployeeResponseDTO>(`${this.url}/register-employee`, data)
+    );
   }
 
   listEmployee() {
-    return firstValueFrom(this.http.get<any>(`${this.url}/list-employee`))
-    .then((value) => {
-      const dtos = new Array<EmployeeResponseDTO>();
-      const content = value.content;
+    return firstValueFrom(this.http.get<any>(`${this.url}/list-employee`)).then(
+      (value) => {
+        const dtos = new Array<EmployeeResponseDTO>();
+        const content = value.content;
 
-      dtos.push(...content)
+        dtos.push(...content);
 
-      return dtos;
-    });
+        return dtos;
+      }
+    );
   }
 
   listEmployeeByType(type: EmployeeType) {
-    return firstValueFrom(this.http.get<any>(`${this.url}/list-employee-by-type?type=${type.toString()}`))
-    .then((value) => {
+    return firstValueFrom(
+      this.http.get<any>(
+        `${this.url}/list-employee-by-type?type=${type.toString()}`
+      )
+    ).then((value) => {
       const dtos = new Array<EmployeeResponseDTO>();
       const content = value.content;
 
-      dtos.push(...content)
+      dtos.push(...content);
 
       return dtos;
     });
   }
 
   updateEmployeeById(id: string, data: EmployeeRequestDTO) {
-    return firstValueFrom(this.http.put<EmployeeResponseDTO>(`${this.url}/update-employee-by-id?id=${id}`, data));
+    this.validadeEmployee(data);
+
+    return firstValueFrom(
+      this.http.put<EmployeeResponseDTO>(
+        `${this.url}/update-employee-by-id?id=${id}`,
+        data
+      )
+    );
+  }
+
+  validadeEmployee(data: EmployeeRequestDTO) {
+    if (data.matriculation.length !== 10) {
+      throw new Error('Matrícula invalida.');
+    }
+
+    if (
+      (data.employeeType.toString() === 'SALER' && data.commission === null) ||
+      data.commission === 0
+    ) {
+      throw new Error('Comissão invalida.');
+    }
   }
 }

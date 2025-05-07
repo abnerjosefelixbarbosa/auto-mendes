@@ -11,6 +11,7 @@ import { EmployeeRequestDTO } from '../../service/employee.service';
 import { Message } from '../../utils/message';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { EmployeeType } from '../../utils/employee.type';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-employee-registration',
@@ -29,44 +30,66 @@ export class EmployeeRegistrationComponent {
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
-      email: ['', [Validators.required, Validators.email, Validators.maxLength(100)]],
+      email: [
+        '',
+        [Validators.required, Validators.email, Validators.maxLength(100)],
+      ],
       matriculation: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.maxLength(30)]],
       birthDate: ['', [Validators.required]],
       employeeType: ['', [Validators.required]],
-      commission: ['', [Validators.required]],
+      commission: ['', []],
     });
   }
 
   register() {
-    this.message.SUCCESS = '';
-    this.message.ERROR = '';
+    try {
+      this.message.SUCCESS = '';
+      this.message.ERROR = '';
 
-    this.validateRegisterForm(this.form);
+      this.validateRegisterForm(this.form);
 
-    if (this.form.valid) {
-      const data = this.createEmployeeRequestDTO(this.form)
+      if (this.form.valid) {
+        const data = this.createEmployeeRequestDTO(this.form);
 
-      const response = this.employeeService.registreEmployee(data);
+        const response = this.employeeService.registreEmployee(data);
 
-      response
-        .then(() => {
-          this.message.SUCCESS = 'Funcionário registrado com sucesso';
-        })
-        .catch((e) => {
-          this.message.ERROR = e.error.message;
-        });
-    } else {
-      this.form.markAllAsTouched();
+        /*
+        response
+          .then(() => {
+            this.message.SUCCESS = 'Funcionário registrado com sucesso';
+          })
+          .catch((e) => {
+            this.message.ERROR = e.error.message;
+          });
+        */
+      } else {
+        this.form.markAllAsTouched();
+      }
+    } catch (e: any) {
+      if (e.message == 'Matrícula invalida.') {
+        this.form.get('matriculation')?.setErrors({ matriculationInvalid: true });
+      }
+
+      if (e.message == 'Comissão invalida.') {
+        this.form.get('commission')?.setErrors({ commissionInvalid: true });
+      }
+
+      console.error(e.message);
     }
   }
 
   validateRegisterForm(form: FormGroup) {
     const matriculation = new String(form.get('matriculation')?.value);
     const employeeType = form.get('employeeType')?.value;
+    const commission = form.get('commission')?.value;
 
-    if (matriculation.length !== 10 || employeeType === 3) {
-      form.get('matriculation')?.setErrors({ matriculationInvalid: true });
+    if (matriculation.length != 10) {
+      throw new Error('Matrícula invalida.') 
+    }
+
+    if (employeeType == 3 && commission == null) {
+      throw new Error('Comissão invalida.') 
     }
   }
 

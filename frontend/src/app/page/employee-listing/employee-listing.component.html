@@ -67,17 +67,15 @@
     >
       <div class="modal-dialog">
         @if (message.SUCCESS != '') {
-          <div class="alert alert-success" role="alert">
-            {{ message.SUCCESS }}
-          </div>
+        <div class="alert alert-success" role="alert">
+          {{ message.SUCCESS }}
+        </div>
+        } @if (message.ERROR != '') {
+        <div class="alert alert-danger" role="alert">
+          {{ message.ERROR }}
+        </div>
         }
 
-        @if (message.ERROR != '') {
-          <div class="alert alert-danger" role="alert">
-            {{ message.ERROR }}
-          </div>
-        }
-        
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Atualização de funcionario</h5>
@@ -97,6 +95,10 @@
                   class="form-control"
                   formControlName="name"
                 />
+
+                @if (form.get('name')?.touched && form.get('name')?.invalid) {
+                <div class="text-danger">Nome invalido.</div>
+                }
               </div>
 
               <div class="mb-3">
@@ -106,6 +108,10 @@
                   class="form-control"
                   formControlName="email"
                 />
+
+                @if (form.get('email')?.touched && form.get('email')?.invalid) {
+                <div class="text-danger">Email invalido.</div>
+                }
               </div>
 
               <div class="mb-3">

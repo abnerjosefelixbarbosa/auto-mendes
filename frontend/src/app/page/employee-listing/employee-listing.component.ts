@@ -1,6 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { EmployeeRequestDTO, EmployeeResponseDTO, EmployeeService } from './../../service/employee.service';
+import {
+  EmployeeRequestDTO,
+  EmployeeResponseDTO,
+  EmployeeService,
+} from './../../service/employee.service';
 import { DatePipe } from '@angular/common';
 import {
   FormBuilder,
@@ -12,15 +16,21 @@ import {
 import { EmployeeType } from '../../utils/employee.type';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { PhonePipe } from '../../pipe/phone.pipe';
-import { Message } from '../../utils/message'
+import { Message } from '../../utils/message';
 
 @Component({
   selector: 'app-employee-listing',
-  imports: [NavbarComponent, ReactiveFormsModule, DatePipe, PhonePipe, NgxMaskDirective],
+  imports: [
+    NavbarComponent,
+    ReactiveFormsModule,
+    DatePipe,
+    PhonePipe,
+    NgxMaskDirective,
+  ],
   templateUrl: './employee-listing.component.html',
   styleUrl: './employee-listing.component.css',
   standalone: true,
-  providers: [DatePipe, provideNgxMask()]
+  providers: [DatePipe, provideNgxMask()],
 })
 export class EmployeeListingComponent implements OnInit {
   items = new Array<EmployeeResponseDTO>();
@@ -51,7 +61,10 @@ export class EmployeeListingComponent implements OnInit {
     this.form = this.formBuilder.group({
       id: [''],
       name: ['', [Validators.required, Validators.maxLength(100)]],
-      email: ['', [Validators.required, Validators.email, Validators.maxLength(100)]],
+      email: [
+        '',
+        [Validators.required, Validators.email, Validators.maxLength(100)],
+      ],
       matriculation: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.maxLength(30)]],
       birthDate: ['', [Validators.required]],
@@ -67,7 +80,7 @@ export class EmployeeListingComponent implements OnInit {
   listEmployee() {
     this.employeeService
       .listEmployee()
-      .then((values) => this.items = values)
+      .then((values) => (this.items = values))
       .catch((e) => console.log(e));
   }
 
@@ -79,35 +92,42 @@ export class EmployeeListingComponent implements OnInit {
   }
 
   update(item: EmployeeResponseDTO) {
-    this.cleanMessage()
+    this.cleanMessage();
 
     this.replace(item);
   }
 
   confirm() {
-    this.cleanMessage();
+    try {
+      this.cleanMessage();
 
-    this.validateForm(this.form);
+      if (this.form.valid) {
+        const id = this.form.get('id')?.value;
 
-    const id = this.form.get('id')?.value;
-
-    const data: EmployeeRequestDTO = { 
-      birthDate: this.form.get('birthDate')?.value,
-      commission: this.form.get('commission')?.value,
-      email: this.form.get('email')?.value,
-      employeeType: this.form.get('employeeType')?.value,
-      matriculation: this.form.get('matriculation')?.value,
-      name: this.form.get('name')?.value,
-      phone: this.form.get('phone')?.value 
+        const data: EmployeeRequestDTO = {
+          birthDate: this.form.get('birthDate')?.value,
+          commission: this.form.get('commission')?.value,
+          email: this.form.get('email')?.value,
+          employeeType: this.form.get('employeeType')?.value,
+          matriculation: this.form.get('matriculation')?.value,
+          name: this.form.get('name')?.value,
+          phone: this.form.get('phone')?.value,
+        };
+  
+        this.employeeService
+          .updateEmployeeById(id, data)
+          .then(() => {
+            this.message.SUCCESS = 'Funcionário atualizado com sucesso!';
+          })
+          .catch((e) => {
+            this.message.ERROR = e.error.message;
+          });
+      } else {
+        this.form.markAllAsTouched();
+      }
+    } catch (e: any) {
+      this.message.ERROR = e.message;
     }
-
-    this.employeeService.updateEmployeeById(id, data)
-    .then(() => {
-      this.message.SUCCESS = 'Funcionário atualizado com sucesso!'
-    })
-    .catch((e) => {
-      this.message.ERROR = e.error.message;
-    });
   }
 
   replace(item: EmployeeResponseDTO) {
@@ -126,20 +146,11 @@ export class EmployeeListingComponent implements OnInit {
   }
 
   formatDate(date: Date) {
-    return this.datePipe.transform(date, 'yyyy-MM-dd')
+    return this.datePipe.transform(date, 'yyyy-MM-dd');
   }
 
   cleanMessage() {
-    this.message.SUCCESS = ""
-    this.message.ERROR = ""
-  }
-
-  validateForm(form: FormGroup) {
-    const employeeType: string = form.get('employeeType')?.value
-    const commission = form.get('commission')?.value
-
-    if (employeeType === 'SALER' && commission === null || commission === 0.00) {
-      this.message.ERROR = 'Comissão obrigatória'
-    } 
+    this.message.SUCCESS = '';
+    this.message.ERROR = '';
   }
 }
