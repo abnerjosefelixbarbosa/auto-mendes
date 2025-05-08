@@ -34,7 +34,7 @@ export class EmployeeRegistrationComponent {
         '',
         [Validators.required, Validators.email, Validators.maxLength(100)],
       ],
-      matriculation: ['', [Validators.required]],
+      matriculation: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       phone: ['', [Validators.required, Validators.maxLength(30)]],
       birthDate: ['', [Validators.required]],
       employeeType: ['', [Validators.required]],
@@ -47,48 +47,34 @@ export class EmployeeRegistrationComponent {
       this.message.SUCCESS = '';
       this.message.ERROR = '';
 
-      this.validateRegisterForm(this.form);
+      //this.validateRegisterForm(this.form);
 
       if (this.form.valid) {
         const data = this.createEmployeeRequestDTO(this.form);
 
-        /*
-        const response = this.employeeService.registreEmployee(data);
-        
-        response
+        this.employeeService.registreEmployee(data)
           .then(() => {
             this.message.SUCCESS = 'Funcionário registrado com sucesso';
           })
           .catch((e) => {
             this.message.ERROR = e.error.message;
           });
-        */
       } else {
         this.form.markAllAsTouched();
       }
     } catch (e: any) {
-      if (e.message == 'Matrícula invalida.') {
-        this.form.get('matriculation')?.setErrors({ matriculationInvalid: true });
-      }
-
       if (e.message == 'Comissão invalida.') {
         this.form.get('commission')?.setErrors({ commissionInvalid: true });
       }
-
-      console.error(e.message);
     }
   }
 
   validateRegisterForm(form: FormGroup) {
     const matriculation = new String(form.get('matriculation')?.value);
-    const employeeType = form.get('employeeType')?.value;
-    const commission = form.get('commission')?.value;
+    const employeeType = new String(form.get('employeeType')?.value);
+    const commission = new Number(form.get('commission')?.value);
 
-    if (matriculation.length != 10) {
-      throw new Error('Matrícula invalida.') 
-    }
-
-    if (employeeType == 3 && commission == null) {
+    if (employeeType == '3' && commission == 0) {
       throw new Error('Comissão invalida.') 
     }
   }

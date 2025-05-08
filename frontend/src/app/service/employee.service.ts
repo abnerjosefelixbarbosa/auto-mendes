@@ -79,15 +79,8 @@ export class EmployeeService {
     );
   }
 
-  validadeEmployee(data: EmployeeRequestDTO) {
-    if (data.matriculation.length !== 10) {
-      throw new Error('Matrícula invalida.');
-    }
-
-    if (
-      (data.employeeType.toString() === 'SALER' && data.commission === null) ||
-      data.commission === 0
-    ) {
+  private validadeEmployee(data: EmployeeRequestDTO) {
+    if (data.employeeType.toString() == 'SALER' && data.commission == 0) {
       throw new Error('Comissão invalida.');
     }
   }
