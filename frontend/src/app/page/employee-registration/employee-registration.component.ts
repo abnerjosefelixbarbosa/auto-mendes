@@ -47,8 +47,6 @@ export class EmployeeRegistrationComponent {
       this.message.SUCCESS = '';
       this.message.ERROR = '';
 
-      //this.validateRegisterForm(this.form);
-
       if (this.form.valid) {
         const data = this.createEmployeeRequestDTO(this.form);
 
@@ -66,16 +64,6 @@ export class EmployeeRegistrationComponent {
       if (e.message == 'Comissão invalida.') {
         this.form.get('commission')?.setErrors({ commissionInvalid: true });
       }
-    }
-  }
-
-  validateRegisterForm(form: FormGroup) {
-    const matriculation = new String(form.get('matriculation')?.value);
-    const employeeType = new String(form.get('employeeType')?.value);
-    const commission = new Number(form.get('commission')?.value);
-
-    if (employeeType == '3' && commission == 0) {
-      throw new Error('Comissão invalida.') 
     }
   }
 
