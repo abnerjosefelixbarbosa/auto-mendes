@@ -10,8 +10,7 @@ import { EmployeeService } from '../../service/employee.service';
 import { EmployeeRequestDTO } from '../../service/employee.service';
 import { Message } from '../../utils/message';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
-import { EmployeeType } from '../../utils/employee.type';
-import { from } from 'rxjs';
+import { EmployeeMapper } from '../../utils/employee.mapper';
 
 @Component({
   selector: 'app-employee-registration',
@@ -26,6 +25,7 @@ export class EmployeeRegistrationComponent {
   dto: EmployeeRequestDTO | null = null;
   form: FormGroup;
   employeeService = inject(EmployeeService);
+  employeeMapper = inject(EmployeeMapper);
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -34,7 +34,14 @@ export class EmployeeRegistrationComponent {
         '',
         [Validators.required, Validators.email, Validators.maxLength(100)],
       ],
-      matriculation: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      matriculation: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(10),
+        ],
+      ],
       phone: ['', [Validators.required, Validators.maxLength(30)]],
       birthDate: ['', [Validators.required]],
       employeeType: ['', [Validators.required]],
@@ -48,9 +55,10 @@ export class EmployeeRegistrationComponent {
       this.message.ERROR = '';
 
       if (this.form.valid) {
-        const data = this.createEmployeeRequestDTO(this.form);
+        const data = this.employeeMapper.toEmployeeRequestDTO(this.form);
 
-        this.employeeService.registreEmployee(data)
+        this.employeeService
+          .registreEmployee(data)
           .then(() => {
             this.message.SUCCESS = 'Funcionário registrado com sucesso';
           })
@@ -65,47 +73,5 @@ export class EmployeeRegistrationComponent {
         this.form.get('commission')?.setErrors({ commissionInvalid: true });
       }
     }
-  }
-
-  createEmployeeRequestDTO(form: FormGroup) {
-    let data: EmployeeRequestDTO;
-
-    if (form.get('employeeType')?.value == 1) {
-      data = {
-        birthDate: this.form.get('birthDate')?.value,
-        commission: this.form.get('commission')?.value,
-        email: this.form.get('email')?.value,
-        employeeType: EmployeeType.MANAGER,
-        matriculation: this.form.get('matriculation')?.value,
-        name: this.form.get('name')?.value,
-        phone: this.form.get('phone')?.value,
-      };
-    }
-
-    if (form.get('employeeType')?.value == 2) {
-      data = {
-        birthDate: this.form.get('birthDate')?.value,
-        commission: this.form.get('commission')?.value,
-        email: this.form.get('email')?.value,
-        employeeType: EmployeeType.ASSISTANT_MANAGER,
-        matriculation: this.form.get('matriculation')?.value,
-        name: this.form.get('name')?.value,
-        phone: this.form.get('phone')?.value,
-      };
-    }
-
-    if (form.get('employeeType')?.value == 3) {
-      data = {
-        birthDate: this.form.get('birthDate')?.value,
-        commission: this.form.get('commission')?.value,
-        email: this.form.get('email')?.value,
-        employeeType: EmployeeType.SALER,
-        matriculation: this.form.get('matriculation')?.value,
-        name: this.form.get('name')?.value,
-        phone: this.form.get('phone')?.value,
-      };
-    }
-
-    return data!;
   }
 }

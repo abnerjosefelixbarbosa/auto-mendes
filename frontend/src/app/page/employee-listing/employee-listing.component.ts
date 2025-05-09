@@ -17,6 +17,7 @@ import { EmployeeType } from '../../utils/employee.type';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { PhonePipe } from '../../pipe/phone.pipe';
 import { Message } from '../../utils/message';
+import { EmployeeMapper } from '../../utils/employee.mapper';
 
 @Component({
   selector: 'app-employee-listing',
@@ -41,7 +42,7 @@ export class EmployeeListingComponent implements OnInit {
   form: FormGroup;
   message = Message;
 
-  constructor(private formBuilder: FormBuilder, private datePipe: DatePipe) {
+  constructor(private formBuilder: FormBuilder, private datePipe: DatePipe, private employeeMapper: EmployeeMapper) {
     this.select.valueChanges.subscribe((value) => {
       const option = value!;
 
@@ -104,15 +105,7 @@ export class EmployeeListingComponent implements OnInit {
       if (this.form.valid) {
         const id = this.form.get('id')?.value;
 
-        const data: EmployeeRequestDTO = {
-          birthDate: this.form.get('birthDate')?.value,
-          commission: this.form.get('commission')?.value,
-          email: this.form.get('email')?.value,
-          employeeType: this.form.get('employeeType')?.value,
-          matriculation: this.form.get('matriculation')?.value,
-          name: this.form.get('name')?.value,
-          phone: this.form.get('phone')?.value,
-        };
+        const data = this.employeeMapper.toEmployeeRequestDTO(this.form)
   
         this.employeeService
           .updateEmployeeById(id, data)
