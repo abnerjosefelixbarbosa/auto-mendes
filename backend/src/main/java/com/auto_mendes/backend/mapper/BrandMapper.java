@@ -5,11 +5,11 @@ import com.auto_mendes.backend.dto.response.BrandResponseDTO;
 import com.auto_mendes.backend.model.Brand;
 
 public class BrandMapper {
-	public static Brand toBrand(BrandRequestDTO dto) {
-		return new Brand(null, dto.name(), null);
+	public static Brand toBrand(BrandRequestDTO data) {
+		return new Brand(null, data.getName(), null);
 	}
 
-	public static BrandResponseDTO toBrandResponseDTO(Brand brand) {
-		return new BrandResponseDTO(brand.getId(), brand.getName());
+	public static BrandResponseDTO toBrandResponseDTO(Brand data) {
+		return new BrandResponseDTO(data.getId(), data.getName());
 	}
 }

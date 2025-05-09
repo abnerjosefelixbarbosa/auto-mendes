@@ -8,17 +8,23 @@ import com.auto_mendes.backend.enums.VehicleType;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public record VehicleRequestDTO(
-		@Size(message = "Placa deve ter até 20 caracteres.")
-		String plate,
-		@NotNull(message = "Tipo da transmissão não deve ser nulo.")
-		TransmissionType transmissionType,
-		@NotNull(message = "Preço não deve ser nulo.")
-		BigDecimal price,
-		@NotNull(message = "Nome do modelo não deve ser nulo.")
-		@NotEmpty(message = "Nome do modelo não deve ser vázio.")
-		String modelName,
-		@NotNull(message = "Tipo do veículo não deve ser null.")
-		VehicleType vehicleType
-) {}
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class VehicleRequestDTO {
+	@Size(message = "Placa até no máximo 20 caracteres.")
+	private String plate;
+	@NotNull(message = "Tipo da transmissão nulo.")
+	private TransmissionType transmissionType;
+	@NotNull(message = "Preço nulo.")
+	private BigDecimal price;
+	@NotNull(message = "Nome nulo.")
+	@NotEmpty(message = "Nome vázio.")
+	private String modelName;
+	@NotNull(message = "Tipo do veículo null.")
+	private VehicleType vehicleType;
+}

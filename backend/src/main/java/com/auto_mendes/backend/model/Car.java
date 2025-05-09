@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.auto_mendes.backend.enums.TransmissionType;
+import com.auto_mendes.backend.enums.VehicleType;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
@@ -21,9 +22,9 @@ import lombok.NoArgsConstructor;
 public class Car extends Vehicle {
 	private static final long serialVersionUID = 1L;
 
-	public Car(String id, String plate, TransmissionType transmissionType, BigDecimal price, Model model,
-			List<SaleVehicle> saleVehicles) {
-		super(id, plate, transmissionType, price, model, saleVehicles);
+	public Car(String id, String plate, TransmissionType transmissionType, BigDecimal price, VehicleType vehicleType,
+			Model model, List<SaleVehicle> saleVehicles) {
+		super(id, plate, transmissionType, price, vehicleType, model, saleVehicles);
 	}
 
 	public void update(Car car) {

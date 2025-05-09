@@ -2,9 +2,19 @@ package com.auto_mendes.backend.dto.response;
 
 import java.math.BigDecimal;
 
-public record VehicleResponseDTO(
-		String id,
-		String plate,
-		BigDecimal price,
-		String modelName
-) {}
+import com.auto_mendes.backend.enums.VehicleType;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class VehicleResponseDTO {
+	private String id;
+	private String plate;
+	private BigDecimal price;
+	private VehicleType vehicleType;
+	private String modelName;
+}

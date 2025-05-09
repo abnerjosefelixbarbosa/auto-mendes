@@ -3,8 +3,12 @@ package com.auto_mendes.backend.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.auto_mendes.backend.enums.CustomerType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,6 +40,9 @@ public class Customer implements Serializable {
 	private String email;
 	@Column(nullable = false, unique = true, length = 30)
 	private String phone;
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private CustomerType customerType;
 	@OneToMany(mappedBy = "customer")
 	private List<Sale> sales;
 }

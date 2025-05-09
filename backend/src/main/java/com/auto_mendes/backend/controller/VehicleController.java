@@ -26,15 +26,15 @@ public class VehicleController {
 	private final VehicleService vehicleService;
 	
 	@PostMapping(value = "/register-vehicle")
-	public ResponseEntity<VehicleResponseDTO> registerVehicle(@Valid @RequestBody VehicleRequestDTO dto) {
-		VehicleResponseDTO response = vehicleService.registerVehicle(dto);
+	public ResponseEntity<VehicleResponseDTO> registerVehicle(@Valid @RequestBody VehicleRequestDTO data) {
+		VehicleResponseDTO response = vehicleService.registerVehicle(data);
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
 	@PutMapping(value = "/update-vehicle-by-id")
-	public ResponseEntity<VehicleResponseDTO> updateVehicleById(@RequestParam String id, @Valid @RequestBody VehicleRequestDTO dto) {
-		VehicleResponseDTO response = vehicleService.updateVehicleById(id, dto);
+	public ResponseEntity<VehicleResponseDTO> updateVehicleById(@RequestParam String id, @Valid @RequestBody VehicleRequestDTO data) {
+		VehicleResponseDTO response = vehicleService.updateVehicleById(id, data);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

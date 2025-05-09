@@ -22,8 +22,8 @@ public class BrandServiceImpl implements BrandService {
 	private final BrandRepository brandRepository;
 	private final BrandValidation brandValidation;
 	
-	public BrandResponseDTO registerBrand(BrandRequestDTO dto) {
-		Brand brand = BrandMapper.toBrand(dto);
+	public BrandResponseDTO registerBrand(BrandRequestDTO data) {
+		Brand brand = BrandMapper.toBrand(data);
 		
 		brandValidation.validateBrand(brand);
 		
@@ -32,8 +32,8 @@ public class BrandServiceImpl implements BrandService {
 		return BrandMapper.toBrandResponseDTO(brandSaved);
 	}
 
-	public BrandResponseDTO updateBrandByid(String id, BrandRequestDTO dto) {
-        Brand brand = BrandMapper.toBrand(dto);
+	public BrandResponseDTO updateBrandByid(String id, BrandRequestDTO data) {
+        Brand brand = BrandMapper.toBrand(data);
 		
 		brandValidation.validateBrand(brand);
 		

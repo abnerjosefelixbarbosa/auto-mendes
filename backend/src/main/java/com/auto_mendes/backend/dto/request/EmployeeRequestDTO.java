@@ -11,29 +11,35 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public record EmployeeRequestDTO(
-		@NotEmpty(message = "Nome não deve ser vazio.")
-		@NotNull(message = "Nome não deve ser nulo.")
-		@Size(max = 100, message = "Nome não deve ter mais de 100 caracteres.")
-		String name,
-		@NotEmpty(message = "Email não deve ser vazio.")
-		@NotNull(message = "Email não deve ser nulo.")
-		@Size(max = 100, message = "Email não deve ter mais de 100 caracteres.")
-		@Email(message = "Email deve ser valido.")
-		String email,
-		@NotEmpty(message = "Matrícula não deve ser vazio.")
-		@NotNull(message = "Matrícula não deve ser nulo.")
-		@Pattern(regexp = "^\\d{10}$", message = "Matrícula deve ter 10 numeros")
-		String matriculation,
-		@NotEmpty(message = "Telefone não deve ser vazio.")
-		@NotNull(message = "Telefone não deve ser nulo.")
-		@Size(max = 30, message = "Telefone não deve ter mais de 30 caracteres.")
-		String phone,
-		@Past(message = "Data de nascimento não deve ser a data presente ou futura.")
-		@NotNull(message = "Data de nascimento não deve ser nulo.")
-		LocalDate birthDate,
-		@NotNull(message = "Tipo de funcionário não deve ser nulo.")
-		EmployeeType employeeType,
-		BigDecimal commission
-) {}
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class EmployeeRequestDTO {
+	@NotEmpty(message = "Nome vázio.")
+	@NotNull(message = "Nome nulo.")
+	@Size(max = 100, message = "Nome com no máximo 100 caracteres.")
+	private String name;
+	@NotEmpty(message = "Email vázio.")
+	@NotNull(message = "Email nulo.")
+	@Size(max = 100, message = "Email com no máximo 100 caracteres.")
+	@Email(message = "Email invalido.")
+	private String email;
+	@NotEmpty(message = "Matrícula vázio.")
+	@NotNull(message = "Matrícula nulo.")
+	@Pattern(regexp = "^\\d{10}$", message = "Matrícula com 10 números.")
+	private String matriculation;
+	@NotEmpty(message = "Telefone vazio.")
+	@NotNull(message = "Telefone nulo.")
+	@Size(max = 30, message = "Telefone com no máximo 30 caracteres.")
+	private String phone;
+	@Past(message = "Data de nascimento presente ou futura.")
+	@NotNull(message = "Data de nascimento nulo.")
+	private LocalDate birthDate;
+	@NotNull(message = "Tipo de funcionário nulo.")
+	private EmployeeType employeeType;
+	BigDecimal commission;
+}

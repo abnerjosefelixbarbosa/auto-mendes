@@ -21,9 +21,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.auto_mendes.backend.dto.request.VehicleRequestDTO;
 import com.auto_mendes.backend.enums.TransmissionType;
 import com.auto_mendes.backend.enums.VehicleType;
-import com.auto_mendes.backend.model.Brand;
-import com.auto_mendes.backend.model.Car;
-import com.auto_mendes.backend.model.Model;
 import com.auto_mendes.backend.repository.BrandRepository;
 import com.auto_mendes.backend.repository.CarRepository;
 import com.auto_mendes.backend.repository.ModelRepository;
@@ -98,6 +95,7 @@ public class VehicleControllerTest {
 	}
 
 	void loadVehicle() {
+		/*
 		Brand brand1 = new Brand(null, "name1", null);
 
 		brand1 = brandRepository.save(brand1);
@@ -115,5 +113,6 @@ public class VehicleControllerTest {
 		car2 = carRepository.save(car2);
 
 		id = car1.getId();
+		*/
 	}
 }

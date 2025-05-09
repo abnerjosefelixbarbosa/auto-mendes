@@ -32,11 +32,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private final EmployeeValidation employeeValidation;
 
 	@Transactional
-	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO dto) {
+	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO data) {
 		EmployeeResponseDTO employeeResponseDTO = null;
 
-		if (dto.employeeType().ordinal() == 0) {
-			Manager manager = EmployeeMapper.toManager(dto);
+		if (data.getEmployeeType().ordinal() == 0) {
+			Manager manager = EmployeeMapper.toManager(data);
 
 			employeeValidation.validadeEmployee(manager);
 
@@ -45,8 +45,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employeeResponseDTO = EmployeeMapper.toEmployeeResponseDTO(managerSaved);
 		}
 
-		if (dto.employeeType().ordinal() == 1) {
-			AssistantManager assistantManager = EmployeeMapper.toAssistantManager(dto);
+		if (data.getEmployeeType().ordinal() == 1) {
+			AssistantManager assistantManager = EmployeeMapper.toAssistantManager(data);
 
 			employeeValidation.validadeEmployee(assistantManager);
 
@@ -55,8 +55,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employeeResponseDTO = EmployeeMapper.toEmployeeResponseDTO(assistantManagerSaved);
 		}
 
-		if (dto.employeeType().ordinal() == 2) {
-			Saler saler = EmployeeMapper.toSaler(dto);
+		if (data.getEmployeeType().ordinal() == 2) {
+			Saler saler = EmployeeMapper.toSaler(data);
 
 			employeeValidation.validadeEmployee(saler);
 
@@ -69,11 +69,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Transactional
-	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO dto) {
+	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO data) {
 		EmployeeResponseDTO employeeResponseDTO = null;
 
-		if (dto.employeeType().ordinal() == 0) {
-			Manager manager = EmployeeMapper.toManager(dto);
+		if (data.getEmployeeType().ordinal() == 0) {
+			Manager manager = EmployeeMapper.toManager(data);
 
 			employeeValidation.validadeEmployee(manager);
 
@@ -87,8 +87,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employeeResponseDTO = EmployeeMapper.toEmployeeResponseDTO(managerSaved);
 		}
 
-		if (dto.employeeType().ordinal() == 1) {
-			AssistantManager assistantManager = EmployeeMapper.toAssistantManager(dto);
+		if (data.getEmployeeType().ordinal() == 1) {
+			AssistantManager assistantManager = EmployeeMapper.toAssistantManager(data);
 
 			employeeValidation.validadeEmployee(assistantManager);
 
@@ -102,8 +102,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employeeResponseDTO = EmployeeMapper.toEmployeeResponseDTO(assistantManagerSaved);
 		}
 
-		if (dto.employeeType().ordinal() == 2) {
-			Saler saler = EmployeeMapper.toSaler(dto);
+		if (data.getEmployeeType().ordinal() == 2) {
+			Saler saler = EmployeeMapper.toSaler(data);
 
 			employeeValidation.validadeEmployee(saler);
 

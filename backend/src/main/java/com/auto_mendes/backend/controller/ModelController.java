@@ -26,15 +26,15 @@ public class ModelController {
 	private final ModelService modelService;
 
 	@PostMapping(value = "/register-model")
-	public ResponseEntity<ModelResponseDTO> registerModel(@Valid @RequestBody ModelRequestDTO dto) {
-		ModelResponseDTO response = modelService.registerModel(dto);
+	public ResponseEntity<ModelResponseDTO> registerModel(@Valid @RequestBody ModelRequestDTO data) {
+		ModelResponseDTO response = modelService.registerModel(data);
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
 	@PutMapping(value = "/update-model-by-id")
-	public ResponseEntity<ModelResponseDTO> updateModelById(@RequestParam String id, @Valid @RequestBody ModelRequestDTO dto) {
-		ModelResponseDTO response = modelService.updateModelById(id, dto);
+	public ResponseEntity<ModelResponseDTO> updateModelById(@RequestParam String id, @Valid @RequestBody ModelRequestDTO data) {
+		ModelResponseDTO response = modelService.updateModelById(id, data);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

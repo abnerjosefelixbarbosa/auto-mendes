@@ -27,15 +27,15 @@ public class EmployeeController {
 	private final EmployeeService employeeService;
 	
 	@PostMapping(value = "/register-employee")
-	public ResponseEntity<EmployeeResponseDTO> registerManager(@Valid @RequestBody EmployeeRequestDTO dto) {
-		EmployeeResponseDTO response = employeeService.registerEmployee(dto);
+	public ResponseEntity<EmployeeResponseDTO> registerManager(@Valid @RequestBody EmployeeRequestDTO data) {
+		EmployeeResponseDTO response = employeeService.registerEmployee(data);
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
 	@PutMapping(value = "/update-employee-by-id")
-	public ResponseEntity<EmployeeResponseDTO> updateEmployeeById(@RequestParam String id, @Valid @RequestBody EmployeeRequestDTO dto) {
-		EmployeeResponseDTO response = employeeService.updateEmployeeById(id, dto);
+	public ResponseEntity<EmployeeResponseDTO> updateEmployeeById(@RequestParam String id, @Valid @RequestBody EmployeeRequestDTO data) {
+		EmployeeResponseDTO response = employeeService.updateEmployeeById(id, data);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

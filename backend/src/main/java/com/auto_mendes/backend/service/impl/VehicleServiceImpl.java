@@ -30,12 +30,11 @@ public class VehicleServiceImpl implements VehicleService {
 	private final MotorcycleRepository motorcycleRepository;
 	private final VehicleRepository vehicleRepository;
 
-	public VehicleResponseDTO registerVehicle(VehicleRequestDTO dto) {
+	public VehicleResponseDTO registerVehicle(VehicleRequestDTO data) {
 		VehicleResponseDTO response = null;
 
-		switch (dto.vehicleType().ordinal()) {
-		case 0: {
-			Car car = VehicleMapper.toCar(dto);
+		if (data.getVehicleType().ordinal() == 0) {
+			Car car = VehicleMapper.toCar(data);
 
 			vehicleValidation.validateVehicle(car);
 
@@ -47,11 +46,10 @@ public class VehicleServiceImpl implements VehicleService {
 			Car carSaved = carRepository.save(car);
 
 			response = VehicleMapper.toVehicleResponseDTO(carSaved);
-
-			break;
 		}
-		case 1: {
-			Motorcycle motorcycle = VehicleMapper.toMotorcycle(dto);
+
+		if (data.getVehicleType().ordinal() == 1) {
+			Motorcycle motorcycle = VehicleMapper.toMotorcycle(data);
 
 			vehicleValidation.validateVehicle(motorcycle);
 
@@ -63,43 +61,36 @@ public class VehicleServiceImpl implements VehicleService {
 			Motorcycle motorcycleSaved = motorcycleRepository.save(motorcycle);
 
 			response = VehicleMapper.toVehicleResponseDTO(motorcycleSaved);
-
-			break;
-		}
-		default:
-			break;
 		}
 
 		return response;
 	}
 
-	public VehicleResponseDTO updateVehicleById(String id, VehicleRequestDTO dto) {
+	public VehicleResponseDTO updateVehicleById(String id, VehicleRequestDTO data) {
 		VehicleResponseDTO response = null;
-
-		switch (dto.vehicleType().ordinal()) {
-		case 0: {
-			Car car = VehicleMapper.toCar(dto);
+		
+		if (data.getVehicleType().ordinal() == 0) {
+			Car car = VehicleMapper.toCar(data);
 
 			vehicleValidation.validateVehicle(car);
 
 			Model modelFound = modelRepository.findByName(car.getModel().getName())
 					.orElseThrow(() -> new EntityNotFoundException("Nome do modelo não encontrado."));
-			
+
 			car.setModel(modelFound);
-			
+
 			Car carFound = carRepository.findById(id)
 					.orElseThrow(() -> new EntityNotFoundException("Id não encontrado"));
-			
+
 			carFound.update(car);
 
 			Car carSaved = carRepository.save(carFound);
 
 			response = VehicleMapper.toVehicleResponseDTO(carSaved);
-
-			break;
 		}
-		case 1: {
-			Motorcycle motorcycle = VehicleMapper.toMotorcycle(dto);
+		
+		if (data.getVehicleType().ordinal() == 1) {
+			Motorcycle motorcycle = VehicleMapper.toMotorcycle(data);
 
 			vehicleValidation.validateVehicle(motorcycle);
 
@@ -107,20 +98,15 @@ public class VehicleServiceImpl implements VehicleService {
 					.orElseThrow(() -> new EntityNotFoundException("Nome do modelo não encontrado."));
 
 			motorcycle.setModel(modelFound);
-			
+
 			Motorcycle motorcycleFound = motorcycleRepository.findById(id)
 					.orElseThrow(() -> new EntityNotFoundException("Id não encontrado"));
-			
+
 			motorcycleFound.update(motorcycle);
 
 			Motorcycle motorcycleSaved = motorcycleRepository.save(motorcycleFound);
 
 			response = VehicleMapper.toVehicleResponseDTO(motorcycleSaved);
-
-			break;
-		}
-		default:
-			break;
 		}
 
 		return response;

@@ -24,8 +24,8 @@ public class ModelServiceImpl implements ModelService {
 	private final ModelValidation modelValidation;
 	private final BrandService brandService;
 
-	public ModelResponseDTO registerModel(ModelRequestDTO dto) {
-		Model model = ModelMapper.toModel(dto);
+	public ModelResponseDTO registerModel(ModelRequestDTO data) {
+		Model model = ModelMapper.toModel(data);
 
 		modelValidation.valiadteModel(model);
 
@@ -39,8 +39,8 @@ public class ModelServiceImpl implements ModelService {
 		return ModelMapper.toModelResponseDTO(modelSaved);
 	}
 
-	public ModelResponseDTO updateModelById(String id, ModelRequestDTO dto) {
-		Model model = ModelMapper.toModel(dto);
+	public ModelResponseDTO updateModelById(String id, ModelRequestDTO data) {
+		Model model = ModelMapper.toModel(data);
 
 		modelValidation.valiadteModel(model);
 

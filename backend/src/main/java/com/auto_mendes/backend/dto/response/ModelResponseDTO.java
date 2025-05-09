@@ -1,7 +1,14 @@
 package com.auto_mendes.backend.dto.response;
 
-public record ModelResponseDTO(
-		String id,
-		String name,
-		String brandName
-) {}
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ModelResponseDTO {
+	private String id;
+	private String name;
+	private String brandName;
+}
