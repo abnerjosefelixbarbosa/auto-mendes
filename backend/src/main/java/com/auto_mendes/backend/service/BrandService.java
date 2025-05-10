@@ -8,9 +8,9 @@ import com.auto_mendes.backend.dto.response.BrandResponseDTO;
 import com.auto_mendes.backend.model.Brand;
 
 public interface BrandService {
-	BrandResponseDTO registerBrand(BrandRequestDTO dto);
+	BrandResponseDTO registerBrand(BrandRequestDTO brandRequestDTO);
 	
-    BrandResponseDTO updateBrandByid(String id, BrandRequestDTO dto);
+    BrandResponseDTO updateBrandByid(String id, BrandRequestDTO brandRequestDTO);
 	
 	Page<BrandResponseDTO> listBrandByName(String name, Pageable pageable);
 	

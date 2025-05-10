@@ -8,9 +8,9 @@ import com.auto_mendes.backend.dto.response.EmployeeResponseDTO;
 import com.auto_mendes.backend.enums.EmployeeType;
 
 public interface EmployeeService {
-	EmployeeResponseDTO registerEmployee(EmployeeRequestDTO dto);
+	EmployeeResponseDTO registerEmployee(EmployeeRequestDTO employeeRequestDTO);
 
-	EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO dto);
+	EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO employeeRequestDTO);
 	
 	Page<EmployeeResponseDTO> listEmployeeByType(EmployeeType type, Pageable pageable);
 	

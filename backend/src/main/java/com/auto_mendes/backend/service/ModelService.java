@@ -7,9 +7,9 @@ import com.auto_mendes.backend.dto.request.ModelRequestDTO;
 import com.auto_mendes.backend.dto.response.ModelResponseDTO;
 
 public interface ModelService {
-	ModelResponseDTO registerModel(ModelRequestDTO dto);
+	ModelResponseDTO registerModel(ModelRequestDTO modelRequestDTO);
 	
-	ModelResponseDTO updateModelById(String id, ModelRequestDTO dto);
+	ModelResponseDTO updateModelById(String id, ModelRequestDTO modelRequestDTO);
 	
 	Page<ModelResponseDTO> listModelByName(String name, Pageable pageable);
 }

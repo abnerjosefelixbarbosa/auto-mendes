@@ -24,13 +24,12 @@ public class ModelServiceImpl implements ModelService {
 	private final ModelValidation modelValidation;
 	private final BrandService brandService;
 
-	public ModelResponseDTO registerModel(ModelRequestDTO data) {
-		Model model = ModelMapper.toModel(data);
+	public ModelResponseDTO registerModel(ModelRequestDTO modelRequestDTO) {
+		Model model = ModelMapper.toModel(modelRequestDTO);
 
 		modelValidation.valiadteModel(model);
 
-		Brand brandFound = brandService
-				.findBrandByName(model.getBrand().getName());
+		Brand brandFound = brandService.findBrandByName(model.getBrand().getName());
 
 		model.setBrand(brandFound);
 
@@ -39,19 +38,18 @@ public class ModelServiceImpl implements ModelService {
 		return ModelMapper.toModelResponseDTO(modelSaved);
 	}
 
-	public ModelResponseDTO updateModelById(String id, ModelRequestDTO data) {
-		Model model = ModelMapper.toModel(data);
+	public ModelResponseDTO updateModelById(String id, ModelRequestDTO modelRequestDTO) {
+		Model model = ModelMapper.toModel(modelRequestDTO);
 
 		modelValidation.valiadteModel(model);
 
-		Brand brandFound = brandService
-				.findBrandByName(model.getBrand().getName());
+		Brand brandFound = brandService.findBrandByName(model.getBrand().getName());
 
 		model.setBrand(brandFound);
-		
+
 		Model modelFound = modelRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("Id não encontrado."));
-		
+
 		modelFound.update(model);
 
 		Model modelSaved = modelRepository.save(modelFound);
@@ -60,7 +58,6 @@ public class ModelServiceImpl implements ModelService {
 	}
 
 	public Page<ModelResponseDTO> listModelByName(String name, Pageable pageable) {
-		return modelRepository.findAllByNameContaining(name, pageable)
-				.map(ModelMapper::toModelResponseDTO);
+		return modelRepository.findAllByNameContaining(name, pageable).map(ModelMapper::toModelResponseDTO);
 	}
 }

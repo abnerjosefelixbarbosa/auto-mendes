@@ -7,9 +7,9 @@ import com.auto_mendes.backend.dto.request.VehicleRequestDTO;
 import com.auto_mendes.backend.dto.response.VehicleResponseDTO;
 
 public interface VehicleService {
-	VehicleResponseDTO registerVehicle(VehicleRequestDTO dto);
+	VehicleResponseDTO registerVehicle(VehicleRequestDTO vehicleRequestDTO);
 
-	VehicleResponseDTO updateVehicleById(String id, VehicleRequestDTO dto);
+	VehicleResponseDTO updateVehicleById(String id, VehicleRequestDTO vehicleRequestDTO);
 
 	Page<VehicleResponseDTO> listVehicleByModel(String model, Pageable pageable);
 }

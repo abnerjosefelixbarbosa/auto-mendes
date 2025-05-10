@@ -30,11 +30,11 @@ public class VehicleServiceImpl implements VehicleService {
 	private final MotorcycleRepository motorcycleRepository;
 	private final VehicleRepository vehicleRepository;
 
-	public VehicleResponseDTO registerVehicle(VehicleRequestDTO data) {
+	public VehicleResponseDTO registerVehicle(VehicleRequestDTO vehicleRequestDTO) {
 		VehicleResponseDTO response = null;
 
-		if (data.getVehicleType().ordinal() == 0) {
-			Car car = VehicleMapper.toCar(data);
+		if (vehicleRequestDTO.getVehicleType().ordinal() == 0) {
+			Car car = VehicleMapper.toCar(vehicleRequestDTO);
 
 			vehicleValidation.validateVehicle(car);
 
@@ -48,8 +48,8 @@ public class VehicleServiceImpl implements VehicleService {
 			response = VehicleMapper.toVehicleResponseDTO(carSaved);
 		}
 
-		if (data.getVehicleType().ordinal() == 1) {
-			Motorcycle motorcycle = VehicleMapper.toMotorcycle(data);
+		if (vehicleRequestDTO.getVehicleType().ordinal() == 1) {
+			Motorcycle motorcycle = VehicleMapper.toMotorcycle(vehicleRequestDTO);
 
 			vehicleValidation.validateVehicle(motorcycle);
 
@@ -66,11 +66,11 @@ public class VehicleServiceImpl implements VehicleService {
 		return response;
 	}
 
-	public VehicleResponseDTO updateVehicleById(String id, VehicleRequestDTO data) {
+	public VehicleResponseDTO updateVehicleById(String id, VehicleRequestDTO vehicleRequestDTO) {
 		VehicleResponseDTO response = null;
-		
-		if (data.getVehicleType().ordinal() == 0) {
-			Car car = VehicleMapper.toCar(data);
+
+		if (vehicleRequestDTO.getVehicleType().ordinal() == 0) {
+			Car car = VehicleMapper.toCar(vehicleRequestDTO);
 
 			vehicleValidation.validateVehicle(car);
 
@@ -88,9 +88,9 @@ public class VehicleServiceImpl implements VehicleService {
 
 			response = VehicleMapper.toVehicleResponseDTO(carSaved);
 		}
-		
-		if (data.getVehicleType().ordinal() == 1) {
-			Motorcycle motorcycle = VehicleMapper.toMotorcycle(data);
+
+		if (vehicleRequestDTO.getVehicleType().ordinal() == 1) {
+			Motorcycle motorcycle = VehicleMapper.toMotorcycle(vehicleRequestDTO);
 
 			vehicleValidation.validateVehicle(motorcycle);
 

@@ -27,22 +27,22 @@ public class EmployeeController {
 	private final EmployeeService employeeService;
 	
 	@PostMapping(value = "/register-employee")
-	public ResponseEntity<EmployeeResponseDTO> registerManager(@Valid @RequestBody EmployeeRequestDTO data) {
-		EmployeeResponseDTO response = employeeService.registerEmployee(data);
+	public ResponseEntity<EmployeeResponseDTO> registerManager(@Valid @RequestBody EmployeeRequestDTO employeeRequestDTO) {
+		EmployeeResponseDTO response = employeeService.registerEmployee(employeeRequestDTO);
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
 	@PutMapping(value = "/update-employee-by-id")
-	public ResponseEntity<EmployeeResponseDTO> updateEmployeeById(@RequestParam String id, @Valid @RequestBody EmployeeRequestDTO data) {
-		EmployeeResponseDTO response = employeeService.updateEmployeeById(id, data);
+	public ResponseEntity<EmployeeResponseDTO> updateEmployeeById(@RequestParam String id, @Valid @RequestBody EmployeeRequestDTO employeeRequestDTO) {
+		EmployeeResponseDTO response = employeeService.updateEmployeeById(id, employeeRequestDTO);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
 	@GetMapping(value = "/list-employee-by-type")
-	public ResponseEntity<Page<EmployeeResponseDTO>> listEmployeeByType(@RequestParam EmployeeType type, Pageable pageable) {
-		Page<EmployeeResponseDTO> page = employeeService.listEmployeeByType(type, pageable);
+	public ResponseEntity<Page<EmployeeResponseDTO>> listEmployeeByType(@RequestParam EmployeeType employeeType, Pageable pageable) {
+		Page<EmployeeResponseDTO> page = employeeService.listEmployeeByType(employeeType, pageable);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(page);
 	}

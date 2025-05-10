@@ -26,15 +26,15 @@ public class BrandController {
 	private final BrandService brandService;
 	
 	@PostMapping(value = "/register-brand")
-	public ResponseEntity<BrandResponseDTO> registerBrand(@Valid @RequestBody BrandRequestDTO data) {
-		BrandResponseDTO response = brandService.registerBrand(data);
+	public ResponseEntity<BrandResponseDTO> registerBrand(@Valid @RequestBody BrandRequestDTO brandRequestDTO) {
+		BrandResponseDTO response = brandService.registerBrand(brandRequestDTO);
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
 	@PutMapping(value = "/update-brand-by-id")
-	public ResponseEntity<BrandResponseDTO> updateBrandByid(@RequestParam String id, @Valid @RequestBody BrandRequestDTO data) {
-		BrandResponseDTO response = brandService.updateBrandByid(id, data);
+	public ResponseEntity<BrandResponseDTO> updateBrandByid(@RequestParam String id, @Valid @RequestBody BrandRequestDTO brandRequestDTO) {
+		BrandResponseDTO response = brandService.updateBrandByid(id, brandRequestDTO);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

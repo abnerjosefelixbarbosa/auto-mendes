@@ -8,29 +8,32 @@ import com.auto_mendes.backend.model.Motorcycle;
 import com.auto_mendes.backend.model.Vehicle;
 
 public class VehicleMapper {
-	public static Car toCar(VehicleRequestDTO data) {
-		Model model = new Model(null, data.getModelName(), null, null);
+	public static Car toCar(VehicleRequestDTO vehicleRequestDTO) {
+		Model model = new Model(null, vehicleRequestDTO.getModelName(), null, null);
 
-		return new Car(null, data.getPlate(), data.getTransmissionType(), data.getPrice(), data.getVehicleType(), model, null);
+		return new Car(null, vehicleRequestDTO.getPlate(), vehicleRequestDTO.getTransmissionType(),
+				vehicleRequestDTO.getPrice(), vehicleRequestDTO.getVehicleType(), model, null);
 	}
 
-	public static Motorcycle toMotorcycle(VehicleRequestDTO data) {
-		Model model = new Model(null, data.getModelName(), null, null);
+	public static Motorcycle toMotorcycle(VehicleRequestDTO vehicleRequestDTO) {
+		Model model = new Model(null, vehicleRequestDTO.getModelName(), null, null);
 
-		return new Motorcycle(null, data.getPlate(), data.getTransmissionType(), data.getPrice(), data.getVehicleType(), model, null);
+		return new Motorcycle(null, vehicleRequestDTO.getPlate(), vehicleRequestDTO.getTransmissionType(),
+				vehicleRequestDTO.getPrice(), vehicleRequestDTO.getVehicleType(), model, null);
 	}
 
-	public static VehicleResponseDTO toVehicleResponseDTO(Car data) {
-		return new VehicleResponseDTO(data.getId(), data.getPlate(), data.getPrice(), data.getVehicleType(), data.getModel().getName());
+	public static VehicleResponseDTO toVehicleResponseDTO(Car car) {
+		return new VehicleResponseDTO(car.getId(), car.getPlate(), car.getPrice(), car.getVehicleType(),
+				car.getModel().getName());
 	}
 
-	public static VehicleResponseDTO toVehicleResponseDTO(Motorcycle data) {
-		return new VehicleResponseDTO(data.getId(), data.getPlate(), data.getPrice(), data.getVehicleType(),
-				data.getModel().getName());
+	public static VehicleResponseDTO toVehicleResponseDTO(Motorcycle motorcycle) {
+		return new VehicleResponseDTO(motorcycle.getId(), motorcycle.getPlate(), motorcycle.getPrice(),
+				motorcycle.getVehicleType(), motorcycle.getModel().getName());
 	}
 
-	public static VehicleResponseDTO toVehicleResponseDTO(Vehicle data) {
-		return new VehicleResponseDTO(data.getId(), data.getPlate(), data.getPrice(), data.getVehicleType(),
-				data.getModel().getName());
+	public static VehicleResponseDTO toVehicleResponseDTO(Vehicle vehicle) {
+		return new VehicleResponseDTO(vehicle.getId(), vehicle.getPlate(), vehicle.getPrice(), vehicle.getVehicleType(),
+				vehicle.getModel().getName());
 	}
 }
