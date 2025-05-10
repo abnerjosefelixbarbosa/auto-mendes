@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { EmployeeType } from '../utils/employee.type';
+import { EmployeeValidation } from '../utils/employee.validation';
 
 export interface EmployeeRequestDTO {
   name: string;
@@ -29,11 +30,12 @@ export interface EmployeeResponseDTO {
 })
 export class EmployeeService {
   private url = 'http://localhost:8080/api/employees';
+  private employeeValidation = inject(EmployeeValidation);
 
   constructor(private http: HttpClient) {}
 
   registreEmployee(data: EmployeeRequestDTO) {
-    this.validadeEmployee(data);
+    this.employeeValidation.validadeEmployee(data);
 
     return firstValueFrom(
       this.http.post<EmployeeResponseDTO>(`${this.url}/register-employee`, data)
@@ -69,7 +71,7 @@ export class EmployeeService {
   }
 
   updateEmployeeById(id: string, data: EmployeeRequestDTO) {
-    this.validadeEmployee(data);
+    this.employeeValidation.validadeEmployee(data);
 
     return firstValueFrom(
       this.http.put<EmployeeResponseDTO>(
@@ -77,11 +79,5 @@ export class EmployeeService {
         data
       )
     );
-  }
-
-  private validadeEmployee(data: EmployeeRequestDTO) {
-    if (data.employeeType.toString() == 'SALER' && data.commission == 0) {
-      throw new Error('Comissão invalida.');
-    }
   }
 }
