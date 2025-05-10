@@ -7,7 +7,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { EmployeeService } from '../../service/employee.service';
-import { EmployeeRequestDTO } from '../../service/employee.service';
 import { Message } from '../../utils/message';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { EmployeeMapper } from '../../utils/employee.mapper';
@@ -22,10 +21,9 @@ import { EmployeeMapper } from '../../utils/employee.mapper';
 })
 export class EmployeeRegistrationComponent {
   message = Message;
-  dto: EmployeeRequestDTO | null = null;
   form: FormGroup;
-  employeeService = inject(EmployeeService);
-  employeeMapper = inject(EmployeeMapper);
+  private employeeService = inject(EmployeeService);
+  private employeeMapper = inject(EmployeeMapper);
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
