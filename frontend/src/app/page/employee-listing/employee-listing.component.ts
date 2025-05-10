@@ -42,7 +42,11 @@ export class EmployeeListingComponent implements OnInit {
   form: FormGroup;
   message = Message;
 
-  constructor(private formBuilder: FormBuilder, private datePipe: DatePipe, private employeeMapper: EmployeeMapper) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private datePipe: DatePipe,
+    private employeeMapper: EmployeeMapper
+  ) {
     this.select.valueChanges.subscribe((value) => {
       const option = value!;
 
@@ -105,8 +109,8 @@ export class EmployeeListingComponent implements OnInit {
       if (this.form.valid) {
         const id = this.form.get('id')?.value;
 
-        const data = this.employeeMapper.toEmployeeRequestDTO(this.form)
-  
+        const data = this.employeeMapper.toEmployeeRequestDTO(this.form);
+
         this.employeeService
           .updateEmployeeById(id, data)
           .then(() => {

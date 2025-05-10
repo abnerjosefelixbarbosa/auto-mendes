@@ -22,7 +22,7 @@ export interface EmployeeResponseDTO {
   phone: string;
   birthDate: Date;
   employeeType: EmployeeType;
-  commission: number;
+  commission: number | null;
 }
 
 @Injectable({
@@ -43,7 +43,9 @@ export class EmployeeService {
   }
 
   listEmployee() {
-    return firstValueFrom(this.http.get<any>(`${this.url}/list-employee`)).then(
+    return firstValueFrom(
+      this.http.get<any>(`${this.url}/list-employee`)
+    ).then(
       (value) => {
         const dtos = new Array<EmployeeResponseDTO>();
         const content = value.content;
@@ -52,22 +54,32 @@ export class EmployeeService {
 
         return dtos;
       }
-    );
+    ).catch(() => {
+        const dtos = new Array<EmployeeResponseDTO>();
+
+        return dtos;
+    });
   }
 
   listEmployeeByType(type: EmployeeType) {
     return firstValueFrom(
-      this.http.get<any>(
-        `${this.url}/list-employee-by-type?type=${type.toString()}`
-      )
-    ).then((value) => {
-      const dtos = new Array<EmployeeResponseDTO>();
-      const content = value.content;
+      this.http.get<any>(`${this.url}/list-employee-by-type?employeeType=${type}`)
+    )
+      .then((value) => {
+        const dtos = new Array<EmployeeResponseDTO>();
+        const content = value.content;
 
-      dtos.push(...content);
+        dtos.push(...content);
 
-      return dtos;
-    });
+        return dtos;
+      })
+      .catch((e) => {
+        const dtos = new Array<EmployeeResponseDTO>();
+
+        console.log(e)
+
+        return dtos;
+      });
   }
 
   updateEmployeeById(id: string, data: EmployeeRequestDTO) {
