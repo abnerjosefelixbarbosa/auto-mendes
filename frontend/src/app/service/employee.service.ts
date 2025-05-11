@@ -34,11 +34,11 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) {}
 
-  registreEmployee(data: EmployeeRequestDTO) {
-    this.employeeValidation.validadeEmployee(data);
+  registreEmployee(employeeRequestDTO: EmployeeRequestDTO) {
+    this.employeeValidation.validadeEmployee(employeeRequestDTO);
 
     return firstValueFrom(
-      this.http.post<EmployeeResponseDTO>(`${this.url}/register-employee`, data)
+      this.http.post<EmployeeResponseDTO>(`${this.url}/register-employee`, employeeRequestDTO)
     );
   }
 
@@ -61,9 +61,9 @@ export class EmployeeService {
     });
   }
 
-  listEmployeeByType(type: EmployeeType) {
+  listEmployeeByType(employeeType: EmployeeType) {
     return firstValueFrom(
-      this.http.get<any>(`${this.url}/list-employee-by-type?employeeType=${type}`)
+      this.http.get<any>(`${this.url}/list-employee-by-type?employeeType=${employeeType}`)
     )
       .then((value) => {
         const dtos = new Array<EmployeeResponseDTO>();
@@ -82,13 +82,13 @@ export class EmployeeService {
       });
   }
 
-  updateEmployeeById(id: string, data: EmployeeRequestDTO) {
-    this.employeeValidation.validadeEmployee(data);
+  updateEmployeeById(id: string, employeeRequestDTO: EmployeeRequestDTO) {
+    this.employeeValidation.validadeEmployee(employeeRequestDTO);
 
     return firstValueFrom(
       this.http.put<EmployeeResponseDTO>(
         `${this.url}/update-employee-by-id?id=${id}`,
-        data
+        employeeRequestDTO
       )
     );
   }

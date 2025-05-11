@@ -43,7 +43,7 @@ export class EmployeeRegistrationComponent {
       phone: ['', [Validators.required, Validators.maxLength(30)]],
       birthDate: ['', [Validators.required]],
       employeeType: ['', [Validators.required]],
-      commission: ['', []],
+      commission: ['', [Validators.required]],
     });
   }
 
@@ -52,13 +52,14 @@ export class EmployeeRegistrationComponent {
       this.message.SUCCESS = '';
       this.message.ERROR = '';
 
-      if (this.form.valid) {
-        const data = this.employeeMapper.toEmployeeRequestDTO(this.form);
+      let data = this.employeeMapper.toEmployeeRequestDTO(this.form);
 
+      if (this.form.valid) {
         this.employeeService
           .registreEmployee(data)
           .then(() => {
             this.message.SUCCESS = 'Funcionário registrado com sucesso';
+            this.cleanForm();
           })
           .catch((e) => {
             this.message.ERROR = e.error.message;
@@ -70,6 +71,16 @@ export class EmployeeRegistrationComponent {
       if (e.message == 'Comissão invalida.') {
         this.form.get('commission')?.setErrors({ commissionInvalid: true });
       }
-    }
+    } 
+  }
+
+  cleanForm() {
+    this.form.get('name')?.setValue('');
+    this.form.get('email')?.setValue('');
+    this.form.get('matriculation')?.setValue('');
+    this.form.get('phone')?.setValue('');
+    this.form.get('birthDate')?.setValue('');
+    this.form.get('employeeType')?.setValue('');
+    this.form.get('commission')?.setValue('');
   }
 }

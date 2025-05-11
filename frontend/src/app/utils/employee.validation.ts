@@ -9,7 +9,7 @@ export class EmployeeValidation {
 
   validadeEmployee(employeeRequestDTO: EmployeeRequestDTO) {
     if (
-      employeeRequestDTO.employeeType.toString() == 'SALER' &&
+      employeeRequestDTO.employeeType == 'SALER' &&
       employeeRequestDTO.commission == 0
     ) {
       throw new Error('Comissão invalida.');
