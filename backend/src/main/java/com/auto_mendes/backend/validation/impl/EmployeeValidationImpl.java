@@ -43,7 +43,7 @@ public class EmployeeValidationImpl implements EmployeeValidation {
 				saler.getMatriculation(), saler.getPhone());
 
 		if (isExists) {
-			throw new RuntimeException("Email, matrícula ou telefone não ser repedidos.");
+			throw new EntityExistsException("Email, matrícula ou telefone não ser repedidos.");
 		}
 	}
 }
