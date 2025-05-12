@@ -102,7 +102,7 @@
               </div>
 
               <div class="mb-3">
-                <label for="name" class="form-label">Email</label>
+                <label for="email" class="form-label">Email</label>
                 <input
                   type="email"
                   class="form-control"
@@ -115,40 +115,56 @@
               </div>
 
               <div class="mb-3">
-                <label for="name" class="form-label">Matricula</label>
+                <label for="matriculation" class="form-label">Matrícula</label>
                 <input
                   type="number"
                   class="form-control"
                   formControlName="matriculation"
                 />
+
+                @if (form.get('matriculation')?.touched && form.get('matriculation')?.invalid) {
+                <div class="text-danger">Matrícula invalida.</div>
+                }
               </div>
 
               <div class="mb-3">
-                <label for="name" class="form-label">Telefone</label>
+                <label for="phone" class="form-label">Telefone</label>
                 <input
                   type="tel"
                   class="form-control"
                   formControlName="phone"
                   mask="(00) 00000-0000"
                 />
+
+                @if (form.get('phone')?.touched && form.get('phone')?.invalid) {
+                <div class="text-danger">Telefone invalido.</div>
+                }
               </div>
 
               <div class="mb-3">
-                <label for="name" class="form-label">Data de nascimento</label>
+                <label for="birthDate" class="form-label">Data de nascimento</label>
                 <input
                   type="date"
                   class="form-control"
                   formControlName="birthDate"
                 />
+
+                @if (form.get('birthDate')?.touched && form.get('birthDate')?.invalid) {
+                <div class="text-danger">Data de nascimento invalida.</div>
+                }
               </div>
 
               <div class="mb-3">
-                <label for="name" class="form-label">Comissão</label>
+                <label for="commission" class="form-label">Comissão</label>
                 <input
                   type="number"
                   class="form-control"
                   formControlName="commission"
                 />
+
+                @if (form.get('commission')?.touched && form.get('commission')?.invalid) {
+                <div class="text-danger">Comissão invalida.</div>
+                }
               </div>
 
               <div class="d-grid gap-2">

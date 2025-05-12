@@ -1,10 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import {
-  EmployeeRequestDTO,
   EmployeeResponseDTO,
   EmployeeService,
-} from './../../service/employee.service';
+} from './../../service/employee/employee.service';
 import { DatePipe } from '@angular/common';
 import {
   FormBuilder,
@@ -15,7 +14,7 @@ import {
 } from '@angular/forms';
 import { EmployeeType } from '../../utils/employee.type';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
-import { PhonePipe } from '../../pipe/phone.pipe';
+import { PhonePipe } from '../../pipe/phone/phone.pipe';
 import { Message } from '../../utils/message';
 import { EmployeeMapper } from '../../utils/employee.mapper';
 import { EmployeeValidation } from '../../utils/employee.validation';
@@ -45,10 +44,7 @@ export class EmployeeListingComponent implements OnInit {
   private employeeService = inject(EmployeeService);
   private employeeMapper = inject(EmployeeMapper);
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private datePipe: DatePipe
-  ) {
+  constructor(private formBuilder: FormBuilder, private datePipe: DatePipe) {
     this.select.valueChanges.subscribe((value) => {
       const option = value!;
 
@@ -72,7 +68,14 @@ export class EmployeeListingComponent implements OnInit {
         '',
         [Validators.required, Validators.email, Validators.maxLength(100)],
       ],
-      matriculation: ['', [Validators.required]],
+      matriculation: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(10),
+        ],
+      ],
       phone: ['', [Validators.required, Validators.maxLength(30)]],
       birthDate: ['', [Validators.required]],
       employeeType: [''],

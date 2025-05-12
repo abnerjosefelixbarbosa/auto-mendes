@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { EmployeeService } from '../../service/employee.service';
+import { EmployeeService } from '../../service/employee/employee.service';
 import { Message } from '../../utils/message';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { EmployeeMapper } from '../../utils/employee.mapper';
@@ -64,10 +64,8 @@ export class EmployeeRegistrationComponent {
           .then(() => {
             this.message.SUCCESS = 'Funcionário registrado com sucesso';
           })
-          .catch((e) => {
-            const message = e.error.message;
-            
-            this.message.ERROR = message;
+          .catch((e) => {            
+            this.message.ERROR = e.error.message;
           });
       } else {
         this.form.markAllAsTouched();

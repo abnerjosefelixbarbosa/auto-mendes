@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { EmployeeRequestDTO } from '../service/employee.service';
+import { EmployeeRequestDTO } from '../service/employee/employee.service';
 import { EmployeeType } from './employee.type';
 import { Injectable } from '@angular/core';
 
@@ -16,7 +16,6 @@ export class EmployeeMapper {
     if (form.get('employeeType')?.value == '1') {
       data = {
         ...form.value,
-        commission: null,
         employeeType: EmployeeType.MANAGER,
       };
     }
@@ -24,7 +23,6 @@ export class EmployeeMapper {
     if (form.get('employeeType')?.value == '2') {
       data = {
         ...form.value,
-        commission: null,
         employeeType: EmployeeType.ASSISTANT_MANAGER,
       };
     }
