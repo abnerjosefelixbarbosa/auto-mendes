@@ -119,6 +119,6 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 
 	public Page<VehicleResponseDTO> listVehicle(Pageable pageable) {
-		return vehicleRepository.findAll(pageable).map(null);
+		return vehicleRepository.findAll(pageable).map(VehicleMapper::toVehicleResponseDTO);
 	}
 }
