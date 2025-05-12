@@ -30,13 +30,10 @@ export interface EmployeeResponseDTO {
 })
 export class EmployeeService {
   private url = 'http://localhost:8080/api/employees';
-  private employeeValidation = inject(EmployeeValidation);
 
   constructor(private http: HttpClient) {}
 
   registreEmployee(employeeRequestDTO: EmployeeRequestDTO) {
-    this.employeeValidation.validadeEmployee(employeeRequestDTO);
-
     return firstValueFrom(
       this.http.post<EmployeeResponseDTO>(`${this.url}/register-employee`, employeeRequestDTO)
     );
@@ -54,11 +51,7 @@ export class EmployeeService {
 
         return dtos;
       }
-    ).catch(() => {
-        const dtos = new Array<EmployeeResponseDTO>();
-
-        return dtos;
-    });
+    );
   }
 
   listEmployeeByType(employeeType: EmployeeType) {
@@ -72,19 +65,10 @@ export class EmployeeService {
         dtos.push(...content);
 
         return dtos;
-      })
-      .catch((e) => {
-        const dtos = new Array<EmployeeResponseDTO>();
-
-        console.log(e)
-
-        return dtos;
       });
   }
 
   updateEmployeeById(id: string, employeeRequestDTO: EmployeeRequestDTO) {
-    this.employeeValidation.validadeEmployee(employeeRequestDTO);
-
     return firstValueFrom(
       this.http.put<EmployeeResponseDTO>(
         `${this.url}/update-employee-by-id?id=${id}`,

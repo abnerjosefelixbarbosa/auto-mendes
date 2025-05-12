@@ -10,6 +10,7 @@ import { EmployeeService } from '../../service/employee.service';
 import { Message } from '../../utils/message';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { EmployeeMapper } from '../../utils/employee.mapper';
+import { EmployeeValidation } from '../../utils/employee.validation';
 
 @Component({
   selector: 'app-employee-registration',
@@ -24,6 +25,7 @@ export class EmployeeRegistrationComponent {
   form: FormGroup;
   private employeeService = inject(EmployeeService);
   private employeeMapper = inject(EmployeeMapper);
+  private employeeValidation = inject(EmployeeValidation);
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -52,23 +54,28 @@ export class EmployeeRegistrationComponent {
       this.message.SUCCESS = '';
       this.message.ERROR = '';
 
-      let data = this.employeeMapper.toEmployeeRequestDTO(this.form);
-
       if (this.form.valid) {
+        const data = this.employeeMapper.toEmployeeRequestDTO(this.form);
+
+        this.employeeValidation.validadeEmployee(data);
+
         this.employeeService
           .registreEmployee(data)
           .then(() => {
             this.message.SUCCESS = 'Funcionário registrado com sucesso';
-            this.cleanForm();
           })
           .catch((e) => {
-            this.message.ERROR = e.error.message;
+            const message = e.error.message;
+            
+            this.message.ERROR = message;
           });
       } else {
         this.form.markAllAsTouched();
       }
     } catch (e: any) {
-      if (e.message == 'Comissão invalida.') {
+      const message = e.message;
+
+      if (message == 'Comissão invalida.') {
         this.form.get('commission')?.setErrors({ commissionInvalid: true });
       }
     } 

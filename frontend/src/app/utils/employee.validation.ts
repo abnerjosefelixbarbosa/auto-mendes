@@ -5,6 +5,7 @@ import { EmployeeRequestDTO } from '../service/employee.service';
   providedIn: 'root',
 })
 export class EmployeeValidation {
+  
   constructor() {}
 
   validadeEmployee(employeeRequestDTO: EmployeeRequestDTO) {

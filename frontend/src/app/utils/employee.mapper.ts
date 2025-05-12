@@ -10,53 +10,13 @@ export class EmployeeMapper {
 
   constructor() {}
 
-  /*
-
-  if (form.get('employeeType')?.value == '1') {
-      data = {
-        birthDate: form.get('birthDate')?.value,
-        commission: 0,
-        email: form.get('email')?.value,
-        employeeType: EmployeeType.MANAGER,
-        matriculation: form.get('matriculation')?.value,
-        name: form.get('name')?.value,
-        phone: form.get('phone')?.value
-      };
-    }
-
-    if (form.get('employeeType')?.value == '2') {
-      data = {
-        birthDate: form.get('birthDate')?.value,
-        commission: 0,
-        email: form.get('email')?.value,
-        employeeType: EmployeeType.ASSISTANT_MANAGER,
-        matriculation: form.get('matriculation')?.value,
-        name: form.get('name')?.value,
-        phone: form.get('phone')?.value
-      };
-    }
-
-    if (form.get('employeeType')?.value == '3') {
-      data = {
-        birthDate: form.get('birthDate')?.value,
-        commission: form.get('commission')?.value,
-        email: form.get('email')?.value,
-        employeeType: EmployeeType.SALER,
-        matriculation: form.get('matriculation')?.value,
-        name: form.get('name')?.value,
-        phone: form.get('phone')?.value
-      };
-    }
-
-  */
-
   toEmployeeRequestDTO(form: FormGroup) {
     let data: EmployeeRequestDTO | null = null;
 
     if (form.get('employeeType')?.value == '1') {
       data = {
         ...form.value,
-        commission: 0,
+        commission: null,
         employeeType: EmployeeType.MANAGER,
       };
     }
@@ -64,7 +24,7 @@ export class EmployeeMapper {
     if (form.get('employeeType')?.value == '2') {
       data = {
         ...form.value,
-        commission: 0,
+        commission: null,
         employeeType: EmployeeType.ASSISTANT_MANAGER,
       };
     }

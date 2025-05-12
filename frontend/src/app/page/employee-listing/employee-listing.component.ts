@@ -18,6 +18,7 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { PhonePipe } from '../../pipe/phone.pipe';
 import { Message } from '../../utils/message';
 import { EmployeeMapper } from '../../utils/employee.mapper';
+import { EmployeeValidation } from '../../utils/employee.validation';
 
 @Component({
   selector: 'app-employee-listing',
@@ -36,16 +37,17 @@ import { EmployeeMapper } from '../../utils/employee.mapper';
 export class EmployeeListingComponent implements OnInit {
   items = new Array<EmployeeResponseDTO>();
   item: EmployeeResponseDTO | null = null;
-  employeeService = inject(EmployeeService);
   select = new FormControl('1');
   type: EmployeeType = EmployeeType.MANAGER;
   form: FormGroup;
   message = Message;
+  private employeeValidation = inject(EmployeeValidation);
+  private employeeService = inject(EmployeeService);
+  private employeeMapper = inject(EmployeeMapper);
 
   constructor(
     private formBuilder: FormBuilder,
-    private datePipe: DatePipe,
-    private employeeMapper: EmployeeMapper
+    private datePipe: DatePipe
   ) {
     this.select.valueChanges.subscribe((value) => {
       const option = value!;
@@ -111,6 +113,8 @@ export class EmployeeListingComponent implements OnInit {
 
         const data = this.employeeMapper.toEmployeeRequestDTO(this.form);
 
+        this.employeeValidation.validadeEmployee(data);
+
         this.employeeService
           .updateEmployeeById(id, data)
           .then(() => {
@@ -127,7 +131,7 @@ export class EmployeeListingComponent implements OnInit {
     }
   }
 
-  replace(item: EmployeeResponseDTO) {
+  private replace(item: EmployeeResponseDTO) {
     const date = new Date(item.birthDate);
 
     const dateFormated = this.formatDate(date);
@@ -142,11 +146,11 @@ export class EmployeeListingComponent implements OnInit {
     this.form.get('commission')?.setValue(item.commission);
   }
 
-  formatDate(date: Date) {
+  private formatDate(date: Date) {
     return this.datePipe.transform(date, 'yyyy-MM-dd');
   }
 
-  cleanMessage() {
+  private cleanMessage() {
     this.message.SUCCESS = '';
     this.message.ERROR = '';
   }
