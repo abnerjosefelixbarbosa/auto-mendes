@@ -1,8 +1,7 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { EmployeeType } from '../utils/employee.type';
-import { EmployeeValidation } from '../utils/employee.validation';
+import { EmployeeType } from '../../utils/employee.type';
 
 export interface EmployeeRequestDTO {
   name: string;
