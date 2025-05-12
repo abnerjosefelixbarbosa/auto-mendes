@@ -45,4 +45,11 @@ public class BrandController {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(page);
 	}
+	
+	@GetMapping(value = "/list-brand")
+	public ResponseEntity<Page<BrandResponseDTO>> listBrand(Pageable pageable) {
+		Page<BrandResponseDTO> page = brandService.listBrand(pageable);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(page);
+	}
 }

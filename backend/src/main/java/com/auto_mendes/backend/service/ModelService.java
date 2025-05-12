@@ -12,4 +12,6 @@ public interface ModelService {
 	ModelResponseDTO updateModelById(String id, ModelRequestDTO modelRequestDTO);
 	
 	Page<ModelResponseDTO> listModelByName(String name, Pageable pageable);
+
+	Page<ModelResponseDTO> listModel(Pageable pageable);
 }

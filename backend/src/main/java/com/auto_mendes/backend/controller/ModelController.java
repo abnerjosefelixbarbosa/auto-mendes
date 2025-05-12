@@ -45,4 +45,11 @@ public class ModelController {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(page);
 	}
+	
+	@GetMapping(value = "/list-model")
+	public ResponseEntity<Page<ModelResponseDTO>> listModel(Pageable pageable) {
+		Page<ModelResponseDTO> page = modelService.listModel(pageable);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(page);
+	}
 }

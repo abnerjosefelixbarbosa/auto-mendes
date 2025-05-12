@@ -12,4 +12,6 @@ public interface VehicleService {
 	VehicleResponseDTO updateVehicleById(String id, VehicleRequestDTO vehicleRequestDTO);
 
 	Page<VehicleResponseDTO> listVehicleByModel(String model, Pageable pageable);
+
+	Page<VehicleResponseDTO> listVehicle(Pageable pageable);
 }

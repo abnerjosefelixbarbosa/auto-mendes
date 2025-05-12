@@ -55,4 +55,8 @@ public class BrandServiceImpl implements BrandService {
 		return brandRepository.findByName(name)
 				.orElseThrow(() -> new EntityNotFoundException("Nome da marca não encontrado."));
 	}
+
+	public Page<BrandResponseDTO> listBrand(Pageable pageable) {
+		return brandRepository.findAll(pageable).map(BrandMapper::toBrandResponseDTO);
+	}
 }

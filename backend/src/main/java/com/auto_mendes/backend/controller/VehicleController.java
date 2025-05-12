@@ -45,4 +45,11 @@ public class VehicleController {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(page);
 	}
+	
+	@GetMapping(value = "/list-vehicle")
+	public ResponseEntity<Page<VehicleResponseDTO>> listVehicle(Pageable pageable) {
+		Page<VehicleResponseDTO> page = vehicleService.listVehicle(pageable);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(page);
+	}
 }

@@ -60,4 +60,8 @@ public class ModelServiceImpl implements ModelService {
 	public Page<ModelResponseDTO> listModelByName(String name, Pageable pageable) {
 		return modelRepository.findAllByNameContaining(name, pageable).map(ModelMapper::toModelResponseDTO);
 	}
+
+	public Page<ModelResponseDTO> listModel(Pageable pageable) {
+		return modelRepository.findAll(pageable).map(ModelMapper::toModelResponseDTO);
+	}
 }

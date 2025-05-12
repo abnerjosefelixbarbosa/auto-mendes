@@ -15,4 +15,6 @@ public interface BrandService {
 	Page<BrandResponseDTO> listBrandByName(String name, Pageable pageable);
 	
 	Brand findBrandByName(String name);
+
+	Page<BrandResponseDTO> listBrand(Pageable pageable);
 }
