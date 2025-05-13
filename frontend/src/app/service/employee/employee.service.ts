@@ -34,14 +34,15 @@ export class EmployeeService {
 
   registreEmployee(employeeRequestDTO: EmployeeRequestDTO) {
     return firstValueFrom(
-      this.http.post<EmployeeResponseDTO>(`${this.url}/register-employee`, employeeRequestDTO)
+      this.http.post<EmployeeResponseDTO>(
+        `${this.url}/register-employee`,
+        employeeRequestDTO
+      )
     );
   }
 
   listEmployee() {
-    return firstValueFrom(
-      this.http.get<any>(`${this.url}/list-employee`)
-    ).then(
+    return firstValueFrom(this.http.get<any>(`${this.url}/list-employee`)).then(
       (value) => {
         const dtos = new Array<EmployeeResponseDTO>();
         const content = value.content;
@@ -55,16 +56,17 @@ export class EmployeeService {
 
   listEmployeeByType(employeeType: EmployeeType) {
     return firstValueFrom(
-      this.http.get<any>(`${this.url}/list-employee-by-type?employeeType=${employeeType}`)
-    )
-      .then((value) => {
-        const dtos = new Array<EmployeeResponseDTO>();
-        const content = value.content;
+      this.http.get<any>(
+        `${this.url}/list-employee-by-type?employeeType=${employeeType}`
+      )
+    ).then((value) => {
+      const dtos = new Array<EmployeeResponseDTO>();
+      const content = value.content;
 
-        dtos.push(...content);
+      dtos.push(...content);
 
-        return dtos;
-      });
+      return dtos;
+    });
   }
 
   updateEmployeeById(id: string, employeeRequestDTO: EmployeeRequestDTO) {
