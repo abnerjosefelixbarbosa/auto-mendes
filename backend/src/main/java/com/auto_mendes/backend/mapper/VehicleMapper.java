@@ -23,17 +23,17 @@ public class VehicleMapper {
 	}
 
 	public static VehicleResponseDTO toVehicleResponseDTO(Car car) {
-		return new VehicleResponseDTO(car.getId(), car.getPlate(), car.getPrice(), car.getVehicleType(),
-				car.getModel().getName());
+		return new VehicleResponseDTO(car.getId(), car.getPlate(), car.getTransmissionType(), car.getPrice(),
+				car.getVehicleType(), car.getModel().getName());
 	}
 
 	public static VehicleResponseDTO toVehicleResponseDTO(Motorcycle motorcycle) {
-		return new VehicleResponseDTO(motorcycle.getId(), motorcycle.getPlate(), motorcycle.getPrice(),
-				motorcycle.getVehicleType(), motorcycle.getModel().getName());
+		return new VehicleResponseDTO(motorcycle.getId(), motorcycle.getPlate(), motorcycle.getTransmissionType(),
+				motorcycle.getPrice(), motorcycle.getVehicleType(), motorcycle.getModel().getName());
 	}
 
 	public static VehicleResponseDTO toVehicleResponseDTO(Vehicle vehicle) {
-		return new VehicleResponseDTO(vehicle.getId(), vehicle.getPlate(), vehicle.getPrice(), vehicle.getVehicleType(),
-				vehicle.getModel().getName());
+		return new VehicleResponseDTO(vehicle.getId(), vehicle.getPlate(), vehicle.getTransmissionType(),
+				vehicle.getPrice(), vehicle.getVehicleType(), vehicle.getModel().getName());
 	}
 }
