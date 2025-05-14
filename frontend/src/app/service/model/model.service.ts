@@ -3,21 +3,21 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
 export interface ModelRequestDTO {
-  name: string,
-  brandName: string,
+  name: string;
+  brandName: string;
 }
 
 export interface ModelResponseDTO {
-  id: string,
-  name: string,
-  brandName: string,
+  id: string;
+  name: string;
+  brandName: string;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ModelService {
-private url = 'http://localhost:8080/api/brands';
+  private url = 'http://localhost:8080/api/brands';
 
   constructor(private http: HttpClient) {}
 
