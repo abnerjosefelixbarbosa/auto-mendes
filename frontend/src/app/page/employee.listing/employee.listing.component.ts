@@ -3,7 +3,7 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import {
   EmployeeResponseDTO,
   EmployeeService,
-} from './../../service/employee/employee.service';
+} from '../../service/employee/employee.service';
 import { DatePipe } from '@angular/common';
 import {
   FormBuilder,
@@ -28,8 +28,8 @@ import { EmployeeValidation } from '../../utils/employee.validation';
     PhonePipe,
     NgxMaskDirective,
   ],
-  templateUrl: './employee-listing.component.html',
-  styleUrl: './employee-listing.component.css',
+  templateUrl: './employee.listing.component.html',
+  styleUrl: './employee.listing.component.css',
   standalone: true,
   providers: [DatePipe, provideNgxMask()],
 })
