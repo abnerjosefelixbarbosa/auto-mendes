@@ -15,8 +15,8 @@ import { EmployeeValidation } from '../../utils/employee.validation';
 @Component({
   selector: 'app-employee-registration',
   imports: [NavbarComponent, ReactiveFormsModule, NgxMaskDirective],
-  templateUrl: './employee-registration.component.html',
-  styleUrl: './employee-registration.component.css',
+  templateUrl: './employee.registration.component.html',
+  styleUrl: './employee.registration.component.css',
   standalone: true,
   providers: [provideNgxMask()],
 })
