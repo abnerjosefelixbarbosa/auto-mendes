@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { NavbarComponent } from "../../components/navbar/navbar.component";
 
 @Component({
   selector: 'app-brand.listing',
-  imports: [],
+  imports: [NavbarComponent],
   templateUrl: './brand.listing.component.html',
   styleUrl: './brand.listing.component.css'
 })
