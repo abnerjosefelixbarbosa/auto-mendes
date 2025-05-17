@@ -79,7 +79,7 @@ export class EmployeeListingComponent implements OnInit {
       phone: ['', [Validators.required, Validators.maxLength(30)]],
       birthDate: ['', [Validators.required]],
       employeeType: [''],
-      commission: ['', [Validators.required]],
+      commission: ['', []],
     });
   }
 
@@ -111,10 +111,10 @@ export class EmployeeListingComponent implements OnInit {
     try {
       this.cleanMessage();
 
+      const data = this.employeeMapper.toEmployeeRequestDTO(this.form);
+
       if (this.form.valid) {
         const id = this.form.get('id')?.value;
-
-        const data = this.employeeMapper.toEmployeeRequestDTO(this.form);
 
         this.employeeValidation.validadeEmployee(data);
 

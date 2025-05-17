@@ -45,7 +45,7 @@ export class EmployeeRegistrationComponent {
       phone: ['', [Validators.required, Validators.maxLength(30)]],
       birthDate: ['', [Validators.required]],
       employeeType: ['', [Validators.required]],
-      commission: ['', [Validators.required]],
+      commission: ['', []],
     });
   }
 
@@ -54,9 +54,9 @@ export class EmployeeRegistrationComponent {
       this.message.SUCCESS = '';
       this.message.ERROR = '';
 
-      if (this.form.valid) {
-        const data = this.employeeMapper.toEmployeeRequestDTO(this.form);
+      const data = this.employeeMapper.toEmployeeRequestDTO(this.form);
 
+      if (this.form.valid) {
         this.employeeValidation.validadeEmployee(data);
 
         this.employeeService
