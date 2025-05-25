@@ -3,6 +3,7 @@ package com.auto_mendes.backend.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.auto_mendes.backend.enums.PaymentType;
 
@@ -13,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -40,4 +42,6 @@ public class Sale implements Serializable {
 	@ManyToOne
 	@JoinColumn(columnDefinition = "employee_id", nullable = false)
 	private Employee employee;
+	@OneToMany(mappedBy = "sale")
+	private List<SaleVehicle> saleVehicles;
 }
