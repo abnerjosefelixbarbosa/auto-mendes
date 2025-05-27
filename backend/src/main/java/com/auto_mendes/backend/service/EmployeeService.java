@@ -8,19 +8,19 @@ import org.springframework.stereotype.Service;
 import com.auto_mendes.backend.dto.EmployeeRequestDTO;
 import com.auto_mendes.backend.dto.EmployeeResponseDTO;
 import com.auto_mendes.backend.exception.NotFoundException;
-import com.auto_mendes.backend.mapper.EmployeeMapper;
+import com.auto_mendes.backend.mapper.IEmployeeMapper;
 import com.auto_mendes.backend.model.Employee;
-import com.auto_mendes.backend.repository.EmployeeRepository;
-import com.auto_mendes.backend.validation.EmployeeValidation;
+import com.auto_mendes.backend.repository.IEmployeeRepository;
+import com.auto_mendes.backend.validation.IEmployeeValidation;
 
 @Service
 public class EmployeeService implements IEmployeeService {
 	@Autowired
-	private EmployeeRepository employeeRepository;
+	private IEmployeeRepository employeeRepository;
 	@Autowired
-	private EmployeeMapper employeeMapper;
+	private IEmployeeMapper employeeMapper;
 	@Autowired
-	private EmployeeValidation employeeValidation;
+	private IEmployeeValidation employeeValidation;
 	
 	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO dto) {
 		Employee employee = employeeMapper.toEntity(dto);
@@ -39,7 +39,7 @@ public class EmployeeService implements IEmployeeService {
 		
 		Employee employeeFound = employeeRepository.findById(id).orElseThrow(() -> new NotFoundException("Funcionário não encontrado."));
 		
-		employeeFound.update(employee);
+		employeeFound.setEmployee(employee);
 		
 		Employee employeeSaved = employeeRepository.save(employeeFound);
 		

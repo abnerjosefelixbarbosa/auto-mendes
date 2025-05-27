@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import com.auto_mendes.backend.enums.EmployeeType;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -21,6 +22,7 @@ public class EmployeeRequestDTO {
 	@NotNull(message = "Email não deve ser nulo.")
 	@NotEmpty(message = "Email não deve ser vazio.")
 	@Size(max = 100, message = "Email deve ter no máximo 100 caracteres.")
+	@Email(message = "Email deve ser valido.")
 	private String email;
 	@NotNull(message = "Matrícula não deve ser nula.")
 	@Pattern(message = "Matrícula deve ter 10 caracteres numéricos.", regexp = "^\\d{10}$")
@@ -32,6 +34,7 @@ public class EmployeeRequestDTO {
 	@NotNull(message = "Data de nascimento não deve ser nula.")
 	@Past(message = "Data de nascimento deve ser passada.")
 	private LocalDate birthDate;
+	@NotNull(message = "Comissão não deve ser nula.")
 	private BigDecimal commission;
 	@NotNull(message = "Tipo de funcionário não deve ser nulo.")
 	private EmployeeType employeeType;

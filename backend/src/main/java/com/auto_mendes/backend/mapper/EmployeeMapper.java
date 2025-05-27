@@ -11,17 +11,16 @@ public class EmployeeMapper implements IEmployeeMapper {
 	public Employee toEntity(EmployeeRequestDTO dto) {
 		Employee employee = new Employee();
 		employee.setBirthDate(dto.getBirthDate());
-		employee.setCommission(dto.getCommission());
 		employee.setEmail(dto.getEmail());
 		employee.setEmployeeType(dto.getEmployeeType());
 		employee.setName(dto.getName());
 		employee.setPhone(dto.getPhone());
 		employee.setRegistration(dto.getRegistration());
+		employee.setCommission(dto.getCommission());
 		
 		return employee;
 	}
 
-	
 	public EmployeeResponseDTO toDTO(Employee employee) {
 		EmployeeResponseDTO employeeResponseDTO = new EmployeeResponseDTO();
 		employeeResponseDTO.setBirthDate(employee.getBirthDate());
