@@ -8,7 +8,6 @@ import com.auto_mendes.backend.model.Employee;
 
 @Component
 public class EmployeeMapper implements IEmployeeMapper {
-
 	public Employee toEntity(EmployeeRequestDTO dto) {
 		Employee employee = new Employee();
 		employee.setBirthDate(dto.getBirthDate());
@@ -36,5 +35,4 @@ public class EmployeeMapper implements IEmployeeMapper {
 		
 		return employeeResponseDTO;
 	}
-
 }

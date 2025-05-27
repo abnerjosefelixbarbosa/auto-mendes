@@ -7,5 +7,5 @@ import com.auto_mendes.backend.model.Employee;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, String> {
-	
+	boolean existsByEmailOrRegistrationOrPhone(String email, String registration, String phone);
 }
