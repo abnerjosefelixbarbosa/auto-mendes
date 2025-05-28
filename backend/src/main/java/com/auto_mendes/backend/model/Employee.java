@@ -46,7 +46,6 @@ public class Employee implements Serializable {
 	private List<Sale> sales;
 	
 	public void setEmployee(Employee employee) {
-		this.id = employee.getId();
 		this.name = employee.getName();
 		this.email = employee.getEmail();
 		this.registration = employee.getRegistration();

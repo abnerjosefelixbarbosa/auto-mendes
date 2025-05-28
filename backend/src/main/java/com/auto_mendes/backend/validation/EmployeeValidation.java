@@ -15,11 +15,11 @@ public class EmployeeValidation implements IEmployeeValidation {
 		boolean isExistsEmailOrRegistrationOrPhone = employeeRepository.existsByEmailOrRegistrationOrPhone(employee.getEmail(), employee.getRegistration(), employee.getPhone());
 		
 		if (!employee.getEmployeeType().toString().equals("SALER") && employee.getCommission().doubleValue() != 0) {
-			throw new RuntimeException("Comissão deve ser 0.");
+			throw new RuntimeException("Comissão deve ser 0,00.");
 		}
 		
 		if (employee.getEmployeeType().toString().equals("SALER") && employee.getCommission().doubleValue() == 0) {
-			throw new RuntimeException("Comissão não deve ser 0.");
+			throw new RuntimeException("Comissão não deve ser 0,00.");
 		}
 		
 		if (employee.getCommission().scale() != 2) {
