@@ -15,20 +15,20 @@ import lombok.Data;
 
 @Data
 public class EmployeeRequestDTO {
-	@NotNull(message = "Nome não deve ser nulo.")
-	@NotEmpty(message = "Nome não deve ser vazio.")
+	@NotNull(message = "Nome não deve ser nulo e vazio.")
+	@NotEmpty(message = "Nome não deve ser nulo e vazio.")
 	@Size(max = 100, message = "Nome deve ter no máximo 100 caracteres.")
 	private String name;
-	@NotNull(message = "Email não deve ser nulo.")
-	@NotEmpty(message = "Email não deve ser vazio.")
+	@NotNull(message = "Email não deve ser nulo e vazio.")
+	@NotEmpty(message = "Email não deve ser nulo e vazio.")
 	@Size(max = 100, message = "Email deve ter no máximo 100 caracteres.")
 	@Email(message = "Email deve ser valido.")
 	private String email;
 	@NotNull(message = "Matrícula não deve ser nula.")
 	@Pattern(message = "Matrícula deve ter 10 caracteres numéricos.", regexp = "^\\d{10}$")
 	private String registration;
-	@NotNull(message = "Telefone não deve ser nulo.")
-	@NotEmpty(message = "Telefone não deve ser vazio.")
+	@NotNull(message = "Telefone não deve ser nulo e vazio.")
+	@NotEmpty(message = "Telefone não deve ser nulo e vazio.")
 	@Size(max = 30, message = "Telefone deve ter no máximo 30 caracteres.")
 	private String phone;
 	@NotNull(message = "Data de nascimento não deve ser nula.")

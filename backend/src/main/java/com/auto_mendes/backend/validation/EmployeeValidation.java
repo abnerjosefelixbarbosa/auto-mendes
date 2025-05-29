@@ -12,22 +12,27 @@ public class EmployeeValidation implements IEmployeeValidation {
 	private IEmployeeRepository employeeRepository;
 
 	public void validateEmployee(Employee employee) {
-		boolean isExistsEmailOrRegistrationOrPhone = employeeRepository.existsByEmailOrRegistrationOrPhone(employee.getEmail(), employee.getRegistration(), employee.getPhone());
+		boolean isExistsEmailOrRegistrationOrPhone = employeeRepository
+				.existsByEmailOrRegistrationOrPhone(employee.getEmail(), employee.getRegistration(), employee.getPhone());
 		
-		if (!employee.getEmployeeType().toString().equals("SALER") && employee.getCommission() != null) {
-			throw new RuntimeException("Comissão deve ser nulo.");
+		if (!employee.getEmployeeType().toString().equals("SALER")) {
+			if (employee.getCommission() != null) {
+				throw new RuntimeException("Comissão deve ser nulo.");
+			}
 		}
 		
-		if (employee.getEmployeeType().toString().equals("SALER") && employee.getCommission() == null) {
-			throw new RuntimeException("Comissão não deve ser nulo.");
-		}
-		
-		if (employee.getEmployeeType().toString().equals("SALER") && employee.getCommission().toString().equals("0.00")) {
-			throw new RuntimeException("Comissão não deve ser 0.00.");
-		}
-		
-		if (employee.getCommission().scale() != 2 && employee.getEmployeeType().toString().equals("SALER")) {
-			throw new RuntimeException("Comissão deve ter 2 dígitos depois da vírgula.");
+		if (employee.getEmployeeType().toString().equals("SALER")) {
+			if (employee.getCommission() == null) {
+				throw new RuntimeException("Comissão não deve ser nulo.");
+			}
+			
+			if (employee.getCommission().scale() != 2) {
+				throw new RuntimeException("Comissão deve ter 2 dígitos depois da vírgula.");
+			}
+			
+			if (employee.getCommission().toString().equals("0.00")) {
+				throw new RuntimeException("Comissão não deve ser 0.00.");
+			}
 		}
 		
 		if (isExistsEmailOrRegistrationOrPhone) {
