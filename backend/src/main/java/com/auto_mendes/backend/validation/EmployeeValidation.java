@@ -13,7 +13,7 @@ public class EmployeeValidation implements IEmployeeValidation {
 
 	public void validateEmployee(Employee employee) {
 		boolean isExistsEmailOrRegistrationOrPhone = employeeRepository
-				.existsByEmailOrRegistrationOrPhone(employee.getEmail(), employee.getRegistration(), employee.getPhone());
+				.existsByEmailOrMatriculationOrPhone(employee.getEmail(), employee.getMatriculation(), employee.getPhone());
 		
 		if (!employee.getEmployeeType().toString().equals("SALER")) {
 			if (employee.getCommission() != null) {

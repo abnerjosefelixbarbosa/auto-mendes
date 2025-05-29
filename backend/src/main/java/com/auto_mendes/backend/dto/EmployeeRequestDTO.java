@@ -26,7 +26,7 @@ public class EmployeeRequestDTO {
 	private String email;
 	@NotNull(message = "Matrícula não deve ser nula.")
 	@Pattern(message = "Matrícula deve ter 10 caracteres numéricos.", regexp = "^\\d{10}$")
-	private String registration;
+	private String matriculation;
 	@NotNull(message = "Telefone não deve ser nulo e vazio.")
 	@NotEmpty(message = "Telefone não deve ser nulo e vazio.")
 	@Size(max = 30, message = "Telefone deve ter no máximo 30 caracteres.")

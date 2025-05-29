@@ -15,7 +15,7 @@ public class EmployeeMapper implements IEmployeeMapper {
 		employee.setEmployeeType(dto.getEmployeeType());
 		employee.setName(dto.getName());
 		employee.setPhone(dto.getPhone());
-		employee.setRegistration(dto.getRegistration());
+		employee.setMatriculation(dto.getMatriculation());
 		employee.setCommission(dto.getCommission());
 		
 		return employee;
@@ -30,7 +30,7 @@ public class EmployeeMapper implements IEmployeeMapper {
 		employeeResponseDTO.setId(employee.getId());
 		employeeResponseDTO.setName(employee.getName());
 		employeeResponseDTO.setPhone(employee.getPhone());
-		employeeResponseDTO.setRegistration(employee.getRegistration());
+		employeeResponseDTO.setMatriculation(employee.getMatriculation());
 		
 		return employeeResponseDTO;
 	}

@@ -32,8 +32,8 @@ public class Employee implements Serializable {
 	private String name;
 	@Column(name = "email", nullable = false, unique = true, length = 100)
 	private String email;
-	@Column(name = "registration", nullable = false, unique = true, length = 10)
-	private String registration;
+	@Column(name = "matriculation", nullable = false, unique = true, length = 10)
+	private String matriculation;
 	@Column(name = "phone", nullable = false, unique = true, length = 30)
 	private String phone;
 	@Column(name = "birth_date", nullable = false)
@@ -48,7 +48,7 @@ public class Employee implements Serializable {
 	public void setEmployee(Employee employee) {
 		this.name = employee.getName();
 		this.email = employee.getEmail();
-		this.registration = employee.getRegistration();
+		this.matriculation = employee.getMatriculation();
 		this.phone = employee.getPhone();
 		this.birthDate = employee.getBirthDate();
 		this.commission = employee.getCommission();

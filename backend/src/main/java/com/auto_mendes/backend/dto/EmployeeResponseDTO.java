@@ -13,7 +13,7 @@ public class EmployeeResponseDTO {
 	private String id;
 	private String name;
 	private String email;
-	private String registration;
+	private String matriculation;
 	private String phone;
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birthDate;
