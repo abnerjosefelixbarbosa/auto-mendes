@@ -34,7 +34,6 @@ public class EmployeeRequestDTO {
 	@NotNull(message = "Data de nascimento não deve ser nula.")
 	@Past(message = "Data de nascimento deve ser passada.")
 	private LocalDate birthDate;
-	@NotNull(message = "Comissão não deve ser nula.")
 	private BigDecimal commission;
 	@NotNull(message = "Tipo de funcionário não deve ser nulo.")
 	private EmployeeType employeeType;
