@@ -44,9 +44,9 @@ public class ExceptionController {
 		return ResponseEntity.status(400).body(dto);
 	}
 
-	
 	@ExceptionHandler(NotFoundException.class)
-	public ResponseEntity<ExceptionResponseDTO> handleNotFoundException(RuntimeException e, HttpServletRequest request) {
+	public ResponseEntity<ExceptionResponseDTO> handleNotFoundException(RuntimeException e,
+			HttpServletRequest request) {
 		ExceptionResponseDTO dto = new ExceptionResponseDTO();
 		dto.setLocalDateTime(LocalDateTime.now());
 		dto.setMessage(e.getMessage());

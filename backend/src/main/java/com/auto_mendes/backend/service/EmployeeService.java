@@ -21,34 +21,35 @@ public class EmployeeService implements IEmployeeService {
 	private IEmployeeMapper employeeMapper;
 	@Autowired
 	private IEmployeeValidation employeeValidation;
-	
+
 	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO dto) {
 		Employee employee = employeeMapper.toEntity(dto);
-		
+
 		employeeValidation.validateEmployee(employee);
-		
+
 		Employee employeeSaved = employeeRepository.save(employee);
-		
+
 		return employeeMapper.toDTO(employeeSaved);
 	}
 
 	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO dto) {
 		Employee employee = employeeMapper.toEntity(dto);
-		
+
 		employeeValidation.validateEmployee(employee);
-		
-		Employee employeeFound = employeeRepository.findById(id).orElseThrow(() -> new NotFoundException("Funcionário não encontrado."));
-		
+
+		Employee employeeFound = employeeRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Funcionário não encontrado."));
+
 		employeeFound.setEmployee(employee);
-		
+
 		Employee employeeSaved = employeeRepository.save(employeeFound);
-		
+
 		return employeeMapper.toDTO(employeeSaved);
 	}
 
 	public Page<EmployeeResponseDTO> listEmployees(Pageable pageable) {
 		Page<Employee> page = employeeRepository.findAll(pageable);
-		
+
 		return page.map(employeeMapper::toDTO);
 	}
 }

@@ -15,12 +15,6 @@ public class EmployeeValidation implements IEmployeeValidation {
 		boolean isExistsEmailOrRegistrationOrPhone = employeeRepository
 				.existsByEmailOrMatriculationOrPhone(employee.getEmail(), employee.getMatriculation(), employee.getPhone());
 		
-		if (!employee.getEmployeeType().toString().equals("SALER")) {
-			if (employee.getCommission() != null) {
-				throw new RuntimeException("Comissão deve ser nulo.");
-			}
-		}
-		
 		if (employee.getEmployeeType().toString().equals("SALER")) {
 			if (employee.getCommission() == null) {
 				throw new RuntimeException("Comissão não deve ser nulo.");
