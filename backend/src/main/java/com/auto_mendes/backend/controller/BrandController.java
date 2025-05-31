@@ -41,11 +41,11 @@ public class BrandController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 
-	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Atualiza uma marca."),
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Atualiza uma marca pelo id."),
 			@ApiResponse(responseCode = "400", description = "Retorna um erro na requesição."),
 			@ApiResponse(responseCode = "404", description = "Retorna marca não encontrada.") })
 	@ResponseStatus(value = HttpStatus.OK)
-	@Operation(summary = "Atualiza marca.", description = "Atualiza uma marca.")
+	@Operation(summary = "Atualiza marca pelo id.", description = "Atualiza uma marca pelo id.")
 	@PutMapping(value = "/update-brand-id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<BrandResponseDTO> updateBrandById(@RequestParam String id,
 			@RequestBody @Valid BrandRequestDTO dto) {
