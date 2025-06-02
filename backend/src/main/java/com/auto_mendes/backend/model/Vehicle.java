@@ -30,7 +30,7 @@ public class Vehicle implements Serializable {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name = "id")
 	private String id;
-	@Column(name = "plate")
+	@Column(name = "plate", length = 15)
     private String plate;
 	@Column(name = "transmission_type", nullable = false)
     private TransmissionType transmissionType;
