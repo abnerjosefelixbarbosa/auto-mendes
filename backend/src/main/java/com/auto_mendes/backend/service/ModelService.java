@@ -37,6 +37,8 @@ public class ModelService implements IModelService {
 		
 		modelValidation.validateModel(model);
 		
+		
+		
 		Model modelUpdated = modelRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Modelo não encontrado."));
 		

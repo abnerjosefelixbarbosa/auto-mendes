@@ -12,5 +12,6 @@ public class ModelValidation implements IModelValidation {
 	private IModelRepository modelRepository;
 	
 	public void validateModel(Model model) {
+		
 	}
 }
