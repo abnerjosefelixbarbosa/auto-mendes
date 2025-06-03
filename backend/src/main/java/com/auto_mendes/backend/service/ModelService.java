@@ -9,7 +9,9 @@ import com.auto_mendes.backend.dto.ModelRequestDTO;
 import com.auto_mendes.backend.dto.ModelResponseDTO;
 import com.auto_mendes.backend.exception.NotFoundException;
 import com.auto_mendes.backend.mapper.IModelMapper;
+import com.auto_mendes.backend.model.Brand;
 import com.auto_mendes.backend.model.Model;
+import com.auto_mendes.backend.repository.IBrandRepository;
 import com.auto_mendes.backend.repository.IModelRepository;
 import com.auto_mendes.backend.validation.IModelValidation;
 
@@ -21,11 +23,18 @@ public class ModelService implements IModelService {
 	private IModelMapper modelMapper;
 	@Autowired
 	private IModelValidation modelValidation;
+	@Autowired
+	private IBrandRepository brandRepository;
 	
 	public ModelResponseDTO registeModel(ModelRequestDTO dto) {
 		Model model = modelMapper.toEntity(dto);
 		
 		modelValidation.validateModel(model);
+		
+		Brand brandFound = brandRepository.findByName(model.getBrand().getName())
+				.orElseThrow(() -> new NotFoundException("Marca não encontrada."));
+		
+		model.setBrand(brandFound);
 		
 		Model modelSaved = modelRepository.save(model);
 		
@@ -37,14 +46,17 @@ public class ModelService implements IModelService {
 		
 		modelValidation.validateModel(model);
 		
+		Brand brandFound = brandRepository.findByName(model.getBrand().getName())
+				.orElseThrow(() -> new NotFoundException("Marca não encontrada"));
 		
+		model.setBrand(brandFound);
 		
-		Model modelUpdated = modelRepository.findById(id)
+		Model modelFound = modelRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Modelo não encontrado."));
 		
-		modelUpdated.setModel(model);
+		modelFound.setModel(model);
 		
-		Model modelSaved = modelRepository.save(modelUpdated);
+		Model modelSaved = modelRepository.save(modelFound);
 		
 		return modelMapper.toDTO(modelSaved);
 	}

@@ -7,5 +7,5 @@ import com.auto_mendes.backend.model.Model;
 
 @Repository
 public interface IModelRepository extends JpaRepository<Model, String> {
-
+	boolean existsByName(String name);
 }
