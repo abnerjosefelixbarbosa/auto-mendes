@@ -46,6 +46,8 @@ public class ModelService implements IModelService {
 		
 		modelValidation.validateModel(model);
 		
+		/*
+		
 		Brand brandFound = brandRepository.findByName(model.getBrand().getName())
 				.orElseThrow(() -> new NotFoundException("Marca não encontrada"));
 		
@@ -58,7 +60,9 @@ public class ModelService implements IModelService {
 		
 		Model modelSaved = modelRepository.save(modelFound);
 		
-		return modelMapper.toDTO(modelSaved);
+		*/
+		
+		return modelMapper.toDTO(null);
 	}
 
 	public Page<ModelResponseDTO> listModels(Pageable pageable) {
