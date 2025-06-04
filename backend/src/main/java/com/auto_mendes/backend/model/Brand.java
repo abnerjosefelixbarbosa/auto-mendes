@@ -29,7 +29,7 @@ public class Brand implements Serializable {
 	@OneToMany(mappedBy = "brand")
 	private List<Model> models;
 	
-	public void setBrand(Brand brand) {
-		this.name = brand.getName();
+	public void updateBrandFields(Brand source, Brand target) {
+		target.setName(source.getName());
 	}
 }

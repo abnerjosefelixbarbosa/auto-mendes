@@ -12,15 +12,11 @@ import com.auto_mendes.backend.model.Model;
 public class ModelMapper implements IModelMapper {
 	public Model toEntity(ModelRequestDTO dto) {
 		Brand brand = new Brand();
-		brand.setId(null);
 		brand.setName(dto.getBrandName());
 		
 		Model model = new Model();
-		model.setId(null);
 		model.setName(dto.getName());
 		model.setBrand(brand);
-		
-		System.out.println(model.toString());
 		
 		return model;
 	}

@@ -40,7 +40,7 @@ public class EmployeeService implements IEmployeeService {
 		Employee employeeFound = employeeRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Funcionário não encontrado."));
 
-		employeeFound.setEmployee(employee);
+		employeeFound.updateEmployeeFields(employee, employeeFound);
 
 		Employee employeeSaved = employeeRepository.save(employeeFound);
 

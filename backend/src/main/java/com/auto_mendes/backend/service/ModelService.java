@@ -46,24 +46,22 @@ public class ModelService implements IModelService {
 		
 		modelValidation.validateModel(model);
 		
-		/*
-		
-		Brand brandFound = brandRepository.findByName(model.getBrand().getName())
-				.orElseThrow(() -> new NotFoundException("Marca não encontrada"));
-		
-		model.setBrand(brandFound);
-		
 		Model modelFound = modelRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Modelo não encontrado."));
 		
-		modelFound.setModel(model);
+		Brand brandFound = brandRepository.findByName(model.getBrand().getName())
+				.orElseThrow(() -> new NotFoundException("Marca não encontrada"));
+
+		model.setBrand(brandFound);
+		
+		modelFound.updateModelFields(model, modelFound);
 		
 		Model modelSaved = modelRepository.save(modelFound);
 		
-		*/
-		
-		return modelMapper.toDTO(null);
+		return modelMapper.toDTO(modelSaved);
 	}
+	
+	
 
 	public Page<ModelResponseDTO> listModels(Pageable pageable) {
 		Page<Model> page = modelRepository.findAll(pageable);

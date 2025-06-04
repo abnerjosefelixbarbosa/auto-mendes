@@ -34,11 +34,8 @@ public class Model implements Serializable {
 	@OneToMany(mappedBy = "model")
 	private List<Vehicle> vehicles;
 	
-	public void setModel(Model model) {
-		Brand brand = new Brand();
-		brand.setBrand(model.getBrand());
-		
-		this.name = model.getName();
-		this.brand = brand; 
+	public void updateModelFields(Model source, Model target) {
+	    target.setName(source.getName());
+	    target.setBrand(source.getBrand());
 	}
 }

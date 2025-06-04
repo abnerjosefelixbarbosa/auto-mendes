@@ -37,12 +37,12 @@ public class BrandService implements IBrandService {
 
 		brandValidation.validateBrand(brand);
 
-		Brand brandUpdated = brandRepository.findById(id)
+		Brand brandFound = brandRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Marca não encontrada."));
 		
-		brandUpdated.setBrand(brand);
+		brandFound.updateBrandFields(brand, brandFound);
 		
-		Brand brandSaved = brandRepository.save(brandUpdated);
+		Brand brandSaved = brandRepository.save(brandFound);
 
 		return brandMapper.toDTO(brandSaved);
 	}

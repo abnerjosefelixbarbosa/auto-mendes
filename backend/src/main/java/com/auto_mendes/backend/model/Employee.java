@@ -45,13 +45,13 @@ public class Employee implements Serializable {
 	@OneToMany(mappedBy = "employee")
 	private List<Sale> sales;
 	
-	public void setEmployee(Employee employee) {
-		this.name = employee.getName();
-		this.email = employee.getEmail();
-		this.matriculation = employee.getMatriculation();
-		this.phone = employee.getPhone();
-		this.birthDate = employee.getBirthDate();
-		this.commission = employee.getCommission();
-		this.employeeType = employee.getEmployeeType();
+	public void updateEmployeeFields(Employee source, Employee target) {
+		target.setName(source.getName());
+		target.setEmail(source.getEmail());
+		target.setMatriculation(source.getMatriculation());
+		target.setPhone(source.getPhone());
+		target.setBirthDate(source.getBirthDate());
+		target.setCommission(source.getCommission());
+		target.setEmployeeType(source.getEmployeeType());
 	}
 }
