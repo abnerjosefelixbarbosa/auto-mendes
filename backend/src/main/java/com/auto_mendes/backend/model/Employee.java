@@ -3,7 +3,6 @@ package com.auto_mendes.backend.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 import com.auto_mendes.backend.enums.EmployeeType;
 
@@ -12,7 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +20,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "employee_tb")
 public class Employee implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -42,8 +43,6 @@ public class Employee implements Serializable {
 	private BigDecimal commission;
 	@Column(name = "employee_type", nullable = false)
 	private EmployeeType employeeType;
-	@OneToMany(mappedBy = "employee")
-	private List<Sale> sales;
 	
 	public void updateEmployeeFields(Employee source, Employee target) {
 		target.setName(source.getName());

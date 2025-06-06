@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.auto_mendes.backend.enums.TransmissionType;
-import com.auto_mendes.backend.enums.VehicleType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,8 +35,6 @@ public class Vehicle implements Serializable {
     private TransmissionType transmissionType;
 	@Column(name = "price", nullable = false)
     private BigDecimal price;
-	@Column(name = "vehicle_type", nullable = false)
-    private VehicleType vehicleType;
 	@ManyToOne
 	@JoinColumn(columnDefinition = "model_id", nullable = false)
 	private Model model;
