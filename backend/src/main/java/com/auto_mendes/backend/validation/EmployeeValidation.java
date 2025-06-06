@@ -15,6 +15,7 @@ public class EmployeeValidation implements IEmployeeValidation {
 		boolean isExistsEmailOrRegistrationOrPhone = employeeRepository
 				.existsByEmailOrMatriculationOrPhone(employee.getEmail(), employee.getMatriculation(), employee.getPhone());
 		
+		/*
 		if (employee.getEmployeeType().toString().equals("SALER")) {
 			if (employee.getCommission() == null) {
 				throw new RuntimeException("Comissão não deve ser nulo.");
@@ -28,6 +29,7 @@ public class EmployeeValidation implements IEmployeeValidation {
 				throw new RuntimeException("Comissão não deve ser 0.00.");
 			}
 		}
+		*/
 		
 		if (isExistsEmailOrRegistrationOrPhone) {
 			throw new RuntimeException("Email, matrícula ou telefone não deve ser duplicados");

@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import com.auto_mendes.backend.enums.EmployeeType;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -41,8 +39,6 @@ public class Employee implements Serializable {
 	private LocalDate birthDate;
 	@Column(name = "commission", scale = 2)
 	private BigDecimal commission;
-	@Column(name = "employee_type", nullable = false)
-	private EmployeeType employeeType;
 	
 	public void updateEmployeeFields(Employee source, Employee target) {
 		target.setName(source.getName());
@@ -51,6 +47,5 @@ public class Employee implements Serializable {
 		target.setPhone(source.getPhone());
 		target.setBirthDate(source.getBirthDate());
 		target.setCommission(source.getCommission());
-		target.setEmployeeType(source.getEmployeeType());
 	}
 }

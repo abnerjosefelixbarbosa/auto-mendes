@@ -27,6 +27,5 @@ public class Saler extends Employee {
 		target.setPhone(source.getPhone());
 		target.setBirthDate(source.getBirthDate());
 		target.setCommission(source.getCommission());
-		target.setEmployeeType(source.getEmployeeType());
 	}
 }

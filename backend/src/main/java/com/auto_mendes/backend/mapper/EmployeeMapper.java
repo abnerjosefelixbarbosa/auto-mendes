@@ -12,14 +12,9 @@ public class EmployeeMapper implements IEmployeeMapper {
 		Employee employee = new Employee();
 		employee.setBirthDate(dto.getBirthDate());
 		employee.setEmail(dto.getEmail());
-		employee.setEmployeeType(dto.getEmployeeType());
 		employee.setName(dto.getName());
 		employee.setPhone(dto.getPhone());
 		employee.setMatriculation(dto.getMatriculation());
-
-		if (employee.getEmployeeType().toString().equals("SALER")) {
-			employee.setCommission(dto.getCommission());
-		}
 
 		return employee;
 	}
@@ -29,7 +24,6 @@ public class EmployeeMapper implements IEmployeeMapper {
 		employeeResponseDTO.setBirthDate(employee.getBirthDate());
 		employeeResponseDTO.setCommission(employee.getCommission());
 		employeeResponseDTO.setEmail(employee.getEmail());
-		employeeResponseDTO.setEmployeeType(employee.getEmployeeType());
 		employeeResponseDTO.setId(employee.getId());
 		employeeResponseDTO.setName(employee.getName());
 		employeeResponseDTO.setPhone(employee.getPhone());
