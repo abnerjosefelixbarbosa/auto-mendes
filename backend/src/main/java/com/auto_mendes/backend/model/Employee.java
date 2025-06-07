@@ -1,7 +1,6 @@
 package com.auto_mendes.backend.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
@@ -37,8 +36,6 @@ public class Employee implements Serializable {
 	private String phone;
 	@Column(name = "birth_date", nullable = false)
 	private LocalDate birthDate;
-	@Column(name = "commission", scale = 2)
-	private BigDecimal commission;
 	
 	public void updateEmployeeFields(Employee source, Employee target) {
 		target.setName(source.getName());
@@ -46,6 +43,5 @@ public class Employee implements Serializable {
 		target.setMatriculation(source.getMatriculation());
 		target.setPhone(source.getPhone());
 		target.setBirthDate(source.getBirthDate());
-		target.setCommission(source.getCommission());
 	}
 }

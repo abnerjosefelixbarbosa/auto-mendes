@@ -1,7 +1,9 @@
 package com.auto_mendes.backend.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrimaryKeyJoinColumn;
@@ -17,6 +19,8 @@ import lombok.EqualsAndHashCode;
 public class Saler extends Employee {
 	private static final long serialVersionUID = 1L;
 	
+	@Column(name = "commission", scale = 2)
+	private BigDecimal commission;
 	@OneToMany(mappedBy = "employee")
 	private List<Sale> sales;
 	

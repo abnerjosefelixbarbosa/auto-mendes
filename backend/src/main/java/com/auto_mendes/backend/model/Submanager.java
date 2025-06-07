@@ -20,6 +20,5 @@ public class Submanager extends Employee {
 		target.setMatriculation(source.getMatriculation());
 		target.setPhone(source.getPhone());
 		target.setBirthDate(source.getBirthDate());
-		target.setCommission(source.getCommission());
 	}
 }

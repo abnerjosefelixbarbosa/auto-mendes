@@ -10,26 +10,77 @@ import com.auto_mendes.backend.dto.EmployeeResponseDTO;
 import com.auto_mendes.backend.exception.NotFoundException;
 import com.auto_mendes.backend.mapper.IEmployeeMapper;
 import com.auto_mendes.backend.model.Employee;
+import com.auto_mendes.backend.model.Manager;
+import com.auto_mendes.backend.model.Saler;
+import com.auto_mendes.backend.model.Submanager;
 import com.auto_mendes.backend.repository.IEmployeeRepository;
+import com.auto_mendes.backend.repository.IManagerRepository;
+import com.auto_mendes.backend.repository.ISalerRepository;
+import com.auto_mendes.backend.repository.ISubmanagerRepository;
 import com.auto_mendes.backend.validation.IEmployeeValidation;
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 
 @Service
 public class EmployeeService implements IEmployeeService {
 	@Autowired
 	private IEmployeeRepository employeeRepository;
 	@Autowired
+	private IManagerRepository managerRepository;
+	@Autowired
+	private ISubmanagerRepository submanagerRepository;
+	@Autowired
+	private ISalerRepository salerRepository;
+	@Autowired
 	private IEmployeeMapper employeeMapper;
 	@Autowired
 	private IEmployeeValidation employeeValidation;
-
+	
 	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO dto) {
-		Employee employee = employeeMapper.toEntity(dto);
+		EmployeeResponseDTO employeeResponseDTO = null;
+		
+		switch (dto.getEmployeeType().toString()) {
+		case "MANAGER":
+			employeeResponseDTO = registerManager(dto);
+			break;
+		case "SUBMANAGER":
+			employeeResponseDTO = registerSubmanager(dto);
+			break;	
+		default:
+			employeeResponseDTO = registerSaler(dto);
+			break;
+		}
+		
+		return employeeResponseDTO;
+	}
 
-		employeeValidation.validateEmployee(employee);
+	private EmployeeResponseDTO registerManager(EmployeeRequestDTO dto) {
+		Manager manager = employeeMapper.toManager(dto);
 
-		Employee employeeSaved = employeeRepository.save(employee);
+		employeeValidation.validateManager(manager);
 
-		return employeeMapper.toDTO(employeeSaved);
+		Manager managerSaved = managerRepository.save(manager);
+
+		return employeeMapper.toDTO(managerSaved);
+	}
+	
+	private EmployeeResponseDTO registerSubmanager(EmployeeRequestDTO dto) {
+		Submanager submanager = employeeMapper.toSubmanager(dto);
+
+		employeeValidation.validateSubmanager(submanager);
+
+		Submanager submanagerSaved = submanagerRepository.save(submanager);
+
+		return employeeMapper.toDTO(submanagerSaved);
+	}
+	
+	private EmployeeResponseDTO registerSaler(EmployeeRequestDTO dto) {
+		Saler saler = employeeMapper.toSaler(dto);
+
+		employeeValidation.validateSaler(saler);
+
+		Saler salerSaved = salerRepository.save(saler);
+
+		return employeeMapper.toDTO(salerSaved);
 	}
 
 	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO dto) {
