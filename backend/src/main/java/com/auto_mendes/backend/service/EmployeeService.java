@@ -32,22 +32,22 @@ public class EmployeeService implements IEmployeeService {
 	private IEmployeeMapper employeeMapper;
 	@Autowired
 	private IEmployeeValidation employeeValidation;
-	
+
 	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO dto) {
 		EmployeeResponseDTO employeeResponseDTO = null;
-		
+
 		switch (dto.getEmployeeType().toString()) {
 		case "MANAGER":
 			employeeResponseDTO = registerManager(dto);
 			break;
 		case "SUBMANAGER":
 			employeeResponseDTO = registerSubmanager(dto);
-			break;	
+			break;
 		default:
 			employeeResponseDTO = registerSaler(dto);
 			break;
 		}
-		
+
 		return employeeResponseDTO;
 	}
 
@@ -60,7 +60,7 @@ public class EmployeeService implements IEmployeeService {
 
 		return employeeMapper.toDTO(managerSaved);
 	}
-	
+
 	private EmployeeResponseDTO registerSubmanager(EmployeeRequestDTO dto) {
 		Submanager submanager = employeeMapper.toSubmanager(dto);
 
@@ -70,7 +70,7 @@ public class EmployeeService implements IEmployeeService {
 
 		return employeeMapper.toDTO(submanagerSaved);
 	}
-	
+
 	private EmployeeResponseDTO registerSaler(EmployeeRequestDTO dto) {
 		Saler saler = employeeMapper.toSaler(dto);
 
@@ -80,41 +80,40 @@ public class EmployeeService implements IEmployeeService {
 
 		return employeeMapper.toDTO(salerSaved);
 	}
-	
+
 	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO dto) {
-EmployeeResponseDTO employeeResponseDTO = null;
-		
+		EmployeeResponseDTO employeeResponseDTO = null;
+
 		switch (dto.getEmployeeType().toString()) {
 		case "MANAGER":
 			employeeResponseDTO = registerManager(dto);
 			break;
 		case "SUBMANAGER":
 			employeeResponseDTO = registerSubmanager(dto);
-			break;	
+			break;
 		default:
 			employeeResponseDTO = registerSaler(dto);
 			break;
 		}
-		
+
 		return employeeResponseDTO;
 	}
 
 	/*
-	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO dto) {
-		Employee employee = employeeMapper.toEntity(dto);
-
-		employeeValidation.validateEmployee(employee);
-
-		Employee employeeFound = employeeRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException("Funcionário não encontrado."));
-
-		employeeFound.updateEmployeeFields(employee, employeeFound);
-
-		Employee employeeSaved = employeeRepository.save(employeeFound);
-
-		return employeeMapper.toDTO(employeeSaved);
-	}
-	*/
+	 * public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO
+	 * dto) { Employee employee = employeeMapper.toEntity(dto);
+	 * 
+	 * employeeValidation.validateEmployee(employee);
+	 * 
+	 * Employee employeeFound = employeeRepository.findById(id) .orElseThrow(() ->
+	 * new NotFoundException("Funcionário não encontrado."));
+	 * 
+	 * employeeFound.updateEmployeeFields(employee, employeeFound);
+	 * 
+	 * Employee employeeSaved = employeeRepository.save(employeeFound);
+	 * 
+	 * return employeeMapper.toDTO(employeeSaved); }
+	 */
 
 	public Page<EmployeeResponseDTO> listEmployees(Pageable pageable) {
 		Page<Employee> page = employeeRepository.findAll(pageable);
