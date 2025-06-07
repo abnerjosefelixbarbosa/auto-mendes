@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.auto_mendes.backend.dto.EmployeeRequestDTO;
 import com.auto_mendes.backend.dto.EmployeeResponseDTO;
-import com.auto_mendes.backend.exception.NotFoundException;
 import com.auto_mendes.backend.mapper.IEmployeeMapper;
 import com.auto_mendes.backend.model.Employee;
 import com.auto_mendes.backend.model.Manager;
@@ -18,7 +17,6 @@ import com.auto_mendes.backend.repository.IManagerRepository;
 import com.auto_mendes.backend.repository.ISalerRepository;
 import com.auto_mendes.backend.repository.ISubmanagerRepository;
 import com.auto_mendes.backend.validation.IEmployeeValidation;
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 
 @Service
 public class EmployeeService implements IEmployeeService {
@@ -82,7 +80,26 @@ public class EmployeeService implements IEmployeeService {
 
 		return employeeMapper.toDTO(salerSaved);
 	}
+	
+	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO dto) {
+EmployeeResponseDTO employeeResponseDTO = null;
+		
+		switch (dto.getEmployeeType().toString()) {
+		case "MANAGER":
+			employeeResponseDTO = registerManager(dto);
+			break;
+		case "SUBMANAGER":
+			employeeResponseDTO = registerSubmanager(dto);
+			break;	
+		default:
+			employeeResponseDTO = registerSaler(dto);
+			break;
+		}
+		
+		return employeeResponseDTO;
+	}
 
+	/*
 	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO dto) {
 		Employee employee = employeeMapper.toEntity(dto);
 
@@ -97,6 +114,7 @@ public class EmployeeService implements IEmployeeService {
 
 		return employeeMapper.toDTO(employeeSaved);
 	}
+	*/
 
 	public Page<EmployeeResponseDTO> listEmployees(Pageable pageable) {
 		Page<Employee> page = employeeRepository.findAll(pageable);

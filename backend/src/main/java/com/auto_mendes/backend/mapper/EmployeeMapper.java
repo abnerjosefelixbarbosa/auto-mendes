@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.auto_mendes.backend.dto.EmployeeRequestDTO;
 import com.auto_mendes.backend.dto.EmployeeResponseDTO;
+import com.auto_mendes.backend.enums.EmployeeType;
 import com.auto_mendes.backend.model.Employee;
 import com.auto_mendes.backend.model.Manager;
 import com.auto_mendes.backend.model.Saler;
@@ -76,6 +77,7 @@ public class EmployeeMapper implements IEmployeeMapper {
 		employeeResponseDTO.setName(manager.getName());
 		employeeResponseDTO.setPhone(manager.getPhone());
 		employeeResponseDTO.setMatriculation(manager.getMatriculation());
+		employeeResponseDTO.setEmployeeType(EmployeeType.MANAGER);
 
 		return employeeResponseDTO;
 	}
@@ -88,6 +90,7 @@ public class EmployeeMapper implements IEmployeeMapper {
 		employeeResponseDTO.setName(submanager.getName());
 		employeeResponseDTO.setPhone(submanager.getPhone());
 		employeeResponseDTO.setMatriculation(submanager.getMatriculation());
+		employeeResponseDTO.setEmployeeType(EmployeeType.SUBMANAGER);
 
 		return employeeResponseDTO;
 	}
@@ -101,6 +104,7 @@ public class EmployeeMapper implements IEmployeeMapper {
 		employeeResponseDTO.setName(saler.getName());
 		employeeResponseDTO.setPhone(saler.getPhone());
 		employeeResponseDTO.setMatriculation(saler.getMatriculation());
+		employeeResponseDTO.setEmployeeType(EmployeeType.SALER);
 
 		return employeeResponseDTO;
 	}
