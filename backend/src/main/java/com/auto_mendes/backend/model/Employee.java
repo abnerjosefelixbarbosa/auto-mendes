@@ -3,8 +3,12 @@ package com.auto_mendes.backend.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import com.auto_mendes.backend.enums.EmployeeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,6 +40,9 @@ public class Employee implements Serializable {
 	private String phone;
 	@Column(name = "birth_date", nullable = false)
 	private LocalDate birthDate;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "employee_type", nullable = false)
+	private EmployeeType employeeType;
 	
 	public void updateEmployeeFields(Employee source, Employee target) {
 		target.setName(source.getName());

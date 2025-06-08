@@ -4,69 +4,48 @@ import org.springframework.stereotype.Component;
 
 import com.auto_mendes.backend.dto.EmployeeRequestDTO;
 import com.auto_mendes.backend.dto.EmployeeResponseDTO;
-import com.auto_mendes.backend.enums.EmployeeType;
-import com.auto_mendes.backend.model.Employee;
+import com.auto_mendes.backend.dto.EmployeeResponseListDTO;
 import com.auto_mendes.backend.model.Manager;
 import com.auto_mendes.backend.model.Saler;
 import com.auto_mendes.backend.model.Submanager;
 
 @Component
 public class EmployeeMapper implements IEmployeeMapper {
-	public Employee toEntity(EmployeeRequestDTO dto) {
-		Employee employee = new Employee();
-		employee.setBirthDate(dto.getBirthDate());
-		employee.setEmail(dto.getEmail());
-		employee.setName(dto.getName());
-		employee.setPhone(dto.getPhone());
-		employee.setMatriculation(dto.getMatriculation());
-
-		return employee;
-	}
-	
 	public Manager toManager(EmployeeRequestDTO dto) {
-		Manager employee = new Manager();
-		employee.setBirthDate(dto.getBirthDate());
-		employee.setEmail(dto.getEmail());
-		employee.setName(dto.getName());
-		employee.setPhone(dto.getPhone());
-		employee.setMatriculation(dto.getMatriculation());
+		Manager manager = new Manager();
+		manager.setBirthDate(dto.getBirthDate());
+		manager.setEmail(dto.getEmail());
+		manager.setName(dto.getName());
+		manager.setPhone(dto.getPhone());
+		manager.setMatriculation(dto.getMatriculation());
+		manager.setEmployeeType(dto.getEmployeeType());
 
-		return employee;
+		return manager;
 	}
 	
 	public Submanager toSubmanager(EmployeeRequestDTO dto) {
-		Submanager employee = new Submanager();
-		employee.setBirthDate(dto.getBirthDate());
-		employee.setEmail(dto.getEmail());
-		employee.setName(dto.getName());
-		employee.setPhone(dto.getPhone());
-		employee.setMatriculation(dto.getMatriculation());
+		Submanager submanager = new Submanager();
+		submanager.setBirthDate(dto.getBirthDate());
+		submanager.setEmail(dto.getEmail());
+		submanager.setName(dto.getName());
+		submanager.setPhone(dto.getPhone());
+		submanager.setMatriculation(dto.getMatriculation());
+		submanager.setEmployeeType(dto.getEmployeeType());
 
-		return employee;
+		return submanager;
 	}
 	
 	public Saler toSaler(EmployeeRequestDTO dto) {
-		Saler employee = new Saler();
-		employee.setBirthDate(dto.getBirthDate());
-		employee.setEmail(dto.getEmail());
-		employee.setName(dto.getName());
-		employee.setPhone(dto.getPhone());
-		employee.setMatriculation(dto.getMatriculation());
-		employee.setCommission(dto.getCommission());
+		Saler saler = new Saler();
+		saler.setBirthDate(dto.getBirthDate());
+		saler.setEmail(dto.getEmail());
+		saler.setName(dto.getName());
+		saler.setPhone(dto.getPhone());
+		saler.setMatriculation(dto.getMatriculation());
+		saler.setCommission(dto.getCommission());
+		saler.setEmployeeType(dto.getEmployeeType());
 
-		return employee;
-	}
-
-	public EmployeeResponseDTO toDTO(Employee employee) {
-		EmployeeResponseDTO employeeResponseDTO = new EmployeeResponseDTO();
-		employeeResponseDTO.setBirthDate(employee.getBirthDate());
-		employeeResponseDTO.setEmail(employee.getEmail());
-		employeeResponseDTO.setId(employee.getId());
-		employeeResponseDTO.setName(employee.getName());
-		employeeResponseDTO.setPhone(employee.getPhone());
-		employeeResponseDTO.setMatriculation(employee.getMatriculation());
-
-		return employeeResponseDTO;
+		return saler;
 	}
 	
 	public EmployeeResponseDTO toDTO(Manager manager) {
@@ -77,7 +56,7 @@ public class EmployeeMapper implements IEmployeeMapper {
 		employeeResponseDTO.setName(manager.getName());
 		employeeResponseDTO.setPhone(manager.getPhone());
 		employeeResponseDTO.setMatriculation(manager.getMatriculation());
-		employeeResponseDTO.setEmployeeType(EmployeeType.MANAGER);
+		employeeResponseDTO.setEmployeeType(manager.getEmployeeType());
 
 		return employeeResponseDTO;
 	}
@@ -90,7 +69,7 @@ public class EmployeeMapper implements IEmployeeMapper {
 		employeeResponseDTO.setName(submanager.getName());
 		employeeResponseDTO.setPhone(submanager.getPhone());
 		employeeResponseDTO.setMatriculation(submanager.getMatriculation());
-		employeeResponseDTO.setEmployeeType(EmployeeType.SUBMANAGER);
+		employeeResponseDTO.setEmployeeType(submanager.getEmployeeType());
 
 		return employeeResponseDTO;
 	}
@@ -104,8 +83,22 @@ public class EmployeeMapper implements IEmployeeMapper {
 		employeeResponseDTO.setName(saler.getName());
 		employeeResponseDTO.setPhone(saler.getPhone());
 		employeeResponseDTO.setMatriculation(saler.getMatriculation());
-		employeeResponseDTO.setEmployeeType(EmployeeType.SALER);
+		employeeResponseDTO.setEmployeeType(saler.getEmployeeType());
 
+		return employeeResponseDTO;
+	}
+
+	public EmployeeResponseDTO toDTO(EmployeeResponseListDTO dto) {
+		EmployeeResponseDTO employeeResponseDTO = new EmployeeResponseDTO();
+		employeeResponseDTO.setId(dto.getId());
+		employeeResponseDTO.setEmail(dto.getEmail());
+		employeeResponseDTO.setName(dto.getName());
+		employeeResponseDTO.setMatriculation(dto.getMatriculation());
+		employeeResponseDTO.setPhone(dto.getPhone());
+		//employeeResponseDTO.setBirthDate(dto.getBirthDate());
+		//employeeResponseDTO.setEmployeeType(null);
+		employeeResponseDTO.setCommission(dto.getCommission());
+		
 		return employeeResponseDTO;
 	}
 }

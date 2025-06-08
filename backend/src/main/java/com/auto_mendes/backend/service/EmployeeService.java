@@ -7,8 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.auto_mendes.backend.dto.EmployeeRequestDTO;
 import com.auto_mendes.backend.dto.EmployeeResponseDTO;
+import com.auto_mendes.backend.dto.EmployeeResponseListDTO;
+import com.auto_mendes.backend.exception.NotFoundException;
 import com.auto_mendes.backend.mapper.IEmployeeMapper;
-import com.auto_mendes.backend.model.Employee;
 import com.auto_mendes.backend.model.Manager;
 import com.auto_mendes.backend.model.Saler;
 import com.auto_mendes.backend.model.Submanager;
@@ -86,38 +87,67 @@ public class EmployeeService implements IEmployeeService {
 
 		switch (dto.getEmployeeType().toString()) {
 		case "MANAGER":
-			employeeResponseDTO = registerManager(dto);
+			employeeResponseDTO = updateManagerById(id, dto);
 			break;
 		case "SUBMANAGER":
-			employeeResponseDTO = registerSubmanager(dto);
+			employeeResponseDTO = updateSubmanagerById(id, dto);
 			break;
 		default:
-			employeeResponseDTO = registerSaler(dto);
+			employeeResponseDTO = updateSalerById(id, dto);
 			break;
 		}
 
 		return employeeResponseDTO;
 	}
 
-	/*
-	 * public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO
-	 * dto) { Employee employee = employeeMapper.toEntity(dto);
-	 * 
-	 * employeeValidation.validateEmployee(employee);
-	 * 
-	 * Employee employeeFound = employeeRepository.findById(id) .orElseThrow(() ->
-	 * new NotFoundException("Funcionário não encontrado."));
-	 * 
-	 * employeeFound.updateEmployeeFields(employee, employeeFound);
-	 * 
-	 * Employee employeeSaved = employeeRepository.save(employeeFound);
-	 * 
-	 * return employeeMapper.toDTO(employeeSaved); }
-	 */
+	private EmployeeResponseDTO updateManagerById(String id, EmployeeRequestDTO dto) {
+		Manager manager = employeeMapper.toManager(dto);
+
+		employeeValidation.validateManager(manager);
+
+		Manager managerFound = managerRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Funcionário não encontrado."));
+
+		managerFound.updateEmployeeFields(manager, managerFound);
+
+		Manager managerSaved = managerRepository.save(managerFound);
+
+		return employeeMapper.toDTO(managerSaved);
+	}
+	
+	private EmployeeResponseDTO updateSubmanagerById(String id, EmployeeRequestDTO dto) {
+		Submanager submanager = employeeMapper.toSubmanager(dto);
+
+		employeeValidation.validateSubmanager(submanager);
+
+		Submanager submanagerFound = submanagerRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Funcionário não encontrado."));
+
+		submanagerFound.updateEmployeeFields(submanager, submanagerFound);
+
+		Submanager submanagerSaved = submanagerRepository.save(submanagerFound);
+
+		return employeeMapper.toDTO(submanagerSaved);
+	}
+	
+	private EmployeeResponseDTO updateSalerById(String id, EmployeeRequestDTO dto) {
+		Saler saler = employeeMapper.toSaler(dto);
+
+		employeeValidation.validateSaler(saler);
+
+		Saler salerFound = salerRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Funcionário não encontrado."));
+
+		salerFound.updateEmployeeFields(saler, salerFound);
+
+		Saler salerSaved = salerRepository.save(salerFound);
+
+		return employeeMapper.toDTO(salerSaved);
+	}
 
 	public Page<EmployeeResponseDTO> listEmployees(Pageable pageable) {
-		Page<Employee> page = employeeRepository.findAll(pageable);
-
+		Page<EmployeeResponseListDTO> page = employeeRepository.listEmployees(pageable);
+		
 		return page.map(employeeMapper::toDTO);
 	}
 }
