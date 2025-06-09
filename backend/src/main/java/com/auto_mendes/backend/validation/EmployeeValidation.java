@@ -45,6 +45,10 @@ public class EmployeeValidation implements IEmployeeValidation {
 			throw new RuntimeException("Email, matrícula ou telefone não deve ser duplicados");
 		}
 		
+		if (saler.getCommission() == null) {
+			throw new RuntimeException("Comissão não deve ser nulo.");
+		}
+		
 		if (saler.getCommission().scale() != 2) {
 			throw new RuntimeException("Comissão deve ter dois digitos depois da vírgula.");
 		}

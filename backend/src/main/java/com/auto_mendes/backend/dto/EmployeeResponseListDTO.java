@@ -1,6 +1,7 @@
 package com.auto_mendes.backend.dto;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +14,7 @@ public class EmployeeResponseListDTO {
 	private String email;
 	private String matriculation;
 	private String phone;
-	//private LocalDate birthDate;
-	//private EmployeeType employeeType;
+	private Date birthDate;
+	private String employeeType;
 	private BigDecimal commission;
 }

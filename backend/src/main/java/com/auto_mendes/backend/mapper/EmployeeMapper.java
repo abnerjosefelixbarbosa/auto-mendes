@@ -1,10 +1,14 @@
 package com.auto_mendes.backend.mapper;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.stereotype.Component;
 
 import com.auto_mendes.backend.dto.EmployeeRequestDTO;
 import com.auto_mendes.backend.dto.EmployeeResponseDTO;
 import com.auto_mendes.backend.dto.EmployeeResponseListDTO;
+import com.auto_mendes.backend.enums.EmployeeType;
 import com.auto_mendes.backend.model.Manager;
 import com.auto_mendes.backend.model.Saler;
 import com.auto_mendes.backend.model.Submanager;
@@ -89,14 +93,16 @@ public class EmployeeMapper implements IEmployeeMapper {
 	}
 
 	public EmployeeResponseDTO toDTO(EmployeeResponseListDTO dto) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		
 		EmployeeResponseDTO employeeResponseDTO = new EmployeeResponseDTO();
 		employeeResponseDTO.setId(dto.getId());
 		employeeResponseDTO.setEmail(dto.getEmail());
 		employeeResponseDTO.setName(dto.getName());
 		employeeResponseDTO.setMatriculation(dto.getMatriculation());
 		employeeResponseDTO.setPhone(dto.getPhone());
-		//employeeResponseDTO.setBirthDate(dto.getBirthDate());
-		//employeeResponseDTO.setEmployeeType(null);
+		employeeResponseDTO.setBirthDate(LocalDate.parse(dto.getBirthDate().toString(), formatter));
+		employeeResponseDTO.setEmployeeType(EmployeeType.valueOf(dto.getEmployeeType()));
 		employeeResponseDTO.setCommission(dto.getCommission());
 		
 		return employeeResponseDTO;

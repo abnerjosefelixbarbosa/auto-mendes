@@ -6,13 +6,9 @@ import java.time.LocalDate;
 import com.auto_mendes.backend.enums.EmployeeType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class EmployeeResponseDTO {
 	private String id;
 	private String name;
