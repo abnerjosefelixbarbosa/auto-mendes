@@ -7,5 +7,5 @@ import com.auto_mendes.backend.model.Motocycle;
 
 @Repository
 public interface IMotocycleRepository extends JpaRepository<Motocycle, String> {
-
+	boolean existsByPlate(String plate);
 }

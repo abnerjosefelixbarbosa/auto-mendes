@@ -1,5 +1,16 @@
 package com.auto_mendes.backend.mapper;
 
-public interface IVehicleMapper {
+import com.auto_mendes.backend.dto.VehicleRequestDTO;
+import com.auto_mendes.backend.dto.VehicleResponseDTO;
+import com.auto_mendes.backend.model.Car;
+import com.auto_mendes.backend.model.Motocycle;
 
+public interface IVehicleMapper {
+	Car toCar(VehicleRequestDTO dto);
+	
+	Motocycle toMotocycle(VehicleRequestDTO dto);
+	
+	VehicleResponseDTO toDTO(Car car);
+	
+	VehicleResponseDTO toDTO(Motocycle motocycle);
 }

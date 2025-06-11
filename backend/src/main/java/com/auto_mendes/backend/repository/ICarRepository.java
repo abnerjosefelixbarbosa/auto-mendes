@@ -7,5 +7,5 @@ import com.auto_mendes.backend.model.Car;
 
 @Repository
 public interface ICarRepository extends JpaRepository<Car, String> {
-
+	boolean existsByPlate(String plate);
 }
