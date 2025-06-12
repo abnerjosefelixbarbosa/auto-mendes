@@ -8,6 +8,7 @@ import com.auto_mendes.backend.dto.VehicleResponseDTO;
 import com.auto_mendes.backend.model.Car;
 import com.auto_mendes.backend.model.Model;
 import com.auto_mendes.backend.model.Motocycle;
+import com.auto_mendes.backend.model.Vehicle;
 
 @Component
 public class VehicleMapper implements IVehicleMapper {
@@ -67,6 +68,22 @@ public class VehicleMapper implements IVehicleMapper {
 		vehicleResponseDTO.setPrice(motocycle.getPrice());
 		vehicleResponseDTO.setTransmissionType(motocycle.getTransmissionType());
 		vehicleResponseDTO.setVehicleType(motocycle.getVehicleType());
+		
+		return vehicleResponseDTO;
+	}
+	
+	public VehicleResponseDTO toDTO(Vehicle vehicle) {
+		ModelResponseDTO modelResponseDTO = new ModelResponseDTO();
+		modelResponseDTO.setId(vehicle.getId());
+		modelResponseDTO.setName(vehicle.getModel().getName());
+		
+		VehicleResponseDTO vehicleResponseDTO = new VehicleResponseDTO();
+		vehicleResponseDTO.setId(vehicle.getId());
+		vehicleResponseDTO.setDto(modelResponseDTO);
+		vehicleResponseDTO.setPlate(vehicle.getPlate());
+		vehicleResponseDTO.setPrice(vehicle.getPrice());
+		vehicleResponseDTO.setTransmissionType(vehicle.getTransmissionType());
+		vehicleResponseDTO.setVehicleType(vehicle.getVehicleType());
 		
 		return vehicleResponseDTO;
 	}

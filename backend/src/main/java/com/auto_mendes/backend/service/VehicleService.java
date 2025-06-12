@@ -7,10 +7,14 @@ import org.springframework.stereotype.Service;
 
 import com.auto_mendes.backend.dto.VehicleRequestDTO;
 import com.auto_mendes.backend.dto.VehicleResponseDTO;
+import com.auto_mendes.backend.exception.NotFoundException;
 import com.auto_mendes.backend.mapper.IVehicleMapper;
 import com.auto_mendes.backend.model.Car;
+import com.auto_mendes.backend.model.Model;
 import com.auto_mendes.backend.model.Motocycle;
+import com.auto_mendes.backend.model.Vehicle;
 import com.auto_mendes.backend.repository.ICarRepository;
+import com.auto_mendes.backend.repository.IModelRepository;
 import com.auto_mendes.backend.repository.IMotocycleRepository;
 import com.auto_mendes.backend.repository.IVehicleRepository;
 import com.auto_mendes.backend.validation.IVehicleValidation;
@@ -23,6 +27,8 @@ public class VehicleService implements IVehicleService {
 	private ICarRepository carRepository;
 	@Autowired
 	private IMotocycleRepository motocycleRepository;
+	@Autowired
+	private IModelRepository modelRepository;
 	@Autowired
 	private IVehicleValidation vehicleValidation;
 	@Autowired
@@ -48,6 +54,11 @@ public class VehicleService implements IVehicleService {
 
 		vehicleValidation.validateCar(car);
 
+		Model modelFound = modelRepository.findByName(car.getModel().getName())
+				.orElseThrow(() -> new NotFoundException("Modelo não encontrado."));
+
+		car.setModel(modelFound);
+
 		Car carSaved = carRepository.save(car);
 
 		return vehicleMapper.toDTO(carSaved);
@@ -57,6 +68,11 @@ public class VehicleService implements IVehicleService {
 		Motocycle motocycle = vehicleMapper.toMotocycle(dto);
 
 		vehicleValidation.validateMotocycle(motocycle);
+
+		Model modelFound = modelRepository.findByName(motocycle.getModel().getName())
+				.orElseThrow(() -> new NotFoundException("Modelo não encontrado."));
+
+		motocycle.setModel(modelFound);
 
 		Motocycle motocycleSaved = motocycleRepository.save(motocycle);
 
@@ -77,16 +93,34 @@ public class VehicleService implements IVehicleService {
 
 		return vehicleResponseDTO;
 	}
-	
+
 	private VehicleResponseDTO updateCarById(String id, VehicleRequestDTO dto) {
-		return null;
+		Car car = vehicleMapper.toCar(dto);
+
+		vehicleValidation.validateCar(car);
+
+		Car carFound = carRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Veiculo não encontrado."));
+
+		Model modelFound = modelRepository.findByName(car.getModel().getName())
+				.orElseThrow(() -> new NotFoundException("Modelo não encontrado."));
+		
+		carFound.setModel(modelFound);
+		
+		carFound.updateCarFields(car, carFound);
+		
+		Car carSaved = carRepository.save(carFound);
+
+		return vehicleMapper.toDTO(carSaved);
 	}
-	
+
 	private VehicleResponseDTO updateMotocycleById(String id, VehicleRequestDTO dto) {
 		return null;
 	}
 
 	public Page<VehicleResponseDTO> listVehicles(Pageable pageable) {
-		return null;
+		Page<Vehicle> page = vehicleRepository.findAll(pageable);
+
+		return page.map(vehicleMapper::toDTO);
 	}
 }
