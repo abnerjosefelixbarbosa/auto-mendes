@@ -15,4 +15,10 @@ import lombok.NoArgsConstructor;
 @PrimaryKeyJoinColumn(name = "id")
 public class Motocycle extends Vehicle {
 	private static final long serialVersionUID = 1L;
+
+	public void updateMotocycleFields(Motocycle source, Motocycle target) {
+		target.setPlate(source.getPlate());
+		target.setPrice(source.getPrice());
+		target.setTransmissionType(source.getTransmissionType());
+	}
 }

@@ -115,7 +115,23 @@ public class VehicleService implements IVehicleService {
 	}
 
 	private VehicleResponseDTO updateMotocycleById(String id, VehicleRequestDTO dto) {
-		return null;
+		Motocycle motocycle = vehicleMapper.toMotocycle(dto);
+		
+		vehicleValidation.validateMotocycle(motocycle);
+		
+		Motocycle motocycleFound = motocycleRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Veiculo não encontrado."));
+
+		Model modelFound = modelRepository.findByName(motocycle.getModel().getName())
+				.orElseThrow(() -> new NotFoundException("Modelo não encontrado."));
+		
+		motocycleFound.setModel(modelFound);
+		
+		motocycleFound.updateMotocycleFields(motocycle, motocycleFound);
+		
+		Motocycle motocycleSaved = motocycleRepository.save(motocycleFound);
+		
+		return vehicleMapper.toDTO(motocycleSaved);
 	}
 
 	public Page<VehicleResponseDTO> listVehicles(Pageable pageable) {
