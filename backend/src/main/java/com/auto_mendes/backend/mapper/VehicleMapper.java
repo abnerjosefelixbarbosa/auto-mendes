@@ -2,6 +2,7 @@ package com.auto_mendes.backend.mapper;
 
 import org.springframework.stereotype.Component;
 
+import com.auto_mendes.backend.dto.BrandResponseDTO;
 import com.auto_mendes.backend.dto.ModelResponseDTO;
 import com.auto_mendes.backend.dto.VehicleRequestDTO;
 import com.auto_mendes.backend.dto.VehicleResponseDTO;
@@ -47,7 +48,7 @@ public class VehicleMapper implements IVehicleMapper {
 		
 		VehicleResponseDTO vehicleResponseDTO = new VehicleResponseDTO();
 		vehicleResponseDTO.setId(car.getId());
-		vehicleResponseDTO.setDto(modelResponseDTO);
+		vehicleResponseDTO.setModel(modelResponseDTO);
 		vehicleResponseDTO.setPlate(car.getPlate());
 		vehicleResponseDTO.setPrice(car.getPrice());
 		vehicleResponseDTO.setTransmissionType(car.getTransmissionType());
@@ -57,13 +58,18 @@ public class VehicleMapper implements IVehicleMapper {
 	}
 
 	public VehicleResponseDTO toDTO(Motocycle motocycle) {
+		BrandResponseDTO brandResponseDTO = new BrandResponseDTO();
+		brandResponseDTO.setId(motocycle.getModel().getBrand().getId());
+		brandResponseDTO.setName(motocycle.getModel().getBrand().getName());
+		
 		ModelResponseDTO modelResponseDTO = new ModelResponseDTO();
 		modelResponseDTO.setId(motocycle.getId());
 		modelResponseDTO.setName(motocycle.getModel().getName());
+		modelResponseDTO.setBrand(brandResponseDTO);
 		
 		VehicleResponseDTO vehicleResponseDTO = new VehicleResponseDTO();
 		vehicleResponseDTO.setId(motocycle.getId());
-		vehicleResponseDTO.setDto(modelResponseDTO);
+		vehicleResponseDTO.setModel(modelResponseDTO);
 		vehicleResponseDTO.setPlate(motocycle.getPlate());
 		vehicleResponseDTO.setPrice(motocycle.getPrice());
 		vehicleResponseDTO.setTransmissionType(motocycle.getTransmissionType());
@@ -73,13 +79,18 @@ public class VehicleMapper implements IVehicleMapper {
 	}
 	
 	public VehicleResponseDTO toDTO(Vehicle vehicle) {
+		BrandResponseDTO brandResponseDTO = new BrandResponseDTO();
+		brandResponseDTO.setId(vehicle.getModel().getBrand().getId());
+		brandResponseDTO.setName(vehicle.getModel().getBrand().getName());
+		
 		ModelResponseDTO modelResponseDTO = new ModelResponseDTO();
 		modelResponseDTO.setId(vehicle.getId());
 		modelResponseDTO.setName(vehicle.getModel().getName());
+		modelResponseDTO.setBrand(brandResponseDTO);
 		
 		VehicleResponseDTO vehicleResponseDTO = new VehicleResponseDTO();
 		vehicleResponseDTO.setId(vehicle.getId());
-		vehicleResponseDTO.setDto(modelResponseDTO);
+		vehicleResponseDTO.setModel(modelResponseDTO);
 		vehicleResponseDTO.setPlate(vehicle.getPlate());
 		vehicleResponseDTO.setPrice(vehicle.getPrice());
 		vehicleResponseDTO.setTransmissionType(vehicle.getTransmissionType());

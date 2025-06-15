@@ -29,7 +29,7 @@ public class ModelMapper implements IModelMapper {
 		ModelResponseDTO modelResponseDTO = new ModelResponseDTO();
 		modelResponseDTO.setId(model.getId());
 		modelResponseDTO.setName(model.getName());
-		modelResponseDTO.setDto(brandResponseDTO);
+		modelResponseDTO.setBrand(brandResponseDTO);
 		
 		return modelResponseDTO;
 	}

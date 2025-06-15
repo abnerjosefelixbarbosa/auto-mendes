@@ -36,7 +36,7 @@ public class BrandController {
 	}
 
 	@ResponseStatus(value = HttpStatus.OK)
-	@PutMapping(value = "/update-brand-id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/update-brand-by-id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<BrandResponseDTO> updateBrandById(@RequestParam String id,
 			@RequestBody @Valid BrandRequestDTO dto) {
 		BrandResponseDTO response = brandService.updateBrandById(id, dto);

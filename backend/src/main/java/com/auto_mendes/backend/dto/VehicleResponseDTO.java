@@ -14,5 +14,5 @@ public class VehicleResponseDTO {
     private TransmissionType transmissionType;
     private BigDecimal price;
     private VehicleType vehicleType;
-	private ModelResponseDTO dto;
+	private ModelResponseDTO model;
 }
