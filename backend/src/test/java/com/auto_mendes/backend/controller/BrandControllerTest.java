@@ -45,8 +45,6 @@ class BrandControllerTest {
 
 	@Test
 	void shouldRegisterBrandAndReturnStatus201() throws Exception {
-		// load();
-
 		BrandRequestDTO brandRequestDTO = new BrandRequestDTO();
 		brandRequestDTO.setName("name1");
 
