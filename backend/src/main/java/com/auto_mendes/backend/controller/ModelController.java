@@ -29,7 +29,7 @@ public class ModelController {
 	
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@PostMapping(value = "/register-model", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ModelResponseDTO> registerBrand(@RequestBody @Valid ModelRequestDTO dto) {
+	public ResponseEntity<ModelResponseDTO> registerModel(@RequestBody @Valid ModelRequestDTO dto) {
 		ModelResponseDTO response = modelService.registeModel(dto);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -37,7 +37,7 @@ public class ModelController {
 
 	@ResponseStatus(value = HttpStatus.OK)
 	@PutMapping(value = "/update-model-id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ModelResponseDTO> updateBrandById(@RequestParam String id,
+	public ResponseEntity<ModelResponseDTO> updateModelById(@RequestParam String id,
 			@RequestBody @Valid ModelRequestDTO dto) {
 		ModelResponseDTO response = modelService.updateModelById(id, dto);
 
@@ -46,7 +46,7 @@ public class ModelController {
 
 	@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping(value = "/list-models", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Page<ModelResponseDTO>> listBrands(Pageable pageable) {
+	public ResponseEntity<Page<ModelResponseDTO>> listModels(Pageable pageable) {
 		Page<ModelResponseDTO> page = modelService.listModels(pageable);
 
 		return ResponseEntity.status(HttpStatus.OK).body(page);

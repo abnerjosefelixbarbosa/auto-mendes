@@ -22,9 +22,9 @@ import com.auto_mendes.backend.repository.IBrandRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
-@ActiveProfiles("test")
+@ActiveProfiles("dev")
 @AutoConfigureMockMvc
-class BrandControllerTest {
+class BrandControllerIT {
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
@@ -56,7 +56,7 @@ class BrandControllerTest {
 
 	@Test
 	void shouldUpdateBrandByIdAndReturnStatus200() throws Exception {
-		load();
+		loadBrand();
 
 		BrandRequestDTO brandRequestDTO = new BrandRequestDTO();
 		brandRequestDTO.setName("name2");
@@ -70,12 +70,12 @@ class BrandControllerTest {
 
 	@Test
 	void shouldListBrandsAndReturnStatus200() throws Exception {
-		load();
+		loadBrand();
 
 		mockMvc.perform(get("/api/brands/list-brands")).andExpect(status().isOk()).andDo(print());
 	}
 
-	void load() {
+	void loadBrand() {
 		Brand brand1 = new Brand();
 		brand1.setName("name1");
 
