@@ -39,6 +39,8 @@ public class VehicleController {
 	@PutMapping(value = "/update-vehicle-id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<VehicleResponseDTO> updateVehicleById(@RequestParam String id,
 			@RequestBody @Valid VehicleRequestDTO dto) {
+		System.out.println(id);
+		
 		VehicleResponseDTO response = vehicleService.updateVehicleById(id, dto);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
