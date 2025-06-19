@@ -31,7 +31,6 @@ class BrandControllerIT {
 	private ObjectMapper objectMapper;
 	@Autowired
 	private IBrandRepository brandRepository;
-	private String id = "";
 
 	@BeforeEach
 	void setUp() {
@@ -45,8 +44,13 @@ class BrandControllerIT {
 
 	@Test
 	void shouldRegisterBrandAndReturnStatus201() throws Exception {
+		Brand brand1 = new Brand();
+		brand1.setName("name1");
+
+		brandRepository.save(brand1);
+		
 		BrandRequestDTO brandRequestDTO = new BrandRequestDTO();
-		brandRequestDTO.setName("name1");
+		brandRequestDTO.setName("name2");
 
 		String json = objectMapper.writeValueAsString(brandRequestDTO);
 
@@ -56,7 +60,10 @@ class BrandControllerIT {
 
 	@Test
 	void shouldUpdateBrandByIdAndReturnStatus200() throws Exception {
-		loadBrand();
+		Brand brand1 = new Brand();
+		brand1.setName("name1");
+
+	 	String id = brandRepository.save(brand1).getId();
 
 		BrandRequestDTO brandRequestDTO = new BrandRequestDTO();
 		brandRequestDTO.setName("name2");
@@ -70,17 +77,15 @@ class BrandControllerIT {
 
 	@Test
 	void shouldListBrandsAndReturnStatus200() throws Exception {
-		loadBrand();
-
-		mockMvc.perform(get("/api/brands/list-brands")).andExpect(status().isOk()).andDo(print());
-	}
-
-	void loadBrand() {
 		Brand brand1 = new Brand();
 		brand1.setName("name1");
+		
+		Brand brand2 = new Brand();
+		brand2.setName("name2");
+		
+		brandRepository.save(brand1);
+		brandRepository.save(brand2);
 
-		Brand savedBrand = brandRepository.save(brand1);
-
-		id = savedBrand.getId();
+		mockMvc.perform(get("/api/brands/list-brands")).andExpect(status().isOk()).andDo(print());
 	}
 }

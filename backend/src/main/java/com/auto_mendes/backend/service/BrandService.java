@@ -1,5 +1,6 @@
 package com.auto_mendes.backend.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,7 +41,7 @@ public class BrandService implements IBrandService {
 		Brand brandFound = brandRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Marca não encontrada."));
 		
-		brandFound.updateBrandFields(brand, brandFound);
+		BeanUtils.copyProperties(brand, brandFound, "id");
 		
 		Brand brandSaved = brandRepository.save(brandFound);
 

@@ -1,5 +1,6 @@
 package com.auto_mendes.backend.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -54,7 +55,7 @@ public class ModelService implements IModelService {
 
 		model.setBrand(brandFound);
 		
-		modelFound.updateModelFields(model, modelFound);
+		BeanUtils.copyProperties(model, modelFound, "id");
 		
 		Model modelSaved = modelRepository.save(modelFound);
 		

@@ -1,5 +1,6 @@
 package com.auto_mendes.backend.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -86,12 +87,12 @@ public class VehicleService implements IVehicleService {
 		case "CAR":
 			vehicleResponseDTO = updateCarById(id, dto);
 			break;
-		case "MOTOCYCLE":
+		case "MOTORCYCLE":
 			vehicleResponseDTO = updateMotocycleById(id, dto);
 			break;
 		}
-
-		return vehicleResponseDTO;
+        
+        return vehicleResponseDTO;
 	}
 
 	private VehicleResponseDTO updateCarById(String id, VehicleRequestDTO dto) {
@@ -105,9 +106,9 @@ public class VehicleService implements IVehicleService {
 		Model modelFound = modelRepository.findByName(car.getModel().getName())
 				.orElseThrow(() -> new NotFoundException("Modelo não encontrado."));
 		
-		carFound.setModel(modelFound);
+		BeanUtils.copyProperties(car, carFound, "id");
 		
-		carFound.updateCarFields(car, carFound);
+		carFound.setModel(modelFound);
 		
 		Car carSaved = carRepository.save(carFound);
 
@@ -125,9 +126,9 @@ public class VehicleService implements IVehicleService {
 		Model modelFound = modelRepository.findByName(motocycle.getModel().getName())
 				.orElseThrow(() -> new NotFoundException("Modelo não encontrado."));
 		
-		motocycleFound.setModel(modelFound);
+		BeanUtils.copyProperties(motocycle, motocycleFound, "id");
 		
-		motocycleFound.updateMotocycleFields(motocycle, motocycleFound);
+		motocycleFound.setModel(modelFound);
 		
 		Motocycle motocycleSaved = motocycleRepository.save(motocycleFound);
 		

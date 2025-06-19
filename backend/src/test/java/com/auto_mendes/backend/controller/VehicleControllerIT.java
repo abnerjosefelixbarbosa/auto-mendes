@@ -43,7 +43,6 @@ class VehicleControllerIT {
 	private IModelRepository modelRepository;
 	@Autowired
 	private IVehicleRepository vehicleRepository;
-	private String id = "";
 
 	@BeforeEach
 	void setUp() {
@@ -61,10 +60,32 @@ class VehicleControllerIT {
 
 	@Test
 	void shouldRegisterVehicleAndReturnStatus201() throws Exception {
-		loadVehicle();
+		Brand brand1 = new Brand();
+		brand1.setName("name1");
+
+		Brand brandSaved1 = brandRepository.save(brand1);
+
+		Model model1 = new Model();
+		model1.setName("name1");
+		model1.setBrand(brandSaved1);
+
+		Model model2 = new Model();
+		model2.setName("name2");
+		model2.setBrand(brandSaved1);
+
+		Model modelSaved1 = modelRepository.save(model1);
+		modelRepository.save(model2);
+
+		Vehicle vehicle1 = new Vehicle();
+		vehicle1.setModel(modelSaved1);
+		vehicle1.setPrice(new BigDecimal("1500.00"));
+		vehicle1.setTransmissionType(TransmissionType.AUTO);
+		vehicle1.setVehicleType(VehicleType.CAR);
+
+		vehicleRepository.save(vehicle1);
 
 		VehicleRequestDTO vehicleRequestDTO = new VehicleRequestDTO();
-		vehicleRequestDTO.setModelName("name1");
+		vehicleRequestDTO.setModelName("name2");
 		vehicleRequestDTO.setPrice(new BigDecimal("1500.00"));
 		vehicleRequestDTO.setTransmissionType(TransmissionType.AUTO);
 		vehicleRequestDTO.setVehicleType(VehicleType.CAR);
@@ -77,29 +98,6 @@ class VehicleControllerIT {
 
 	@Test
 	void shouldUpdateVehicleByIdAndReturnStatus200() throws Exception {
-		loadVehicle();
-
-		VehicleRequestDTO vehicleRequestDTO = new VehicleRequestDTO();
-		vehicleRequestDTO.setModelName("name2");
-		vehicleRequestDTO.setPrice(new BigDecimal("1500.00"));
-		vehicleRequestDTO.setTransmissionType(TransmissionType.AUTO);
-		vehicleRequestDTO.setVehicleType(VehicleType.CAR);
-
-		String json = objectMapper.writeValueAsString(vehicleRequestDTO);
-
-		mockMvc.perform(put("/api/vehicles/update-vehicle-id").contentType(MediaType.APPLICATION_JSON)
-				.queryParam("id", id).accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isOk())
-				.andDo(print());
-	}
-
-	@Test
-	void shouldListVehiclesAndReturnStatus200() throws Exception {
-		loadVehicle();
-
-		mockMvc.perform(get("/api/vehicles/list-vehicles")).andExpect(status().isOk()).andDo(print());
-	}
-
-	void loadVehicle() {
 		Brand brand1 = new Brand();
 		brand1.setName("name1");
 
@@ -109,13 +107,12 @@ class VehicleControllerIT {
 		model1.setName("name1");
 		model1.setBrand(brandSaved1);
 
-		Model modelSaved1 = modelRepository.save(model1);
-
 		Model model2 = new Model();
 		model2.setName("name2");
 		model2.setBrand(brandSaved1);
 
-		Model modelSaved2 = modelRepository.save(model2);
+		Model modelSaved1 = modelRepository.save(model1);
+		modelRepository.save(model2);
 
 		Vehicle vehicle1 = new Vehicle();
 		vehicle1.setModel(modelSaved1);
@@ -123,8 +120,46 @@ class VehicleControllerIT {
 		vehicle1.setTransmissionType(TransmissionType.AUTO);
 		vehicle1.setVehicleType(VehicleType.CAR);
 
-		Vehicle vehicleSaved1 = vehicleRepository.save(vehicle1);
+		String id = vehicleRepository.save(vehicle1).getId();
 
-		id = vehicleSaved1.getId();
+		VehicleRequestDTO vehicleRequestDTO = new VehicleRequestDTO();
+		vehicleRequestDTO.setModelName("name2");
+		vehicleRequestDTO.setPrice(new BigDecimal("2500.00"));
+		vehicleRequestDTO.setTransmissionType(TransmissionType.AUTO);
+		vehicleRequestDTO.setVehicleType(VehicleType.CAR);
+
+		String json = objectMapper.writeValueAsString(vehicleRequestDTO);
+
+		mockMvc.perform(put("/api/vehicles/update-vehicle-id").contentType(MediaType.APPLICATION_JSON).queryParam("id", id)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isOk()).andDo(print());
+	}
+
+	@Test
+	void shouldListVehiclesAndReturnStatus200() throws Exception {
+		Brand brand1 = new Brand();
+		brand1.setName("name1");
+
+		Brand brandSaved1 = brandRepository.save(brand1);
+
+		Model model1 = new Model();
+		model1.setName("name1");
+		model1.setBrand(brandSaved1);
+
+		Model model2 = new Model();
+		model2.setName("name2");
+		model2.setBrand(brandSaved1);
+
+		Model modelSaved1 = modelRepository.save(model1);
+		modelRepository.save(model2);
+
+		Vehicle vehicle1 = new Vehicle();
+		vehicle1.setModel(modelSaved1);
+		vehicle1.setPrice(new BigDecimal("1500.00"));
+		vehicle1.setTransmissionType(TransmissionType.AUTO);
+		vehicle1.setVehicleType(VehicleType.CAR);
+
+		vehicleRepository.save(vehicle1);
+
+		mockMvc.perform(get("/api/vehicles/list-vehicles")).andExpect(status().isOk()).andDo(print());
 	}
 }

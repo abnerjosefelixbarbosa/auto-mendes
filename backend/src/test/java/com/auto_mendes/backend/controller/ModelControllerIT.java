@@ -35,7 +35,6 @@ class ModelControllerIT {
 	private IBrandRepository brandRepository;
 	@Autowired
 	private IModelRepository modelRepository;
-	private String id = "";
 
 	@BeforeEach
 	void setUp() {
@@ -51,7 +50,20 @@ class ModelControllerIT {
 
 	@Test
 	void shouldRegisterModelAndReturnStatus201() throws Exception {
-		loadModel();
+		Brand brand1 = new Brand();
+		brand1.setName("name1");
+
+		Brand brand2 = new Brand();
+		brand2.setName("name2");
+		
+		Brand brandSaved1 = brandRepository.save(brand1);
+		brandRepository.save(brand2);
+
+		Model model1 = new Model();
+		model1.setName("name1");
+		model1.setBrand(brandSaved1);
+
+		modelRepository.save(model1);
 
 		ModelRequestDTO modelRequestDTO = new ModelRequestDTO();
 		modelRequestDTO.setName("name2");
@@ -65,7 +77,20 @@ class ModelControllerIT {
 
 	@Test
 	void shouldUpdateModelByIdAndReturnStatus200() throws Exception {
-		loadModel();
+		Brand brand1 = new Brand();
+		brand1.setName("name1");
+
+		Brand brand2 = new Brand();
+		brand2.setName("name2");
+		
+		Brand brandSaved1 = brandRepository.save(brand1);
+		brandRepository.save(brand2);
+
+		Model model1 = new Model();
+		model1.setName("name1");
+		model1.setBrand(brandSaved1);
+
+		String id = modelRepository.save(model1).getId();
 
 		ModelRequestDTO modelRequestDTO = new ModelRequestDTO();
 		modelRequestDTO.setName("name2");
@@ -79,28 +104,26 @@ class ModelControllerIT {
 
 	@Test
 	void shouldListModelsAndReturnStatus200() throws Exception {
-		loadModel();
-
-		mockMvc.perform(get("/api/models/list-models")).andExpect(status().isOk()).andDo(print());
-	}
-
-	void loadModel() {
 		Brand brand1 = new Brand();
 		brand1.setName("name1");
 
-		Brand brandSaved1 = brandRepository.save(brand1);
-
 		Brand brand2 = new Brand();
 		brand2.setName("name2");
-
+		
+		Brand brandSaved1 = brandRepository.save(brand1);
 		Brand brandSaved2 = brandRepository.save(brand2);
 
 		Model model1 = new Model();
 		model1.setName("name1");
 		model1.setBrand(brandSaved1);
+		
+		Model model2 = new Model();
+		model2.setName("name2");
+		model2.setBrand(brandSaved2);
 
-		Model modelSaved1 = modelRepository.save(model1);
+		modelRepository.save(model1);
+		modelRepository.save(model2);
 
-		id = modelSaved1.getId();
+		mockMvc.perform(get("/api/models/list-models")).andExpect(status().isOk()).andDo(print());
 	}
 }

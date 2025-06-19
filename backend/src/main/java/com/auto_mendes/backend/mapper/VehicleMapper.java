@@ -42,6 +42,10 @@ public class VehicleMapper implements IVehicleMapper {
 	}
 
 	public VehicleResponseDTO toDTO(Car car) {
+		BrandResponseDTO brandResponseDTO = new BrandResponseDTO();
+		brandResponseDTO.setId(car.getModel().getBrand().getId());
+		brandResponseDTO.setName(car.getModel().getBrand().getName());
+		
 		ModelResponseDTO modelResponseDTO = new ModelResponseDTO();
 		modelResponseDTO.setId(car.getId());
 		modelResponseDTO.setName(car.getModel().getName());
