@@ -2,7 +2,6 @@ package com.auto_mendes.backend.mapper;
 
 import org.springframework.stereotype.Component;
 
-import com.auto_mendes.backend.dto.BrandResponseDTO;
 import com.auto_mendes.backend.dto.ModelRequestDTO;
 import com.auto_mendes.backend.dto.ModelResponseDTO;
 import com.auto_mendes.backend.model.Brand;
@@ -22,14 +21,10 @@ public class ModelMapper implements IModelMapper {
 	}
 
 	public ModelResponseDTO toDTO(Model model) {
-		BrandResponseDTO brandResponseDTO = new BrandResponseDTO();
-		brandResponseDTO.setId(model.getBrand().getId());
-		brandResponseDTO.setName(model.getBrand().getName());
-		
 		ModelResponseDTO modelResponseDTO = new ModelResponseDTO();
 		modelResponseDTO.setId(model.getId());
 		modelResponseDTO.setName(model.getName());
-		modelResponseDTO.setBrand(brandResponseDTO);
+		modelResponseDTO.setBrandName(model.getBrand().getName());
 		
 		return modelResponseDTO;
 	}

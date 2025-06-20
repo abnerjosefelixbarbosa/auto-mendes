@@ -52,53 +52,38 @@ public class VehicleMapper implements IVehicleMapper {
 		
 		VehicleResponseDTO vehicleResponseDTO = new VehicleResponseDTO();
 		vehicleResponseDTO.setId(car.getId());
-		vehicleResponseDTO.setModel(modelResponseDTO);
+		vehicleResponseDTO.setModelName(car.getModel().getName());
 		vehicleResponseDTO.setPlate(car.getPlate());
 		vehicleResponseDTO.setPrice(car.getPrice());
 		vehicleResponseDTO.setTransmissionType(car.getTransmissionType());
 		vehicleResponseDTO.setVehicleType(car.getVehicleType());
+		vehicleResponseDTO.setBarndName(car.getModel().getBrand().getName());
 		
 		return vehicleResponseDTO;
 	}
 
 	public VehicleResponseDTO toDTO(Motocycle motocycle) {
-		BrandResponseDTO brandResponseDTO = new BrandResponseDTO();
-		brandResponseDTO.setId(motocycle.getModel().getBrand().getId());
-		brandResponseDTO.setName(motocycle.getModel().getBrand().getName());
-		
-		ModelResponseDTO modelResponseDTO = new ModelResponseDTO();
-		modelResponseDTO.setId(motocycle.getId());
-		modelResponseDTO.setName(motocycle.getModel().getName());
-		modelResponseDTO.setBrand(brandResponseDTO);
-		
 		VehicleResponseDTO vehicleResponseDTO = new VehicleResponseDTO();
 		vehicleResponseDTO.setId(motocycle.getId());
-		vehicleResponseDTO.setModel(modelResponseDTO);
+		vehicleResponseDTO.setModelName(motocycle.getModel().getName());
 		vehicleResponseDTO.setPlate(motocycle.getPlate());
 		vehicleResponseDTO.setPrice(motocycle.getPrice());
 		vehicleResponseDTO.setTransmissionType(motocycle.getTransmissionType());
 		vehicleResponseDTO.setVehicleType(motocycle.getVehicleType());
+		vehicleResponseDTO.setBarndName(motocycle.getModel().getBrand().getName());
 		
 		return vehicleResponseDTO;
 	}
 	
 	public VehicleResponseDTO toDTO(Vehicle vehicle) {
-		BrandResponseDTO brandResponseDTO = new BrandResponseDTO();
-		brandResponseDTO.setId(vehicle.getModel().getBrand().getId());
-		brandResponseDTO.setName(vehicle.getModel().getBrand().getName());
-		
-		ModelResponseDTO modelResponseDTO = new ModelResponseDTO();
-		modelResponseDTO.setId(vehicle.getId());
-		modelResponseDTO.setName(vehicle.getModel().getName());
-		modelResponseDTO.setBrand(brandResponseDTO);
-		
 		VehicleResponseDTO vehicleResponseDTO = new VehicleResponseDTO();
 		vehicleResponseDTO.setId(vehicle.getId());
-		vehicleResponseDTO.setModel(modelResponseDTO);
+		vehicleResponseDTO.setModelName(vehicle.getModel().getName());
 		vehicleResponseDTO.setPlate(vehicle.getPlate());
 		vehicleResponseDTO.setPrice(vehicle.getPrice());
 		vehicleResponseDTO.setTransmissionType(vehicle.getTransmissionType());
 		vehicleResponseDTO.setVehicleType(vehicle.getVehicleType());
+		vehicleResponseDTO.setBarndName(vehicle.getModel().getBrand().getName());
 		
 		return vehicleResponseDTO;
 	}

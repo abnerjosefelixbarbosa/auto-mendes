@@ -42,7 +42,7 @@ public class VehicleService implements IVehicleService {
 		case "CAR":
 			vehicleResponseDTO = registerCar(dto);
 			break;
-		case "MOTOCYCLE":
+		case "MOTORCYCLE":
 			vehicleResponseDTO = registerMotocycle(dto);
 			break;
 		}
