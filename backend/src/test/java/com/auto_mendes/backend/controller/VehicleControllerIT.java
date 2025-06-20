@@ -22,11 +22,13 @@ import com.auto_mendes.backend.dto.VehicleRequestDTO;
 import com.auto_mendes.backend.enums.TransmissionType;
 import com.auto_mendes.backend.enums.VehicleType;
 import com.auto_mendes.backend.model.Brand;
+import com.auto_mendes.backend.model.Car;
 import com.auto_mendes.backend.model.Model;
-import com.auto_mendes.backend.model.Vehicle;
+import com.auto_mendes.backend.model.Motocycle;
 import com.auto_mendes.backend.repository.IBrandRepository;
+import com.auto_mendes.backend.repository.ICarRepository;
 import com.auto_mendes.backend.repository.IModelRepository;
-import com.auto_mendes.backend.repository.IVehicleRepository;
+import com.auto_mendes.backend.repository.IMotocycleRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
@@ -42,47 +44,29 @@ class VehicleControllerIT {
 	@Autowired
 	private IModelRepository modelRepository;
 	@Autowired
-	private IVehicleRepository vehicleRepository;
+	private ICarRepository carRepository;
+	@Autowired
+	private IMotocycleRepository motocycleRepository;
 
 	@BeforeEach
 	void setUp() {
-		vehicleRepository.deleteAll();
+		motocycleRepository.deleteAll();
+		carRepository.deleteAll();
 		modelRepository.deleteAll();
 		brandRepository.deleteAll();
 	}
 
 	@AfterEach
 	void tearDown() {
-		vehicleRepository.deleteAll();
+		motocycleRepository.deleteAll();
+		carRepository.deleteAll();
 		modelRepository.deleteAll();
 		brandRepository.deleteAll();
 	}
 
 	@Test
 	void shouldRegisterVehicleAndReturnStatus201() throws Exception {
-		Brand brand1 = new Brand();
-		brand1.setName("name1");
-
-		Brand brandSaved1 = brandRepository.save(brand1);
-
-		Model model1 = new Model();
-		model1.setName("name1");
-		model1.setBrand(brandSaved1);
-
-		Model model2 = new Model();
-		model2.setName("name2");
-		model2.setBrand(brandSaved1);
-
-		Model modelSaved1 = modelRepository.save(model1);
-		modelRepository.save(model2);
-
-		Vehicle vehicle1 = new Vehicle();
-		vehicle1.setModel(modelSaved1);
-		vehicle1.setPrice(new BigDecimal("1500.00"));
-		vehicle1.setTransmissionType(TransmissionType.AUTO);
-		vehicle1.setVehicleType(VehicleType.CAR);
-
-		vehicleRepository.save(vehicle1);
+		loadVehicleRegisted();
 
 		VehicleRequestDTO vehicleRequestDTO = new VehicleRequestDTO();
 		vehicleRequestDTO.setModelName("name2");
@@ -98,29 +82,7 @@ class VehicleControllerIT {
 
 	@Test
 	void shouldUpdateVehicleByIdAndReturnStatus200() throws Exception {
-		Brand brand1 = new Brand();
-		brand1.setName("name1");
-
-		Brand brandSaved1 = brandRepository.save(brand1);
-
-		Model model1 = new Model();
-		model1.setName("name1");
-		model1.setBrand(brandSaved1);
-
-		Model model2 = new Model();
-		model2.setName("name2");
-		model2.setBrand(brandSaved1);
-
-		Model modelSaved1 = modelRepository.save(model1);
-		modelRepository.save(model2);
-
-		Vehicle vehicle1 = new Vehicle();
-		vehicle1.setModel(modelSaved1);
-		vehicle1.setPrice(new BigDecimal("1500.00"));
-		vehicle1.setTransmissionType(TransmissionType.AUTO);
-		vehicle1.setVehicleType(VehicleType.CAR);
-
-		String id = vehicleRepository.save(vehicle1).getId();
+		String id = loadVehicleUptadedWithId();
 
 		VehicleRequestDTO vehicleRequestDTO = new VehicleRequestDTO();
 		vehicleRequestDTO.setModelName("name2");
@@ -136,6 +98,12 @@ class VehicleControllerIT {
 
 	@Test
 	void shouldListVehiclesAndReturnStatus200() throws Exception {
+		loadVehicleListed();
+
+		mockMvc.perform(get("/api/vehicles/list-vehicles")).andExpect(status().isOk()).andDo(print());
+	}
+	
+	void loadVehicleRegisted() {
 		Brand brand1 = new Brand();
 		brand1.setName("name1");
 
@@ -152,14 +120,73 @@ class VehicleControllerIT {
 		Model modelSaved1 = modelRepository.save(model1);
 		modelRepository.save(model2);
 
-		Vehicle vehicle1 = new Vehicle();
+		Car vehicle1 = new Car();
 		vehicle1.setModel(modelSaved1);
 		vehicle1.setPrice(new BigDecimal("1500.00"));
 		vehicle1.setTransmissionType(TransmissionType.AUTO);
 		vehicle1.setVehicleType(VehicleType.CAR);
 
-		vehicleRepository.save(vehicle1);
+		carRepository.save(vehicle1);
+	}
+	
+	String loadVehicleUptadedWithId() {
+		Brand brand1 = new Brand();
+		brand1.setName("name1");
 
-		mockMvc.perform(get("/api/vehicles/list-vehicles")).andExpect(status().isOk()).andDo(print());
+		Brand brandSaved1 = brandRepository.save(brand1);
+
+		Model model1 = new Model();
+		model1.setName("name1");
+		model1.setBrand(brandSaved1);
+
+		Model model2 = new Model();
+		model2.setName("name2");
+		model2.setBrand(brandSaved1);
+
+		Model modelSaved1 = modelRepository.save(model1);
+		modelRepository.save(model2);
+
+		Car vehicle1 = new Car();
+		vehicle1.setModel(modelSaved1);
+		vehicle1.setPrice(new BigDecimal("1500.00"));
+		vehicle1.setTransmissionType(TransmissionType.AUTO);
+		vehicle1.setVehicleType(VehicleType.CAR);
+
+		String id = carRepository.save(vehicle1).getId();
+		
+		return id;
+	}
+	
+	void loadVehicleListed() {
+		Brand brand1 = new Brand();
+		brand1.setName("name1");
+
+		Brand brandSaved1 = brandRepository.save(brand1);
+
+		Model model1 = new Model();
+		model1.setName("name1");
+		model1.setBrand(brandSaved1);
+
+		Model model2 = new Model();
+		model2.setName("name2");
+		model2.setBrand(brandSaved1);
+
+		Model modelSaved1 = modelRepository.save(model1);
+		modelRepository.save(model2);
+
+		Car vehicle1 = new Car();
+		vehicle1.setModel(modelSaved1);
+		vehicle1.setPrice(new BigDecimal("1500.00"));
+		vehicle1.setTransmissionType(TransmissionType.AUTO);
+		vehicle1.setVehicleType(VehicleType.CAR);
+		
+		Motocycle vehicle2 = new Motocycle();
+		vehicle2.setModel(modelSaved1);
+		vehicle2.setPrice(new BigDecimal("1500.00"));
+		vehicle2.setTransmissionType(TransmissionType.AUTO);
+		vehicle2.setVehicleType(VehicleType.MOTORCYCLE);
+
+		carRepository.save(vehicle1);
+		motocycleRepository.save(vehicle2);
 	}
 }

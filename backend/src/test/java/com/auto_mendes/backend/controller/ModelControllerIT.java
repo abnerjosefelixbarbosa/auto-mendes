@@ -50,6 +50,40 @@ class ModelControllerIT {
 
 	@Test
 	void shouldRegisterModelAndReturnStatus201() throws Exception {
+		loadModelRegisted();
+
+		ModelRequestDTO modelRequestDTO = new ModelRequestDTO();
+		modelRequestDTO.setName("name2");
+		modelRequestDTO.setBrandName("name1");
+
+		String json = objectMapper.writeValueAsString(modelRequestDTO);
+
+		mockMvc.perform(post("/api/models/register-model").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
+	}
+
+	@Test
+	void shouldUpdateModelByIdAndReturnStatus200() throws Exception {
+		String id = loadModelUpdatedWithId();
+
+		ModelRequestDTO modelRequestDTO = new ModelRequestDTO();
+		modelRequestDTO.setName("name2");
+		modelRequestDTO.setBrandName("name1");
+
+		String json = objectMapper.writeValueAsString(modelRequestDTO);
+
+		mockMvc.perform(put("/api/models/update-model-id").contentType(MediaType.APPLICATION_JSON).queryParam("id", id)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isOk()).andDo(print());
+	}
+
+	@Test
+	void shouldListModelsAndReturnStatus200() throws Exception {
+		loadModelListed();
+
+		mockMvc.perform(get("/api/models/list-models")).andExpect(status().isOk()).andDo(print());
+	}
+	
+	void loadModelRegisted() {
 		Brand brand1 = new Brand();
 		brand1.setName("name1");
 
@@ -64,19 +98,9 @@ class ModelControllerIT {
 		model1.setBrand(brandSaved1);
 
 		modelRepository.save(model1);
-
-		ModelRequestDTO modelRequestDTO = new ModelRequestDTO();
-		modelRequestDTO.setName("name2");
-		modelRequestDTO.setBrandName("name1");
-
-		String json = objectMapper.writeValueAsString(modelRequestDTO);
-
-		mockMvc.perform(post("/api/models/register-model").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
 	}
-
-	@Test
-	void shouldUpdateModelByIdAndReturnStatus200() throws Exception {
+	
+    String loadModelUpdatedWithId() {
 		Brand brand1 = new Brand();
 		brand1.setName("name1");
 
@@ -91,19 +115,11 @@ class ModelControllerIT {
 		model1.setBrand(brandSaved1);
 
 		String id = modelRepository.save(model1).getId();
-
-		ModelRequestDTO modelRequestDTO = new ModelRequestDTO();
-		modelRequestDTO.setName("name2");
-		modelRequestDTO.setBrandName("name1");
-
-		String json = objectMapper.writeValueAsString(modelRequestDTO);
-
-		mockMvc.perform(put("/api/models/update-model-id").contentType(MediaType.APPLICATION_JSON).queryParam("id", id)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isOk()).andDo(print());
+		
+		return id;
 	}
-
-	@Test
-	void shouldListModelsAndReturnStatus200() throws Exception {
+	
+	void loadModelListed() {
 		Brand brand1 = new Brand();
 		brand1.setName("name1");
 
@@ -123,7 +139,5 @@ class ModelControllerIT {
 
 		modelRepository.save(model1);
 		modelRepository.save(model2);
-
-		mockMvc.perform(get("/api/models/list-models")).andExpect(status().isOk()).andDo(print());
 	}
 }

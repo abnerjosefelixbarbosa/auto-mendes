@@ -44,10 +44,7 @@ class BrandControllerIT {
 
 	@Test
 	void shouldRegisterBrandAndReturnStatus201() throws Exception {
-		Brand brand1 = new Brand();
-		brand1.setName("name1");
-
-		brandRepository.save(brand1);
+		loadBrandRegisted();
 		
 		BrandRequestDTO brandRequestDTO = new BrandRequestDTO();
 		brandRequestDTO.setName("name2");
@@ -60,10 +57,7 @@ class BrandControllerIT {
 
 	@Test
 	void shouldUpdateBrandByIdAndReturnStatus200() throws Exception {
-		Brand brand1 = new Brand();
-		brand1.setName("name1");
-
-	 	String id = brandRepository.save(brand1).getId();
+		String id = loadBrandUpdatedWithId();
 
 		BrandRequestDTO brandRequestDTO = new BrandRequestDTO();
 		brandRequestDTO.setName("name2");
@@ -77,15 +71,35 @@ class BrandControllerIT {
 
 	@Test
 	void shouldListBrandsAndReturnStatus200() throws Exception {
+		loadBrandListed();
+
+		mockMvc.perform(get("/api/brands/list-brands")).andExpect(status().isOk()).andDo(print());
+	}
+	
+	void loadBrandRegisted() {
+		Brand brand1 = new Brand();
+		brand1.setName("name1");
+
+		brandRepository.save(brand1);
+	}
+	
+	String loadBrandUpdatedWithId() {
+		Brand brand1 = new Brand();
+		brand1.setName("name1");
+
+		String id = brandRepository.save(brand1).getId();
+		
+		return id;
+	}
+	
+	void loadBrandListed() {
 		Brand brand1 = new Brand();
 		brand1.setName("name1");
 		
 		Brand brand2 = new Brand();
 		brand2.setName("name2");
-		
+
 		brandRepository.save(brand1);
 		brandRepository.save(brand2);
-
-		mockMvc.perform(get("/api/brands/list-brands")).andExpect(status().isOk()).andDo(print());
 	}
 }
