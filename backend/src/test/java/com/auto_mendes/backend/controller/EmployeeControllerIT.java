@@ -1,6 +1,8 @@
 package com.auto_mendes.backend.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -13,9 +15,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.auto_mendes.backend.dto.EmployeeRequestDTO;
 import com.auto_mendes.backend.enums.EmployeeType;
 import com.auto_mendes.backend.model.Manager;
 import com.auto_mendes.backend.model.Saler;
@@ -52,6 +56,70 @@ class EmployeeControllerIT {
 		managerRepository.deleteAll();
 		submanagerRepository.deleteAll();
 		salerRepository.deleteAll();
+	}
+	
+	@Test
+	void shouldRegisterEmployeeAndReturnStatus201() throws Exception {
+		loadEmployeeRegister();
+		
+		EmployeeRequestDTO employeeRequestDTO = new EmployeeRequestDTO();
+		employeeRequestDTO.setBirthDate(LocalDate.of(1992, 02, 02));
+		employeeRequestDTO.setCommission(new BigDecimal("100.00"));
+		employeeRequestDTO.setEmail("email2@gmail.com");
+		employeeRequestDTO.setEmployeeType(EmployeeType.MANAGER);
+		employeeRequestDTO.setMatriculation("2222222222");
+		employeeRequestDTO.setName("name2");
+		employeeRequestDTO.setPhone("(81) 92222-2222");
+		
+		String json = objectMapper.writeValueAsString(employeeRequestDTO);
+		
+		mockMvc.perform(post("/api/employees/register-employee").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
+	}
+	
+	private void loadEmployeeRegister() {
+		Manager employee1 = new Manager();
+		employee1.setBirthDate(LocalDate.of(1991, 01, 01));
+		employee1.setEmail("email1@gmail.com");
+		employee1.setEmployeeType(EmployeeType.MANAGER);
+		employee1.setMatriculation("1111111111");
+		employee1.setName("name1");
+		employee1.setPhone("(81) 91111-1111");
+		
+		managerRepository.save(employee1);
+	}
+	
+	@Test
+	void shouldUpdateEmployeeByIdAndReturnStatus200() throws Exception {
+		String id = loadEmployeeUpdatedWithId();
+
+		EmployeeRequestDTO employeeRequestDTO = new EmployeeRequestDTO();
+		employeeRequestDTO.setBirthDate(LocalDate.of(1992, 02, 02));
+		employeeRequestDTO.setCommission(new BigDecimal("100.00"));
+		employeeRequestDTO.setEmail("email2@gmail.com");
+		employeeRequestDTO.setEmployeeType(EmployeeType.MANAGER);
+		employeeRequestDTO.setMatriculation("2222222222");
+		employeeRequestDTO.setName("name2");
+		employeeRequestDTO.setPhone("(81) 92222-2222");
+
+		String json = objectMapper.writeValueAsString(employeeRequestDTO);
+
+		mockMvc.perform(put("/api/employees/update-employee-id").contentType(MediaType.APPLICATION_JSON).queryParam("id", id)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isOk()).andDo(print());
+	}
+	
+	private String loadEmployeeUpdatedWithId() {
+		Manager employee1 = new Manager();
+		employee1.setBirthDate(LocalDate.of(1991, 01, 01));
+		employee1.setEmail("email1@gmail.com");
+		employee1.setEmployeeType(EmployeeType.MANAGER);
+		employee1.setMatriculation("1111111111");
+		employee1.setName("name1");
+		employee1.setPhone("(81) 91111-1111");
+		
+		String id = managerRepository.save(employee1).getId();
+		
+		return id;
 	}
 
 	@Test
