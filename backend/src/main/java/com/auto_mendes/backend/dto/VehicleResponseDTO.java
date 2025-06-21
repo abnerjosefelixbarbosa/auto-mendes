@@ -14,6 +14,8 @@ public class VehicleResponseDTO {
     private TransmissionType transmissionType;
     private BigDecimal price;
     private VehicleType vehicleType;
+    private String modelId;
 	private String modelName;
+	private String barndId;
 	private String barndName;
 }

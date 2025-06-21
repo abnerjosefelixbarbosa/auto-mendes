@@ -2,8 +2,6 @@ package com.auto_mendes.backend.mapper;
 
 import org.springframework.stereotype.Component;
 
-import com.auto_mendes.backend.dto.BrandResponseDTO;
-import com.auto_mendes.backend.dto.ModelResponseDTO;
 import com.auto_mendes.backend.dto.VehicleRequestDTO;
 import com.auto_mendes.backend.dto.VehicleResponseDTO;
 import com.auto_mendes.backend.model.Car;
@@ -42,21 +40,15 @@ public class VehicleMapper implements IVehicleMapper {
 	}
 
 	public VehicleResponseDTO toDTO(Car car) {
-		BrandResponseDTO brandResponseDTO = new BrandResponseDTO();
-		brandResponseDTO.setId(car.getModel().getBrand().getId());
-		brandResponseDTO.setName(car.getModel().getBrand().getName());
-		
-		ModelResponseDTO modelResponseDTO = new ModelResponseDTO();
-		modelResponseDTO.setId(car.getId());
-		modelResponseDTO.setName(car.getModel().getName());
-		
 		VehicleResponseDTO vehicleResponseDTO = new VehicleResponseDTO();
 		vehicleResponseDTO.setId(car.getId());
-		vehicleResponseDTO.setModelName(car.getModel().getName());
 		vehicleResponseDTO.setPlate(car.getPlate());
 		vehicleResponseDTO.setPrice(car.getPrice());
 		vehicleResponseDTO.setTransmissionType(car.getTransmissionType());
 		vehicleResponseDTO.setVehicleType(car.getVehicleType());
+		vehicleResponseDTO.setModelId(car.getModel().getId());
+		vehicleResponseDTO.setModelName(car.getModel().getName());
+		vehicleResponseDTO.setBarndId(car.getModel().getBrand().getId());
 		vehicleResponseDTO.setBarndName(car.getModel().getBrand().getName());
 		
 		return vehicleResponseDTO;
@@ -65,11 +57,13 @@ public class VehicleMapper implements IVehicleMapper {
 	public VehicleResponseDTO toDTO(Motocycle motocycle) {
 		VehicleResponseDTO vehicleResponseDTO = new VehicleResponseDTO();
 		vehicleResponseDTO.setId(motocycle.getId());
-		vehicleResponseDTO.setModelName(motocycle.getModel().getName());
 		vehicleResponseDTO.setPlate(motocycle.getPlate());
 		vehicleResponseDTO.setPrice(motocycle.getPrice());
 		vehicleResponseDTO.setTransmissionType(motocycle.getTransmissionType());
 		vehicleResponseDTO.setVehicleType(motocycle.getVehicleType());
+		vehicleResponseDTO.setModelId(motocycle.getModel().getId());
+		vehicleResponseDTO.setModelName(motocycle.getModel().getName());
+		vehicleResponseDTO.setBarndId(motocycle.getModel().getBrand().getId());
 		vehicleResponseDTO.setBarndName(motocycle.getModel().getBrand().getName());
 		
 		return vehicleResponseDTO;
@@ -78,11 +72,13 @@ public class VehicleMapper implements IVehicleMapper {
 	public VehicleResponseDTO toDTO(Vehicle vehicle) {
 		VehicleResponseDTO vehicleResponseDTO = new VehicleResponseDTO();
 		vehicleResponseDTO.setId(vehicle.getId());
-		vehicleResponseDTO.setModelName(vehicle.getModel().getName());
 		vehicleResponseDTO.setPlate(vehicle.getPlate());
 		vehicleResponseDTO.setPrice(vehicle.getPrice());
 		vehicleResponseDTO.setTransmissionType(vehicle.getTransmissionType());
 		vehicleResponseDTO.setVehicleType(vehicle.getVehicleType());
+		vehicleResponseDTO.setModelId(vehicle.getModel().getId());
+		vehicleResponseDTO.setModelName(vehicle.getModel().getName());
+		vehicleResponseDTO.setBarndId(vehicle.getModel().getBrand().getId());
 		vehicleResponseDTO.setBarndName(vehicle.getModel().getBrand().getName());
 		
 		return vehicleResponseDTO;

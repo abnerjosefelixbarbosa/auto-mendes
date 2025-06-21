@@ -1,30 +1,94 @@
 package com.auto_mendes.backend.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+
+import com.auto_mendes.backend.enums.EmployeeType;
+import com.auto_mendes.backend.model.Manager;
+import com.auto_mendes.backend.model.Saler;
+import com.auto_mendes.backend.model.Submanager;
+import com.auto_mendes.backend.repository.IManagerRepository;
+import com.auto_mendes.backend.repository.ISalerRepository;
+import com.auto_mendes.backend.repository.ISubmanagerRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 @ActiveProfiles("dev")
 @AutoConfigureMockMvc
 class EmployeeControllerIT {
+	@Autowired
+	private MockMvc mockMvc;
+	@Autowired
+	private ObjectMapper objectMapper;
+	@Autowired
+	private IManagerRepository managerRepository;
+	@Autowired
+	private ISubmanagerRepository submanagerRepository;
+	@Autowired
+	private ISalerRepository salerRepository;
 
 	@BeforeEach
-	void setUp() throws Exception {
+	void setUp() {
+		managerRepository.deleteAll();
+		submanagerRepository.deleteAll();
+		salerRepository.deleteAll();
 	}
 
 	@AfterEach
-	void tearDown() throws Exception {
+	void tearDown() {
+		managerRepository.deleteAll();
+		submanagerRepository.deleteAll();
+		salerRepository.deleteAll();
 	}
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void shouldListEmployeesAndReturnStatus200() throws Exception {
+		loadEmployeeListed();
+		
+		mockMvc.perform(get("/api/employees/list-employees")).andExpect(status().isOk()).andDo(print());
 	}
-
+	
+	private void loadEmployeeListed() {
+		Manager employee1 = new Manager();
+		employee1.setBirthDate(LocalDate.of(1991, 01, 01));
+		employee1.setEmail("email1@gmail.com");
+		employee1.setEmployeeType(EmployeeType.MANAGER);
+		employee1.setMatriculation("1111111111");
+		employee1.setName("name1");
+		employee1.setPhone("(81) 91111-1111");
+		
+		Submanager employee2 = new Submanager();
+		employee2.setBirthDate(LocalDate.of(1992, 02, 02));
+		employee2.setEmail("email2@gmail.com");
+		employee2.setEmployeeType(EmployeeType.SUBMANAGER);
+		employee2.setMatriculation("2222222222");
+		employee2.setName("name2");
+		employee2.setPhone("(81) 92222-2222");
+		
+		Saler employee3 = new Saler();
+		employee3.setBirthDate(LocalDate.of(1993, 03, 03));
+		employee3.setEmail("email3@gmail.com");
+		employee3.setEmployeeType(EmployeeType.SALER);
+		employee3.setMatriculation("3333333333");
+		employee3.setName("name3");
+		employee3.setPhone("(81) 93333-3333");
+		employee3.setCommission(new BigDecimal("1500.00"));
+		
+		managerRepository.save(employee1);
+		submanagerRepository.save(employee2);
+		salerRepository.save(employee3);
+	}
 }
