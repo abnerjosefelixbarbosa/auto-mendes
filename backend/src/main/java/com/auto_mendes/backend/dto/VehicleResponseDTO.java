@@ -2,8 +2,11 @@ package com.auto_mendes.backend.dto;
 
 import java.math.BigDecimal;
 
+import org.springframework.beans.BeanUtils;
+
 import com.auto_mendes.backend.enums.TransmissionType;
 import com.auto_mendes.backend.enums.VehicleType;
+import com.auto_mendes.backend.model.Vehicle;
 
 import lombok.Data;
 
@@ -14,8 +17,10 @@ public class VehicleResponseDTO {
     private TransmissionType transmissionType;
     private BigDecimal price;
     private VehicleType vehicleType;
-    private String modelId;
 	private String modelName;
-	private String barndId;
-	private String barndName;
+	
+	public VehicleResponseDTO(Vehicle vehicle) {
+		BeanUtils.copyProperties(vehicle, this);
+		this.modelName = vehicle.getModel().getName();
+	}
 }

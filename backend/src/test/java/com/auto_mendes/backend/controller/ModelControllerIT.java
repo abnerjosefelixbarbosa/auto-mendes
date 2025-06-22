@@ -54,33 +54,12 @@ class ModelControllerIT {
 
 		ModelRequestDTO modelRequestDTO = new ModelRequestDTO();
 		modelRequestDTO.setName("name2");
-		modelRequestDTO.setBrandName("name1");
+		modelRequestDTO.setBrandName("name2");
 
 		String json = objectMapper.writeValueAsString(modelRequestDTO);
 
 		mockMvc.perform(post("/api/models/register-model").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
-	}
-
-	@Test
-	void shouldUpdateModelByIdAndReturnStatus200() throws Exception {
-		String id = loadModelUpdatedWithId();
-
-		ModelRequestDTO modelRequestDTO = new ModelRequestDTO();
-		modelRequestDTO.setName("name2");
-		modelRequestDTO.setBrandName("name1");
-
-		String json = objectMapper.writeValueAsString(modelRequestDTO);
-
-		mockMvc.perform(put("/api/models/update-model-id").contentType(MediaType.APPLICATION_JSON).queryParam("id", id)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isOk()).andDo(print());
-	}
-
-	@Test
-	void shouldListModelsAndReturnStatus200() throws Exception {
-		loadModelListed();
-
-		mockMvc.perform(get("/api/models/list-models")).andExpect(status().isOk()).andDo(print());
 	}
 	
 	void loadModelRegisted() {
@@ -99,8 +78,22 @@ class ModelControllerIT {
 
 		modelRepository.save(model1);
 	}
+
+	@Test
+	void shouldUpdateModelByIdAndReturnStatus200() throws Exception {
+		String id = loadModelUpdatedWithId();
+
+		ModelRequestDTO modelRequestDTO = new ModelRequestDTO();
+		modelRequestDTO.setName("name2");
+		modelRequestDTO.setBrandName("name2");
+
+		String json = objectMapper.writeValueAsString(modelRequestDTO);
+
+		mockMvc.perform(put("/api/models/update-model-id").contentType(MediaType.APPLICATION_JSON).queryParam("id", id)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isOk()).andDo(print());
+	}
 	
-    String loadModelUpdatedWithId() {
+	String loadModelUpdatedWithId() {
 		Brand brand1 = new Brand();
 		brand1.setName("name1");
 
@@ -117,6 +110,13 @@ class ModelControllerIT {
 		String id = modelRepository.save(model1).getId();
 		
 		return id;
+	}
+
+	@Test
+	void shouldListModelsAndReturnStatus200() throws Exception {
+		loadModelListed();
+
+		mockMvc.perform(get("/api/models/list-models")).andExpect(status().isOk()).andDo(print());
 	}
 	
 	void loadModelListed() {

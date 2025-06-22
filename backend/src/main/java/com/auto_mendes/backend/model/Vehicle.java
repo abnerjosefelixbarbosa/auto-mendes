@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
+
+import com.auto_mendes.backend.dto.VehicleRequestDTO;
 import com.auto_mendes.backend.enums.TransmissionType;
 import com.auto_mendes.backend.enums.VehicleType;
 
@@ -12,8 +15,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -25,7 +26,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "vehicle_tb")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Vehicle implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -46,4 +46,11 @@ public class Vehicle implements Serializable {
 	private Model model;
 	@OneToMany(mappedBy = "vehicle")
 	private List<SaleVehicle> saleVehicles;
+	
+	public Vehicle(VehicleRequestDTO dto) {
+		Model model = new Model();
+		model.setName(dto.getModelName());
+		BeanUtils.copyProperties(dto, this);
+		this.model = model;
+	}
 }

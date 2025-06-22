@@ -1,8 +1,13 @@
 package com.auto_mendes.backend.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
+import org.springframework.beans.BeanUtils;
+
+import com.auto_mendes.backend.dto.EmployeeRequestDTO;
 import com.auto_mendes.backend.enums.EmployeeType;
 
 import jakarta.persistence.Column;
@@ -14,6 +19,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -40,15 +46,15 @@ public class Employee implements Serializable {
 	private String phone;
 	@Column(name = "birth_date", nullable = false)
 	private LocalDate birthDate;
+	@Column(name = "commission")
+	private BigDecimal commission;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "employee_type", nullable = false)
 	private EmployeeType employeeType;
+	@OneToMany(mappedBy = "employee")
+	private List<Sale> sales;
 	
-	public void updateEmployeeFields(Employee source, Employee target) {
-		target.setName(source.getName());
-		target.setEmail(source.getEmail());
-		target.setMatriculation(source.getMatriculation());
-		target.setPhone(source.getPhone());
-		target.setBirthDate(source.getBirthDate());
+	public Employee(EmployeeRequestDTO dto) {
+		BeanUtils.copyProperties(dto, this);
 	}
 }

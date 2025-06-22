@@ -14,4 +14,6 @@ public interface IEmployeeRepository extends JpaRepository<Employee, String> {
 	@Query(value = "SELECT e.id, e.name, e.email, e.matriculation, e.phone, e.birth_date, e.employee_type, s.commission "
 			+ "FROM employee_tb e " + "LEFT JOIN saler_tb s ON e.id = s.id", nativeQuery = true)
 	Page<EmployeeResponseListDTO> listEmployees(Pageable pageable);
+
+	boolean existsByEmailOrMatriculationOrPhone(String email, String matriculation, String phone);
 }

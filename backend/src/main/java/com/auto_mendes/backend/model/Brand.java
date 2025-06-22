@@ -3,6 +3,10 @@ package com.auto_mendes.backend.model;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
+
+import com.auto_mendes.backend.dto.BrandRequestDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,4 +32,8 @@ public class Brand implements Serializable {
 	private String name;
 	@OneToMany(mappedBy = "brand")
 	private List<Model> models;
+	
+	public Brand(BrandRequestDTO dto) {
+		BeanUtils.copyProperties(dto, this);
+	}
 }

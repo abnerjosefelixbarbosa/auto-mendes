@@ -54,6 +54,13 @@ class BrandControllerIT {
 		mockMvc.perform(post("/api/brands/register-brand").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
 	}
+	
+	void loadBrandRegisted() {
+		Brand brand1 = new Brand();
+		brand1.setName("name1");
+
+		brandRepository.save(brand1);
+	}
 
 	@Test
 	void shouldUpdateBrandByIdAndReturnStatus200() throws Exception {
@@ -68,20 +75,6 @@ class BrandControllerIT {
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(json))
 				.andExpect(status().isOk()).andDo(print());
 	}
-
-	@Test
-	void shouldListBrandsAndReturnStatus200() throws Exception {
-		loadBrandListed();
-
-		mockMvc.perform(get("/api/brands/list-brands")).andExpect(status().isOk()).andDo(print());
-	}
-	
-	void loadBrandRegisted() {
-		Brand brand1 = new Brand();
-		brand1.setName("name1");
-
-		brandRepository.save(brand1);
-	}
 	
 	String loadBrandUpdatedWithId() {
 		Brand brand1 = new Brand();
@@ -90,6 +83,13 @@ class BrandControllerIT {
 		String id = brandRepository.save(brand1).getId();
 		
 		return id;
+	}
+
+	@Test
+	void shouldListBrandsAndReturnStatus200() throws Exception {
+		loadBrandListed();
+
+		mockMvc.perform(get("/api/brands/list-brands")).andExpect(status().isOk()).andDo(print());
 	}
 	
 	void loadBrandListed() {

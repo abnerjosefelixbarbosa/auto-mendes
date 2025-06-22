@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.auto_mendes.backend.dto.BrandRequestDTO;
 import com.auto_mendes.backend.dto.BrandResponseDTO;
 import com.auto_mendes.backend.exception.NotFoundException;
-import com.auto_mendes.backend.mapper.IBrandMapper;
 import com.auto_mendes.backend.model.Brand;
 import com.auto_mendes.backend.repository.IBrandRepository;
 import com.auto_mendes.backend.validation.IBrandValidation;
@@ -17,24 +16,22 @@ import com.auto_mendes.backend.validation.IBrandValidation;
 @Service
 public class BrandService implements IBrandService {
 	@Autowired
-	private IBrandMapper brandMapper;
-	@Autowired
 	private IBrandValidation brandValidation;
 	@Autowired
 	private IBrandRepository brandRepository;
 
 	public BrandResponseDTO registerBrand(BrandRequestDTO dto) {
-		Brand brand = brandMapper.toEntity(dto);
+		Brand brand = new Brand(dto);
 
 		brandValidation.validateBrand(brand);
 
 		Brand brandSaved = brandRepository.save(brand);
 
-		return brandMapper.toDTO(brandSaved);
+		return new BrandResponseDTO(brandSaved);
 	}
 
 	public BrandResponseDTO updateBrandById(String id, BrandRequestDTO dto) {
-		Brand brand = brandMapper.toEntity(dto);
+		Brand brand = new Brand(dto);
 
 		brandValidation.validateBrand(brand);
 
@@ -45,12 +42,12 @@ public class BrandService implements IBrandService {
 		
 		Brand brandSaved = brandRepository.save(brandFound);
 
-		return brandMapper.toDTO(brandSaved);
+		return new BrandResponseDTO(brandSaved);
 	}
 
 	public Page<BrandResponseDTO> listBrands(Pageable pageable) {
 		Page<Brand> page = brandRepository.findAll(pageable);
 		
-		return page.map(brandMapper::toDTO);
+		return page.map(BrandResponseDTO::new);
 	}
 }

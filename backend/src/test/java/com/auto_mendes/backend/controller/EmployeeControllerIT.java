@@ -21,12 +21,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.auto_mendes.backend.dto.EmployeeRequestDTO;
 import com.auto_mendes.backend.enums.EmployeeType;
-import com.auto_mendes.backend.model.Manager;
-import com.auto_mendes.backend.model.Saler;
-import com.auto_mendes.backend.model.Submanager;
-import com.auto_mendes.backend.repository.IManagerRepository;
-import com.auto_mendes.backend.repository.ISalerRepository;
-import com.auto_mendes.backend.repository.ISubmanagerRepository;
+import com.auto_mendes.backend.model.Employee;
+import com.auto_mendes.backend.repository.IEmployeeRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
@@ -38,24 +34,16 @@ class EmployeeControllerIT {
 	@Autowired
 	private ObjectMapper objectMapper;
 	@Autowired
-	private IManagerRepository managerRepository;
-	@Autowired
-	private ISubmanagerRepository submanagerRepository;
-	@Autowired
-	private ISalerRepository salerRepository;
+	private IEmployeeRepository employeeRepository;
 
 	@BeforeEach
 	void setUp() {
-		managerRepository.deleteAll();
-		submanagerRepository.deleteAll();
-		salerRepository.deleteAll();
+		employeeRepository.deleteAll();
 	}
 
 	@AfterEach
 	void tearDown() {
-		managerRepository.deleteAll();
-		submanagerRepository.deleteAll();
-		salerRepository.deleteAll();
+		employeeRepository.deleteAll();
 	}
 	
 	@Test
@@ -64,7 +52,7 @@ class EmployeeControllerIT {
 		
 		EmployeeRequestDTO employeeRequestDTO = new EmployeeRequestDTO();
 		employeeRequestDTO.setBirthDate(LocalDate.of(1992, 02, 02));
-		employeeRequestDTO.setCommission(new BigDecimal("100.00"));
+		//employeeRequestDTO.setCommission(new BigDecimal("100.00"));
 		employeeRequestDTO.setEmail("email2@gmail.com");
 		employeeRequestDTO.setEmployeeType(EmployeeType.MANAGER);
 		employeeRequestDTO.setMatriculation("2222222222");
@@ -77,8 +65,8 @@ class EmployeeControllerIT {
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
 	}
 	
-	private void loadEmployeeRegister() {
-		Manager employee1 = new Manager();
+	void loadEmployeeRegister() {
+		Employee employee1 = new Employee();
 		employee1.setBirthDate(LocalDate.of(1991, 01, 01));
 		employee1.setEmail("email1@gmail.com");
 		employee1.setEmployeeType(EmployeeType.MANAGER);
@@ -86,7 +74,7 @@ class EmployeeControllerIT {
 		employee1.setName("name1");
 		employee1.setPhone("(81) 91111-1111");
 		
-		managerRepository.save(employee1);
+		employeeRepository.save(employee1);
 	}
 	
 	@Test
@@ -108,8 +96,8 @@ class EmployeeControllerIT {
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isOk()).andDo(print());
 	}
 	
-	private String loadEmployeeUpdatedWithId() {
-		Manager employee1 = new Manager();
+	String loadEmployeeUpdatedWithId() {
+		Employee employee1 = new Employee();
 		employee1.setBirthDate(LocalDate.of(1991, 01, 01));
 		employee1.setEmail("email1@gmail.com");
 		employee1.setEmployeeType(EmployeeType.MANAGER);
@@ -117,7 +105,7 @@ class EmployeeControllerIT {
 		employee1.setName("name1");
 		employee1.setPhone("(81) 91111-1111");
 		
-		String id = managerRepository.save(employee1).getId();
+		String id = employeeRepository.save(employee1).getId();
 		
 		return id;
 	}
@@ -129,8 +117,8 @@ class EmployeeControllerIT {
 		mockMvc.perform(get("/api/employees/list-employees")).andExpect(status().isOk()).andDo(print());
 	}
 	
-	private void loadEmployeeListed() {
-		Manager employee1 = new Manager();
+	void loadEmployeeListed() {
+		Employee employee1 = new Employee();
 		employee1.setBirthDate(LocalDate.of(1991, 01, 01));
 		employee1.setEmail("email1@gmail.com");
 		employee1.setEmployeeType(EmployeeType.MANAGER);
@@ -138,7 +126,7 @@ class EmployeeControllerIT {
 		employee1.setName("name1");
 		employee1.setPhone("(81) 91111-1111");
 		
-		Submanager employee2 = new Submanager();
+		Employee employee2 = new Employee();
 		employee2.setBirthDate(LocalDate.of(1992, 02, 02));
 		employee2.setEmail("email2@gmail.com");
 		employee2.setEmployeeType(EmployeeType.SUBMANAGER);
@@ -146,7 +134,7 @@ class EmployeeControllerIT {
 		employee2.setName("name2");
 		employee2.setPhone("(81) 92222-2222");
 		
-		Saler employee3 = new Saler();
+		Employee employee3 = new Employee();
 		employee3.setBirthDate(LocalDate.of(1993, 03, 03));
 		employee3.setEmail("email3@gmail.com");
 		employee3.setEmployeeType(EmployeeType.SALER);
@@ -155,8 +143,8 @@ class EmployeeControllerIT {
 		employee3.setPhone("(81) 93333-3333");
 		employee3.setCommission(new BigDecimal("1500.00"));
 		
-		managerRepository.save(employee1);
-		submanagerRepository.save(employee2);
-		salerRepository.save(employee3);
+		employeeRepository.save(employee1);
+		employeeRepository.save(employee2);
+		employeeRepository.save(employee3);
 	}
 }

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.auto_mendes.backend.dto.ModelRequestDTO;
 import com.auto_mendes.backend.dto.ModelResponseDTO;
 import com.auto_mendes.backend.exception.NotFoundException;
-import com.auto_mendes.backend.mapper.IModelMapper;
 import com.auto_mendes.backend.model.Brand;
 import com.auto_mendes.backend.model.Model;
 import com.auto_mendes.backend.repository.IBrandRepository;
@@ -21,14 +20,12 @@ public class ModelService implements IModelService {
 	@Autowired
 	private IModelRepository modelRepository;
 	@Autowired
-	private IModelMapper modelMapper;
-	@Autowired
 	private IModelValidation modelValidation;
 	@Autowired
 	private IBrandRepository brandRepository;
 	
 	public ModelResponseDTO registeModel(ModelRequestDTO dto) {
-		Model model = modelMapper.toEntity(dto);
+		Model model = new Model(dto);
 		
 		modelValidation.validateModel(model);
 		
@@ -39,11 +36,11 @@ public class ModelService implements IModelService {
 		
 		Model modelSaved = modelRepository.save(model);
 		
-		return modelMapper.toDTO(modelSaved);
+		return new ModelResponseDTO(modelSaved);
 	}
 
 	public ModelResponseDTO updateModelById(String id, ModelRequestDTO dto) {
-		Model model = modelMapper.toEntity(dto);
+		Model model = new Model(dto);
 		
 		modelValidation.validateModel(model);
 		
@@ -59,7 +56,7 @@ public class ModelService implements IModelService {
 		
 		Model modelSaved = modelRepository.save(modelFound);
 		
-		return modelMapper.toDTO(modelSaved);
+		return new ModelResponseDTO(modelSaved);
 	}
 	
 	
@@ -67,6 +64,6 @@ public class ModelService implements IModelService {
 	public Page<ModelResponseDTO> listModels(Pageable pageable) {
 		Page<Model> page = modelRepository.findAll(pageable);
 		
-		return page.map(modelMapper::toDTO);
+		return page.map(ModelResponseDTO::new);
 	}
 }
