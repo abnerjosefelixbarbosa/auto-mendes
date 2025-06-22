@@ -21,8 +21,8 @@ public class EmployeeValidation implements IEmployeeValidation {
 				throw new RuntimeException("Comissão deve ter 2 dígitos depois da vírgula.");
 			}
 		} else {
-			if (employee.getCommission() != null || employee.getCommission().doubleValue() != 0) {
-				throw new RuntimeException("Comissão deve ser nulo ou 0.");
+			if (employee.getCommission() != null) {
+				throw new RuntimeException("Comissão deve ser nulo.");
 			}
 		}
 		
