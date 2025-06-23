@@ -52,9 +52,9 @@ class EmployeeControllerIT {
 		
 		EmployeeRequestDTO employeeRequestDTO = new EmployeeRequestDTO();
 		employeeRequestDTO.setBirthDate(LocalDate.of(1992, 02, 02));
-		//employeeRequestDTO.setCommission(new BigDecimal("100.00"));
+		employeeRequestDTO.setCommission(new BigDecimal("100.00"));
 		employeeRequestDTO.setEmail("email2@gmail.com");
-		employeeRequestDTO.setEmployeeType(EmployeeType.MANAGER);
+		employeeRequestDTO.setEmployeeType(EmployeeType.SALER);
 		employeeRequestDTO.setMatriculation("2222222222");
 		employeeRequestDTO.setName("name2");
 		employeeRequestDTO.setPhone("(81) 92222-2222");
