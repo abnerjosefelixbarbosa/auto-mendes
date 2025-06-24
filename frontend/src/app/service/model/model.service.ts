@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
+import { urlBase } from '../../utils/url';
 
 export interface ModelRequestDTO {
   name: string;
@@ -17,14 +18,12 @@ export interface ModelResponseDTO {
   providedIn: 'root',
 })
 export class ModelService {
-  private url = 'http://localhost:8080/api/brands';
-
   constructor(private http: HttpClient) {}
 
   registerModel(modelRequestDTO: ModelRequestDTO) {
     return firstValueFrom(
       this.http.post<ModelResponseDTO>(
-        `${this.url}/register-model`,
+        `${urlBase.dev}/api/models/register-model`,
         modelRequestDTO
       )
     );
@@ -33,16 +32,16 @@ export class ModelService {
   updateModelById(id: string, modelRequestDTO: ModelRequestDTO) {
     return firstValueFrom(
       this.http.put<ModelResponseDTO>(
-        `${this.url}/update-model-by-id?id=${id}`,
+        `${urlBase.dev}/api/models/update-model-by-id?id=${id}`,
         modelRequestDTO
       )
     );
   }
 
   listModel() {
-    return firstValueFrom(this.http.get<any>(`${this.url}/list-model`)).then(
+    return firstValueFrom(this.http.get<any>(`${urlBase.dev}/api/models/list-models`)).then(
       (value) => {
-        const dtos = new Array<ModelResponseDTO>();
+        const dtos: ModelResponseDTO[] = [];
         const content = value.content;
 
         dtos.push(...content);
@@ -50,18 +49,5 @@ export class ModelService {
         return dtos;
       }
     );
-  }
-
-  listModelByName(name: string) {
-    return firstValueFrom(
-      this.http.get<any>(`${this.url}/list-model-by-name?name=${name}`)
-    ).then((value) => {
-      const dtos = new Array<ModelResponseDTO>();
-      const content = value.content;
-
-      dtos.push(...content);
-
-      return dtos;
-    });
   }
 }

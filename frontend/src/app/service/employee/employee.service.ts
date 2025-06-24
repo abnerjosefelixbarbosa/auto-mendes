@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { EmployeeType } from '../../utils/employee.type';
+import { urlBase } from '../../utils/url';
+import { EmployeeType } from '../../enum/employee_type';
 
 export interface EmployeeRequestDTO {
   name: string;
@@ -28,53 +29,36 @@ export interface EmployeeResponseDTO {
   providedIn: 'root',
 })
 export class EmployeeService {
-  private url = 'http://localhost:8080/api/employees';
-
   constructor(private http: HttpClient) {}
 
   registreEmployee(employeeRequestDTO: EmployeeRequestDTO) {
     return firstValueFrom(
       this.http.post<EmployeeResponseDTO>(
-        `${this.url}/register-employee`,
+        `${urlBase.dev}/api/employees/register-employee`,
+        employeeRequestDTO
+      )
+    );
+  }
+
+  updateEmployeeById(id: string, employeeRequestDTO: EmployeeRequestDTO) {
+    return firstValueFrom(
+      this.http.put<EmployeeResponseDTO>(
+        `${urlBase.dev}/api/employees/update-employee-by-id?id=${id}`,
         employeeRequestDTO
       )
     );
   }
 
   listEmployee() {
-    return firstValueFrom(this.http.get<any>(`${this.url}/list-employee`)).then(
-      (value) => {
-        const dtos = new Array<EmployeeResponseDTO>();
-        const content = value.content;
-
-        dtos.push(...content);
-
-        return dtos;
-      }
-    );
-  }
-
-  listEmployeeByType(employeeType: EmployeeType) {
     return firstValueFrom(
-      this.http.get<any>(
-        `${this.url}/list-employee-by-type?employeeType=${employeeType}`
-      )
+      this.http.get<any>(`${urlBase.dev}/api/employees/list-employees`)
     ).then((value) => {
-      const dtos = new Array<EmployeeResponseDTO>();
+      const dtos: EmployeeResponseDTO[] = [];
       const content = value.content;
 
       dtos.push(...content);
 
       return dtos;
     });
-  }
-
-  updateEmployeeById(id: string, employeeRequestDTO: EmployeeRequestDTO) {
-    return firstValueFrom(
-      this.http.put<EmployeeResponseDTO>(
-        `${this.url}/update-employee-by-id?id=${id}`,
-        employeeRequestDTO
-      )
-    );
   }
 }

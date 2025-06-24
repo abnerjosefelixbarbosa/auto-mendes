@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
+import { urlBase } from './../../utils/url';
+
 
 export interface BrandRequestDTO {
   name: string;
@@ -15,14 +17,12 @@ export interface BrandResponseDTO {
   providedIn: 'root',
 })
 export class BrandService {
-  private url = 'http://localhost:8080/api/brands';
-
   constructor(private http: HttpClient) {}
 
   registerBrand(brandRequestDTO: BrandRequestDTO) {
     return firstValueFrom(
       this.http.post<BrandResponseDTO>(
-        `${this.url}/register-brand`,
+        `${urlBase.dev}/api/brands/register-brand`,
         brandRequestDTO
       )
     );
@@ -31,16 +31,16 @@ export class BrandService {
   updateBrandById(id: string, brandRequestDTO: BrandRequestDTO) {
     return firstValueFrom(
       this.http.put<BrandResponseDTO>(
-        `${this.url}/update-brand-by-id?id=${id}`,
+        `${urlBase.dev}/api/brands/update-brand-by-id?id=${id}`,
         brandRequestDTO
       )
     );
   }
 
   listBrand() {
-    return firstValueFrom(this.http.get<any>(`${this.url}/list-brand`)).then(
+    return firstValueFrom(this.http.get<any>(`${urlBase.dev}/api/brands/list-brands`)).then(
       (value) => {
-        const dtos = new Array<BrandResponseDTO>();
+        const dtos: BrandResponseDTO[] = [];
         const content = value.content;
 
         dtos.push(...content);
@@ -48,18 +48,5 @@ export class BrandService {
         return dtos;
       }
     );
-  }
-
-  listBrandByName(name: string) {
-    return firstValueFrom(
-      this.http.get<any>(`${this.url}/list-brand-by-name?name=${name}`)
-    ).then((value) => {
-      const dtos = new Array<BrandResponseDTO>();
-      const content = value.content;
-
-      dtos.push(...content);
-
-      return dtos;
-    });
   }
 }
