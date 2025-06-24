@@ -1,5 +1,7 @@
 import { TransmissionType } from "../enum/transmission_type";
 import { VehicleType } from "../enum/vehicle_type";
+import { Model } from "./model";
+import { Sale } from "./sale";
 
 export interface Vehicle {
     id: string,

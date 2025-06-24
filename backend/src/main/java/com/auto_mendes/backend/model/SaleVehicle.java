@@ -18,17 +18,17 @@ import lombok.NoArgsConstructor;
 @Table(name = "sale_vehicle_tb")
 public class SaleVehicle implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@EmbeddedId
-	private SaleVehicleId saleVehicleId;
+    private SaleVehicleId saleVehicleId;
 	@Column(name = "quantity", nullable = false)
-    private Integer quantity;
+	private Integer quantity;
 	@ManyToOne
 	@MapsId(value = "saleId")
-	@JoinColumn(name = "sale_id", nullable = false)
-    private Sale sale;
+	@JoinColumn(name = "sale_id")
+	private Sale sale;
 	@ManyToOne
 	@MapsId(value = "vehicleId")
-	@JoinColumn(name = "vehicle_id", nullable = false)
-    private Vehicle vehicle;
+	@JoinColumn(name = "vehicle_id")
+	private Vehicle vehicle;
 }

@@ -1,5 +1,0 @@
-export enum EmployeeType {
-  MANAGER = 'MANAGER',
-  ASSISTANT_MANAGER = 'ASSISTANT_MANAGER',
-  SALER = 'SALER',
-}
