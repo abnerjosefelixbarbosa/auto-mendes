@@ -6,11 +6,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { EmployeeService } from '../../service/employee/employee.service';
-import { Message } from '../../utils/message';
+import { EmployeeRequestDTO, EmployeeService } from '../../service/employee/employee.service';
+import { messages } from '../../utils/message';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
-import { EmployeeMapper } from '../../utils/employee.mapper';
-import { EmployeeValidation } from '../../utils/employee.validation';
+import { EmployeeType } from '../../enum/employee_type';
 
 @Component({
   selector: 'app-employee-registration',
@@ -21,11 +20,10 @@ import { EmployeeValidation } from '../../utils/employee.validation';
   providers: [provideNgxMask()],
 })
 export class EmployeeRegistrationComponent {
-  message = Message;
+  message = messages;
   form: FormGroup;
+  private type: EmployeeType = EmployeeType.MANAGER;
   private employeeService = inject(EmployeeService);
-  private employeeMapper = inject(EmployeeMapper);
-  private employeeValidation = inject(EmployeeValidation);
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -47,35 +45,48 @@ export class EmployeeRegistrationComponent {
       employeeType: ['', [Validators.required]],
       commission: ['', []],
     });
+
+    this.form.get('employeeType')?.valueChanges.subscribe((value) => {
+      if (value === '1') {
+        this.type = EmployeeType.MANAGER;
+      }
+
+      if (value === '2') {
+        this.type = EmployeeType.SUBMANAGER;
+      }
+
+      if (value === '3') {
+        this.type = EmployeeType.SALER;
+      }
+    })
   }
 
   register() {
     try {
-      this.message.SUCCESS = '';
-      this.message.ERROR = '';
-
-      const data = this.employeeMapper.toEmployeeRequestDTO(this.form);
-
+      this.message.sucess = '';
+      this.message.error = '';
+      
       if (this.form.valid) {
-        this.employeeValidation.validadeEmployee(data);
+        const dto: EmployeeRequestDTO = {
+          birthDate: this.form.get('birthDate')?.value,
+          commission: this.form.get('commission')?.value,
+          email: this.form.get('email')?.value,
+          employeeType: this.type,
+          matriculation: this.form.get('matriculation')?.value,
+          name: this.form.get('name')?.value,
+          phone: this.form.get('phone')?.value
+        }  
 
-        this.employeeService
-          .registreEmployee(data)
-          .then(() => {
-            this.message.SUCCESS = 'Funcionário registrado com sucesso';
-          })
-          .catch((e) => {            
-            this.message.ERROR = e.error.message;
-          });
+        console.log(dto);
       } else {
         this.form.markAllAsTouched();
       }
     } catch (e: any) {
       const message = e.message;
 
-      if (message == 'Comissão invalida.') {
-        this.form.get('commission')?.setErrors({ commissionInvalid: true });
-      }
+      //if (message == 'Comissão invalida.') {
+      //  this.form.get('commission')?.setErrors({ commissionInvalid: true });
+      //}
     } 
   }
 

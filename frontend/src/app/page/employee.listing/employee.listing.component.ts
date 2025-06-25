@@ -12,12 +12,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { EmployeeType } from '../../utils/employee.type';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { PhonePipe } from '../../pipe/phone/phone.pipe';
-import { Message } from '../../utils/message';
-import { EmployeeMapper } from '../../utils/employee.mapper';
-import { EmployeeValidation } from '../../utils/employee.validation';
+import { messages } from '../../utils/message';
+import { EmployeeType } from '../../enum/employee_type';
 
 @Component({
   selector: 'app-employee-listing',
@@ -39,10 +37,8 @@ export class EmployeeListingComponent implements OnInit {
   select = new FormControl('1');
   type: EmployeeType = EmployeeType.MANAGER;
   form: FormGroup;
-  message = Message;
-  private employeeValidation = inject(EmployeeValidation);
+  message = messages;
   private employeeService = inject(EmployeeService);
-  private employeeMapper = inject(EmployeeMapper);
 
   constructor(private formBuilder: FormBuilder, private datePipe: DatePipe) {
     this.select.valueChanges.subscribe((value) => {
@@ -53,7 +49,7 @@ export class EmployeeListingComponent implements OnInit {
       }
 
       if (option === '2') {
-        this.type = EmployeeType.ASSISTANT_MANAGER;
+        this.type = EmployeeType.SUBMANAGER;
       }
 
       if (option === '3') {
@@ -94,13 +90,6 @@ export class EmployeeListingComponent implements OnInit {
       .catch((e) => console.log(e));
   }
 
-  listByTypeEmployee() {
-    this.employeeService
-      .listEmployeeByType(this.type)
-      .then((values) => (this.items = values))
-      .catch((e) => console.log(e));
-  }
-
   update(item: EmployeeResponseDTO) {
     this.cleanMessage();
 
@@ -111,26 +100,13 @@ export class EmployeeListingComponent implements OnInit {
     try {
       this.cleanMessage();
 
-      const data = this.employeeMapper.toEmployeeRequestDTO(this.form);
-
       if (this.form.valid) {
-        const id = this.form.get('id')?.value;
-
-        this.employeeValidation.validadeEmployee(data);
-
-        this.employeeService
-          .updateEmployeeById(id, data)
-          .then(() => {
-            this.message.SUCCESS = 'Funcionário atualizado com sucesso!';
-          })
-          .catch((e) => {
-            this.message.ERROR = e.error.message;
-          });
+        
       } else {
         this.form.markAllAsTouched();
       }
     } catch (e: any) {
-      this.message.ERROR = e.message;
+      this.message.error = e.message;
     }
   }
 
@@ -154,7 +130,7 @@ export class EmployeeListingComponent implements OnInit {
   }
 
   private cleanMessage() {
-    this.message.SUCCESS = '';
-    this.message.ERROR = '';
+    this.message.sucess = '';
+    this.message.error = '';
   }
 }

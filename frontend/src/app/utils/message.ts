@@ -1,5 +1,4 @@
-
-export const Message = {
-    SUCCESS: '',
-    ERROR: ''
+export const messages = {
+    sucess: '',
+    error: ''
 }

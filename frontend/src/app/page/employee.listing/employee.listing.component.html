@@ -12,14 +12,6 @@
         <option value="2">Subgerente</option>
         <option value="3">Vendedor</option>
       </select>
-
-      <button
-        type="button"
-        class="btn btn-primary"
-        (click)="listByTypeEmployee()"
-      >
-        Buscar
-      </button>
     </div>
 
     <table class="table">
@@ -66,13 +58,13 @@
       aria-hidden="true"
     >
       <div class="modal-dialog">
-        @if (message.SUCCESS != '') {
+        @if (message.sucess != '') {
         <div class="alert alert-success" role="alert">
-          {{ message.SUCCESS }}
+          {{ message.sucess }}
         </div>
-        } @if (message.ERROR != '') {
+        } @if (message.error != '') {
         <div class="alert alert-danger" role="alert">
-          {{ message.ERROR }}
+          {{ message.error }}
         </div>
         }
 

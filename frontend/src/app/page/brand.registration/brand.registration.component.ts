@@ -6,8 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Message } from '../../utils/message';
-import { BrandMapper } from '../../utils/brand.mapper';
+import { messages } from '../../utils/message';
 import { BrandService } from '../../service/brand/brand.service';
 
 @Component({
@@ -17,9 +16,8 @@ import { BrandService } from '../../service/brand/brand.service';
   styleUrl: './brand.registration.component.css',
 })
 export class BrandRegistrationComponent {
-  message = Message;
+  message = messages;
   form: FormGroup;
-  private brandMapper = inject(BrandMapper);
   private brandService = inject(BrandService);
 
   constructor(private formBuilder: FormBuilder) {
@@ -30,30 +28,21 @@ export class BrandRegistrationComponent {
 
   register() {
     try {
-      this.message.SUCCESS = '';
-      this.message.ERROR = '';
-
-      const data = this.brandMapper.toEmployeeRequestDTO(this.form);
+      this.message.sucess = '';
+      this.message.error = '';
 
       if (this.form.valid) {
-        this.brandService.registerBrand(data)
-        .then(() => {
-          this.message.SUCCESS = 'Marca registrada com sucesso.'
-        })
-        .catch((e) => {
-          const message = e.error.message;
-
-          this.message.ERROR = message;
-        })
+        
       } else {
         this.form.markAllAsTouched();
       }
     } catch (e: any) {
       const message = e.message;
 
-      if (message == 'Comissão invalida.') {
-        this.form.get('commission')?.setErrors({ commissionInvalid: true });
-      }
+      
+      //if (message == 'Comissão invalida.') {
+      //  this.form.get('commission')?.setErrors({ commissionInvalid: true });
+      //}  
     }
   }
 }
