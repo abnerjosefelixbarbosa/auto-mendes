@@ -87,19 +87,17 @@ export class EmployeeRegistrationComponent {
         this.employeeService.registreEmployee(dto).then((value) => {
           console.log(value);
         });
-
-        //console.log(dto.commission.toString())
       } else {
         this.form.markAllAsTouched();
       }
     } catch (e: any) {
-      const message = e.message;
+      const message: string = e.message;
 
       console.log(message);
 
-      //if (message == 'Comissão invalida.') {
-      //  this.form.get('commission')?.setErrors({ commissionInvalid: true });
-      //}
+      if (message.includes('Comissão')) {
+        this.form.get('commission')?.setErrors({ commissionInvalid: true });
+      }
     }
   }
 
