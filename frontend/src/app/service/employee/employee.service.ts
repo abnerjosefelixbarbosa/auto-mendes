@@ -11,7 +11,7 @@ export interface EmployeeRequestDTO {
   phone: string;
   birthDate: Date;
   employeeType: EmployeeType;
-  commission: number | null;
+  commission: number;
 }
 
 export interface EmployeeResponseDTO {

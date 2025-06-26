@@ -10,6 +10,7 @@ import { EmployeeRequestDTO, EmployeeService } from '../../service/employee/empl
 import { messages } from '../../utils/message';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { EmployeeType } from '../../enum/employee_type';
+import { EmployeeValidation } from './../../validation/employee.validation';
 
 @Component({
   selector: 'app-employee-registration',
@@ -23,7 +24,9 @@ export class EmployeeRegistrationComponent {
   message = messages;
   form: FormGroup;
   private type: EmployeeType = EmployeeType.MANAGER;
+  //private commission: number = 0;
   private employeeService = inject(EmployeeService);
+  private employeeValidation = inject(EmployeeValidation)
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -69,7 +72,7 @@ export class EmployeeRegistrationComponent {
       if (this.form.valid) {
         const dto: EmployeeRequestDTO = {
           birthDate: this.form.get('birthDate')?.value,
-          commission: this.form.get('commission')?.value,
+          commission: new Number(this.form.get('commission')?.value).valueOf(),
           email: this.form.get('email')?.value,
           employeeType: this.type,
           matriculation: this.form.get('matriculation')?.value,
@@ -77,12 +80,16 @@ export class EmployeeRegistrationComponent {
           phone: this.form.get('phone')?.value
         }  
 
-        console.log(dto);
+        this.employeeValidation.validateEmployee(dto);
+
+        //console.log(dto.employeeType);
       } else {
         this.form.markAllAsTouched();
       }
     } catch (e: any) {
       const message = e.message;
+
+      console.log(message);
 
       //if (message == 'Comissão invalida.') {
       //  this.form.get('commission')?.setErrors({ commissionInvalid: true });
