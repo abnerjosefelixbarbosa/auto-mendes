@@ -31,11 +31,19 @@ export interface EmployeeResponseDTO {
 export class EmployeeService {
   constructor(private http: HttpClient) {}
 
-  registreEmployee(employeeRequestDTO: EmployeeRequestDTO) {
+  registreEmployee(dto: EmployeeRequestDTO) {
     return firstValueFrom(
       this.http.post<EmployeeResponseDTO>(
         `${urlBase.dev}/api/employees/register-employee`,
-        employeeRequestDTO
+        {
+          name: dto.name,
+          email: dto.email,
+          matriculation: dto.matriculation,
+          phone: dto.phone,
+          birthDate: dto.birthDate,
+          employeeType: dto.employeeType,
+          commission: dto.commission.toFixed(2),
+        }
       )
     );
   }

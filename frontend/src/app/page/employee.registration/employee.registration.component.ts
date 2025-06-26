@@ -6,7 +6,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { EmployeeRequestDTO, EmployeeService } from '../../service/employee/employee.service';
+import {
+  EmployeeRequestDTO,
+  EmployeeService,
+} from '../../service/employee/employee.service';
 import { messages } from '../../utils/message';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { EmployeeType } from '../../enum/employee_type';
@@ -23,10 +26,9 @@ import { EmployeeValidation } from './../../validation/employee.validation';
 export class EmployeeRegistrationComponent {
   message = messages;
   form: FormGroup;
-  private type: EmployeeType = EmployeeType.MANAGER;
-  //private commission: number = 0;
+  private employeeType: EmployeeType = EmployeeType.MANAGER;
   private employeeService = inject(EmployeeService);
-  private employeeValidation = inject(EmployeeValidation)
+  private employeeValidation = inject(EmployeeValidation);
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -51,38 +53,42 @@ export class EmployeeRegistrationComponent {
 
     this.form.get('employeeType')?.valueChanges.subscribe((value) => {
       if (value === '1') {
-        this.type = EmployeeType.MANAGER;
+        this.employeeType = EmployeeType.MANAGER;
       }
 
       if (value === '2') {
-        this.type = EmployeeType.SUBMANAGER;
+        this.employeeType = EmployeeType.SUBMANAGER;
       }
 
       if (value === '3') {
-        this.type = EmployeeType.SALER;
+        this.employeeType = EmployeeType.SALER;
       }
-    })
+    });
   }
 
   register() {
     try {
       this.message.sucess = '';
       this.message.error = '';
-      
+
       if (this.form.valid) {
         const dto: EmployeeRequestDTO = {
           birthDate: this.form.get('birthDate')?.value,
           commission: new Number(this.form.get('commission')?.value).valueOf(),
           email: this.form.get('email')?.value,
-          employeeType: this.type,
+          employeeType: this.employeeType,
           matriculation: this.form.get('matriculation')?.value,
           name: this.form.get('name')?.value,
-          phone: this.form.get('phone')?.value
-        }  
+          phone: this.form.get('phone')?.value,
+        };
 
         this.employeeValidation.validateEmployee(dto);
 
-        //console.log(dto.employeeType);
+        this.employeeService.registreEmployee(dto).then((value) => {
+          console.log(value);
+        });
+
+        //console.log(dto.commission.toString())
       } else {
         this.form.markAllAsTouched();
       }
@@ -94,7 +100,7 @@ export class EmployeeRegistrationComponent {
       //if (message == 'Comissão invalida.') {
       //  this.form.get('commission')?.setErrors({ commissionInvalid: true });
       //}
-    } 
+    }
   }
 
   cleanForm() {
