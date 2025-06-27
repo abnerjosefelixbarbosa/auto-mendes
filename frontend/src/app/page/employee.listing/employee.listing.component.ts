@@ -84,6 +84,7 @@ export class EmployeeListingComponent implements OnInit {
   }
 
   listEmployee() {
+    
     this.employeeService
       .listEmployee()
       .then((values) => (this.items = values))

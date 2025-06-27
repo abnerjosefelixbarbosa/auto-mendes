@@ -28,7 +28,6 @@ export class EmployeeRegistrationComponent {
   form: FormGroup;
   private employeeType: EmployeeType = EmployeeType.MANAGER;
   private employeeService = inject(EmployeeService);
-  private employeeValidation = inject(EmployeeValidation);
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -74,7 +73,7 @@ export class EmployeeRegistrationComponent {
       if (this.form.valid) {
         const dto: EmployeeRequestDTO = {
           birthDate: this.form.get('birthDate')?.value,
-          commission: new Number(this.form.get('commission')?.value).valueOf(),
+          commission: new Number(this.form.get('commission')?.value).toFixed(2),
           email: this.form.get('email')?.value,
           employeeType: this.employeeType,
           matriculation: this.form.get('matriculation')?.value,
@@ -82,22 +81,20 @@ export class EmployeeRegistrationComponent {
           phone: this.form.get('phone')?.value,
         };
 
-        this.employeeValidation.validateEmployee(dto);
-
         this.employeeService.registreEmployee(dto).then((value) => {
           console.log(value);
+
+          this.message.sucess = "Funcionário regidtrado."
+        }).catch((e) => {
+          console.log(e.error.message);
+
+          this.message.error = e.error.message;
         });
       } else {
         this.form.markAllAsTouched();
       }
     } catch (e: any) {
-      const message: string = e.message;
-
-      console.log(message);
-
-      if (message.includes('Comissão')) {
-        this.form.get('commission')?.setErrors({ commissionInvalid: true });
-      }
+      this.message.error = e.message;
     }
   }
 

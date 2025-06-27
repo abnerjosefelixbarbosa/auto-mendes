@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { urlBase } from '../../utils/url';
 import { EmployeeType } from '../../enum/employee_type';
+import { EmployeeValidation } from '../../validation/employee.validation';
 
 export interface EmployeeRequestDTO {
   name: string;
@@ -11,7 +12,7 @@ export interface EmployeeRequestDTO {
   phone: string;
   birthDate: Date;
   employeeType: EmployeeType;
-  commission: number;
+  commission: string;
 }
 
 export interface EmployeeResponseDTO {
@@ -22,28 +23,24 @@ export interface EmployeeResponseDTO {
   phone: string;
   birthDate: Date;
   employeeType: EmployeeType;
-  commission: number | null;
+  commission: string;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeeService {
+  private employeeValidation = inject(EmployeeValidation);
+
   constructor(private http: HttpClient) {}
 
   registreEmployee(dto: EmployeeRequestDTO) {
+    this.employeeValidation.validateEmployee(dto);
+
     return firstValueFrom(
       this.http.post<EmployeeResponseDTO>(
         `${urlBase.dev}/api/employees/register-employee`,
-        {
-          name: dto.name,
-          email: dto.email,
-          matriculation: dto.matriculation,
-          phone: dto.phone,
-          birthDate: dto.birthDate,
-          employeeType: dto.employeeType,
-          commission: dto.commission.toFixed(2),
-        }
+        dto
       )
     );
   }
@@ -66,7 +63,10 @@ export class EmployeeService {
 
       dtos.push(...content);
 
-      return dtos;
+      return dtos.map((value) => {
+        value.commission = new Number(value.commission).toFixed(2);
+        return value;
+      });
     });
   }
 }

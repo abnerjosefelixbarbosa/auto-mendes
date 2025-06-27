@@ -6,12 +6,14 @@ import { EmployeeRequestDTO } from '../service/employee/employee.service';
 })
 export class EmployeeValidation {
   validateEmployee(dto: EmployeeRequestDTO) {
+    const commission = new Number(dto.commission).valueOf();
+
     if (dto.employeeType == 2) {
-      if (dto.commission === 0) {
+      if (commission === 0) {
         throw new Error('Comissão não deve ser 0.');
       }
     } else {
-      if (dto.commission !== 0) {
+      if (commission !== 0) {
 				throw new Error("Comissão deve ser 0.");
 			}
     }
