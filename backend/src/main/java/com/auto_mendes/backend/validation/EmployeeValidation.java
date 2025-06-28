@@ -20,10 +20,6 @@ public class EmployeeValidation implements IEmployeeValidation {
 			if (employee.getCommission().scale() != 2) {
 				throw new RuntimeException("Comissão deve ter 2 dígitos depois da vírgula.");
 			}
-		} else {
-			if (employee.getCommission() != null) {
-				throw new RuntimeException("Comissão deve ser nulo.");
-			}
 		}
 		
 		boolean isExistsEmailOrMatriculationOrPhone = employeeRepository

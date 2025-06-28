@@ -25,6 +25,10 @@ public class EmployeeService implements IEmployeeService {
 		
 		employeeValidation.validatemployee(employee);
 		
+		if (!employee.getEmployeeType().toString().equals("SALER")) {
+			employee.setCommission(null);
+		}
+		
 		Employee employeeSaved = employeeRepository.save(employee);
 
 		return new EmployeeResponseDTO(employeeSaved);
@@ -34,6 +38,10 @@ public class EmployeeService implements IEmployeeService {
 		Employee employee = new Employee(dto);
 		
 		employeeValidation.validatemployee(employee);
+		
+		if (employee.getEmployeeType().ordinal() != 2) {
+			employee.setCommission(null);
+		}
 		
 		Employee employeeFound = employeeRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Funcionário não encontrado."));

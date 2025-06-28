@@ -12,7 +12,7 @@ export interface EmployeeRequestDTO {
   phone: string;
   birthDate: Date;
   employeeType: EmployeeType;
-  commission: string;
+  commission: string | null;
 }
 
 export interface EmployeeResponseDTO {
@@ -23,7 +23,7 @@ export interface EmployeeResponseDTO {
   phone: string;
   birthDate: Date;
   employeeType: EmployeeType;
-  commission: string;
+  commission: string | null;
 }
 
 @Injectable({
@@ -37,6 +37,10 @@ export class EmployeeService {
   registreEmployee(dto: EmployeeRequestDTO) {
     this.employeeValidation.validateEmployee(dto);
 
+    //if (dto.employeeType != 2) {
+    //  dto.commission = null;
+    //}
+
     return firstValueFrom(
       this.http.post<EmployeeResponseDTO>(
         `${urlBase.dev}/api/employees/register-employee`,
@@ -45,11 +49,17 @@ export class EmployeeService {
     );
   }
 
-  updateEmployeeById(id: string, employeeRequestDTO: EmployeeRequestDTO) {
+  updateEmployeeById(id: string, dto: EmployeeRequestDTO) {
+    this.employeeValidation.validateEmployee(dto);
+
+    //if (dto.employeeType != 2) {
+    //  dto.commission = null;
+    //}
+    
     return firstValueFrom(
       this.http.put<EmployeeResponseDTO>(
         `${urlBase.dev}/api/employees/update-employee-by-id?id=${id}`,
-        employeeRequestDTO
+        dto
       )
     );
   }

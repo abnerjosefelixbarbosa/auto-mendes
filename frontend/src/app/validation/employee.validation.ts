@@ -12,10 +12,6 @@ export class EmployeeValidation {
       if (commission === 0) {
         throw new Error('Comissão não deve ser 0.');
       }
-    } else {
-      if (commission !== 0) {
-				throw new Error("Comissão deve ser 0.");
-			}
     }
   }
 }
