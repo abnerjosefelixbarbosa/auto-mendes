@@ -37,10 +37,6 @@ export class EmployeeService {
   registreEmployee(dto: EmployeeRequestDTO) {
     this.employeeValidation.validateEmployee(dto);
 
-    //if (dto.employeeType != 2) {
-    //  dto.commission = null;
-    //}
-
     return firstValueFrom(
       this.http.post<EmployeeResponseDTO>(
         `${urlBase.dev}/api/employees/register-employee`,
@@ -51,10 +47,6 @@ export class EmployeeService {
 
   updateEmployeeById(id: string, dto: EmployeeRequestDTO) {
     this.employeeValidation.validateEmployee(dto);
-
-    //if (dto.employeeType != 2) {
-    //  dto.commission = null;
-    //}
     
     return firstValueFrom(
       this.http.put<EmployeeResponseDTO>(
