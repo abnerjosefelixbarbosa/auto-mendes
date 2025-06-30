@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import {
+  EmployeeRequestDTO,
   EmployeeResponseDTO,
   EmployeeService,
 } from '../../service/employee/employee.service';
@@ -35,28 +36,13 @@ export class EmployeeListingComponent implements OnInit {
   items = new Array<EmployeeResponseDTO>();
   item: EmployeeResponseDTO | null = null;
   select = new FormControl('1');
-  type: EmployeeType = EmployeeType.MANAGER;
+  employeeType: EmployeeType = EmployeeType.MANAGER;
   form: FormGroup;
   message = messages;
+  id: string = '';
   private employeeService = inject(EmployeeService);
 
   constructor(private formBuilder: FormBuilder, private datePipe: DatePipe) {
-    this.select.valueChanges.subscribe((value) => {
-      const option = value!;
-
-      if (option === '1') {
-        this.type = EmployeeType.MANAGER;
-      }
-
-      if (option === '2') {
-        this.type = EmployeeType.SUBMANAGER;
-      }
-
-      if (option === '3') {
-        this.type = EmployeeType.SALER;
-      }
-    });
-
     this.form = this.formBuilder.group({
       id: [''],
       name: ['', [Validators.required, Validators.maxLength(100)]],
@@ -74,8 +60,24 @@ export class EmployeeListingComponent implements OnInit {
       ],
       phone: ['', [Validators.required, Validators.maxLength(30)]],
       birthDate: ['', [Validators.required]],
-      employeeType: [''],
+      employeeType: ['', [Validators.required]],
       commission: ['', []],
+    });
+
+    this.form.get('employeeType')?.valueChanges.subscribe((value) => {
+      const option = value;
+
+      if (option === '1') {
+        this.employeeType = EmployeeType.MANAGER;
+      }
+
+      if (option === '2') {
+        this.employeeType = EmployeeType.SUBMANAGER;
+      }
+
+      if (option === '3') {
+        this.employeeType = EmployeeType.SALER;
+      }
     });
   }
 
@@ -84,7 +86,6 @@ export class EmployeeListingComponent implements OnInit {
   }
 
   listEmployee() {
-    
     this.employeeService
       .listEmployee()
       .then((values) => (this.items = values))
@@ -102,13 +103,38 @@ export class EmployeeListingComponent implements OnInit {
       this.cleanMessage();
 
       if (this.form.valid) {
-        
+        const id = this.form.get('id')?.value;
+        const dto = this.transformeEmployeeRequestDTO();
+
+        //console.log(id);
+        //console.log(dto);
+
+        this.employeeService.updateEmployeeById(id, dto)
+        .then((value) => {
+          console.log(value)
+        }).catch((e) => {
+          console.log(e);
+        });
       } else {
         this.form.markAllAsTouched();
       }
     } catch (e: any) {
       this.message.error = e.message;
     }
+  }
+
+  private transformeEmployeeRequestDTO() {
+    const dto: EmployeeRequestDTO = {
+      birthDate: this.form.get('birthDate')?.value,
+      commission: new Number(this.form.get('commission')?.value).toFixed(2),
+      email: this.form.get('email')?.value,
+      employeeType: this.employeeType,
+      matriculation: this.form.get('matriculation')?.value,
+      name: this.form.get('name')?.value,
+      phone: this.form.get('phone')?.value,
+    };
+
+    return dto;
   }
 
   private replace(item: EmployeeResponseDTO) {
@@ -122,8 +148,19 @@ export class EmployeeListingComponent implements OnInit {
     this.form.get('matriculation')?.setValue(item.matriculation);
     this.form.get('phone')?.setValue(item.phone);
     this.form.get('birthDate')?.setValue(dateFormated);
-    this.form.get('employeeType')?.setValue(item.employeeType);
     this.form.get('commission')?.setValue(item.commission);
+
+    if (item.employeeType.toString() == 'MANAGER') {
+      this.form.get('employeeType')?.setValue('1');
+    }
+
+    if (item.employeeType.toString() == 'SUBMANAGER') {
+      this.form.get('employeeType')?.setValue('2');
+    }
+
+    if (item.employeeType.toString() == 'SALER') {
+      this.form.get('employeeType')?.setValue('3');
+    }
   }
 
   private formatDate(date: Date) {

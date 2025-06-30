@@ -2,18 +2,6 @@
   <app-navbar></app-navbar>
 
   <div class="container-xxl border rounded-1 p-5 mt-5">
-    <div>
-      <select
-        class="form-select form-select-lg mb-3"
-        [formControl]="select"
-        aria-label=".form-select-lg example"
-      >
-        <option value="1">Gerente</option>
-        <option value="2">Subgerente</option>
-        <option value="3">Vendedor</option>
-      </select>
-    </div>
-
     <table class="table">
       <thead>
         <tr>
@@ -114,7 +102,8 @@
                   formControlName="matriculation"
                 />
 
-                @if (form.get('matriculation')?.touched && form.get('matriculation')?.invalid) {
+                @if (form.get('matriculation')?.touched &&
+                form.get('matriculation')?.invalid) {
                 <div class="text-danger">Matrícula invalida.</div>
                 }
               </div>
@@ -134,15 +123,34 @@
               </div>
 
               <div class="mb-3">
-                <label for="birthDate" class="form-label">Data de nascimento</label>
+                <label for="birthDate" class="form-label"
+                  >Data de nascimento</label
+                >
                 <input
                   type="date"
                   class="form-control"
                   formControlName="birthDate"
                 />
 
-                @if (form.get('birthDate')?.touched && form.get('birthDate')?.invalid) {
+                @if (form.get('birthDate')?.touched &&
+                form.get('birthDate')?.invalid) {
                 <div class="text-danger">Data de nascimento invalida.</div>
+                }
+              </div>
+
+              <div class="mb-3">
+                <select
+                  class="form-select form-select-lg form-select-sm"
+                  formControlName="employeeType"
+                >
+                  <option value="1">Gerente</option>
+                  <option value="2">Subgerente</option>
+                  <option value="3">Vendedor</option>
+                </select>
+
+                @if (form.get('employeeType')?.touched &&
+                form.get('employeeType')?.invalid) {
+                <div class="text-danger">Tipo do funcionário invalido.</div>
                 }
               </div>
 
@@ -154,7 +162,8 @@
                   formControlName="commission"
                 />
 
-                @if (form.get('commission')?.touched && form.get('commission')?.invalid) {
+                @if (form.get('commission')?.touched &&
+                form.get('commission')?.invalid) {
                 <div class="text-danger">Comissão invalida.</div>
                 }
               </div>
