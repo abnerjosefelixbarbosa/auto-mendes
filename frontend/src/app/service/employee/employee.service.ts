@@ -61,14 +61,10 @@ export class EmployeeService {
       this.http.get<any>(`${urlBase.dev}/api/employees/list-employees`)
     ).then((value) => {
       const dtos: EmployeeResponseDTO[] = [];
-      const content = value.content;
 
-      dtos.push(...content);
+      dtos.push(...value);
 
-      return dtos.map((value) => {
-        value.commission = new Number(value.commission).toFixed(2);
-        return value;
-      });
+      return dtos;
     });
   }
 }

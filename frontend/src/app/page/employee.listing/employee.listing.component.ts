@@ -109,12 +109,14 @@ export class EmployeeListingComponent implements OnInit {
         //console.log(id);
         //console.log(dto);
 
-        this.employeeService.updateEmployeeById(id, dto)
-        .then((value) => {
-          console.log(value)
-        }).catch((e) => {
-          console.log(e);
-        });
+        this.employeeService
+          .updateEmployeeById(id, dto)
+          .then((value) => {
+            console.log(value);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
       } else {
         this.form.markAllAsTouched();
       }
