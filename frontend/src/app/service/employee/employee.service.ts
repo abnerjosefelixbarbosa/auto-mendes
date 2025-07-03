@@ -57,6 +57,16 @@ export class EmployeeService {
   }
 
   listEmployee() {
+    return fetch(`${urlBase.dev}/api/employees/list-employees`, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((value) => {
+        const dtos: EmployeeResponseDTO[] = [];
+        dtos.push(...value);
+        return dtos;
+      });
+    /*
     return firstValueFrom(
       this.http.get<any>(`${urlBase.dev}/api/employees/list-employees`)
     ).then((value) => {
@@ -66,5 +76,6 @@ export class EmployeeService {
 
       return dtos;
     });
+    */
   }
 }
