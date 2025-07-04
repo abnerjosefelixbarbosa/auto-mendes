@@ -37,28 +37,61 @@ export class EmployeeService {
   registreEmployee(dto: EmployeeRequestDTO) {
     this.employeeValidation.validateEmployee(dto);
 
+    return fetch(`${urlBase.dev}/api/employees/register-employee`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dto),
+    })
+      .then((response) => response.json())
+      .then((value) => {
+        const dto: EmployeeResponseDTO = { ...value };
+        return dto;
+      });
+
+    /*
     return firstValueFrom(
       this.http.post<EmployeeResponseDTO>(
         `${urlBase.dev}/api/employees/register-employee`,
         dto
       )
     );
+    */
   }
 
   updateEmployeeById(id: string, dto: EmployeeRequestDTO) {
     this.employeeValidation.validateEmployee(dto);
-    
+
+    return fetch(
+      `${urlBase.dev}/api/employees/update-employee-by-id?id=${id}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dto),
+      }
+    )
+      .then((response) => response.json())
+      .then((value) => {
+        const dto: EmployeeResponseDTO = { ...value };
+        return dto;
+      });
+
+    /*
     return firstValueFrom(
       this.http.put<EmployeeResponseDTO>(
         `${urlBase.dev}/api/employees/update-employee-by-id?id=${id}`,
         dto
       )
     );
+    */
   }
 
   listEmployee() {
     return fetch(`${urlBase.dev}/api/employees/list-employees`, {
-      method: "GET",
+      method: 'GET',
     })
       .then((response) => response.json())
       .then((value) => {
@@ -66,6 +99,7 @@ export class EmployeeService {
         dtos.push(...value);
         return dtos;
       });
+
     /*
     return firstValueFrom(
       this.http.get<any>(`${urlBase.dev}/api/employees/list-employees`)
