@@ -53,4 +53,12 @@ public class EmployeeController {
 
 		return ResponseEntity.status(HttpStatus.OK).body(page.getContent());
 	}
+	
+	@ResponseStatus(value = HttpStatus.OK)
+	@GetMapping(value = "/list-employee-by-id", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<EmployeeResponseDTO> listEmployeeById(@RequestParam String id) {
+		EmployeeResponseDTO employeeResponseDTO = employeeService.listEmployeeById(id);
+
+		return ResponseEntity.status(HttpStatus.OK).body(employeeResponseDTO);
+	}
 }

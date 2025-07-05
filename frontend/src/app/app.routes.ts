@@ -20,7 +20,7 @@ export const routes: Routes = [
     component: EmployeeRegistrationComponent,
   },
   {
-    path: 'employee-update-by-id',
+    path: 'employee-update-by-id/:id',
     component: EmployeeUpdateByIdComponent,
   },
   {

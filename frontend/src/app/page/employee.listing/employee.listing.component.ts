@@ -43,7 +43,7 @@ export class EmployeeListingComponent implements OnInit {
   message = messages;
   id: string = '';
   private employeeService = inject(EmployeeService);
-  private sharedService = inject(SharedService);
+  //private sharedService = inject(SharedService);
 
   constructor(private router: Router, private formBuilder: FormBuilder, private datePipe: DatePipe) {
     this.form = this.formBuilder.group({
@@ -90,7 +90,7 @@ export class EmployeeListingComponent implements OnInit {
 
   listEmployee() {
     this.employeeService
-      .listEmployee()
+      .listEmployees()
       .then((values) => (this.items = values))
       .catch((e) => console.log(e));
   }
@@ -98,8 +98,8 @@ export class EmployeeListingComponent implements OnInit {
   update(item: EmployeeResponseDTO) {
     //this.cleanMessage();
     //this.replace(item);
-    this.sharedService.setData(item);
-    this.router.navigate(['/employee-update-by-id']);
+    //this.sharedService.setData(item);
+    this.router.navigate(['/employee-update-by-id', item.id]);
   }
 
   confirm() {

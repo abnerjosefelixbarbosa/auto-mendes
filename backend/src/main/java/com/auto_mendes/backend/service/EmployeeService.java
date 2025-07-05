@@ -22,13 +22,13 @@ public class EmployeeService implements IEmployeeService {
 
 	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO dto) {
 		Employee employee = new Employee(dto);
-		
+
 		employeeValidation.validatemployee(employee);
-		
+
 		if (!employee.getEmployeeType().toString().equals("SALER")) {
 			employee.setCommission(null);
 		}
-		
+
 		Employee employeeSaved = employeeRepository.save(employee);
 
 		return new EmployeeResponseDTO(employeeSaved);
@@ -36,16 +36,16 @@ public class EmployeeService implements IEmployeeService {
 
 	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO dto) {
 		Employee employee = new Employee(dto);
-		
+
 		employeeValidation.validatemployee(employee);
-		
+
 		if (employee.getEmployeeType().ordinal() != 2) {
 			employee.setCommission(null);
 		}
-		
+
 		Employee employeeFound = employeeRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Funcionário não encontrado."));
-		
+
 		BeanUtils.copyProperties(employee, employeeFound, "id");
 
 		return new EmployeeResponseDTO(employeeFound);
@@ -53,7 +53,14 @@ public class EmployeeService implements IEmployeeService {
 
 	public Page<EmployeeResponseDTO> listEmployees(Pageable pageable) {
 		Page<Employee> page = employeeRepository.findAll(pageable);
-		
+
 		return page.map(EmployeeResponseDTO::new);
+	}
+
+	public EmployeeResponseDTO listEmployeeById(String id) {
+		Employee employeeFound = employeeRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Funcionário não encontrado."));
+		
+		return new EmployeeResponseDTO(employeeFound);
 	}
 }

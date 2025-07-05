@@ -37,6 +37,14 @@ export class EmployeeService {
   registreEmployee(dto: EmployeeRequestDTO) {
     this.employeeValidation.validateEmployee(dto);
 
+    return firstValueFrom(
+      this.http.post<EmployeeResponseDTO>(
+        `${urlBase.dev}/api/employees/register-employee`,
+        dto
+      )
+    );
+
+    /*
     return fetch(`${urlBase.dev}/api/employees/register-employee`, {
       method: 'POST',
       headers: {
@@ -49,20 +57,20 @@ export class EmployeeService {
         const dto: EmployeeResponseDTO = { ...value };
         return dto;
       });
-
-    /*
-    return firstValueFrom(
-      this.http.post<EmployeeResponseDTO>(
-        `${urlBase.dev}/api/employees/register-employee`,
-        dto
-      )
-    );
     */
   }
 
   updateEmployeeById(id: string, dto: EmployeeRequestDTO) {
     this.employeeValidation.validateEmployee(dto);
 
+    return firstValueFrom(
+      this.http.put<EmployeeResponseDTO>(
+        `${urlBase.dev}/api/employees/update-employee-by-id?id=${id}`,
+        dto
+      )
+    );
+
+    /*
     return fetch(
       `${urlBase.dev}/api/employees/update-employee-by-id?id=${id}`,
       {
@@ -78,18 +86,15 @@ export class EmployeeService {
         const dto: EmployeeResponseDTO = { ...value };
         return dto;
       });
-
-    /*
-    return firstValueFrom(
-      this.http.put<EmployeeResponseDTO>(
-        `${urlBase.dev}/api/employees/update-employee-by-id?id=${id}`,
-        dto
-      )
-    );
     */
   }
 
-  listEmployee() {
+  listEmployees() {
+    return firstValueFrom(
+      this.http.get<EmployeeResponseDTO[]>(`${urlBase.dev}/api/employees/list-employees`)
+    );
+
+    /*
     return fetch(`${urlBase.dev}/api/employees/list-employees`, {
       method: 'GET',
     })
@@ -99,17 +104,12 @@ export class EmployeeService {
         dtos.push(...value);
         return dtos;
       });
-
-    /*
-    return firstValueFrom(
-      this.http.get<any>(`${urlBase.dev}/api/employees/list-employees`)
-    ).then((value) => {
-      const dtos: EmployeeResponseDTO[] = [];
-
-      dtos.push(...value);
-
-      return dtos;
-    });
     */
+  }
+
+  listEmployeeById(id: string) {
+    return firstValueFrom(
+      this.http.get<EmployeeResponseDTO>(`${urlBase.dev}/list-employee-by-id?id=${id}`)
+    );
   }
 }

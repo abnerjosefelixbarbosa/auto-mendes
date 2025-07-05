@@ -9,6 +9,8 @@ import {
 } from '@angular/forms';
 import { SharedService } from '../../service/shared/shared.service';
 import { EmployeeResponseDTO } from '../../service/employee/employee.service';
+import { ActivatedRoute } from '@angular/router';
+import { EmployeeService } from './../../service/employee/employee.service';
 
 @Component({
   selector: 'app-employee.update-by-id',
@@ -18,9 +20,12 @@ import { EmployeeResponseDTO } from '../../service/employee/employee.service';
 })
 export class EmployeeUpdateByIdComponent {
   form: FormGroup;
-  private sharedService = inject(SharedService);
+  private employeeService = inject(EmployeeService);
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: ActivatedRoute
+  ) {
     this.form = this.formBuilder.group({
       id: [''],
       name: ['', [Validators.required, Validators.maxLength(100)]],
@@ -44,7 +49,12 @@ export class EmployeeUpdateByIdComponent {
   }
 
   confirm() {
-    const dto: EmployeeResponseDTO = { ...this.sharedService.getData() };
-    console.log(dto)
+    const id = this.router.snapshot.paramMap.get('id');
+
+    this.employeeService.listEmployeeById(id!).then((value) => {
+      console.log(value)
+    });
+
+    //console.log('Id receido:', id)
   }
 }
