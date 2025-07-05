@@ -13,5 +13,5 @@ public interface IEmployeeService {
 	
 	Page<EmployeeResponseDTO> listEmployees(Pageable pageable);
 	
-	EmployeeResponseDTO listEmployeeById(String id);
+	EmployeeResponseDTO getEmployeeById(String id);
 }

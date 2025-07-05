@@ -57,7 +57,7 @@ public class EmployeeService implements IEmployeeService {
 		return page.map(EmployeeResponseDTO::new);
 	}
 
-	public EmployeeResponseDTO listEmployeeById(String id) {
+	public EmployeeResponseDTO getEmployeeById(String id) {
 		Employee employeeFound = employeeRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Funcionário não encontrado."));
 		
