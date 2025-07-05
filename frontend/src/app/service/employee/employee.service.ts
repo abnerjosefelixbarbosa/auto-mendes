@@ -43,21 +43,6 @@ export class EmployeeService {
         dto
       )
     );
-
-    /*
-    return fetch(`${urlBase.dev}/api/employees/register-employee`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dto),
-    })
-      .then((response) => response.json())
-      .then((value) => {
-        const dto: EmployeeResponseDTO = { ...value };
-        return dto;
-      });
-    */
   }
 
   updateEmployeeById(id: string, dto: EmployeeRequestDTO) {
@@ -69,47 +54,17 @@ export class EmployeeService {
         dto
       )
     );
-
-    /*
-    return fetch(
-      `${urlBase.dev}/api/employees/update-employee-by-id?id=${id}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dto),
-      }
-    )
-      .then((response) => response.json())
-      .then((value) => {
-        const dto: EmployeeResponseDTO = { ...value };
-        return dto;
-      });
-    */
   }
 
   listEmployees() {
     return firstValueFrom(
       this.http.get<EmployeeResponseDTO[]>(`${urlBase.dev}/api/employees/list-employees`)
     );
-
-    /*
-    return fetch(`${urlBase.dev}/api/employees/list-employees`, {
-      method: 'GET',
-    })
-      .then((response) => response.json())
-      .then((value) => {
-        const dtos: EmployeeResponseDTO[] = [];
-        dtos.push(...value);
-        return dtos;
-      });
-    */
   }
 
   listEmployeeById(id: string) {
     return firstValueFrom(
-      this.http.get<EmployeeResponseDTO>(`${urlBase.dev}/list-employee-by-id?id=${id}`)
+      this.http.get<EmployeeResponseDTO>(`${urlBase.dev}/api/employees/get-employee-by-id?id=${id}`)
     );
   }
 }
