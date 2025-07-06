@@ -62,7 +62,7 @@ export class EmployeeService {
     );
   }
 
-  listEmployeeById(id: string) {
+  getEmployeeById(id: string) {
     return firstValueFrom(
       this.http.get<EmployeeResponseDTO>(`${urlBase.dev}/api/employees/get-employee-by-id?id=${id}`)
     );

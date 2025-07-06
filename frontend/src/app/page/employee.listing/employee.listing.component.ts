@@ -18,7 +18,6 @@ import { PhonePipe } from '../../pipe/phone/phone.pipe';
 import { messages } from '../../utils/message';
 import { EmployeeType } from '../../enum/employee_type';
 import { Router } from '@angular/router';
-import { SharedService } from '../../service/shared/shared.service';
 
 @Component({
   selector: 'app-employee-listing',
@@ -26,8 +25,7 @@ import { SharedService } from '../../service/shared/shared.service';
     NavbarComponent,
     ReactiveFormsModule,
     DatePipe,
-    PhonePipe,
-    NgxMaskDirective,
+    PhonePipe
   ],
   templateUrl: './employee.listing.component.html',
   styleUrl: './employee.listing.component.css',
@@ -43,7 +41,6 @@ export class EmployeeListingComponent implements OnInit {
   message = messages;
   id: string = '';
   private employeeService = inject(EmployeeService);
-  //private sharedService = inject(SharedService);
 
   constructor(private router: Router, private formBuilder: FormBuilder, private datePipe: DatePipe) {
     this.form = this.formBuilder.group({
