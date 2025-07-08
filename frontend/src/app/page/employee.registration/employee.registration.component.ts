@@ -81,13 +81,9 @@ export class EmployeeRegistrationComponent {
           phone: this.form.get('phone')?.value,
         };
 
-        this.employeeService.registreEmployee(dto).then((value) => {
-          console.log(value);
-
+        this.employeeService.registreEmployee(dto).then(() => {
           this.message.sucess = "Funcionário regidtrado."
         }).catch((e) => {
-          console.log(e.error.message);
-
           this.message.error = e.error.message;
         });
       } else {

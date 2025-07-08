@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { urlBase } from '../../utils/url';
 import { EmployeeType } from '../../enum/employee_type';
@@ -48,23 +48,35 @@ export class EmployeeService {
   updateEmployeeById(id: string, dto: EmployeeRequestDTO) {
     this.employeeValidation.validateEmployee(dto);
 
-    return firstValueFrom(
-      this.http.put<EmployeeResponseDTO>(
-        `${urlBase.dev}/api/employees/update-employee-by-id?id=${id}`,
-        dto
-      )
-    );
+    this.http.put<EmployeeResponseDTO>(
+      `${urlBase.dev}/api/employees/update-employee-by-id`,
+      dto,
+      {
+        params: new HttpParams().set('id', `${id}`),
+      }
+    ).subscribe({
+      next(value) {
+        console.log(value)
+      },
+      error(err) {
+        console.error(err)
+      },
+    });
   }
 
   listEmployees() {
     return firstValueFrom(
-      this.http.get<EmployeeResponseDTO[]>(`${urlBase.dev}/api/employees/list-employees`)
+      this.http.get<EmployeeResponseDTO[]>(
+        `${urlBase.dev}/api/employees/list-employees`
+      )
     );
   }
 
   getEmployeeById(id: string) {
     return firstValueFrom(
-      this.http.get<EmployeeResponseDTO>(`${urlBase.dev}/api/employees/get-employee-by-id?id=${id}`)
+      this.http.get<EmployeeResponseDTO>(
+        `${urlBase.dev}/api/employees/get-employee-by-id?id=${id}`
+      )
     );
   }
 }

@@ -71,9 +71,12 @@ export class EmployeeUpdateByIdComponent implements OnInit {
         ...this.form.value
       }
 
+      /*
       this.employeeService.updateEmployeeById(id!, dto).then((value) => {
         console.log(value);
       }).catch((e) => console.log(e.error.message));
+      */
+      this.employeeService.updateEmployeeById(id!, dto);
     } catch (e: any) {
       this.message.error = e.message;
     }

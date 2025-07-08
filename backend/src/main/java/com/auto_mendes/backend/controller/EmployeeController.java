@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,13 +24,13 @@ import com.auto_mendes.backend.service.IEmployeeService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/api/employees")
+@RequestMapping("/api/employees")
 public class EmployeeController {
 	@Autowired
 	private IEmployeeService employeeService;
 
 	@ResponseStatus(value = HttpStatus.CREATED)
-	@PostMapping(value = "/register-employee", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping("/register-employee")
 	public ResponseEntity<EmployeeResponseDTO> registerEmployee(@RequestBody @Valid EmployeeRequestDTO dto) {
 		EmployeeResponseDTO response = employeeService.registerEmployee(dto);
 
@@ -38,8 +38,8 @@ public class EmployeeController {
 	}
 
 	@ResponseStatus(value = HttpStatus.OK)
-	@PutMapping(value = "/update-employee-id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<EmployeeResponseDTO> updateEmployeeById(@RequestParam String id,
+	@PutMapping("/update-employee-id/{id}")
+	public ResponseEntity<EmployeeResponseDTO> updateEmployeeById(@PathVariable String id,
 			@RequestBody @Valid EmployeeRequestDTO dto) {
 		EmployeeResponseDTO response = employeeService.updateEmployeeById(id, dto);
 
@@ -47,7 +47,7 @@ public class EmployeeController {
 	}
 
 	@ResponseStatus(value = HttpStatus.OK)
-	@GetMapping(value = "/list-employees", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping("/list-employees")
 	public ResponseEntity<List<EmployeeResponseDTO>> listEmployees(Pageable pageable) {
 		Page<EmployeeResponseDTO> page = employeeService.listEmployees(pageable);
 
@@ -55,7 +55,7 @@ public class EmployeeController {
 	}
 	
 	@ResponseStatus(value = HttpStatus.OK)
-	@GetMapping(value = "/get-employee-by-id", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping("/get-employee-by-id")
 	public ResponseEntity<EmployeeResponseDTO> getEmployeeById(@RequestParam String id) {
 		EmployeeResponseDTO employeeResponseDTO = employeeService.getEmployeeById(id);
 
