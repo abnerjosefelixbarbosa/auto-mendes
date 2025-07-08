@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,8 +37,8 @@ public class EmployeeController {
 	}
 
 	@ResponseStatus(value = HttpStatus.OK)
-	@PutMapping("/update-employee-id/{id}")
-	public ResponseEntity<EmployeeResponseDTO> updateEmployeeById(@PathVariable String id,
+	@PutMapping("/update-employee-by-id")
+	public ResponseEntity<EmployeeResponseDTO> updateEmployeeById(@RequestParam String id,
 			@RequestBody @Valid EmployeeRequestDTO dto) {
 		EmployeeResponseDTO response = employeeService.updateEmployeeById(id, dto);
 

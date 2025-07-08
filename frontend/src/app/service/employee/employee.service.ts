@@ -48,20 +48,14 @@ export class EmployeeService {
   updateEmployeeById(id: string, dto: EmployeeRequestDTO) {
     this.employeeValidation.validateEmployee(dto);
 
-    this.http.put<EmployeeResponseDTO>(
-      `${urlBase.dev}/api/employees/update-employee-by-id`,
-      dto,
-      {
-        params: new HttpParams().set('id', `${id}`),
-      }
-    ).subscribe({
-      next(value) {
-        console.log(value)
-      },
-      error(err) {
-        console.error(err)
-      },
-    });
+    firstValueFrom(
+      this.http.put<EmployeeResponseDTO>(
+        `${urlBase.dev}/api/employees/update-employee-by-id?id=${id}`,
+        dto
+      )
+    )
+    .then((value) => console.log(value))
+    .catch((e) => console.error(e));
   }
 
   listEmployees() {
