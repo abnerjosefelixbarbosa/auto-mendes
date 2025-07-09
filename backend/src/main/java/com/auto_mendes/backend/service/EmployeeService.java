@@ -13,6 +13,8 @@ import com.auto_mendes.backend.model.Employee;
 import com.auto_mendes.backend.repository.IEmployeeRepository;
 import com.auto_mendes.backend.validation.IEmployeeValidation;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class EmployeeService implements IEmployeeService {
 	@Autowired
@@ -20,6 +22,7 @@ public class EmployeeService implements IEmployeeService {
 	@Autowired
 	private IEmployeeValidation employeeValidation;
 
+	@Transactional
 	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO dto) {
 		Employee employee = new Employee(dto);
 
@@ -34,6 +37,7 @@ public class EmployeeService implements IEmployeeService {
 		return new EmployeeResponseDTO(employeeSaved);
 	}
 
+	@Transactional
 	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO dto) {
 		Employee employee = new Employee(dto);
 

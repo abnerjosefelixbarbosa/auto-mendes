@@ -48,14 +48,12 @@ export class EmployeeService {
   updateEmployeeById(id: string, dto: EmployeeRequestDTO) {
     this.employeeValidation.validateEmployee(dto);
 
-    firstValueFrom(
+    return firstValueFrom(
       this.http.put<EmployeeResponseDTO>(
         `${urlBase.dev}/api/employees/update-employee-by-id?id=${id}`,
         dto
       )
-    )
-    .then((value) => console.log(value))
-    .catch((e) => console.error(e));
+    );
   }
 
   listEmployees() {

@@ -7,7 +7,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { EmployeeRequestDTO, EmployeeResponseDTO } from '../../service/employee/employee.service';
+import {
+  EmployeeRequestDTO,
+  EmployeeResponseDTO,
+} from '../../service/employee/employee.service';
 import { ActivatedRoute } from '@angular/router';
 import { EmployeeService } from './../../service/employee/employee.service';
 import { messages } from '../../utils/message';
@@ -53,30 +56,30 @@ export class EmployeeUpdateByIdComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.cleanMessage();
+
     const id = this.router.snapshot.paramMap.get('id');
 
     this.employeeService
       .getEmployeeById(id!)
-      .then((value) => {
-        this.replace(value);
-      })
+      .then((value) => this.replace(value))
       .catch((e) => (this.message.error = e.error.message));
   }
 
   confirm() {
     try {
+      this.cleanMessage();
+
       const id = this.router.snapshot.paramMap.get('id');
 
       const dto: EmployeeRequestDTO = {
-        ...this.form.value
-      }
+        ...this.form.value,
+      };
 
-      /*
-      this.employeeService.updateEmployeeById(id!, dto).then((value) => {
-        console.log(value);
-      }).catch((e) => console.log(e.error.message));
-      */
-      this.employeeService.updateEmployeeById(id!, dto);
+      this.employeeService
+        .updateEmployeeById(id!, dto)
+        .then(() => (this.message.sucess = 'Funcionário atualizado.'))
+        .catch((e) => (this.message.error = e.error.message));
     } catch (e: any) {
       this.message.error = e.message;
     }
