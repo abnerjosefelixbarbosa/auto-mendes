@@ -15,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 import { EmployeeService } from './../../service/employee/employee.service';
 import { messages } from '../../utils/message';
 import { DatePipe } from '@angular/common';
+import { EmployeeType } from '../../enum/employee_type';
 
 @Component({
   selector: 'app-employee.update-by-id',
@@ -72,9 +73,7 @@ export class EmployeeUpdateByIdComponent implements OnInit {
 
       const id = this.router.snapshot.paramMap.get('id');
 
-      const dto: EmployeeRequestDTO = {
-        ...this.form.value,
-      };
+      const dto = this.transferEmployeeDTO(this.form);
 
       this.employeeService
         .updateEmployeeById(id!, dto)
@@ -83,6 +82,34 @@ export class EmployeeUpdateByIdComponent implements OnInit {
     } catch (e: any) {
       this.message.error = e.message;
     }
+  }
+
+  private transferEmployeeDTO(form: FormGroup) {
+    let select: EmployeeType = EmployeeType.MANAGER;
+
+    if (form.get('employeeType')?.value === 0) {
+      select = EmployeeType.MANAGER;
+    }
+
+    if (form.get('employeeType')?.value === 1) {
+      select = EmployeeType.SUBMANAGER;
+    }
+
+    if (form.get('employeeType')?.value === 2) {
+      select = EmployeeType.SALER;
+    }
+
+    const dto: EmployeeRequestDTO = {
+      birthDate: form.get('birthDate')?.value,
+      commission: new Number(form.get('commission')?.value).toFixed(2),
+      email: form.get('email')?.value,
+      employeeType: select,
+      matriculation: form.get('matriculation')?.value,
+      name: form.get('name')?.value,
+      phone: form.get('phone')?.value,
+    };
+
+    return dto;
   }
 
   private replace(item: EmployeeResponseDTO) {
