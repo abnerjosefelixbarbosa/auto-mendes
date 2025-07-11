@@ -19,7 +19,7 @@
           <td>{{ i.name }}</td>
           <td>{{ i.email }}</td>
           <td>{{ i.matriculation }}</td>
-          <td>{{ i.phone | phone }} </td>
+          <td>{{ i.phone | phone }}</td>
           <td>{{ i.birthDate | date : "dd-MM-yyyy" }}</td>
           <td>{{ i.commission }}</td>
           <td>
@@ -38,7 +38,6 @@
       </tbody>
     </table>
 
-    <!--
     <div
       class="modal fade"
       id="updateModal"
@@ -47,16 +46,6 @@
       aria-hidden="true"
     >
       <div class="modal-dialog">
-        @if (message.sucess != '') {
-        <div class="alert alert-success" role="alert">
-          {{ message.sucess }}
-        </div>
-        } @if (message.error != '') {
-        <div class="alert alert-danger" role="alert">
-          {{ message.error }}
-        </div>
-        }
-
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Atualização de funcionario</h5>
@@ -68,6 +57,17 @@
             ></button>
           </div>
           <div class="modal-body">
+            <div>
+              @if (message.sucess != '') {
+              <div class="alert alert-success" role="alert">
+                {{ message.sucess }}
+              </div>
+              } @if (message.error != '') {
+              <div class="alert alert-danger" role="alert">
+                {{ message.error }}
+              </div>
+              }
+            </div>
             <form [formGroup]="form" (ngSubmit)="confirm()">
               <div class="mb-3">
                 <label for="name" class="form-label">name</label>
@@ -100,6 +100,7 @@
                 <input
                   type="number"
                   class="form-control"
+                  mask="0000000000"
                   formControlName="matriculation"
                 />
 
@@ -178,6 +179,5 @@
         </div>
       </div>
     </div>
-    -->
   </div>
 </main>

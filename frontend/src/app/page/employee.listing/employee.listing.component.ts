@@ -21,12 +21,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee-listing',
-  imports: [
-    NavbarComponent,
-    ReactiveFormsModule,
-    DatePipe,
-    PhonePipe
-  ],
+  imports: [NavbarComponent, ReactiveFormsModule, DatePipe, PhonePipe, NgxMaskDirective],
   templateUrl: './employee.listing.component.html',
   styleUrl: './employee.listing.component.css',
   standalone: true,
@@ -42,7 +37,11 @@ export class EmployeeListingComponent implements OnInit {
   id: string = '';
   private employeeService = inject(EmployeeService);
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private datePipe: DatePipe) {
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private datePipe: DatePipe
+  ) {
     this.form = this.formBuilder.group({
       id: [''],
       name: ['', [Validators.required, Validators.maxLength(100)]],
@@ -82,22 +81,102 @@ export class EmployeeListingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.cleanMessage();
     this.listEmployee();
   }
 
   listEmployee() {
     this.employeeService
       .listEmployees()
-      .then((values) => (this.items = values))
-      .catch((e) => console.log(e));
+      .then((values) => (this.items = values));
   }
 
   update(item: EmployeeResponseDTO) {
-    this.router.navigate(['/employee-update-by-id', item.id]);
+    //this.router.navigate(['/employee-update-by-id', item.id]);
+    this.cleanMessage();
+
+    this.replace(item);
+  }
+
+  confirm() {
+    try {
+      this.cleanMessage();
+
+      const id: string = this.form.get('id')?.value;
+
+      const dto = this.transferEmployeeDTO(this.form);
+
+      this.employeeService
+        .updateEmployeeById(id!, dto)
+        .then(() => (this.message.sucess = 'Funcionário atualizado.'))
+        .catch((e) => (this.message.error = e.error.message));
+    } catch (e: any) {
+      this.message.error = e.message;
+    }
+  }
+
+  private transferEmployeeDTO(form: FormGroup) {
+    let select: EmployeeType = EmployeeType.MANAGER;
+
+    if (form.get('employeeType')?.value === 0) {
+      select = EmployeeType.MANAGER;
+    }
+
+    if (form.get('employeeType')?.value === 1) {
+      select = EmployeeType.SUBMANAGER;
+    }
+
+    if (form.get('employeeType')?.value === 2) {
+      select = EmployeeType.SALER;
+    }
+
+    const dto: EmployeeRequestDTO = {
+      birthDate: form.get('birthDate')?.value,
+      commission: new Number(form.get('commission')?.value).toFixed(2),
+      email: form.get('email')?.value,
+      employeeType: select,
+      matriculation: form.get('matriculation')?.value,
+      name: form.get('name')?.value,
+      phone: form.get('phone')?.value,
+    };
+
+    return dto;
+  }
+
+  private replace(item: EmployeeResponseDTO) {
+    const [year, month, day] = item.birthDate.toString().split('-').map(Number);
+    const date = new Date(year, month - 1, day);
+
+    const dateFormated = this.formatDate(date);
+
+    this.form.get('id')?.setValue(item.id);
+    this.form.get('name')?.setValue(item.name);
+    this.form.get('email')?.setValue(item.email);
+    this.form.get('matriculation')?.setValue(item.matriculation);
+    this.form.get('phone')?.setValue(item.phone);
+    this.form.get('birthDate')?.setValue(dateFormated);
+    this.form.get('commission')?.setValue(item.commission);
+
+    if (item.employeeType.toString() == 'MANAGER') {
+      this.form.get('employeeType')?.setValue('1');
+    }
+
+    if (item.employeeType.toString() == 'SUBMANAGER') {
+      this.form.get('employeeType')?.setValue('2');
+    }
+
+    if (item.employeeType.toString() == 'SALER') {
+      this.form.get('employeeType')?.setValue('3');
+    }
+  }
+
+  private formatDate(date: Date) {
+    return this.datePipe.transform(date, 'yyyy-MM-dd');
   }
 
   private cleanMessage() {
     this.message.sucess = '';
+
     this.message.error = '';
   }
 }
