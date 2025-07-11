@@ -15,7 +15,7 @@ public class ModelValidation implements IModelValidation {
 		boolean isExistsName = modelRepository.existsByName(model.getName());
 		
 		if (isExistsName) {
-			throw new RuntimeException("Nome não deve ser duplicado");
+			throw new RuntimeException("Nome não deve ser duplicado.");
 		}
 	}
 }

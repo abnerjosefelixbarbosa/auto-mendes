@@ -26,7 +26,7 @@ public class EmployeeValidation implements IEmployeeValidation {
 				.existsByEmailOrMatriculationOrPhone(employee.getEmail(), employee.getMatriculation(), employee.getPhone());
 		
 		if (isExistsEmailOrMatriculationOrPhone) {
-			throw new RuntimeException("Email, matrícula ou telefone não deve ser duplicados");
+			throw new RuntimeException("Email, matrícula ou telefone não deve ser duplicados.");
 		}
 	}
 }
