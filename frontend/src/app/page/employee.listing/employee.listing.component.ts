@@ -17,11 +17,16 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { PhonePipe } from '../../pipe/phone/phone.pipe';
 import { messages } from '../../utils/message';
 import { EmployeeType } from '../../enum/employee_type';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee-listing',
-  imports: [NavbarComponent, ReactiveFormsModule, DatePipe, PhonePipe, NgxMaskDirective],
+  imports: [
+    NavbarComponent,
+    ReactiveFormsModule,
+    DatePipe,
+    PhonePipe,
+    NgxMaskDirective,
+  ],
   templateUrl: './employee.listing.component.html',
   styleUrl: './employee.listing.component.css',
   standalone: true,
@@ -37,11 +42,7 @@ export class EmployeeListingComponent implements OnInit {
   id: string = '';
   private employeeService = inject(EmployeeService);
 
-  constructor(
-    private router: Router,
-    private formBuilder: FormBuilder,
-    private datePipe: DatePipe
-  ) {
+  constructor(private formBuilder: FormBuilder, private datePipe: DatePipe) {
     this.form = this.formBuilder.group({
       id: [''],
       name: ['', [Validators.required, Validators.maxLength(100)]],
@@ -92,7 +93,6 @@ export class EmployeeListingComponent implements OnInit {
   }
 
   update(item: EmployeeResponseDTO) {
-    //this.router.navigate(['/employee-update-by-id', item.id]);
     this.cleanMessage();
 
     this.replace(item);
@@ -118,15 +118,11 @@ export class EmployeeListingComponent implements OnInit {
   private transferEmployeeDTO(form: FormGroup) {
     let select: EmployeeType = EmployeeType.MANAGER;
 
-    if (form.get('employeeType')?.value === 0) {
-      select = EmployeeType.MANAGER;
-    }
-
-    if (form.get('employeeType')?.value === 1) {
+    if (form.get('employeeType')?.value == 2) {
       select = EmployeeType.SUBMANAGER;
     }
 
-    if (form.get('employeeType')?.value === 2) {
+    if (form.get('employeeType')?.value == 3) {
       select = EmployeeType.SALER;
     }
 
