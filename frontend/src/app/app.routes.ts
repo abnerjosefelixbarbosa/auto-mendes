@@ -8,7 +8,6 @@ import { VehicleRegistrationComponent } from './page/vehicle.registration/vehicl
 import { BrandListingComponent } from './page/brand.listing/brand.listing.component';
 import { ModelListingComponent } from './page/model.listing/model.listing.component';
 import { VehicleListingComponent } from './page/vehicle.listing/vehicle.listing.component';
-import { EmployeeUpdateByIdComponent } from './page/employee.update-by-id/employee.update-by-id.component';
 
 export const routes: Routes = [
   {
@@ -20,10 +19,6 @@ export const routes: Routes = [
     component: EmployeeRegistrationComponent,
   },
   {
-    path: 'employee-update-by-id/:id',
-    component: EmployeeUpdateByIdComponent,
-  },
-  {
     path: 'employee-listing',
     component: EmployeeListingComponent,
   },
@@ -32,20 +27,20 @@ export const routes: Routes = [
     component: BrandRegistrationComponent,
   },
   {
-    path: 'model-registration',
-    component: ModelRegistrationComponent,
-  },
-  {
-    path: 'vehicle-registration',
-    component: VehicleRegistrationComponent,
-  },
-  {
     path: 'brand-listing',
     component: BrandListingComponent,
   },
   {
+    path: 'model-registration',
+    component: ModelRegistrationComponent,
+  },
+  {
     path: 'model-listing',
     component: ModelListingComponent,
+  },
+  {
+    path: 'vehicle-registration',
+    component: VehicleRegistrationComponent,
   },
   {
     path: 'vehicle-listing',
