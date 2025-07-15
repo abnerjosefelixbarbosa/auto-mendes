@@ -37,7 +37,7 @@ export class BrandRegistrationComponent {
         this.form.markAllAsTouched();
       }
     } catch (e: any) {
-      const message = e.message;
+      const message = e.error.message;
 
       
       //if (message == 'Comissão invalida.') {
@@ -45,4 +45,6 @@ export class BrandRegistrationComponent {
       //}  
     }
   }
+
+  
 }

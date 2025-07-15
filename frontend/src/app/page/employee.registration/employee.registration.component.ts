@@ -26,7 +26,6 @@ import { EmployeeValidation } from './../../validation/employee.validation';
 export class EmployeeRegistrationComponent {
   message = messages;
   form: FormGroup;
-  private employeeType: EmployeeType = EmployeeType.MANAGER;
   private employeeService = inject(EmployeeService);
 
   constructor(private formBuilder: FormBuilder) {
@@ -49,43 +48,25 @@ export class EmployeeRegistrationComponent {
       employeeType: ['', [Validators.required]],
       commission: ['', []],
     });
-
-    this.form.get('employeeType')?.valueChanges.subscribe((value) => {
-      if (value === '1') {
-        this.employeeType = EmployeeType.MANAGER;
-      }
-
-      if (value === '2') {
-        this.employeeType = EmployeeType.SUBMANAGER;
-      }
-
-      if (value === '3') {
-        this.employeeType = EmployeeType.SALER;
-      }
-    });
   }
 
   register() {
     try {
-      this.message.sucess = '';
-      this.message.error = '';
+      this.cleanMessage();
 
       if (this.form.valid) {
-        const dto: EmployeeRequestDTO = {
-          birthDate: this.form.get('birthDate')?.value,
-          commission: new Number(this.form.get('commission')?.value).toFixed(2),
-          email: this.form.get('email')?.value,
-          employeeType: this.employeeType,
-          matriculation: this.form.get('matriculation')?.value,
-          name: this.form.get('name')?.value,
-          phone: this.form.get('phone')?.value,
-        };
+        const dto: EmployeeRequestDTO = this.transferEmployeeDTO(this.form);
 
-        this.employeeService.registreEmployee(dto).then(() => {
-          this.message.sucess = "Funcionário regidtrado."
-        }).catch((e) => {
-          this.message.error = e.error.message;
-        });
+        this.employeeService
+          .registreEmployee(dto)
+          .then(() => {
+            this.message.sucess = 'Funcionário regidtrado.';
+
+            this.cleanForm();
+          })
+          .catch((e) => {
+            this.message.error = e.error.message;
+          });
       } else {
         this.form.markAllAsTouched();
       }
@@ -94,13 +75,42 @@ export class EmployeeRegistrationComponent {
     }
   }
 
-  cleanForm() {
-    this.form.get('name')?.setValue('');
-    this.form.get('email')?.setValue('');
-    this.form.get('matriculation')?.setValue('');
-    this.form.get('phone')?.setValue('');
+  private transferEmployeeDTO(form: FormGroup) {
+    let select: EmployeeType = EmployeeType.MANAGER;
+
+    if (form.get('employeeType')?.value == 2) {
+      select = EmployeeType.SUBMANAGER;
+    }
+
+    if (form.get('employeeType')?.value == 3) {
+      select = EmployeeType.SALER;
+    }
+
+    const dto: EmployeeRequestDTO = {
+      birthDate: this.form.get('birthDate')?.value,
+      commission: new Number(this.form.get('commission')?.value).toFixed(2),
+      email: this.form.get('email')?.value,
+      employeeType: select,
+      matriculation: this.form.get('matriculation')?.value,
+      name: this.form.get('name')?.value,
+      phone: this.form.get('phone')?.value,
+    };
+
+    return dto;
+  }
+
+  private cleanForm() {
     this.form.get('birthDate')?.setValue('');
-    this.form.get('employeeType')?.setValue('');
     this.form.get('commission')?.setValue('');
+    this.form.get('email')?.setValue('');
+    this.form.get('typeEmployee')?.setValue('');
+    this.form.get('matriculation')?.setValue('');
+    this.form.get('name')?.setValue('');
+    this.form.get('phone')?.setValue('');
+  }
+
+  private cleanMessage() {
+    this.message.sucess = '';
+    this.message.error = '';
   }
 }

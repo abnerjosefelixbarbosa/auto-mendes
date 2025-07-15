@@ -108,7 +108,13 @@ export class EmployeeListingComponent implements OnInit {
 
       this.employeeService
         .updateEmployeeById(id!, dto)
-        .then(() => (this.message.sucess = 'Funcionário atualizado.'))
+        .then(() => {
+          this.message.sucess = 'Funcionário atualizado.';
+
+          setTimeout(() => {
+            location.reload();
+          }, 2000);
+        })
         .catch((e) => (this.message.error = e.error.message));
     } catch (e: any) {
       this.message.error = e.message;

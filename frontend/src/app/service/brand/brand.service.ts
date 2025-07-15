@@ -38,15 +38,6 @@ export class BrandService {
   }
 
   listBrand() {
-    return firstValueFrom(this.http.get<any>(`${urlBase.dev}/api/brands/list-brands`)).then(
-      (value) => {
-        const dtos: BrandResponseDTO[] = [];
-        const content = value.content;
-
-        dtos.push(...content);
-
-        return dtos;
-      }
-    );
+    return firstValueFrom(this.http.get<BrandResponseDTO[]>(`${urlBase.dev}/api/brands/list-brands`));
   }
 }
