@@ -1,0 +1,16 @@
+import { FormGroup } from "@angular/forms";
+import { BrandRequestDTO } from "../service/brand/brand.service";
+import { Injectable } from "@angular/core";
+
+@Injectable({
+  providedIn: 'root',
+})
+export class BrandMapper {
+  toEmployeeDTO(form: FormGroup) {
+    const dto: BrandRequestDTO = {
+      name: form.get('name')?.value
+    };
+
+    return dto;
+  }
+}

@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { messages } from '../../utils/message';
 import { BrandService } from '../../service/brand/brand.service';
+import { BrandMapper } from '../../mapper/brand.mapper';
 
 @Component({
   selector: 'app-brand.registration',
@@ -18,6 +19,7 @@ import { BrandService } from '../../service/brand/brand.service';
 export class BrandRegistrationComponent {
   message = messages;
   form: FormGroup;
+  private brandMapper = inject(BrandMapper);
   private brandService = inject(BrandService);
 
   constructor(private formBuilder: FormBuilder) {
@@ -28,23 +30,35 @@ export class BrandRegistrationComponent {
 
   register() {
     try {
-      this.message.sucess = '';
-      this.message.error = '';
+      this.cleanMessage();
 
       if (this.form.valid) {
-        
+        const dto = this.brandMapper.toEmployeeDTO(this.form);
+
+        this.brandService
+          .registerBrand(dto)
+          .then(() => {
+            this.message.sucess = 'Marca registrada.';
+
+            this.cleanForm();
+          })
+          .catch((e) => {
+            this.message.error = e.error.message;
+          });
       } else {
         this.form.markAllAsTouched();
       }
     } catch (e: any) {
-      const message = e.error.message;
-
-      
-      //if (message == 'Comissão invalida.') {
-      //  this.form.get('commission')?.setErrors({ commissionInvalid: true });
-      //}  
+      this.message.error = e.message;
     }
   }
 
-  
+  private cleanForm() {
+    this.form.get('name')?.setValue('');
+  }
+
+  private cleanMessage() {
+    this.message.sucess = '';
+    this.message.error = '';
+  }
 }

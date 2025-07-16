@@ -12,8 +12,7 @@ import {
 } from '../../service/employee/employee.service';
 import { messages } from '../../utils/message';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
-import { EmployeeType } from '../../enum/employee_type';
-import { EmployeeValidation } from './../../validation/employee.validation';
+import { EmployeeMapper } from '../../mapper/employee.mapper';
 
 @Component({
   selector: 'app-employee-registration',
@@ -27,6 +26,7 @@ export class EmployeeRegistrationComponent {
   message = messages;
   form: FormGroup;
   private employeeService = inject(EmployeeService);
+  private employeeMapper = inject(EmployeeMapper);
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -55,7 +55,9 @@ export class EmployeeRegistrationComponent {
       this.cleanMessage();
 
       if (this.form.valid) {
-        const dto: EmployeeRequestDTO = this.transferEmployeeDTO(this.form);
+        const dto = this.employeeMapper.toEmployeeDTO(
+          this.form
+        );
 
         this.employeeService
           .registreEmployee(dto)
@@ -73,30 +75,6 @@ export class EmployeeRegistrationComponent {
     } catch (e: any) {
       this.message.error = e.message;
     }
-  }
-
-  private transferEmployeeDTO(form: FormGroup) {
-    let select: EmployeeType = EmployeeType.MANAGER;
-
-    if (form.get('employeeType')?.value == 2) {
-      select = EmployeeType.SUBMANAGER;
-    }
-
-    if (form.get('employeeType')?.value == 3) {
-      select = EmployeeType.SALER;
-    }
-
-    const dto: EmployeeRequestDTO = {
-      birthDate: this.form.get('birthDate')?.value,
-      commission: new Number(this.form.get('commission')?.value).toFixed(2),
-      email: this.form.get('email')?.value,
-      employeeType: select,
-      matriculation: this.form.get('matriculation')?.value,
-      name: this.form.get('name')?.value,
-      phone: this.form.get('phone')?.value,
-    };
-
-    return dto;
   }
 
   private cleanForm() {
