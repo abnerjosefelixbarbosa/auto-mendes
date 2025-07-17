@@ -33,7 +33,7 @@ export class BrandRegistrationComponent {
       this.cleanMessage();
 
       if (this.form.valid) {
-        const dto = this.brandMapper.toEmployeeDTO(this.form);
+        const dto = this.brandMapper.toBrandDTO(this.form);
 
         this.brandService
           .registerBrand(dto)
