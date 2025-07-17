@@ -37,7 +37,7 @@ export class BrandService {
     );
   }
 
-  listBrand() {
+  listBrands() {
     return firstValueFrom(this.http.get<BrandResponseDTO[]>(`${urlBase.dev}/api/brands/list-brands`));
   }
 }

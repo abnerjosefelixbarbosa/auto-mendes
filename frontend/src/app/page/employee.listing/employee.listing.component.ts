@@ -62,9 +62,9 @@ export class EmployeeListingComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.cleanMessage();
-    
+
     this.listEmployee();
   }
 
@@ -81,13 +81,13 @@ export class EmployeeListingComponent implements OnInit {
   }
 
   confirm() {
+    this.cleanMessage();
+
+    const id: string = this.form.get('id')?.value;
+
+    const dto = this.employeeMapper.toEmployeeDTO(this.form);
+
     try {
-      this.cleanMessage();
-
-      const id: string = this.form.get('id')?.value;
-
-      const dto = this.employeeMapper.toEmployeeDTO(this.form);
-
       this.employeeService
         .updateEmployeeById(id!, dto)
         .then(() => {
