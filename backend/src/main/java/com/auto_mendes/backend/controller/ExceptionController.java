@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.auto_mendes.backend.dto.ExceptionResponseDTO;
+import com.auto_mendes.backend.exception.BusinessException;
 import com.auto_mendes.backend.exception.NotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,8 +35,8 @@ public class ExceptionController {
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(RuntimeException.class)
-	public ResponseEntity<ExceptionResponseDTO> handleRuntimeException(RuntimeException e, HttpServletRequest request) {
+	@ExceptionHandler(BusinessException.class)
+	public ResponseEntity<ExceptionResponseDTO> handleRuntimeException(BusinessException e, HttpServletRequest request) {
 		ExceptionResponseDTO dto = new ExceptionResponseDTO();
 		dto.setLocalDateTime(LocalDateTime.now());
 		dto.setMessage(e.getMessage());
@@ -47,7 +48,7 @@ public class ExceptionController {
 	
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(NotFoundException.class)
-	public ResponseEntity<ExceptionResponseDTO> handleNotFoundException(RuntimeException e,
+	public ResponseEntity<ExceptionResponseDTO> handleNotFoundException(NotFoundException e,
 			HttpServletRequest request) {
 		ExceptionResponseDTO dto = new ExceptionResponseDTO();
 		dto.setLocalDateTime(LocalDateTime.now());

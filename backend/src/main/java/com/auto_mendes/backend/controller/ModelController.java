@@ -1,5 +1,7 @@
 package com.auto_mendes.backend.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -46,9 +48,9 @@ public class ModelController {
 
 	@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping(value = "/list-models", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Page<ModelResponseDTO>> listModels(Pageable pageable) {
+	public ResponseEntity<List<ModelResponseDTO>> listModels(Pageable pageable) {
 		Page<ModelResponseDTO> page = modelService.listModels(pageable);
 
-		return ResponseEntity.status(HttpStatus.OK).body(page);
+		return ResponseEntity.status(HttpStatus.OK).body(page.getContent());
 	}
 }

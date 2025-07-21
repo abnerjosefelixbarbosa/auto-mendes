@@ -39,15 +39,8 @@ export class ModelService {
   }
 
   listModel() {
-    return firstValueFrom(this.http.get<any>(`${urlBase.dev}/api/models/list-models`)).then(
-      (value) => {
-        const dtos: ModelResponseDTO[] = [];
-        const content = value.content;
-
-        dtos.push(...content);
-
-        return dtos;
-      }
+    return firstValueFrom(
+      this.http.get<ModelResponseDTO>(`${urlBase.dev}/api/models/list-models`)
     );
   }
 }
