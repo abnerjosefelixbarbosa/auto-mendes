@@ -10,6 +10,7 @@ import com.auto_mendes.backend.dto.VehicleRequestDTO;
 import com.auto_mendes.backend.enums.TransmissionType;
 import com.auto_mendes.backend.enums.VehicleType;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,7 +45,7 @@ public class Vehicle implements Serializable {
 	@ManyToOne
 	@JoinColumn(columnDefinition = "model_id", nullable = false)
 	private Model model;
-	@OneToMany(mappedBy = "vehicle")
+	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.MERGE)
 	private List<SaleVehicle> saleVehicles;
 	
 	public Vehicle(VehicleRequestDTO dto) {

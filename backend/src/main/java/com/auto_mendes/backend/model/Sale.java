@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.auto_mendes.backend.enums.PaymentType;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,6 +43,6 @@ public class Sale implements Serializable {
 	@ManyToOne
 	@JoinColumn(columnDefinition = "employee_id", nullable = false)
 	private Employee employee;
-	@OneToMany(mappedBy = "sale")
+	@OneToMany(mappedBy = "sale", cascade = CascadeType.MERGE)
 	private List<SaleVehicle> saleVehicles;
 }

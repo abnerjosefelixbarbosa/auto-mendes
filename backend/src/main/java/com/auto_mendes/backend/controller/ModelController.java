@@ -38,7 +38,7 @@ public class ModelController {
 	}
 
 	@ResponseStatus(value = HttpStatus.OK)
-	@PutMapping(value = "/update-model-id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/update-model-by-id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ModelResponseDTO> updateModelById(@RequestParam String id,
 			@RequestBody @Valid ModelRequestDTO dto) {
 		ModelResponseDTO response = modelService.updateModelById(id, dto);

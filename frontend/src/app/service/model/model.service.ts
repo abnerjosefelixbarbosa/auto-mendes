@@ -38,9 +38,9 @@ export class ModelService {
     );
   }
 
-  listModel() {
+  listModels() {
     return firstValueFrom(
-      this.http.get<ModelResponseDTO>(`${urlBase.dev}/api/models/list-models`)
+      this.http.get<ModelResponseDTO[]>(`${urlBase.dev}/api/models/list-models`)
     );
   }
 }

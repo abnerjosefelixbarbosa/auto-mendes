@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 
 import com.auto_mendes.backend.dto.BrandRequestDTO;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,7 +31,7 @@ public class Brand implements Serializable {
 	private String id;
 	@Column(name = "name", nullable = false, length = 50)
 	private String name;
-	@OneToMany(mappedBy = "brand")
+	@OneToMany(mappedBy = "brand", cascade = CascadeType.MERGE)
 	private List<Model> models;
 	
 	public Brand(BrandRequestDTO dto) {

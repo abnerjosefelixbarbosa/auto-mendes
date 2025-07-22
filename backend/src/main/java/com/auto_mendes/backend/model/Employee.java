@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import com.auto_mendes.backend.dto.EmployeeRequestDTO;
 import com.auto_mendes.backend.enums.EmployeeType;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -51,7 +52,7 @@ public class Employee implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "employee_type", nullable = false)
 	private EmployeeType employeeType;
-	@OneToMany(mappedBy = "employee")
+	@OneToMany(mappedBy = "employee", cascade = CascadeType.MERGE)
 	private List<Sale> sales;
 	
 	public Employee(EmployeeRequestDTO dto) {

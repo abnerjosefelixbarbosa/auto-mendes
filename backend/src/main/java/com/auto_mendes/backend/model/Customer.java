@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.auto_mendes.backend.enums.CustomerType;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,6 +37,6 @@ public class Customer implements Serializable {
 	private String phone;
 	@Column(name = "customer_type", nullable = false)
 	private CustomerType customerType;
-	@OneToMany(mappedBy = "customer")
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.MERGE)
 	private List<Sale> sales;
 }
