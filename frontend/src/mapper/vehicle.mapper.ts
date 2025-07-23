@@ -17,7 +17,7 @@ export class VehicleMapper {
     let vehicleSelect: VehicleType = VehicleType.CAR;
     let transmissionType: TransmissionType = TransmissionType.AUTO;
 
-    if (form.get('employeeType')?.value == 2) {
+    if (form.get('vehicleType')?.value == 2) {
       vehicleSelect = VehicleType.MOTOCYCLE;
     }
 
