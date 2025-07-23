@@ -1,3 +1,80 @@
 <main>
-    <app-navbar></app-navbar>
+  <app-navbar></app-navbar>
+
+  <div class="container border rounded-1 p-5 mt-5">
+    @if (message.sucess != '') {
+    <div class="alert alert-success" role="alert">
+      {{ message.sucess }}
+    </div>
+    } @if (message.error != '') {
+    <div class="alert alert-danger" role="alert">
+      {{ message.error }}
+    </div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="register()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Placa</label>
+        <input type="text" class="form-control" formControlName="plate" />
+
+        @if (form.get('plate')?.touched && form.get('plate')?.invalid) {
+        <div class="text-danger">Placa invalida.</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Tipo da transmição</label>
+
+        <select
+          class="form-select form-select-lg form-select-sm"
+          formControlName="transmissionType"
+        >
+          <option value="1">Auto</option>
+          <option value="2">Manual</option>
+        </select>
+
+        @if (form.get('transmissionType')?.touched && form.get('transmissionType')?.invalid) {
+        <div class="text-danger">Tipo da transmiçao invalido.</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Preço</label>
+        <input type="number" class="form-control" formControlName="price" />
+
+        @if (form.get('price')?.touched && form.get('price')?.invalid) {
+        <div class="text-danger">Preço invalido.</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Nome do modelo</label>
+        <input type="text" class="form-control" formControlName="modelName" />
+
+        @if (form.get('modelName')?.touched && form.get('modelName')?.invalid) {
+        <div class="text-danger">Nome da marca invalida.</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Tipo do veículo</label>
+
+        <select
+          class="form-select form-select-lg form-select-sm"
+          formControlName="vehicleType"
+        >
+          <option value="1">Carro</option>
+          <option value="2">Moto</option>
+        </select>
+
+        @if (form.get('vehicleType')?.touched && form.get('vehicleType')?.invalid) {
+        <div class="text-danger">Tipo do veículo invalido.</div>
+        }
+      </div>
+
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary btn-lg">Registra</button>
+      </div>
+    </form>
+  </div>
 </main>

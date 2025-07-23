@@ -10,9 +10,9 @@ import {
   EmployeeRequestDTO,
   EmployeeService,
 } from '../../service/employee/employee.service';
-import { messages } from '../../utils/message';
+import { messages } from '../../../utils/message';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
-import { EmployeeMapper } from '../../mapper/employee.mapper';
+import { EmployeeMapper } from '../../../mapper/employee.mapper';
 
 @Component({
   selector: 'app-employee-registration',

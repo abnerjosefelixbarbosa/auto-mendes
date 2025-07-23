@@ -13,8 +13,8 @@ import {
 } from '@angular/forms';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { PhonePipe } from '../../pipe/phone/phone.pipe';
-import { messages } from '../../utils/message';
-import { EmployeeMapper } from '../../mapper/employee.mapper';
+import { messages } from '../../../utils/message';
+import { EmployeeMapper } from '../../../mapper/employee.mapper';
 
 @Component({
   selector: 'app-employee-listing',
