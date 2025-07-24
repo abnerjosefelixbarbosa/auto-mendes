@@ -16,19 +16,24 @@ export class VehicleMapper {
   toVehicleDTO(form: FormGroup) {
     let vehicleSelect: VehicleType = VehicleType.CAR;
     let transmissionType: TransmissionType = TransmissionType.AUTO;
+    let plate: string | null = null;
 
     if (form.get('vehicleType')?.value == 2) {
       vehicleSelect = VehicleType.MOTOCYCLE;
     }
 
     if (form.get('transmissionType')?.value == 2) {
-        transmissionType = TransmissionType.MANUAL;
+      transmissionType = TransmissionType.MANUAL;
+    }
+
+    if (form.get('plate')?.value != '') {
+      plate = form.get('plate')?.value;
     }
 
     const dto: VehicleRequestDTO = {
       modelName: form.get('modelName')?.value,
-      plate: form.get('plate')?.value,
-      price: form.get('price')?.value,
+      plate: plate,
+      price: Number(form.get('price')?.value).toFixed(2),
       transmissionType: transmissionType,
       vehicleType: vehicleSelect
     };

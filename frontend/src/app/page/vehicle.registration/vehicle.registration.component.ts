@@ -35,8 +35,40 @@ export class VehicleRegistrationComponent {
   }
 
   register() {
+    this.cleanMessage();
+
     const dto = this.vehicleMapper.toVehicleDTO(this.form);
 
-    console.log(dto);
+    try {
+      if (this.form.valid) {
+        this.vehicleService
+          .registerVehicle(dto)
+          .then(() => {
+            this.message.sucess = 'Veículo registrado.';
+
+            this.cleanForm();
+          })
+          .catch((e) => {
+            this.message.error = e.error.message;
+          });
+      } else {
+        this.form.markAllAsTouched();
+      }
+    } catch (e: any) {
+      this.message.error = e.message;
+    }
+  }
+
+  private cleanForm() {
+    this.form.get('modelName')?.setValue('');
+    this.form.get('plate')?.setValue('');
+    this.form.get('price')?.setValue('');
+    this.form.get('transmissionType')?.setValue('');
+    this.form.get('vehicleType')?.setValue('');
+  }
+
+  private cleanMessage() {
+    this.message.sucess = '';
+    this.message.error = '';
   }
 }
