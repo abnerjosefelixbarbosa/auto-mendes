@@ -48,7 +48,7 @@ export class VehicleService {
 
   listVehicles() {
     return firstValueFrom(
-      this.http.get<VehicleResponseDTO>(`${urlBase.dev}/api/vehicles/list-vehicles`)
+      this.http.get<VehicleResponseDTO[]>(`${urlBase.dev}/api/vehicles/list-vehicles`)
     );
   }
 }

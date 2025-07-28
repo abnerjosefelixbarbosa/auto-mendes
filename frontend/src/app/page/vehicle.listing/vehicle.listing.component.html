@@ -1,3 +1,183 @@
 <main>
     <app-navbar></app-navbar>
+
+    <div class="container-xxl border rounded-1 p-5 mt-5">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Nome do modelo</th>
+          <th scope="col">Placa</th>
+          <th scope="col">Preço</th>
+          <th scope="col">Tipo de transmissão</th>
+          <th scope="col">Tipo do veiculo</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (i of items; track i.id) {
+        <tr>
+          <td>{{ i.modelName }}</td>
+          <td>{{ i.plate }}</td>
+          <td>{{ i.price }}</td>
+          <td>{{ i.transmissionType }}</td>
+          <td>{{ i.vehicleType }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#updateModal"
+              (click)="update(i)"
+            >
+              Atualizar
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+
+    <!--
+    <div
+      class="modal fade"
+      id="updateModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Atualização de funcionario</h5>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div>
+              @if (message.sucess != '') {
+              <div class="alert alert-success" role="alert">
+                {{ message.sucess }}
+              </div>
+              } @if (message.error != '') {
+              <div class="alert alert-danger" role="alert">
+                {{ message.error }}
+              </div>
+              }
+            </div>
+            <form [formGroup]="form" (ngSubmit)="confirm()">
+              <div class="mb-3">
+                <label for="name" class="form-label">name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="name"
+                />
+
+                @if (form.get('name')?.touched && form.get('name')?.invalid) {
+                <div class="text-danger">Nome invalido.</div>
+                }
+              </div>
+
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  formControlName="email"
+                />
+
+                @if (form.get('email')?.touched && form.get('email')?.invalid) {
+                <div class="text-danger">Email invalido.</div>
+                }
+              </div>
+
+              <div class="mb-3">
+                <label for="matriculation" class="form-label">Matrícula</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  mask="0000000000"
+                  formControlName="matriculation"
+                />
+
+                @if (form.get('matriculation')?.touched &&
+                form.get('matriculation')?.invalid) {
+                <div class="text-danger">Matrícula invalida.</div>
+                }
+              </div>
+
+              <div class="mb-3">
+                <label for="phone" class="form-label">Telefone</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  formControlName="phone"
+                  mask="(00) 00000-0000"
+                />
+
+                @if (form.get('phone')?.touched && form.get('phone')?.invalid) {
+                <div class="text-danger">Telefone invalido.</div>
+                }
+              </div>
+
+              <div class="mb-3">
+                <label for="birthDate" class="form-label"
+                  >Data de nascimento</label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  formControlName="birthDate"
+                />
+
+                @if (form.get('birthDate')?.touched &&
+                form.get('birthDate')?.invalid) {
+                <div class="text-danger">Data de nascimento invalida.</div>
+                }
+              </div>
+
+              <div class="mb-3">
+                <select
+                  class="form-select form-select-lg form-select-sm"
+                  formControlName="employeeType"
+                >
+                  <option value="1">Gerente</option>
+                  <option value="2">Subgerente</option>
+                  <option value="3">Vendedor</option>
+                </select>
+
+                @if (form.get('employeeType')?.touched &&
+                form.get('employeeType')?.invalid) {
+                <div class="text-danger">Tipo do funcionário invalido.</div>
+                }
+              </div>
+
+              <div class="mb-3">
+                <label for="commission" class="form-label">Comissão</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="commission"
+                />
+
+                @if (form.get('commission')?.touched &&
+                form.get('commission')?.invalid) {
+                <div class="text-danger">Comissão invalida.</div>
+                }
+              </div>
+
+              <div class="d-grid gap-2">
+                <button class="btn btn-primary" type="submit">Confirma</button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer"></div>
+        </div>
+      </div>
+    </div>
+    -->
+  </div>
 </main>
