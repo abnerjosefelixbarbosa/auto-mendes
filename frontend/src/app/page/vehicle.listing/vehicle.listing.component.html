@@ -36,7 +36,6 @@
       </tbody>
     </table>
 
-    <!--
     <div
       class="modal fade"
       id="updateModal"
@@ -69,103 +68,72 @@
             </div>
             <form [formGroup]="form" (ngSubmit)="confirm()">
               <div class="mb-3">
-                <label for="name" class="form-label">name</label>
+                <label for="modelName" class="form-label">Nome do modelo</label>
                 <input
                   type="text"
                   class="form-control"
-                  formControlName="name"
+                  formControlName="modelName"
                 />
 
-                @if (form.get('name')?.touched && form.get('name')?.invalid) {
-                <div class="text-danger">Nome invalido.</div>
+                @if (form.get('modelName')?.touched && form.get('modelName')?.invalid) {
+                <div class="text-danger">Nome do modelo invalido.</div>
                 }
               </div>
 
               <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="plate" class="form-label">Placa</label>
                 <input
-                  type="email"
+                  type="text"
                   class="form-control"
-                  formControlName="email"
+                  formControlName="plate"
                 />
 
-                @if (form.get('email')?.touched && form.get('email')?.invalid) {
-                <div class="text-danger">Email invalido.</div>
+                @if (form.get('plate')?.touched && form.get('plate')?.invalid) {
+                <div class="text-danger">Placa invalido.</div>
                 }
               </div>
 
               <div class="mb-3">
-                <label for="matriculation" class="form-label">Matrícula</label>
+                <label for="price" class="form-label">price</label>
                 <input
                   type="number"
                   class="form-control"
-                  mask="0000000000"
-                  formControlName="matriculation"
+                  formControlName="price"
                 />
 
-                @if (form.get('matriculation')?.touched &&
-                form.get('matriculation')?.invalid) {
-                <div class="text-danger">Matrícula invalida.</div>
-                }
-              </div>
-
-              <div class="mb-3">
-                <label for="phone" class="form-label">Telefone</label>
-                <input
-                  type="tel"
-                  class="form-control"
-                  formControlName="phone"
-                  mask="(00) 00000-0000"
-                />
-
-                @if (form.get('phone')?.touched && form.get('phone')?.invalid) {
-                <div class="text-danger">Telefone invalido.</div>
-                }
-              </div>
-
-              <div class="mb-3">
-                <label for="birthDate" class="form-label"
-                  >Data de nascimento</label
-                >
-                <input
-                  type="date"
-                  class="form-control"
-                  formControlName="birthDate"
-                />
-
-                @if (form.get('birthDate')?.touched &&
-                form.get('birthDate')?.invalid) {
-                <div class="text-danger">Data de nascimento invalida.</div>
+                @if (form.get('price')?.touched &&
+                form.get('price')?.invalid) {
+                <div class="text-danger">Placa invalida.</div>
                 }
               </div>
 
               <div class="mb-3">
                 <select
                   class="form-select form-select-lg form-select-sm"
-                  formControlName="employeeType"
+                  formControlName="transmissionType"
                 >
-                  <option value="1">Gerente</option>
-                  <option value="2">Subgerente</option>
-                  <option value="3">Vendedor</option>
+                  <option value="1">Auto</option>
+                  <option value="2">Manual</option>
                 </select>
 
-                @if (form.get('employeeType')?.touched &&
-                form.get('employeeType')?.invalid) {
-                <div class="text-danger">Tipo do funcionário invalido.</div>
+                @if (form.get('transmissionType')?.touched &&
+                form.get('transmissionType')?.invalid) {
+                <div class="text-danger">Tipo da transmissão invalido.</div>
                 }
               </div>
 
               <div class="mb-3">
-                <label for="commission" class="form-label">Comissão</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  formControlName="commission"
-                />
+                <select
+                  class="form-select form-select-lg form-select-sm"
+                  formControlName="vehicleType"
+                >
+                  <option value="1">Car</option>
+                  <option value="2">Motocycle</option>
+                </select>
 
-                @if (form.get('commission')?.touched &&
-                form.get('commission')?.invalid) {
-                <div class="text-danger">Comissão invalida.</div>
+                @if (form.get('vehicleType')?.touched &&
+                form.get('vehicleType')?.invalid) {
+                <div class="text-danger">Tipo do veículo invalido.</div>
                 }
               </div>
 
@@ -178,6 +146,5 @@
         </div>
       </div>
     </div>
-    -->
   </div>
 </main>

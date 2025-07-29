@@ -14,12 +14,12 @@ import { TransmissionType } from "../enum/transmission_type";
 })
 export class VehicleMapper {
   toVehicleDTO(form: FormGroup) {
-    let vehicleSelect: VehicleType = VehicleType.CAR;
+    let vehicleType: VehicleType = VehicleType.CAR;
     let transmissionType: TransmissionType = TransmissionType.AUTO;
     let plate: string | null = null;
 
     if (form.get('vehicleType')?.value == 2) {
-      vehicleSelect = VehicleType.MOTOCYCLE;
+      vehicleType = VehicleType.MOTOCYCLE;
     }
 
     if (form.get('transmissionType')?.value == 2) {
@@ -35,7 +35,7 @@ export class VehicleMapper {
       plate: plate,
       price: Number(form.get('price')?.value).toFixed(2),
       transmissionType: transmissionType,
-      vehicleType: vehicleSelect
+      vehicleType: vehicleType
     };
 
     return dto;
