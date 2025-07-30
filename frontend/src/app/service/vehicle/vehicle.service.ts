@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { urlBase } from '../../../utils/url';
-import { TransmissionType } from '../../../enum/transmission_type';
-import { VehicleType } from '../../../enum/vehicle_type';
+import { urlBase } from '../../../backend/utils/url';
+import { TransmissionType } from '../../../backend/enum/transmission_type';
+import { VehicleType } from '../../../backend/enum/vehicle_type';
 
 export interface VehicleRequestDTO {
   plate: string | null;

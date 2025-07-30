@@ -4,14 +4,14 @@ import {
   BrandResponseDTO,
   BrandService,
 } from '../../service/brand/brand.service';
-import { messages } from '../../../utils/message';
+import { messages } from '../../../backend/utils/message';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { BrandMapper } from '../../../mapper/brand.mapper';
+import { BrandMapper } from '../../../backend/mapper/brand.mapper';
 
 @Component({
   selector: 'app-brand.listing',

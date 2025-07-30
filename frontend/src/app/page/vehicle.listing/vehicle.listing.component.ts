@@ -10,8 +10,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { messages } from '../../../utils/message';
-import { VehicleMapper } from '../../../mapper/vehicle.mapper';
+import { messages } from '../../../backend/utils/message';
+import { VehicleMapper } from '../../../backend/mapper/vehicle.mapper';
 
 @Component({
   selector: 'app-vehicle.listing',
@@ -33,8 +33,7 @@ export class VehicleListingComponent implements OnInit {
       id: [''],
       modelName: ['', [Validators.required, Validators.maxLength(20)]],
       plate: [
-        '',
-        [Validators.required, Validators.email, Validators.maxLength(20)],
+        '', [],
       ],
       price: [
         '',
@@ -69,7 +68,8 @@ export class VehicleListingComponent implements OnInit {
     console.log(dto)
 
     try {
-      this.vehicleService
+      if (this.form.valid) {
+        this.vehicleService
         .updateVehicleById(id!, dto)
         .then(() => {
           this.message.sucess = 'Veículo atualizado.';
@@ -79,6 +79,9 @@ export class VehicleListingComponent implements OnInit {
           }, 2000);
         })
         .catch((e) => (this.message.error = e.error.message));
+      } else {
+        this.form.markAllAsTouched();
+      }
     } catch (e: any) {
       this.message.error = e.message;
     }
@@ -117,6 +120,4 @@ export class VehicleListingComponent implements OnInit {
 
     this.message.error = '';
   }
-
-  
 }

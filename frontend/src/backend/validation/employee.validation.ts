@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EmployeeRequestDTO } from '../app/service/employee/employee.service';
+import { EmployeeRequestDTO } from '../../app/service/employee/employee.service';
 
 @Injectable({
   providedIn: 'root',

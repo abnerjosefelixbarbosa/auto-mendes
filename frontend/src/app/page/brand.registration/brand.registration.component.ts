@@ -6,9 +6,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { messages } from '../../../utils/message';
+import { messages } from '../../../backend/utils/message';
 import { BrandService } from '../../service/brand/brand.service';
-import { BrandMapper } from '../../../mapper/brand.mapper';
+import { BrandMapper } from '../../../backend/mapper/brand.mapper';
 
 @Component({
   selector: 'app-brand.registration',

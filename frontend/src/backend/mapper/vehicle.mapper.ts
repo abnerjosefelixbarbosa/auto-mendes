@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
-import { EmployeeRequestDTO } from "../app/service/employee/employee.service";
+import { EmployeeRequestDTO } from "../../app/service/employee/employee.service";
 import { EmployeeType } from "../enum/employee_type";
 import { VehicleType } from "../enum/vehicle_type";
-import { VehicleRequestDTO } from "../app/service/vehicle/vehicle.service";
+import { VehicleRequestDTO } from "../../app/service/vehicle/vehicle.service";
 import { TransmissionType } from "../enum/transmission_type";
 
 

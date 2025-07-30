@@ -1,9 +1,10 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { urlBase } from '../../../utils/url';
-import { EmployeeType } from '../../../enum/employee_type';
-import { EmployeeValidation } from '../../../validation/employee.validation';
+import { urlBase } from '../../../backend/utils/url';
+import { EmployeeType } from '../../../backend/enum/employee_type';
+import { EmployeeValidation } from '../../../backend/validation/employee.validation';
+
 
 export interface EmployeeRequestDTO {
   name: string;

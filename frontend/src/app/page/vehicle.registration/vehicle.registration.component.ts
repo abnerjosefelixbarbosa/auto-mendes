@@ -1,15 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { messages } from '../../../utils/message';
+import { messages } from '../../../backend/utils/message';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ModelMapper } from '../../../mapper/model.mapper';
+import { ModelMapper } from '../../../backend/mapper/model.mapper';
 import { ModelService } from '../../service/model/model.service';
-import { VehicleMapper } from '../../../mapper/vehicle.mapper';
+import { VehicleMapper } from '../../../backend/mapper/vehicle.mapper';
 import { VehicleService } from '../../service/vehicle/vehicle.service';
 
 @Component({

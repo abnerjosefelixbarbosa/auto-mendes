@@ -1,13 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { messages } from '../../../utils/message';
+import { messages } from '../../../backend/utils/message';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ModelMapper } from '../../../mapper/model.mapper';
+import { ModelMapper } from '../../../backend/mapper/model.mapper';
 import {
   ModelResponseDTO,
   ModelService,

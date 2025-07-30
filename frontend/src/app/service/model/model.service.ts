@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { urlBase } from '../../../utils/url';
+import { urlBase } from '../../../backend/utils/url';
 
 export interface ModelRequestDTO {
   name: string;
