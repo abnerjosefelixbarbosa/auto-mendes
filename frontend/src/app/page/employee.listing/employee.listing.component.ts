@@ -1,9 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import {
-  EmployeeResponseDTO,
-  EmployeeService,
-} from '../../service/employee/employee.service';
 import { DatePipe } from '@angular/common';
 import {
   FormBuilder,
@@ -15,6 +11,7 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { PhonePipe } from '../../pipe/phone/phone.pipe';
 import { messages } from '../../../backend/utils/message';
 import { EmployeeMapper } from '../../../backend/mapper/employee.mapper';
+import { EmployeeResponseDTO, EmployeeService } from '../../../backend/service/employee/employee.service';
 
 @Component({
   selector: 'app-employee-listing',

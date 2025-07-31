@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { ModelRequestDTO } from "../../app/service/model/model.service";
 import { FormGroup } from "@angular/forms";
+import { ModelRequestDTO } from "../service/model/model.service";
 
 @Injectable({
   providedIn: 'root',

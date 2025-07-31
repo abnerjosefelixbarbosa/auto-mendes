@@ -6,13 +6,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import {
-  EmployeeRequestDTO,
-  EmployeeService,
-} from '../../service/employee/employee.service';
 import { messages } from '../../../backend/utils/message';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { EmployeeMapper } from '../../../backend/mapper/employee.mapper';
+import { EmployeeService } from '../../../backend/service/employee/employee.service';
 
 @Component({
   selector: 'app-employee-registration',

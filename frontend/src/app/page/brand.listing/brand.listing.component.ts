@@ -1,9 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import {
-  BrandResponseDTO,
-  BrandService,
-} from '../../service/brand/brand.service';
 import { messages } from '../../../backend/utils/message';
 import {
   FormBuilder,
@@ -12,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { BrandMapper } from '../../../backend/mapper/brand.mapper';
+import { BrandResponseDTO, BrandService } from '../../../backend/service/brand/brand.service';
 
 @Component({
   selector: 'app-brand.listing',

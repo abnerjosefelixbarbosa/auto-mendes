@@ -8,10 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ModelMapper } from '../../../backend/mapper/model.mapper';
-import {
-  ModelResponseDTO,
-  ModelService,
-} from '../../service/model/model.service';
+import { ModelResponseDTO, ModelService } from '../../../backend/service/model/model.service';
 
 @Component({
   selector: 'app-model.listing',

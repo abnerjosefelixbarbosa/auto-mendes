@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ModelMapper } from '../../../backend/mapper/model.mapper';
-import { ModelService } from '../../service/model/model.service';
+import { ModelService } from '../../../backend/service/model/model.service';
 
 @Component({
   selector: 'app-model.registration',

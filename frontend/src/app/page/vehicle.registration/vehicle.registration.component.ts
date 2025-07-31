@@ -7,10 +7,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ModelMapper } from '../../../backend/mapper/model.mapper';
-import { ModelService } from '../../service/model/model.service';
 import { VehicleMapper } from '../../../backend/mapper/vehicle.mapper';
-import { VehicleService } from '../../service/vehicle/vehicle.service';
+import { VehicleService } from '../../../backend/service/vehicle/vehicle.service';
 
 @Component({
   selector: 'app-vehicle.registration',

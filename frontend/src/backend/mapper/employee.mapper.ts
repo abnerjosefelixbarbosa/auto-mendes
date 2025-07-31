@@ -1,7 +1,7 @@
 import { FormGroup } from '@angular/forms';
 import { EmployeeType } from '../enum/employee_type';
-import { EmployeeRequestDTO } from '../../app/service/employee/employee.service';
 import { Injectable } from '@angular/core';
+import { EmployeeRequestDTO } from '../service/employee/employee.service';
 
 @Injectable({
   providedIn: 'root',

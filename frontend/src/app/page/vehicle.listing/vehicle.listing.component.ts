@@ -1,10 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import {
-  VehicleResponseDTO,
-  VehicleService,
-} from '../../service/vehicle/vehicle.service';
-import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
@@ -12,6 +8,7 @@ import {
 } from '@angular/forms';
 import { messages } from '../../../backend/utils/message';
 import { VehicleMapper } from '../../../backend/mapper/vehicle.mapper';
+import { VehicleResponseDTO, VehicleService } from '../../../backend/service/vehicle/vehicle.service';
 
 @Component({
   selector: 'app-vehicle.listing',
