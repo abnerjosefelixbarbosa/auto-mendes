@@ -1,5 +1,5 @@
 package com.auto_mendes.backend.enums;
 
-public enum TransmissionType {
+public enum BoxgearType {
 	AUTO, MANUAL;
 }

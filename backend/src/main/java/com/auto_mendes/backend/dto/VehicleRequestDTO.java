@@ -2,7 +2,7 @@ package com.auto_mendes.backend.dto;
 
 import java.math.BigDecimal;
 
-import com.auto_mendes.backend.enums.TransmissionType;
+import com.auto_mendes.backend.enums.BoxgearType;
 import com.auto_mendes.backend.enums.VehicleType;
 
 import jakarta.validation.constraints.NotEmpty;
@@ -14,7 +14,7 @@ import lombok.Data;
 public class VehicleRequestDTO {
     private String plate;
     @NotNull(message = "Tipo de câmbio  não deve ser nulo.")
-    private TransmissionType transmissionType;
+    private BoxgearType transmissionType;
     @NotNull(message = "Preço não deve ser nulo")
     private BigDecimal price;
     @NotNull(message = "Tipo de veiculo não deve ser nulo")

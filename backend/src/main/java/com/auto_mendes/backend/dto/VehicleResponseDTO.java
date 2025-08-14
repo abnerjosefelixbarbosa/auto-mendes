@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import org.springframework.beans.BeanUtils;
 
-import com.auto_mendes.backend.enums.TransmissionType;
+import com.auto_mendes.backend.enums.BoxgearType;
 import com.auto_mendes.backend.enums.VehicleType;
 import com.auto_mendes.backend.model.Vehicle;
 
@@ -14,7 +14,7 @@ import lombok.Data;
 public class VehicleResponseDTO {
 	private String id;
     private String plate;
-    private TransmissionType transmissionType;
+    private BoxgearType transmissionType;
     private BigDecimal price;
     private VehicleType vehicleType;
 	private String modelName;

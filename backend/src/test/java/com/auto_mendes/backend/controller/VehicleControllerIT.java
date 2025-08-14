@@ -19,7 +19,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.auto_mendes.backend.dto.VehicleRequestDTO;
-import com.auto_mendes.backend.enums.TransmissionType;
+import com.auto_mendes.backend.enums.BoxgearType;
 import com.auto_mendes.backend.enums.VehicleType;
 import com.auto_mendes.backend.model.Brand;
 import com.auto_mendes.backend.model.Model;
@@ -65,7 +65,7 @@ class VehicleControllerIT {
 		VehicleRequestDTO vehicleRequestDTO = new VehicleRequestDTO();
 		vehicleRequestDTO.setModelName("name2");
 		vehicleRequestDTO.setPrice(new BigDecimal("1500.00"));
-		vehicleRequestDTO.setTransmissionType(TransmissionType.AUTO);
+		vehicleRequestDTO.setTransmissionType(BoxgearType.AUTO);
 		vehicleRequestDTO.setVehicleType(VehicleType.CAR);
 
 		String json = objectMapper.writeValueAsString(vehicleRequestDTO);
@@ -94,7 +94,7 @@ class VehicleControllerIT {
 		Vehicle vehicle1 = new Vehicle();
 		vehicle1.setModel(modelSaved1);
 		vehicle1.setPrice(new BigDecimal("1500.00"));
-		vehicle1.setTransmissionType(TransmissionType.AUTO);
+		vehicle1.setBoxgearType(BoxgearType.AUTO);
 		vehicle1.setVehicleType(VehicleType.CAR);
 
 		vehicleRepository.save(vehicle1);
@@ -107,7 +107,7 @@ class VehicleControllerIT {
 		VehicleRequestDTO vehicleRequestDTO = new VehicleRequestDTO();
 		vehicleRequestDTO.setModelName("name2");
 		vehicleRequestDTO.setPrice(new BigDecimal("2500.00"));
-		vehicleRequestDTO.setTransmissionType(TransmissionType.AUTO);
+		vehicleRequestDTO.setTransmissionType(BoxgearType.AUTO);
 		vehicleRequestDTO.setVehicleType(VehicleType.CAR);
 
 		String json = objectMapper.writeValueAsString(vehicleRequestDTO);
@@ -136,7 +136,7 @@ class VehicleControllerIT {
 		Vehicle vehicle1 = new Vehicle();
 		vehicle1.setModel(modelSaved1);
 		vehicle1.setPrice(new BigDecimal("1500.00"));
-		vehicle1.setTransmissionType(TransmissionType.AUTO);
+		vehicle1.setBoxgearType(BoxgearType.AUTO);
 		vehicle1.setVehicleType(VehicleType.CAR);
 
 		String id = vehicleRepository.save(vehicle1).getId();
@@ -171,13 +171,13 @@ class VehicleControllerIT {
 		Vehicle vehicle1 = new Vehicle();
 		vehicle1.setModel(modelSaved1);
 		vehicle1.setPrice(new BigDecimal("1500.00"));
-		vehicle1.setTransmissionType(TransmissionType.AUTO);
+		vehicle1.setBoxgearType(BoxgearType.AUTO);
 		vehicle1.setVehicleType(VehicleType.CAR);
 		
 		Vehicle vehicle2 = new Vehicle();
 		vehicle2.setModel(modelSaved1);
 		vehicle2.setPrice(new BigDecimal("1500.00"));
-		vehicle2.setTransmissionType(TransmissionType.AUTO);
+		vehicle2.setBoxgearType(BoxgearType.AUTO);
 		vehicle2.setVehicleType(VehicleType.MOTORCYCLE);
 
 		vehicleRepository.save(vehicle1);

@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 
 import com.auto_mendes.backend.dto.VehicleRequestDTO;
-import com.auto_mendes.backend.enums.TransmissionType;
+import com.auto_mendes.backend.enums.BoxgearType;
 import com.auto_mendes.backend.enums.VehicleType;
 
 import jakarta.persistence.CascadeType;
@@ -37,7 +37,7 @@ public class Vehicle implements Serializable {
 	@Column(name = "plate", length = 15)
     private String plate;
 	@Column(name = "transmission_type", nullable = false)
-    private TransmissionType transmissionType;
+    private BoxgearType boxgearType;
 	@Column(name = "price", nullable = false)
     private BigDecimal price;
 	@Column(name = "vehicle_type", nullable = false)

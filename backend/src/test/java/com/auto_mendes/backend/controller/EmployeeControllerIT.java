@@ -54,7 +54,7 @@ class EmployeeControllerIT {
 		employeeRequestDTO.setBirthDate(LocalDate.of(1992, 02, 02));
 		employeeRequestDTO.setCommission(new BigDecimal("100.00"));
 		employeeRequestDTO.setEmail("email2@gmail.com");
-		employeeRequestDTO.setEmployeeType(EmployeeType.SALER);
+		employeeRequestDTO.setEmployeeType(EmployeeType.SALLER);
 		employeeRequestDTO.setMatriculation("2222222222");
 		employeeRequestDTO.setName("name2");
 		employeeRequestDTO.setPhone("(81) 92222-2222");
@@ -129,7 +129,7 @@ class EmployeeControllerIT {
 		Employee employee2 = new Employee();
 		employee2.setBirthDate(LocalDate.of(1992, 02, 02));
 		employee2.setEmail("email2@gmail.com");
-		employee2.setEmployeeType(EmployeeType.SUBMANAGER);
+		employee2.setEmployeeType(EmployeeType.DEPUTY_MANAGER);
 		employee2.setMatriculation("2222222222");
 		employee2.setName("name2");
 		employee2.setPhone("(81) 92222-2222");
@@ -137,7 +137,7 @@ class EmployeeControllerIT {
 		Employee employee3 = new Employee();
 		employee3.setBirthDate(LocalDate.of(1993, 03, 03));
 		employee3.setEmail("email3@gmail.com");
-		employee3.setEmployeeType(EmployeeType.SALER);
+		employee3.setEmployeeType(EmployeeType.SALLER);
 		employee3.setMatriculation("3333333333");
 		employee3.setName("name3");
 		employee3.setPhone("(81) 93333-3333");
