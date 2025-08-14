@@ -3,6 +3,9 @@ package com.auto_mendes.backend.model;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
+
+import com.auto_mendes.backend.dto.CustomerRequestDTO;
 import com.auto_mendes.backend.enums.CustomerType;
 
 import jakarta.persistence.CascadeType;
@@ -42,4 +45,8 @@ public class Customer implements Serializable {
 	private CustomerType customerType;
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.MERGE)
 	private List<Sale> sales;
+	
+	public Customer(CustomerRequestDTO dto) {
+		BeanUtils.copyProperties(dto, this, "id", "sales");
+	}
 }
