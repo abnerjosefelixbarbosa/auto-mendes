@@ -33,7 +33,7 @@ public class CustomerService implements ICustomerService {
 
 		customerValidation.validateCustomer(customer);
 
-		Customer customerFound = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Cliente deve ser existente."));
+		Customer customerFound = customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Id deve ser existente."));
 		
 		BeanUtils.copyProperties(customer, customerFound, "id");
 		
@@ -43,7 +43,7 @@ public class CustomerService implements ICustomerService {
 	}
 
 	public CustomerResponseDTO searchCustomerByDocument(String document) {
-		Customer customerFound = customerRepository.findByDocument(document);
+		Customer customerFound = customerRepository.findByDocument(document).orElseThrow(() -> new NotFoundException("Documento deve ser existente."));
 		
 		return new CustomerResponseDTO(customerFound);
 	}
