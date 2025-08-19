@@ -137,28 +137,70 @@ class VehicleType {
 ## Funcionários 
 
 - Registra funcionário.
-- Atualiza funcionário pelo id.
-- Lista funcionários pelo tipo.
+- Atualiza funcionário.
+- Lista funcionários.
 
 ## Veículos
 
 - Registra veículo.
-- Atualiza veículo pelo id.
+- Atualiza veículo.
 - Lista veículo pelo modelo.
 
 ## Marca
 
 - Registra marca.
-- Atualiza marca pelo id.
+- Atualiza marca.
 - Lista marca pelo nome.
 
 ## Modelo
 
 - Registra modelo.
-- Atualiza modelo pelo id.
+- Atualiza modelo.
 - Lista modelo pelo nome.
 
+## Cliente
+
+- Registra cliente.
+- Atualizar cliente.
+- Procurar cliente pelo documento.
+
 # Requisições 
+
+## Registra funcionário.
+
+```json
+/api/employees/register-employee
+
+{
+  "name": "",
+  "email": "",
+  "matriculation": "",
+  "phone": "",
+  "birthDate": "2025-08-19",
+  "employeeType": "MANAGER",
+  "commission": 0
+}
+```
+
+## Atualiza funcionário.
+
+```json
+/api/employees/register-employee
+
+{
+  "name": "",
+  "email": "",
+  "matriculation": "",
+  "phone": "",
+  "birthDate": "2025-08-19",
+  "employeeType": "MANAGER",
+  "commission": 0
+}
+```
+
+## Lista funcionários.
+
+
 
 # Execução Do Projeto
 
