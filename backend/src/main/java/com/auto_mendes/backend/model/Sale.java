@@ -16,7 +16,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,8 +37,8 @@ public class Sale implements Serializable {
 	private PaymentType paymentType;
 	@Column(name = "total", nullable = false)
 	private BigDecimal total;
-	@OneToOne
-	@JoinColumn(columnDefinition = "customer_id", nullable = false, unique = true)
+	@ManyToOne
+	@JoinColumn(columnDefinition = "customer_id", nullable = false)
 	private Customer customer;
 	@ManyToOne
 	@JoinColumn(columnDefinition = "employee_id", nullable = false)

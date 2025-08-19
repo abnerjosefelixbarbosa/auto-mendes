@@ -1,6 +1,7 @@
 package com.auto_mendes.backend.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 
@@ -15,7 +16,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,8 +43,8 @@ public class Customer implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "customer_type", nullable = false)
 	private CustomerType customerType;
-	@OneToOne(mappedBy = "customer", cascade = CascadeType.MERGE)
-	private Sale sale;
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.MERGE)
+	private List<Sale> sales;
 	
 	public Customer(CustomerRequestDTO dto) {
 		BeanUtils.copyProperties(dto, this);
