@@ -1,7 +1,6 @@
 package com.auto_mendes.backend.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 
@@ -16,7 +15,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,7 +26,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "customer_tb")
 public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name = "id")
@@ -43,10 +42,10 @@ public class Customer implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "customer_type", nullable = false)
 	private CustomerType customerType;
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.MERGE)
-	private List<Sale> sales;
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.MERGE)
+	private Sale sale;
 	
 	public Customer(CustomerRequestDTO dto) {
-		BeanUtils.copyProperties(dto, this, "id", "sales");
+		BeanUtils.copyProperties(dto, this);
 	}
 }
