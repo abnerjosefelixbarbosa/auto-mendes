@@ -1,7 +1,23 @@
 package com.auto_mendes.backend.validation;
 
-import com.auto_mendes.backend.model.entity.Brand;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public interface BrandValidation {
-	void validateBrand(Brand brand);
+import com.auto_mendes.backend.exception.BusinessException;
+import com.auto_mendes.backend.model.Brand;
+import com.auto_mendes.backend.repository.IBrandRepository;
+
+@Component
+public class BrandValidation implements IBrandValidation {
+	@Autowired
+	private IBrandRepository brandRepository;
+
+	public void validateBrand(Brand brand) {
+		boolean isExistsName = brandRepository.existsByName(brand.getName());
+
+		if (isExistsName) {
+			throw new BusinessException("Nome não deve ser duplicado.");
+		}
+	}
+
 }

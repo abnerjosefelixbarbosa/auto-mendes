@@ -1,5 +1,8 @@
 package com.auto_mendes.backend.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -10,40 +13,51 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.auto_mendes.backend.model.dto.request.EmployeeRequestDTO;
-import com.auto_mendes.backend.model.dto.response.EmployeeResponseDTO;
-import com.auto_mendes.backend.model.enums.EmployeeType;
-import com.auto_mendes.backend.service.EmployeeService;
+import com.auto_mendes.backend.dto.EmployeeRequestDTO;
+import com.auto_mendes.backend.dto.EmployeeResponseDTO;
+import com.auto_mendes.backend.service.IEmployeeService;
 
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping(value = "/api/employees")
-@RequiredArgsConstructor
+@RequestMapping("/api/employees")
 public class EmployeeController {
-	private final EmployeeService employeeService;
+	@Autowired
+	private IEmployeeService employeeService;
 
-	@PostMapping(value = "/register-employee")
-	public ResponseEntity<EmployeeResponseDTO> registerEmployee(@Valid @RequestBody EmployeeRequestDTO dto) {
-		EmployeeResponseDTO employeeResponseDTO = employeeService.registerEmployee(dto);
-		
-		return ResponseEntity.status(HttpStatus.CREATED).body(employeeResponseDTO);
+	@ResponseStatus(value = HttpStatus.CREATED)
+	@PostMapping("/register-employee")
+	public ResponseEntity<EmployeeResponseDTO> registerEmployee(@RequestBody @Valid EmployeeRequestDTO dto) {
+		EmployeeResponseDTO response = employeeService.registerEmployee(dto);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+	}
+
+	@ResponseStatus(value = HttpStatus.OK)
+	@PutMapping("/update-employee-by-id")
+	public ResponseEntity<EmployeeResponseDTO> updateEmployeeById(@RequestParam String id,
+			@RequestBody @Valid EmployeeRequestDTO dto) {
+		EmployeeResponseDTO response = employeeService.updateEmployeeById(id, dto);
+
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+
+	@ResponseStatus(value = HttpStatus.OK)
+	@GetMapping("/list-employees")
+	public ResponseEntity<List<EmployeeResponseDTO>> listEmployees(Pageable pageable) {
+		Page<EmployeeResponseDTO> page = employeeService.listEmployees(pageable);
+
+		return ResponseEntity.status(HttpStatus.OK).body(page.getContent());
 	}
 	
-	@PutMapping(value = "/update-employee-by-id")
-	public ResponseEntity<EmployeeResponseDTO> updateEmployeeById(@RequestParam String id, @Valid @RequestBody EmployeeRequestDTO dto) {
-		EmployeeResponseDTO employeeResponseDTO = employeeService.updateEmployeeById(id, dto);
-		
+	@ResponseStatus(value = HttpStatus.OK)
+	@GetMapping("/get-employee-by-id")
+	public ResponseEntity<EmployeeResponseDTO> getEmployeeById(@RequestParam String id) {
+		EmployeeResponseDTO employeeResponseDTO = employeeService.getEmployeeById(id);
+
 		return ResponseEntity.status(HttpStatus.OK).body(employeeResponseDTO);
-	}
-	
-	@GetMapping(value = "/list-employee-by-type")
-	public ResponseEntity<Page<EmployeeResponseDTO>> listEmployeeByType(@RequestParam EmployeeType type, Pageable pageable) {
-		Page<EmployeeResponseDTO> page = employeeService.listEmployeeByType(type, pageable);
-		
-		return ResponseEntity.status(HttpStatus.OK).body(page);
 	}
 }

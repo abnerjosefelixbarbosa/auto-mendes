@@ -1,0 +1,92 @@
+<main>
+  <app-navbar></app-navbar>
+
+  <div class="container-xxl border rounded-1 p-5 mt-5">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Nome</th>
+          <th scope="col">Nome da marca</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (i of items; track i.id) {
+        <tr>
+          <td>{{ i.name }}</td>
+          <td>{{ i.brandName }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#updateModal"
+              (click)="update(i)"
+            >
+              Atualizar
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div
+    class="modal fade"
+    id="updateModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Atualização de marca</h5>
+
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div>
+            @if (message.sucess != '') {
+            <div class="alert alert-success" role="alert">
+              {{ message.sucess }}
+            </div>
+            } @if (message.error != '') {
+            <div class="alert alert-danger" role="alert">
+              {{ message.error }}
+            </div>
+            }
+          </div>
+          <form [formGroup]="form" (ngSubmit)="confirm()">
+            <div class="mb-3">
+              <label for="name" class="form-label">name</label>
+              <input type="text" class="form-control" formControlName="name" />
+
+              @if (form.get('name')?.touched && form.get('name')?.invalid) {
+              <div class="text-danger">Nome invalido.</div>
+              }
+            </div>
+
+            <div class="mb-3">
+              <label for="name" class="form-label">name da marca</label>
+              <input type="text" class="form-control" formControlName="brandName" />
+
+              @if (form.get('brandName')?.touched && form.get('brandName')?.invalid) {
+              <div class="text-danger">Nome da marca invalido.</div>
+              }
+            </div>
+
+            <div class="d-grid gap-2">
+              <button class="btn btn-primary" type="submit">Confirma</button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer"></div>
+      </div>
+    </div>
+  </div>
+</main>

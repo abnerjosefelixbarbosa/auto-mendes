@@ -1,0 +1,16 @@
+package com.auto_mendes.backend.dto;
+
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.Data;
+
+@Data
+public class ExceptionResponseDTO {
+	@JsonFormat(pattern = "yyyy-MM-dd HH:ss")
+	LocalDateTime localDateTime;
+	Integer status;
+	String message;
+	String path;
+}

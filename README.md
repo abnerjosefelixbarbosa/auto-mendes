@@ -1,4 +1,4 @@
-# auto-mendes 
+# Automendes 
 
 ## Sobre
 
@@ -8,106 +8,114 @@ Sistema da concessionária Auto Mendes.
 
 ```mermaid
 classDiagram
-    class Customer {
-        - id: String
-        - document: String
-        - name: String
-        - email: String
-        - phone: String
-    }
 
-    class PF {
-    }
+Employee -- EmployeeType
+Customer -- CustomerType
+Vehicle -- BoxgearType
+Vehicle -- VehicleType
+SaleVehicle -- SaleVehicleId
+SaleVehicle -- PaymentType
 
-    class PJ {
-    }
+Employee "1" --* "*" Sale
+Customer "1" --* "*" Sale
+Sale "1" -- "*" SaleVehicle
+Vehicle "1" -- "*" SaleVehicle
+Model "1" --* "*" Vehicle
+Brand "1" --* "*" Model
 
-    class Employee {
-        - id: String
-        - name: String
-        - email: String
-        - matriculation: String
-        - phone: String
-        - birthDate: LocalDate
-    }
+class Customer {
+    <<entity>>
+    - id: String
+    - document: String
+    - name: String
+    - email: String
+    - phone: String 
+    - customerType: CustomerType
+}
 
-    class Manager {
-    }
+class Employee {
+    <<entity>>
+    - id: String
+    - name: String
+    - email: String
+    - matriculation: String
+    - phone: String
+    - birthDate: LocalDate
+    - commission: BigDecimal
+    - employeeType: EmployeeType
+}
 
-    class AssistantManager {
-    }
+class Sale {
+    <<entity>>
+    - id: String
+    - quantity: Integer
+    - SaleDateTime: LocalDateTime
+    - total: BigDecimal
+    - paymentType: PaymentType
+    - customer: Customer
+    - employee: Employee
+}
 
-    class Saler {
-        - commission: BigDecimal
-    }
-    
-    class Sale {
-        - id: String
-        - dateTime: LocalDateTime
-        - paymentType: PaymentType
-        - total: BigDecimal 
-    }
-    
-    class SaleVehicle {
-        - saleVehicleId: SaleVehicleId 
-        - quantity: Integer
-    }
-    
-    class SaleVehicleId {
-        - saleId: String
-        - vehicleId: String
-    } 
+class SaleVehicle {
+    <<entity>>
+    - saleVehicleId: SaleVehicleId
+    - sale: Sale
+    - vehicle: Vehicle
+}
 
-    class Vehicle {
-        - id: String
-        - plate: String
-        - transmissionType: TransmissionType
-        - price: BigDecimal
-    }
+class SaleVehicleId {
+    - saleId: String
+    - vehicleId: String
+}
 
-    class Car {
-    }
 
-    class Motorcycle {
-    }
+class Vehicle {
+    <<entity>>
+    - id: String
+    - plate: String
+    - price: BigDecimal
+    - model: Model
+    - boxgearType: BoxgearType
+    - vehicleType: VehicleType
+}
 
-    class Model {
-        - id: String
-        - name: String
-    }
+class Model {
+    <<entity>>
+    - id: String
+    - name: String
+    - brand: Brand
+}
 
-    class Brand {
-        - id: String
-        - name: String
-    }
-    
-    class PaymentType {
-        <<enumeration>>
-        CASH, CREDIT_CARD, DEBIT_CARD, PIX, BANK_TRANSFER;
-    }
-    
-    class TransmissionType {
-        <<enumeration>>
-        AUTO, MANUAL;
-    }
+class Brand {
+    <<entity>>
+    - id: String
+    - name: String
+}
 
-    Customer "1" -- "*" Sale
-    Saler "1" -- "*" Sale
-    Sale "1" -- "*" SaleVehicle
-    Vehicle "1" -- "*" SaleVehicle
-    Model "1" -- "*" Vehicle
-    Brand "1" -- "*" Model
-    SaleVehicleId  -- SaleVehicle
-    Sale -- PaymentType
-    Vehicle -- TransmissionType 
+class PaymentType {
+    <<enum>>
+    CASH, CREDIT_CARD, DEBIT_CARD, BANK_TRANSFER;
+}
 
-    Customer <|-- PF
-    Customer <|-- PJ
-    Employee <|-- Manager
-    Employee <|-- AssistantManager
-    Employee <|-- Saler
-    Vehicle <|-- Car
-    Vehicle <|-- Motorcycle
+class BoxgearType {
+     <<enum>>
+    AUTO, MANUAL;
+}
+
+class EmployeeType {
+    <<enum>>
+    MANAGER, DEPUTY_MANAGER, SELLER;
+}
+
+class CustomerType {
+    <<enum>>
+    PF, PJ;
+}
+
+class VehicleType {
+    <<enum>>
+    CAR, MOTOCYCLE;
+}
 ```
 
 # Recursos Do Projeto
@@ -129,28 +137,70 @@ classDiagram
 ## Funcionários 
 
 - Registra funcionário.
-- Atualiza funcionário pelo id.
-- Lista funcionários pelo tipo.
+- Atualiza funcionário.
+- Lista funcionários.
 
 ## Veículos
 
 - Registra veículo.
-- Atualiza veículo pelo id.
+- Atualiza veículo.
 - Lista veículo pelo modelo.
 
 ## Marca
 
 - Registra marca.
-- Atualiza marca pelo id.
+- Atualiza marca.
 - Lista marca pelo nome.
 
 ## Modelo
 
 - Registra modelo.
-- Atualiza modelo pelo id.
+- Atualiza modelo.
 - Lista modelo pelo nome.
 
+## Cliente
+
+- Registra cliente.
+- Atualizar cliente.
+- Procurar cliente pelo documento.
+
 # Requisições 
+
+## Registra funcionário.
+
+```json
+/api/employees/register-employee
+
+{
+  "name": "",
+  "email": "",
+  "matriculation": "",
+  "phone": "",
+  "birthDate": "2025-08-19",
+  "employeeType": "MANAGER",
+  "commission": 0
+}
+```
+
+## Atualiza funcionário.
+
+```json
+/api/employees/register-employee
+
+{
+  "name": "",
+  "email": "",
+  "matriculation": "",
+  "phone": "",
+  "birthDate": "2025-08-19",
+  "employeeType": "MANAGER",
+  "commission": 0
+}
+```
+
+## Lista funcionários.
+
+
 
 # Execução Do Projeto
 
