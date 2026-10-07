@@ -75,7 +75,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	private void validateEmployee(Employee employee) {
-		if (employee.getEmployeeType() == EmployeeType.SALLER) {
+		if (employee.getEmployeeType() == EmployeeType.SELLER) {
 			if (employee.getCommission() == null) {
 				throw new ApplicationException("Comissão deve ser obrigatório para funcionário vendedor.");
 			}

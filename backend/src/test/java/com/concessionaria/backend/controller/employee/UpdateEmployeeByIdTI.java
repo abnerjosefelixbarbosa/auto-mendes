@@ -54,7 +54,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest1() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -62,7 +62,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -76,7 +76,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest2() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -84,7 +84,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -99,7 +99,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest3() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -107,7 +107,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO(null, "2222222222", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -122,7 +122,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest4() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -130,7 +130,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("", "2222222222", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -145,7 +145,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest5() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -154,7 +154,7 @@ class UpdateEmployeeByIdTI {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO(
 				"name1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
 				"2222222222", "email2@gmail.com", "81922222222", LocalDate.now().withYear(1991), "02370962429",
-				new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE, EmployeeType.SALLER);
+				new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE, EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -169,7 +169,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest6() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -177,7 +177,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("name1", "2222222222", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -193,7 +193,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest7() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -201,7 +201,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", null, "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -216,7 +216,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest8() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -224,7 +224,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -239,7 +239,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest9() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -247,7 +247,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -262,7 +262,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest10() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -270,7 +270,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "a222222222", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -285,7 +285,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest11() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -293,7 +293,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "1111111111", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -309,7 +309,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest12() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -317,7 +317,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", null, "81922222222",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -332,7 +332,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest13() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -340,7 +340,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "", "81922222222",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -355,7 +355,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest14() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -363,7 +363,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "email2gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -378,7 +378,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest15() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -386,7 +386,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "email2@gmail.com", null,
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -401,7 +401,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest16() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -409,7 +409,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "email2@gmail.com", "",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -424,7 +424,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest17() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -432,7 +432,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "email2@gmail.com",
 				"8192222222222222222222222222222", LocalDate.now().withYear(1991), "02370962429",
-				new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE, EmployeeType.SALLER);
+				new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE, EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -447,7 +447,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest18() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -455,7 +455,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "email2@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -471,14 +471,14 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest19() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
 		employeeRepository.saveAll(employees);
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "email2@gmail.com", "81922222222", null,
-				"02370962429", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE, EmployeeType.SALLER);
+				"02370962429", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE, EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -493,7 +493,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest20() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -501,7 +501,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), null, new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -516,7 +516,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest21() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -524,7 +524,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -539,7 +539,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest22() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -547,7 +547,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "02370962421", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -562,7 +562,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest23() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -570,7 +570,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -586,14 +586,14 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest24() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
 		employeeRepository.saveAll(employees);
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "email2@gmail.com", "81922222222",
-				LocalDate.now().withYear(1991), "02370962429", null, 100, EmployeeStatus.ACTIVE, EmployeeType.SALLER);
+				LocalDate.now().withYear(1991), "02370962429", null, 100, EmployeeStatus.ACTIVE, EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -608,7 +608,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest25() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -616,7 +616,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("0"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -631,7 +631,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest26() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -639,7 +639,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("0.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -654,7 +654,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest27() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -662,7 +662,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), null, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -677,7 +677,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest28() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -685,7 +685,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), 0, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -700,7 +700,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest29() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -708,7 +708,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), 101, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -723,7 +723,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest30() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -731,7 +731,7 @@ class UpdateEmployeeByIdTI {
 
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), 100, null,
-				EmployeeType.SALLER);
+				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
@@ -746,7 +746,7 @@ class UpdateEmployeeByIdTI {
 	void updateEmployeeByIdTest31() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 

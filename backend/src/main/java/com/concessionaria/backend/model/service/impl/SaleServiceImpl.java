@@ -107,7 +107,7 @@ public class SaleServiceImpl implements SaleService {
 	}
 
 	private void validadeSale(Sale sale) {
-		if (sale.getEmployee().getEmployeeType() != EmployeeType.SALLER) {
+		if (sale.getEmployee().getEmployeeType() != EmployeeType.SELLER) {
 			throw new ApplicationException("Matricula do funcionário deve ser de um vendedor.");
 		}
 

@@ -49,7 +49,7 @@ public class ListEmployeesTI {
 	void listEmployeesTest1() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		Employee employee2 = new Employee(null, "name2", "2222222222", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "43468998465", new BigDecimal("2500.00"), null, EmployeeStatus.ACTIVE,
@@ -61,7 +61,7 @@ public class ListEmployeesTI {
 
 		Employee employee4 = new Employee(null, "name4", "4444444444", "email4@gmail.com", "81944444444",
 				LocalDate.now().withYear(1991), "66134259403", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1, employee2, employee3, employee4);
 
@@ -77,7 +77,7 @@ public class ListEmployeesTI {
 	void listEmployeesTest2() throws Exception {
 		Employee employee1 = new Employee(null, "nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		Employee employee2 = new Employee(null, "nome2", "2222222222", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "43468998465", new BigDecimal("2500.00"), null, EmployeeStatus.ACTIVE,
@@ -89,7 +89,7 @@ public class ListEmployeesTI {
 
 		Employee employee4 = new Employee(null, "nome4", "4444444444", "email4@gmail.com", "81944444444",
 				LocalDate.now().withYear(1991), "66134259403", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1, employee2, employee3, employee4);
 
@@ -105,7 +105,7 @@ public class ListEmployeesTI {
 	void listEmployeesTest3() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		Employee employee2 = new Employee(null, "name2", "2222222222", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "43468998465", new BigDecimal("2500.00"), null, EmployeeStatus.ACTIVE,
@@ -117,7 +117,7 @@ public class ListEmployeesTI {
 
 		Employee employee4 = new Employee(null, "name4", "4444444444", "email4@gmail.com", "81944444444",
 				LocalDate.now().withYear(1991), "66134259403", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1, employee2, employee3, employee4);
 
@@ -133,7 +133,7 @@ public class ListEmployeesTI {
 	void listEmployeesTest4() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		Employee employee2 = new Employee(null, "name2", "2222222222", "email2@gmail.com", "81922222222",
 				LocalDate.now().withYear(1991), "43468998465", new BigDecimal("2500.00"), null, EmployeeStatus.ACTIVE,
@@ -145,7 +145,7 @@ public class ListEmployeesTI {
 
 		Employee employee4 = new Employee(null, "name4", "4444444444", "email4@gmail.com", "81944444444",
 				LocalDate.now().withYear(1991), "66134259403", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1, employee2, employee3, employee4);
 

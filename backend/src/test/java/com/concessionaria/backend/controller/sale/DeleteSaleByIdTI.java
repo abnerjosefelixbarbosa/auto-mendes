@@ -107,7 +107,7 @@ class DeleteSaleByIdTI {
 
 		Employee employee = new Employee(null, "nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1995), "46358981480", new BigDecimal("2000.00"), 10, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		employee = employeeRepository.save(employee);
 
@@ -152,7 +152,7 @@ class DeleteSaleByIdTI {
 
 		Employee employee = new Employee(null, "nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1995), "46358981480", new BigDecimal("2000.00"), 10, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		employee = employeeRepository.save(employee);
 

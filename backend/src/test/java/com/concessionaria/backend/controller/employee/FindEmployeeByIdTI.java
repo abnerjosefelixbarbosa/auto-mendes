@@ -48,7 +48,7 @@ class FindEmployeeByIdTI {
 	void findEmployeeByIdTest1() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
@@ -64,7 +64,7 @@ class FindEmployeeByIdTI {
 	void findEmployeeByIdTest2() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
+				EmployeeType.SELLER, null);
 
 		List<Employee> employees = List.of(employee1);
 
