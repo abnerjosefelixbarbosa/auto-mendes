@@ -77,7 +77,7 @@ public class ModelController {
 	@GetMapping
 	public ResponseEntity<Page<ModelResponseDTO>> listModels(@RequestParam(defaultValue = "") String name,
 			Pageable pageable) {
-		Page<ModelResponseDTO> response = modelService.listModelsByName(name, pageable);
+		Page<ModelResponseDTO> response = modelService.listModels(name, pageable);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

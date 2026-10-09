@@ -15,6 +15,7 @@ import com.concessionaria.backend.model.mapper.ModelMapper;
 import com.concessionaria.backend.model.repository.ModelRepository;
 import com.concessionaria.backend.model.service.BrandService;
 import com.concessionaria.backend.model.service.ModelService;
+import com.concessionaria.backend.model.specification.ModelSpecification;
 
 import jakarta.transaction.Transactional;
 
@@ -76,8 +77,8 @@ public class ModelServiceImpl implements ModelService {
 		return modelFound;
 	}
 
-	public Page<ModelResponseDTO> listModelsByName(String name, Pageable pageable) {
-		Page<Model> page = modelRepository.listModelsByName(name, pageable);
+	public Page<ModelResponseDTO> listModels(String name, Pageable pageable) {
+		Page<Model> page = modelRepository.findAll(ModelSpecification.filter(name), pageable);
 
 		return page.map(ModelMapper::toModelResponseDTO);
 	}
