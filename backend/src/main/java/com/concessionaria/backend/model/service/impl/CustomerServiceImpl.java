@@ -14,6 +14,7 @@ import com.concessionaria.backend.model.exception.NotFoundException;
 import com.concessionaria.backend.model.mapper.CustomerMapper;
 import com.concessionaria.backend.model.repository.CustomerRepository;
 import com.concessionaria.backend.model.service.CustomerService;
+import com.concessionaria.backend.model.specification.CustomerSpecification;
 
 import br.com.caelum.stella.validation.CNPJValidator;
 import br.com.caelum.stella.validation.CPFValidator;
@@ -61,17 +62,17 @@ public class CustomerServiceImpl implements CustomerService {
 
 		return CustomerMapper.toCustomerResponseDTO(customerFound);
 	}
-	
-	public Page<CustomerResponseDTO> listCustomers(String name, CustomerType customerType, Pageable pageable) {	
-		Page<Customer> page = customerRepository.listCustomers(name, customerType, pageable);
+
+	public Page<CustomerResponseDTO> listCustomers(String name, CustomerType customerType, Pageable pageable) {
+		Page<Customer> page = customerRepository.findAll(CustomerSpecification.filter(customerType, name), pageable);
 
 		return page.map(CustomerMapper::toCustomerResponseDTO);
 	}
-	
-    public Customer findCustomerByDocument(String document) {
+
+	public Customer findCustomerByDocument(String document) {
 		Customer customerFound = customerRepository.findByDocument(document)
 				.orElseThrow(() -> new NotFoundException("Documento deve ser existente."));
-		
+
 		return customerFound;
 	}
 
