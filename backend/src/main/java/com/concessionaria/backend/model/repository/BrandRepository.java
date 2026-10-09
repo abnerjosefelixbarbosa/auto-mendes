@@ -2,25 +2,15 @@ package com.concessionaria.backend.model.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import com.concessionaria.backend.model.entity.Brand;
 
 @Repository
-public interface BrandRepository extends JpaRepository<Brand, String> {
+public interface BrandRepository extends JpaRepository<Brand, String>, JpaSpecificationExecutor<Brand> {
 	boolean existsByName(String name);
 
 	Optional<Brand> findByNameIgnoreCase(String name);
-
-	@Query("""
-			SELECT b
-			FROM Brand b
-			WHERE (UPPER(b.name) LIKE UPPER(CONCAT('%', :name, '%')))
-			""")
-	Page<Brand> listBrands(@Param("name") String name, Pageable pageable);
 }

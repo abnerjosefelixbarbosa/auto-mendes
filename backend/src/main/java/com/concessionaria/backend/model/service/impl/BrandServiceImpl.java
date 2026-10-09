@@ -13,6 +13,7 @@ import com.concessionaria.backend.model.exception.NotFoundException;
 import com.concessionaria.backend.model.mapper.BrandMapper;
 import com.concessionaria.backend.model.repository.BrandRepository;
 import com.concessionaria.backend.model.service.BrandService;
+import com.concessionaria.backend.model.specification.BrandSpecification;
 
 import jakarta.transaction.Transactional;
 
@@ -57,9 +58,9 @@ public class BrandServiceImpl implements BrandService {
 
 		return BrandMapper.toBrandResponseDTO(brandFound);
 	}
-	
+
 	public Page<BrandResponseDTO> listBrands(String name, Pageable pageable) {
-		Page<Brand> page = brandRepository.listBrands(name, pageable);
+		Page<Brand> page = brandRepository.findAll(BrandSpecification.filter(name), pageable);
 
 		return page.map(BrandMapper::toBrandResponseDTO);
 	}
