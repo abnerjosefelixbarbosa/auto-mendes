@@ -151,7 +151,7 @@ public class ListEmployeesTI {
 
 		employeeRepository.saveAll(employees);
 
-		mockMvc.perform(get("/employees").queryParam("employeeType", "SALLER")
+		mockMvc.perform(get("/employees").queryParam("employeeType", EmployeeType.SELLER.name())
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.totalElements").value(2)).andExpect(status().isOk()).andDo(print());
 	}

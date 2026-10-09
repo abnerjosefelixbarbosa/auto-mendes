@@ -15,6 +15,7 @@ import com.concessionaria.backend.model.exception.NotFoundException;
 import com.concessionaria.backend.model.mapper.EmployeeMapper;
 import com.concessionaria.backend.model.repository.EmployeeRepository;
 import com.concessionaria.backend.model.service.EmployeeService;
+import com.concessionaria.backend.model.specification.EmployeeSpecification;
 
 import jakarta.transaction.Transactional;
 
@@ -62,11 +63,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	public Page<EmployeeResponseDTO> listEmployees(String name, EmployeeStatus employeeStatus,
 			EmployeeType employeeType, Pageable pageable) {
-		Page<Employee> page = employeeRepository.listEmployees(name, employeeStatus, employeeType, pageable);
+		Page<Employee> page = employeeRepository
+				.findAll(EmployeeSpecification.filter(employeeStatus, employeeType, name), pageable);
 
 		return page.map(EmployeeMapper::toEmployeeResponseDTO);
 	}
-	
+
 	public Employee findEmployeeByMatriculation(String matriculation) {
 		Employee employeeFound = employeeRepository.findByMatriculation(matriculation)
 				.orElseThrow(() -> new NotFoundException("Matricula do funcionário deve ser existente."));
