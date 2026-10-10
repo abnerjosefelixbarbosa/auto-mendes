@@ -1,10 +1,10 @@
 package com.concessionaria.backend.model.service.impl;
 
-import java.math.BigDecimal;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.concessionaria.backend.model.dto.VehicleRequestDTO;
@@ -19,6 +19,7 @@ import com.concessionaria.backend.model.mapper.VehicleMapper;
 import com.concessionaria.backend.model.repository.VehicleRepository;
 import com.concessionaria.backend.model.service.ModelService;
 import com.concessionaria.backend.model.service.VehicleService;
+import com.concessionaria.backend.model.specification.VehicleSpecification;
 
 import jakarta.transaction.Transactional;
 
@@ -59,7 +60,7 @@ public class VehicleServiceImpl implements VehicleService {
 
 		Vehicle vehicleFound = vehicleRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
-		
+
 		BeanUtils.copyProperties(vehicle, vehicleFound, "id");
 
 		vehicleRepository.save(vehicleFound);
@@ -73,28 +74,31 @@ public class VehicleServiceImpl implements VehicleService {
 
 		return VehicleMapper.toBrandResponseDTO(vehicleFound);
 	}
-	
+
 	public Vehicle findVehicleByPlate(String plate) {
 		Vehicle vehicle = vehicleRepository.findByPlate(plate)
 				.orElseThrow(() -> new NotFoundException("Lista de itens deve ter placa de veiculo existente."));
-		
+
 		return vehicle;
 	}
 
-	public Page<VehicleResponseDTO> listVehicles(TransmissionType transmissionType, BigDecimal price,
+	public Page<VehicleResponseDTO> listVehicles(TransmissionType transmissionType,
 			VehicleStatus vehicleStatus, String color, String plate, Pageable pageable) {
-		Page<Vehicle> page = vehicleRepository.listVehicles(transmissionType, price, vehicleStatus, color, plate,
-				pageable);
+		pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
+				Sort.by(Sort.Direction.DESC, "price"));
+
+		Page<Vehicle> page = vehicleRepository
+				.findAll(VehicleSpecification.filter(transmissionType, vehicleStatus, color, plate), pageable);
 
 		return page.map(VehicleMapper::toBrandResponseDTO);
 	}
-	
+
 	@Transactional
 	public void updateVehicleByPlate(String plate, Vehicle vehicle) {
 		Vehicle vehicleFound = findVehicleByPlate(plate);
-		
+
 		BeanUtils.copyProperties(vehicle, vehicleFound, "id");
-		
+
 		vehicleRepository.save(vehicleFound);
 	}
 

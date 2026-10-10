@@ -1,7 +1,5 @@
 package com.concessionaria.backend.controller;
 
-import java.math.BigDecimal;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -81,10 +79,9 @@ public class VehicleController {
 	@GetMapping
 	public ResponseEntity<Page<VehicleResponseDTO>> listVehicles(
 			@RequestParam(defaultValue = "") TransmissionType transmissionType,
-			@RequestParam(defaultValue = "") BigDecimal price,
 			@RequestParam(defaultValue = "") VehicleStatus vehicleStatus, @RequestParam(defaultValue = "") String color,
 			@RequestParam(defaultValue = "") String plate, Pageable pageable) {
-		Page<VehicleResponseDTO> response = vehicleService.listVehicles(transmissionType, price, vehicleStatus, color,
+		Page<VehicleResponseDTO> response = vehicleService.listVehicles(transmissionType, vehicleStatus, color,
 				plate, pageable);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);

@@ -1,7 +1,5 @@
 package com.concessionaria.backend.model.service;
 
-import java.math.BigDecimal;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -20,7 +18,7 @@ public interface VehicleService {
 	
 	VehicleResponseDTO findVehicleById(String id);
 
-	Page<VehicleResponseDTO> listVehicles(TransmissionType transmissionType, BigDecimal price, VehicleStatus vehicleStatus,
+	Page<VehicleResponseDTO> listVehicles(TransmissionType transmissionType, VehicleStatus vehicleStatus,
 			 String color, String plate, Pageable pageable);
 
 	Vehicle findVehicleByPlate(String plate);
