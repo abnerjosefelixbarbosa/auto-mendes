@@ -25,6 +25,7 @@ import com.concessionaria.backend.model.service.CustomerService;
 import com.concessionaria.backend.model.service.EmployeeService;
 import com.concessionaria.backend.model.service.SaleService;
 import com.concessionaria.backend.model.service.VehicleService;
+import com.concessionaria.backend.model.specification.SaleSpecification;
 
 import jakarta.transaction.Transactional;
 
@@ -73,10 +74,10 @@ public class SaleServiceImpl implements SaleService {
 
 		saleRepository.delete(sale);
 	}
-	
+
 	public Page<SaleResponseDTO> listSales(PaymentType paymentType, Pageable pageable) {
-		Page<Sale> page = saleRepository.listSales(paymentType, pageable);
-		
+		Page<Sale> page = saleRepository.findAll(SaleSpecification.filter(paymentType), pageable);
+
 		return page.map(SaleMapper::toSaleResponseDTO);
 	}
 
