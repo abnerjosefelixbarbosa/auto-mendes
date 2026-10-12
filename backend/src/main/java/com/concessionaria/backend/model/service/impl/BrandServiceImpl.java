@@ -21,7 +21,9 @@ import jakarta.transaction.Transactional;
 public class BrandServiceImpl implements BrandService {
 	private final BrandRepository brandRepository;
 
-	public BrandServiceImpl(BrandRepository brandRepository) {
+	public BrandServiceImpl(
+			BrandRepository brandRepository
+	) {
 		this.brandRepository = brandRepository;
 	}
 
@@ -37,7 +39,10 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Transactional
-	public BrandResponseDTO updateBrandById(String id, BrandRequestDTO dto) {
+	public BrandResponseDTO updateBrandById(
+			String id, 
+			BrandRequestDTO dto
+	) {
 		Brand brand = BrandMapper.toBrand(dto);
 
 		validateBrand(brand);
@@ -59,8 +64,14 @@ public class BrandServiceImpl implements BrandService {
 		return BrandMapper.toBrandResponseDTO(brandFound);
 	}
 
-	public Page<BrandResponseDTO> listBrands(String name, Pageable pageable) {
-		Page<Brand> page = brandRepository.findAll(BrandSpecification.filter(name), pageable);
+	public Page<BrandResponseDTO> listBrands(
+			String name, 
+			Pageable pageable
+	) {
+		Page<Brand> page = brandRepository.findAll(
+				BrandSpecification.filter(name), 
+				pageable
+		);
 
 		return page.map(BrandMapper::toBrandResponseDTO);
 	}

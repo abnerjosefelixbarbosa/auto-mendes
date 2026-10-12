@@ -8,16 +8,27 @@ import com.concessionaria.backend.model.dto.CustomerResponseDTO;
 import com.concessionaria.backend.model.entity.Customer;
 import com.concessionaria.backend.model.entity.enums.CustomerType;
 
-import jakarta.validation.Valid;
-
 public interface CustomerService {
-	CustomerResponseDTO registerCustomer(CustomerRequestDTO dto);
+	CustomerResponseDTO registerCustomer(
+			CustomerRequestDTO dto
+	);
 
-	CustomerResponseDTO updateCustomerById(String id, @Valid CustomerRequestDTO dto);
+	CustomerResponseDTO updateCustomerById(
+			String id, 
+			CustomerRequestDTO dto
+	);
 
-	CustomerResponseDTO findCustomerById(String id);
+	CustomerResponseDTO findCustomerById(
+			String id
+	);
 
-	Page<CustomerResponseDTO> listCustomers(String name, CustomerType customerType, Pageable pageable);
+	Page<CustomerResponseDTO> listCustomers(
+			String name, 
+			CustomerType customerType, 
+			Pageable pageable
+	);
 
-	Customer findCustomerByDocument(String document);
+	Customer findCustomerByDocument(
+			String document
+	);
 }

@@ -8,9 +8,16 @@ import com.concessionaria.backend.model.dto.SaleResponseDTO;
 import com.concessionaria.backend.model.entity.enums.PaymentType;
 
 public interface SaleService {
-	SaleResponseDTO registerSale(SaleRequestDTO dto);
+	SaleResponseDTO registerSale(
+			SaleRequestDTO dto
+	);
 
-	void deleterSaleById(String id);
+	void deleterSaleById(
+			String id
+	);
 
-	Page<SaleResponseDTO> listSales(PaymentType paymentType, Pageable pageable);
+	Page<SaleResponseDTO> listSales(
+			PaymentType paymentType, 
+			Pageable pageable
+	);
 }

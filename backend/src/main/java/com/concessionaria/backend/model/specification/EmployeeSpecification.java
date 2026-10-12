@@ -13,7 +13,10 @@ public class EmployeeSpecification {
 				return null;
 			}
 
-			return builder.like(builder.upper(root.get("name")), "%" + name.toUpperCase() + "%");
+			return builder.like(
+					builder.upper(root.get("name")), 
+					"%" + name.toUpperCase() + "%"
+			);
 		};
 	}
 
@@ -23,7 +26,10 @@ public class EmployeeSpecification {
 				return null;
 			}
 
-			return builder.equal(root.get("employeeStatus"), employeeStatus);
+			return builder.equal(
+					root.get("employeeStatus"),
+					employeeStatus
+			);
 		};
 	}
 
@@ -33,13 +39,24 @@ public class EmployeeSpecification {
 				return null;
 			}
 
-			return builder.equal(root.get("employeeType"), employeeType);
+			return builder.equal(
+					root.get("employeeType"), 
+					employeeType
+			);
 		};
 	}
 
-	public static Specification<Employee> filter(EmployeeStatus employeeStatus, EmployeeType employeeType,
-			String name) {
-		return Specification.where(byEmployeeStatus(employeeStatus)).and(byName(name))
-				.and(byEmployeeType(employeeType));
+	public static Specification<Employee> filter(
+			EmployeeStatus employeeStatus, 
+			EmployeeType employeeType,
+			String name
+	) {
+		return Specification.where(
+				byEmployeeStatus(employeeStatus)
+		).and(
+				byName(name)
+		).and(
+				byEmployeeType(employeeType)
+		);
 	}
 }

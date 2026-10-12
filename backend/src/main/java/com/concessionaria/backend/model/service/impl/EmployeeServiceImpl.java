@@ -23,7 +23,9 @@ import jakarta.transaction.Transactional;
 public class EmployeeServiceImpl implements EmployeeService {
 	private final EmployeeRepository employeeRepository;
 
-	public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+	public EmployeeServiceImpl(
+			EmployeeRepository employeeRepository
+	) {
 		this.employeeRepository = employeeRepository;
 	}
 
@@ -61,8 +63,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return EmployeeMapper.toEmployeeResponseDTO(employeeFound);
 	}
 
-	public Page<EmployeeResponseDTO> listEmployees(String name, EmployeeStatus employeeStatus,
-			EmployeeType employeeType, Pageable pageable) {
+	public Page<EmployeeResponseDTO> listEmployees(
+			String name, 
+			EmployeeStatus employeeStatus,
+			EmployeeType employeeType, 
+			Pageable pageable
+	) {
 		Page<Employee> page = employeeRepository
 				.findAll(EmployeeSpecification.filter(employeeStatus, employeeType, name), pageable);
 
@@ -109,7 +115,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	private boolean isExistsByNameOrMatriculationOrEmailOrPhoneOrCpf(Employee employee) {
-		return employeeRepository.existsByNameOrMatriculationOrEmailOrPhoneOrCpf(employee.getName(),
-				employee.getMatriculation(), employee.getEmail(), employee.getPhone(), employee.getCpf());
+		return employeeRepository.existsByNameOrMatriculationOrEmailOrPhoneOrCpf(
+				employee.getName(),
+				employee.getMatriculation(),
+				employee.getEmail(), 
+				employee.getPhone(), 
+				employee.getCpf()
+		);
 	}
 }

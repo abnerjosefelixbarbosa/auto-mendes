@@ -19,13 +19,14 @@ import com.concessionaria.backend.model.specification.CustomerSpecification;
 import br.com.caelum.stella.validation.CNPJValidator;
 import br.com.caelum.stella.validation.CPFValidator;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 	private final CustomerRepository customerRepository;
 
-	public CustomerServiceImpl(CustomerRepository customerRepository) {
+	public CustomerServiceImpl(
+			CustomerRepository customerRepository
+	) {
 		this.customerRepository = customerRepository;
 	}
 
@@ -41,7 +42,10 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Transactional
-	public CustomerResponseDTO updateCustomerById(String id, @Valid CustomerRequestDTO dto) {
+	public CustomerResponseDTO updateCustomerById(
+			String id,
+			CustomerRequestDTO dto
+	) {
 		Customer customer = CustomerMapper.toCustomer(dto);
 
 		validateCustomer(customer);
@@ -63,8 +67,18 @@ public class CustomerServiceImpl implements CustomerService {
 		return CustomerMapper.toCustomerResponseDTO(customerFound);
 	}
 
-	public Page<CustomerResponseDTO> listCustomers(String name, CustomerType customerType, Pageable pageable) {
-		Page<Customer> page = customerRepository.findAll(CustomerSpecification.filter(customerType, name), pageable);
+	public Page<CustomerResponseDTO> listCustomers(
+			String name, 
+			CustomerType customerType, 
+			Pageable pageable
+	) {
+		Page<Customer> page = customerRepository.findAll(
+				CustomerSpecification.filter(
+						customerType, 
+						name
+				),
+				pageable
+		);
 
 		return page.map(CustomerMapper::toCustomerResponseDTO);
 	}
@@ -113,7 +127,11 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	private boolean isExistsByNameOrDocumentOrEmailOrPhone(Customer customer) {
-		return customerRepository.existsByNameOrDocumentOrEmailOrPhone(customer.getName(), customer.getDocument(),
-				customer.getEmail(), customer.getPhone());
+		return customerRepository.existsByNameOrDocumentOrEmailOrPhone(
+				customer.getName(),
+				customer.getDocument(),
+				customer.getEmail(), 
+				customer.getPhone()
+		);
 	}
 }

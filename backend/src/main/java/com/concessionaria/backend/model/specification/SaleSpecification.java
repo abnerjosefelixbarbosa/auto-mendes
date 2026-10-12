@@ -12,11 +12,16 @@ public class SaleSpecification {
 				return null;
 			}
 
-			return builder.equal(root.get("paymentType"), paymentType);
+			return builder.equal(
+					root.get("paymentType"),
+					paymentType
+			);
 		};
 	}
 
 	public static Specification<Sale> filter(PaymentType paymentType) {
-		return Specification.where(byPaymentType(paymentType));
+		return Specification.where(
+				byPaymentType(paymentType)
+		);
 	}
 }

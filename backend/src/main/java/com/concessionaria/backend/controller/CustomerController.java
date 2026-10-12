@@ -29,55 +29,101 @@ import jakarta.validation.Valid;
 public class CustomerController {
 	private final CustomerService customerService;
 
-	public CustomerController(CustomerService customerService) {
+	public CustomerController(
+			CustomerService customerService
+	) {
 		this.customerService = customerService;
 	}
 
-	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "registra um cliente."),
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "201", description = "registra um cliente."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
-			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") 
+	})
 	@ResponseStatus(value = HttpStatus.CREATED)
-	@Operation(summary = "registrar cliente.", description = "registra um cliente.")
+	@Operation(
+			summary = "registrar cliente.",
+			description = "registra um cliente."
+	)
 	@PostMapping
-	public ResponseEntity<CustomerResponseDTO> registerCustomer(@RequestBody @Valid CustomerRequestDTO dto) {
+	public ResponseEntity<CustomerResponseDTO> registerCustomer(
+			@RequestBody
+			@Valid
+			CustomerRequestDTO dto
+	) {
 		CustomerResponseDTO response = customerService.registerCustomer(dto);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "atualiza um cliente pelo id."),
+	@ApiResponses(value = { 
+			@ApiResponse(responseCode = "200", description = "atualiza um cliente pelo id."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
-			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") 
+	})
 	@ResponseStatus(value = HttpStatus.OK)
-	@Operation(summary = "atualizar cliente pelo id.", description = "atualiza um cliente pelo id.")
+	@Operation(
+			summary = "atualizar cliente pelo id.",
+			description = "atualiza um cliente pelo id."
+	)
 	@PutMapping("/{id}")
-	public ResponseEntity<CustomerResponseDTO> updateCustomerById(@PathVariable String id,
-			@RequestBody @Valid CustomerRequestDTO dto) {
-		CustomerResponseDTO response = customerService.updateCustomerById(id, dto);
+	public ResponseEntity<CustomerResponseDTO> updateCustomerById(
+			@PathVariable 
+			String id,
+			@RequestBody
+			@Valid 
+			CustomerRequestDTO dto
+	) {
+		CustomerResponseDTO response = customerService.updateCustomerById(
+				id,
+				dto
+		);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "procura um cliente pelo id."),
+	@ApiResponses(value = { 
+			@ApiResponse(responseCode = "200", description = "procura um cliente pelo id."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
-			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") 
+	})
 	@ResponseStatus(value = HttpStatus.OK)
-	@Operation(summary = "procurar cliente pelo id.", description = "procura um cliente pelo id.")
+	@Operation(
+			summary = "procurar cliente pelo id.",
+			description = "procura um cliente pelo id."
+	)
 	@GetMapping("/{id}")
-	public ResponseEntity<CustomerResponseDTO> findCustomerById(@PathVariable String id) {
+	public ResponseEntity<CustomerResponseDTO> findCustomerById(
+			@PathVariable
+			String id
+	) {
 		CustomerResponseDTO response = customerService.findCustomerById(id);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "lista varios clientes."),
+	@ApiResponses(value = { 
+			@ApiResponse(responseCode = "200", description = "lista varios clientes."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
-			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.")
+    })
 	@ResponseStatus(value = HttpStatus.OK)
-	@Operation(summary = "listar clientes.", description = "lista varios clientes.")
+	@Operation(
+			summary = "listar clientes.", 
+			description = "lista varios clientes."
+	)
 	@GetMapping
-	public ResponseEntity<Page<CustomerResponseDTO>> listCustomers(@RequestParam(defaultValue = "") String name, @RequestParam(defaultValue = "") CustomerType customerType, Pageable pageable) {
-		Page<CustomerResponseDTO> response = customerService.listCustomers(name, customerType, pageable);
+	public ResponseEntity<Page<CustomerResponseDTO>> listCustomers(
+			@RequestParam(defaultValue = "")
+			String name, 
+			@RequestParam(defaultValue = "") 
+			CustomerType customerType,
+			Pageable pageable) {
+		Page<CustomerResponseDTO> response = customerService.listCustomers(
+				name, 
+				customerType, 
+				pageable
+		);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

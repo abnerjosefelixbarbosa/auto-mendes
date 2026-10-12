@@ -10,14 +10,27 @@ import com.concessionaria.backend.model.entity.enums.EmployeeStatus;
 import com.concessionaria.backend.model.entity.enums.EmployeeType;
 
 public interface EmployeeService {
-	EmployeeResponseDTO registerEmployee(EmployeeRequestDTO dto);
+	EmployeeResponseDTO registerEmployee(
+			EmployeeRequestDTO dto
+	);
 
-	EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO dto);
+	EmployeeResponseDTO updateEmployeeById(
+			String id, 
+			EmployeeRequestDTO dto
+	);
 
-	EmployeeResponseDTO findEmployeeById(String id);
+	EmployeeResponseDTO findEmployeeById(
+			String id
+	);
 
-	Page<EmployeeResponseDTO> listEmployees(String name, EmployeeStatus employeeStatus, EmployeeType employeeType,
-			Pageable pageable);
+	Page<EmployeeResponseDTO> listEmployees(
+			String name,
+			EmployeeStatus employeeStatus, 
+			EmployeeType employeeType,
+			Pageable pageable
+	);
 
-	Employee findEmployeeByMatriculation(String matriculation);
+	Employee findEmployeeByMatriculation(
+			String matriculation
+	);
 }

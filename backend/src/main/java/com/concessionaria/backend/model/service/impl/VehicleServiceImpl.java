@@ -28,7 +28,10 @@ public class VehicleServiceImpl implements VehicleService {
 	private final VehicleRepository vehicleRepository;
 	private final ModelService modelService;
 
-	public VehicleServiceImpl(VehicleRepository vehicleRepository, ModelService modelService) {
+	public VehicleServiceImpl(
+			VehicleRepository vehicleRepository, 
+			ModelService modelService
+	) {
 		this.vehicleRepository = vehicleRepository;
 		this.modelService = modelService;
 	}
@@ -49,7 +52,10 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 
 	@Transactional
-	public VehicleResponseDTO updateVehicleById(String id, VehicleRequestDTO dto) {
+	public VehicleResponseDTO updateVehicleById(
+			String id, 
+			VehicleRequestDTO dto
+	) {
 		Vehicle vehicle = VehicleMapper.toVehicle(dto);
 
 		validateVehicle(vehicle);
@@ -82,22 +88,45 @@ public class VehicleServiceImpl implements VehicleService {
 		return vehicle;
 	}
 
-	public Page<VehicleResponseDTO> listVehicles(TransmissionType transmissionType,
-			VehicleStatus vehicleStatus, String color, String plate, Pageable pageable) {
-		pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
-				Sort.by(Sort.Direction.DESC, "price"));
+	public Page<VehicleResponseDTO> listVehicles(
+			TransmissionType transmissionType,
+			VehicleStatus vehicleStatus,
+			String color,
+			String plate, 
+			Pageable pageable
+	) {
+		pageable = PageRequest.of(
+				pageable.getPageNumber(), 
+				pageable.getPageSize(),
+				Sort.by(Sort.Direction.DESC, "price")
+		);
 
 		Page<Vehicle> page = vehicleRepository
-				.findAll(VehicleSpecification.filter(transmissionType, vehicleStatus, color, plate), pageable);
+				.findAll(
+						VehicleSpecification.filter(
+								transmissionType, 
+						        vehicleStatus, 
+						        color, 
+						        plate
+						),
+						pageable
+				);
 
 		return page.map(VehicleMapper::toBrandResponseDTO);
 	}
 
 	@Transactional
-	public void updateVehicleByPlate(String plate, Vehicle vehicle) {
+	public void updateVehicleByPlate(
+			String plate, 
+			Vehicle vehicle
+	) {
 		Vehicle vehicleFound = findVehicleByPlate(plate);
 
-		BeanUtils.copyProperties(vehicle, vehicleFound, "id");
+		BeanUtils.copyProperties(
+				vehicle, 
+				vehicleFound, 
+			    "id"
+		);
 
 		vehicleRepository.save(vehicleFound);
 	}

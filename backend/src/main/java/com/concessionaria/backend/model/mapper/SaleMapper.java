@@ -9,15 +9,25 @@ import com.concessionaria.backend.model.entity.Sale;
 
 public class SaleMapper {
 	public static Sale toSale(SaleRequestDTO dto) {
-		Sale sale = new Sale(null, LocalDate.now(), dto.paymentType(), BigDecimal.ZERO, null, null, null);
-
-		return sale;
+		return new Sale(
+				null, 
+				LocalDate.now(), 
+				dto.paymentType(), 
+				BigDecimal.ZERO, 
+				null, 
+				null, 
+				null
+		);
 	}
 
 	public static SaleResponseDTO toSaleResponseDTO(Sale sale) {
-		SaleResponseDTO dto = new SaleResponseDTO(sale.getId(), sale.getSaleDate(), sale.getPaymentType(),
-				sale.getTotalValue(), sale.getEmployee().getName(), sale.getCustomer().getName());
-
-		return dto;
+		return new SaleResponseDTO(
+				sale.getId(),
+				sale.getSaleDate(), 
+				sale.getPaymentType(),
+				sale.getTotalValue(), 
+				sale.getEmployee().getName(), 
+				sale.getCustomer().getName()
+		);
 	}
 }

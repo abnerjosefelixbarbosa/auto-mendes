@@ -10,7 +10,11 @@ import com.concessionaria.backend.model.entity.Brand;
 
 @Repository
 public interface BrandRepository extends JpaRepository<Brand, String>, JpaSpecificationExecutor<Brand> {
-	boolean existsByName(String name);
+	boolean existsByName(
+			String name
+	);
 
-	Optional<Brand> findByNameIgnoreCase(String name);
+	Optional<Brand> findByNameIgnoreCase(
+			String name
+	);
 }

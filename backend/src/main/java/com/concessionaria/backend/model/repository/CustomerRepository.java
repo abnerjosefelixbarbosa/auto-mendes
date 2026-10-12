@@ -10,7 +10,14 @@ import com.concessionaria.backend.model.entity.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, String>, JpaSpecificationExecutor<Customer> {
-	boolean existsByNameOrDocumentOrEmailOrPhone(String name, String document, String email, String phone);
+	boolean existsByNameOrDocumentOrEmailOrPhone(
+			String name,
+			String document, 
+			String email, 
+			String phone
+	);
 
-	Optional<Customer> findByDocument(String document);
+	Optional<Customer> findByDocument(
+			String document
+	);
 }

@@ -13,7 +13,10 @@ public class VehicleSpecification {
 				return null;
 			}
 
-			return builder.equal(root.get("vehicleStatus"), vehicleStatus);
+			return builder.equal(
+					root.get("vehicleStatus"), 
+					vehicleStatus
+			);
 		};
 	}
 
@@ -23,7 +26,10 @@ public class VehicleSpecification {
 				return null;
 			}
 
-			return builder.equal(root.get("transmissionType"), transmissionType);
+			return builder.equal(
+					root.get("transmissionType"), 
+				    transmissionType
+			);
 		};
 	}
 
@@ -33,7 +39,10 @@ public class VehicleSpecification {
 				return null;
 			}
 
-			return builder.like(builder.upper(root.get("color")), "%" + color.toUpperCase() + "%");
+			return builder.like(
+					builder.upper(root.get("color")), 
+					"%" + color.toUpperCase() + "%"
+			);
 		};
 	}
 
@@ -43,13 +52,28 @@ public class VehicleSpecification {
 				return null;
 			}
 
-			return builder.like(builder.upper(root.get("plate")), "%" + plate.toUpperCase() + "%");
+			return builder.like(
+					builder.upper(root.get("plate")), 
+					"%" + plate.toUpperCase() + "%"
+			);
 		};
 	}
 
-	public static Specification<Vehicle> filter(TransmissionType transmissionType, VehicleStatus vehicleStatus,
-			String color, String plate) {
-		return Specification.where(byTransmissionType(transmissionType)).and(byVehicleStatus(vehicleStatus))
-				.and(byColor(color)).and(byPlate(plate));
+	public static Specification<Vehicle> filter(
+			TransmissionType transmissionType, 
+			VehicleStatus vehicleStatus,
+			String color,
+			String plate
+	) {
+		return Specification.where(
+				byTransmissionType(transmissionType)
+	    ).and(
+				byVehicleStatus(vehicleStatus)
+		)
+		.and(
+				byColor(color)
+	    ).and(
+				byPlate(plate)
+	    );
 	}
 }

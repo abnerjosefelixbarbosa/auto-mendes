@@ -11,11 +11,16 @@ public class ModelSpecification {
 				return null;
 			}
 
-			return builder.like(builder.upper(root.get("name")), "%" + name.toUpperCase() + "%");
+			return builder.like(
+					builder.upper(root.get("name")),
+					"%" + name.toUpperCase() + "%"
+			);
 		};
 	}
 
 	public static Specification<Model> filter(String name) {
-		return Specification.where(byName(name));
+		return Specification.where(
+				byName(name)
+		);
 	}
 }

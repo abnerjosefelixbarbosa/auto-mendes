@@ -24,7 +24,10 @@ public class ModelServiceImpl implements ModelService {
 	private final ModelRepository modelRepository;
 	private final BrandService brandService;
 
-	public ModelServiceImpl(ModelRepository modelRepository, BrandService brandService) {
+	public ModelServiceImpl(
+			ModelRepository modelRepository, 
+			BrandService brandService
+	) {
 		this.modelRepository = modelRepository;
 		this.brandService = brandService;
 	}
@@ -45,7 +48,10 @@ public class ModelServiceImpl implements ModelService {
 	}
 
 	@Transactional
-	public ModelResponseDTO updateModelById(String id, ModelRequestDTO dto) {
+	public ModelResponseDTO updateModelById(
+			String id,
+			ModelRequestDTO dto
+	) {
 		Model model = ModelMapper.toModel(dto);
 
 		validadeModel(model);
@@ -72,12 +78,16 @@ public class ModelServiceImpl implements ModelService {
 	}
 
 	public Model findModelByName(String name) {
-		Model modelFound = modelRepository.findByName(name).orElseThrow(() -> new NotFoundException("Nome do modelo deve ser existente."));
+		Model modelFound = modelRepository.findByName(name)
+				.orElseThrow(() -> new NotFoundException("Nome do modelo deve ser existente."));
 
 		return modelFound;
 	}
 
-	public Page<ModelResponseDTO> listModels(String name, Pageable pageable) {
+	public Page<ModelResponseDTO> listModels(
+			String name, 
+			Pageable pageable
+	) {
 		Page<Model> page = modelRepository.findAll(ModelSpecification.filter(name), pageable);
 
 		return page.map(ModelMapper::toModelResponseDTO);

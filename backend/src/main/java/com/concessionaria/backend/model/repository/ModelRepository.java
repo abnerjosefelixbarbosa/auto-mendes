@@ -10,7 +10,11 @@ import com.concessionaria.backend.model.entity.Model;
 
 @Repository
 public interface ModelRepository extends JpaRepository<Model, String>, JpaSpecificationExecutor<Model>  {
-	boolean existsByName(String name);
+	boolean existsByName(
+			String name
+	);
 	
-	Optional<Model> findByName(String name);
+	Optional<Model> findByName(
+			String name
+	);
 }

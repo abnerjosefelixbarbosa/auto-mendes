@@ -8,13 +8,25 @@ import com.concessionaria.backend.model.dto.BrandResponseDTO;
 import com.concessionaria.backend.model.entity.Brand;
 
 public interface BrandService {
-	BrandResponseDTO registerBrand(BrandRequestDTO dto);
+	BrandResponseDTO registerBrand(
+			BrandRequestDTO dto
+	);
 	
-	BrandResponseDTO updateBrandById(String id, BrandRequestDTO dto);
+	BrandResponseDTO updateBrandById(
+			String id, 
+			BrandRequestDTO dto
+	);
 
-	BrandResponseDTO findBrandById(String id);
+	BrandResponseDTO findBrandById(
+			String id
+	);
 	
-	Brand findByName(String name);
+	Brand findByName(
+			String name
+	);
 
-	Page<BrandResponseDTO> listBrands(String name, Pageable pageable);
+	Page<BrandResponseDTO> listBrands(
+			String name, 
+			Pageable pageable
+	);
 }

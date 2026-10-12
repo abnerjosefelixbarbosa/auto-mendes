@@ -11,11 +11,16 @@ public class BrandSpecification {
 				return null;
 			}
 
-			return builder.like(builder.upper(root.get("name")), "%" + name.toUpperCase() + "%");
+			return builder.like(
+					builder.upper(root.get("name")),
+					"%" + name.toUpperCase() + "%"
+			);
 		};
 	}
 
 	public static Specification<Brand> filter(String name) {
-		return Specification.where(byName(name));
+		return Specification.where(
+				byName(name)
+		);
 	}
 }

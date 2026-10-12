@@ -36,8 +36,12 @@ public class SaleServiceImpl implements SaleService {
 	private final EmployeeService employeeService;
 	private final VehicleService vehicleService;
 
-	public SaleServiceImpl(SaleRepository saleRepository, CustomerService customerService,
-			EmployeeService employeeService, VehicleService vehicleService) {
+	public SaleServiceImpl(
+			SaleRepository saleRepository, 
+			CustomerService customerService,
+			EmployeeService employeeService, 
+			VehicleService vehicleService
+	) {
 		this.saleRepository = saleRepository;
 		this.customerService = customerService;
 		this.employeeService = employeeService;
@@ -70,20 +74,31 @@ public class SaleServiceImpl implements SaleService {
 	}
 
 	public void deleterSaleById(String id) {
-		Sale sale = saleRepository.findById(id).orElseThrow(() -> new NotFoundException("Id deve ser existente."));
+		Sale sale = saleRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
 
 		saleRepository.delete(sale);
 	}
 
-	public Page<SaleResponseDTO> listSales(PaymentType paymentType, Pageable pageable) {
-		Page<Sale> page = saleRepository.findAll(SaleSpecification.filter(paymentType), pageable);
+	public Page<SaleResponseDTO> listSales(
+			PaymentType paymentType, 
+			Pageable pageable
+	) {
+		Page<Sale> page = saleRepository.findAll(
+				SaleSpecification.filter(paymentType), 
+				pageable
+		);
 
 		return page.map(SaleMapper::toSaleResponseDTO);
 	}
 
-	private List<Item> mapItems(SaleRequestDTO dto, Sale sale) {
+	private List<Item> mapItems(
+			SaleRequestDTO dto, 
+			Sale sale
+	) {
 		return dto.items().stream().map(item -> {
-			Vehicle vehicle = vehicleService.findVehicleByPlate(item.plate());
+			Vehicle vehicle = vehicleService
+					.findVehicleByPlate(item.plate());
 
 			Item newItem = new Item();
 			newItem.setSale(sale);
