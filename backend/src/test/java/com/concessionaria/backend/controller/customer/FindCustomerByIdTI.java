@@ -46,8 +46,11 @@ class FindCustomerByIdTI {
 
 		String id = customerRepository.save(customer).getId();
 
-		mockMvc.perform(get("/customers/" + id).contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andDo(print());
+		mockMvc.perform(get("/customers/" + id)
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk())
+		.andDo(print());
 	}
 
 	@Test
@@ -58,7 +61,7 @@ class FindCustomerByIdTI {
 		String id = customerRepository.save(customer).getId();
 
 		mockMvc.perform(get("/customers/1" + id))
-				.andExpect(jsonPath("$.message").value("Id deve ser existente.")).andExpect(status().isNotFound())
-				.andDo(print());
+		.andExpect(jsonPath("$.message").value("Id deve ser existente.")).andExpect(status().isNotFound())
+		.andDo(print());
 	}
 }

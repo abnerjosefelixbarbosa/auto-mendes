@@ -50,8 +50,11 @@ class ListBrandsTI {
 		brandRepository.save(brand2);
 
 		mockMvc.perform(get("/brands")
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$.totalElements").value(2)).andExpect(status().isOk()).andDo(print());
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+		.andExpect(jsonPath("$.totalElements").value(2))
+		.andExpect(status().isOk())
+		.andDo(print());
 	}
 
 	@Test
@@ -66,7 +69,10 @@ class ListBrandsTI {
 		brandRepository.save(brand2);
 
 		mockMvc.perform(get("/brands").queryParam("name", "Nome")
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$.totalElements").value(2)).andExpect(status().isOk()).andDo(print());
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+		.andExpect(jsonPath("$.totalElements").value(2))
+		.andExpect(status().isOk())
+		.andDo(print());
 	}
 }

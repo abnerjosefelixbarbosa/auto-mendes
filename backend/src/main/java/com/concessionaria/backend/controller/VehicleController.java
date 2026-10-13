@@ -30,9 +30,7 @@ import jakarta.validation.Valid;
 public class VehicleController {
 	private final VehicleService vehicleService;
 
-	public VehicleController(
-			VehicleService vehicleService
-	) {
+	public VehicleController(VehicleService vehicleService) {
 		this.vehicleService = vehicleService;
 	}
 

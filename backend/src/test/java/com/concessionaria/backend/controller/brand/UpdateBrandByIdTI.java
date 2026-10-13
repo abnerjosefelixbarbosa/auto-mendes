@@ -54,8 +54,12 @@ class UpdateBrandByIdTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/brands/" + id).contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isOk()).andDo(print());
+		mockMvc.perform(put("/brands/" + id)
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(json))
+		.andExpect(status().isOk())
+		.andDo(print());
 	}
 	
 	@Test
@@ -69,9 +73,13 @@ class UpdateBrandByIdTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/brands/1" + id).contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isNotFound())
-				.andExpect(jsonPath("$.message").value("Id deve ser existente.")).andDo(print());
+		mockMvc.perform(put("/brands/1" + id)
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(json))
+		.andExpect(status().isNotFound())
+		.andExpect(jsonPath("$.message").value("Id deve ser existente."))
+		.andDo(print());
 	}
 	
 	@Test
@@ -85,9 +93,13 @@ class UpdateBrandByIdTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/brands/" + id).contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório.")).andDo(print());
+		mockMvc.perform(put("/brands/" + id)
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(json))
+		.andExpect(status().isBadRequest())
+		.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório."))
+		.andDo(print());
 	}
 	
 	@Test
@@ -101,9 +113,13 @@ class UpdateBrandByIdTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/brands/" + id).contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório.")).andDo(print());
+		mockMvc.perform(put("/brands/" + id)
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(json))
+		.andExpect(status().isBadRequest())
+		.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório."))
+		.andDo(print());
 	}
 	
 	@Test
@@ -117,9 +133,13 @@ class UpdateBrandByIdTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/brands/" + id).contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.name").value("Nome deve ter até 30 caracteres.")).andDo(print());
+		mockMvc.perform(put("/brands/" + id)
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(json))
+		.andExpect(status().isBadRequest())
+		.andExpect(jsonPath("$.name").value("Nome deve ter até 30 caracteres."))
+		.andDo(print());
 	}
 	
 	@Test
@@ -133,8 +153,12 @@ class UpdateBrandByIdTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/brands/" + id).contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.message").value("Nome deve não deve ser repetido.")).andDo(print());
+		mockMvc.perform(put("/brands/" + id)
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(json))
+		.andExpect(status().isBadRequest())
+		.andExpect(jsonPath("$.message").value("Nome deve não deve ser repetido."))
+		.andDo(print());
 	}
 }

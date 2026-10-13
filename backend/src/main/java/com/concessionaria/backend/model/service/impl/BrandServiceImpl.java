@@ -21,9 +21,7 @@ import jakarta.transaction.Transactional;
 public class BrandServiceImpl implements BrandService {
 	private final BrandRepository brandRepository;
 
-	public BrandServiceImpl(
-			BrandRepository brandRepository
-	) {
+	public BrandServiceImpl(BrandRepository brandRepository) {
 		this.brandRepository = brandRepository;
 	}
 

@@ -28,9 +28,7 @@ import jakarta.validation.Valid;
 public class ModelController {
 	private final ModelService modelService;
 
-	public ModelController(
-			ModelService modelService
-	) {
+	public ModelController(ModelService modelService) {
 		this.modelService = modelService;
 	}
 

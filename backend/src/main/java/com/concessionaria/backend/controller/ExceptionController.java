@@ -22,9 +22,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public class ExceptionController {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public Map<String, String> handleValidationExceptions(
-			MethodArgumentNotValidException ex
-	) {
+	public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
 		Map<String, String> errors = new HashMap<>();
 		
 		ex.getBindingResult().getAllErrors().forEach((error) -> {

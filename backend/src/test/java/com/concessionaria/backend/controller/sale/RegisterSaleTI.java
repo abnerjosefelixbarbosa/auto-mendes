@@ -126,9 +126,12 @@ class RegisterSaleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(
-				post("/sales").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpectAll(status().isCreated()).andDo(print());
+		mockMvc.perform(post("/sales")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(json))
+		.andExpectAll(status().isCreated())
+		.andDo(print());
 	}
 
 	@Test
@@ -169,11 +172,13 @@ class RegisterSaleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(
-				post("/sales").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpectAll(status().isBadRequest(),
-						jsonPath("$.paymentType").value("Tipo do pagamento deve ser obrigatório."))
-				.andDo(print());
+		mockMvc.perform(post("/sales")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(json))
+		.andExpectAll(
+				status().isBadRequest(),
+				jsonPath("$.paymentType").value("Tipo do pagamento deve ser obrigatório."))
+		.andDo(print());
 	}
 	
 	@Test
@@ -214,11 +219,14 @@ class RegisterSaleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(
-				post("/sales").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpectAll(status().isBadRequest(),
-						jsonPath("$.matriculation").value("Matricula do funcionário deve ser obrigatório."))
-				.andDo(print());
+		mockMvc.perform(post("/sales")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(json))
+		.andExpectAll(
+				status().isBadRequest(),
+				jsonPath("$.matriculation").value("Matricula do funcionário deve ser obrigatório.")
+		)
+		.andDo(print());
 	}
 	
 	@Test
@@ -259,11 +267,13 @@ class RegisterSaleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(
-				post("/sales").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpectAll(status().isBadRequest(),
-						jsonPath("$.matriculation").value("Matricula do funcionário deve ser obrigatório."))
-				.andDo(print());
+		mockMvc.perform(post("/sales")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.content(json))
+		.andExpectAll(status().isBadRequest(),
+				jsonPath("$.matriculation").value("Matricula do funcionário deve ser obrigatório."))
+		.andDo(print());
 	}
 	
 	@Test

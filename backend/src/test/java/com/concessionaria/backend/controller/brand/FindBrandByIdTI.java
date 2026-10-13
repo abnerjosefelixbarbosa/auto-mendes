@@ -44,7 +44,9 @@ class FindBrandByIdTI {
 
 		String id = brandRepository.save(brand).getId();
 
-		mockMvc.perform(get("/brands/" + id)).andExpect(status().isOk()).andDo(print());
+		mockMvc.perform(get("/brands/" + id))
+		.andExpect(status().isOk())
+		.andDo(print());
 	}
 
 	@Test
@@ -54,7 +56,9 @@ class FindBrandByIdTI {
 
 		String id = brandRepository.save(brand).getId();
 
-		mockMvc.perform(get("/brands/1" + id)).andExpect(status().isNotFound())
-				.andExpect(jsonPath("$.message").value("Id deve ser existente.")).andDo(print());
+		mockMvc.perform(get("/brands/1" + id))
+		.andExpect(status().isNotFound())
+		.andExpect(jsonPath("$.message").value("Id deve ser existente."))
+		.andDo(print());
 	}
 }

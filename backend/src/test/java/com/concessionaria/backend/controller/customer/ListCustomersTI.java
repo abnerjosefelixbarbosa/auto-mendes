@@ -52,9 +52,12 @@ class ListCustomersTI {
 
 		customerRepository.save(customer2);
 
-		mockMvc.perform(get("/customers").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.totalElements").value(2))
-				.andExpect(status().isOk()).andDo(print());
+		mockMvc.perform(get("/customers")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+		.andExpect(jsonPath("$.totalElements").value(2))
+		.andExpect(status().isOk())
+		.andDo(print());
 	}
 
 	@Test
@@ -68,9 +71,13 @@ class ListCustomersTI {
 		
 		customerRepository.saveAll(List.of(customer1, customer2, customer3));
 
-		mockMvc.perform(get("/customers").queryParam("name", "Nome")
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$.totalElements").value(3)).andExpect(status().isOk()).andDo(print());
+		mockMvc.perform(get("/customers")
+				.queryParam("name", "Nome")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+		.andExpect(jsonPath("$.totalElements").value(3))
+		.andExpect(status().isOk())
+		.andDo(print());
 	}
 	
 	@Test
@@ -84,8 +91,12 @@ class ListCustomersTI {
 		
 		customerRepository.saveAll(List.of(customer1, customer2, customer3));
 
-		mockMvc.perform(get("/customers").queryParam("customerType",  "PF")
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$.totalElements").value(2)).andExpect(status().isOk()).andDo(print());
+		mockMvc.perform(get("/customers")
+				.queryParam("customerType",  "PF")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+		.andExpect(jsonPath("$.totalElements").value(2))
+		.andExpect(status().isOk())
+		.andDo(print());
 	}
 }

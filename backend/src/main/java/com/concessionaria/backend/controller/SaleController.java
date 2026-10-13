@@ -29,9 +29,7 @@ import jakarta.validation.Valid;
 public class SaleController {
 	private final SaleService saleService;
 
-	public SaleController(
-			SaleService saleService
-	) {
+	public SaleController(SaleService saleService) {
 		this.saleService = saleService;
 	}
 	
