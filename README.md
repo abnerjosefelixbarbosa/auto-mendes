@@ -2,7 +2,7 @@
 
 # Sobre
 
-Aplicativo backend para gerenciamento para empresa Automendes.
+Aplicação backend desenvolvida com Spring  para gerenciamento da concessionaria Auto Mendes com registro de funcionários, registro de clientes, registro de veículos e registro de vendas.         
 
 ## Modelo
 
@@ -134,8 +134,6 @@ class CustomerType {
 <<Enum>>
 PF,PJ;
 }
-
-
 ```
 
 # Recursos do projeto
@@ -177,7 +175,7 @@ PF,PJ;
 
 # Documentação da API
 
-Documentação da API concessionaria
+Documentação da API Auto Mendes
 
 ## Marca
 
