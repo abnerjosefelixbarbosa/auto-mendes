@@ -8,25 +8,13 @@ import com.concessionaria.backend.model.dto.ModelResponseDTO;
 import com.concessionaria.backend.model.entity.Model;
 
 public interface ModelService {
-	ModelResponseDTO registerModel(
-			ModelRequestDTO dto
-	);
+	ModelResponseDTO registerModel(ModelRequestDTO dto);
 
-	ModelResponseDTO updateModelById(
-			String id, 
-			ModelRequestDTO dto
-	);
-	
-	ModelResponseDTO findModelById(
-			String id
-	);
-	
-	Page<ModelResponseDTO> listModels(
-			String name, 
-			Pageable pageable
-	);
+	ModelResponseDTO updateModelById(String id, ModelRequestDTO dto);
 
-	Model findModelByName(
-			String name
-	);
+	ModelResponseDTO findModelById(String id);
+
+	Page<ModelResponseDTO> listModels(String name, Pageable pageable);
+
+	Model findModelByName(String name);
 }

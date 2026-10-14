@@ -40,63 +40,59 @@ class ListCustomersTI {
 	void tearDown() {
 		customerRepository.deleteAll();
 	}
-	
+
 	@Test
 	@DisplayName("Should list customers and return status 200.")
 	void listCustomersTest1() throws Exception {
-		Customer customer1 = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111", CustomerType.PF, null);
+		Customer customer1 = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111",
+				CustomerType.PF, null);
 
-		Customer customer2 = new Customer(null, "nome2", "81899898000183", "email2@gmail.com", "81922222222", CustomerType.PJ, null);
+		Customer customer2 = new Customer(null, "nome2", "81899898000183", "email2@gmail.com", "81922222222",
+				CustomerType.PJ, null);
 
 		customerRepository.save(customer1);
 
 		customerRepository.save(customer2);
 
-		mockMvc.perform(get("/customers")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON))
-		.andExpect(jsonPath("$.totalElements").value(2))
-		.andExpect(status().isOk())
-		.andDo(print());
+		mockMvc.perform(get("/customers").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$.totalElements").value(2)).andExpect(status().isOk()).andDo(print());
 	}
 
 	@Test
 	@DisplayName("Should list customers when name is 'Nome' and return status 200.")
 	void listCustomersTest2() throws Exception {
-		Customer customer1 = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111", CustomerType.PF, null);
+		Customer customer1 = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111",
+				CustomerType.PF, null);
 
-		Customer customer2 = new Customer(null, "nome2", "81899898000183", "email2@gmail.com", "81922222222", CustomerType.PJ, null);
+		Customer customer2 = new Customer(null, "nome2", "81899898000183", "email2@gmail.com", "81922222222",
+				CustomerType.PJ, null);
 
-		Customer customer3 = new Customer(null, "nome3", "60996653406", "email3@gmail.com", "81933333333", CustomerType.PF, null);
-		
+		Customer customer3 = new Customer(null, "nome3", "60996653406", "email3@gmail.com", "81933333333",
+				CustomerType.PF, null);
+
 		customerRepository.saveAll(List.of(customer1, customer2, customer3));
 
-		mockMvc.perform(get("/customers")
-				.queryParam("name", "Nome")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON))
-		.andExpect(jsonPath("$.totalElements").value(3))
-		.andExpect(status().isOk())
-		.andDo(print());
+		mockMvc.perform(get("/customers").queryParam("name", "Nome").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.totalElements").value(3))
+				.andExpect(status().isOk()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should list customers when customer type is 'PF' and return status 200.")
 	void listCustomersTest3() throws Exception {
-		Customer customer1 = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111", CustomerType.PF, null);
+		Customer customer1 = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111",
+				CustomerType.PF, null);
 
-		Customer customer2 = new Customer(null, "nome2", "81899898000183", "email2@gmail.com", "81922222222", CustomerType.PJ, null);
+		Customer customer2 = new Customer(null, "nome2", "81899898000183", "email2@gmail.com", "81922222222",
+				CustomerType.PJ, null);
 
-		Customer customer3 = new Customer(null, "nome3", "60996653406", "email3@gmail.com", "81933333333", CustomerType.PF, null);
-		
+		Customer customer3 = new Customer(null, "nome3", "60996653406", "email3@gmail.com", "81933333333",
+				CustomerType.PF, null);
+
 		customerRepository.saveAll(List.of(customer1, customer2, customer3));
 
-		mockMvc.perform(get("/customers")
-				.queryParam("customerType",  "PF")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON))
-		.andExpect(jsonPath("$.totalElements").value(2))
-		.andExpect(status().isOk())
-		.andDo(print());
+		mockMvc.perform(get("/customers").queryParam("customerType", "PF").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.totalElements").value(2))
+				.andExpect(status().isOk()).andDo(print());
 	}
 }

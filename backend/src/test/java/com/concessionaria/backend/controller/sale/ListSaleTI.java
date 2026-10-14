@@ -61,7 +61,7 @@ class ListSaleTI {
 	private CustomerRepository customerRepository;
 	@Autowired
 	private EmployeeRepository employeeRepository;
-	
+
 	@BeforeEach
 	void setUp() {
 		itemRepository.deleteAll();
@@ -83,7 +83,7 @@ class ListSaleTI {
 		customerRepository.deleteAll();
 		employeeRepository.deleteAll();
 	}
-	
+
 	@Test
 	@DisplayName("Should list sale and return status 200.")
 	void listSaleTest1() throws Exception {
@@ -115,20 +115,20 @@ class ListSaleTI {
 				CustomerType.PF, null);
 
 		customer = customerRepository.save(customer);
-		
-		Sale sale = new Sale(null, LocalDate.now(), PaymentType.CASH, new BigDecimal("100000"), employee, customer, null);
-		
+
+		Sale sale = new Sale(null, LocalDate.now(), PaymentType.CASH, new BigDecimal("100000"), employee, customer,
+				null);
+
 		sale = saleRepository.save(sale);
-		
+
 		List<Item> items = List.of(new Item(null, sale, vehicle1), new Item(null, sale, vehicle2));
 
 		itemRepository.saveAll(items);
 
-		mockMvc.perform(
-				get(String.format("/sales")).contentType(MediaType.APPLICATION_JSON))
+		mockMvc.perform(get(String.format("/sales")).contentType(MediaType.APPLICATION_JSON))
 				.andExpectAll(status().isOk()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should list sale when paymentType is 'CASH' and return status 200.")
 	void listSaleTest2() throws Exception {
@@ -145,14 +145,14 @@ class ListSaleTI {
 
 		Vehicle vehicle2 = new Vehicle(null, "AAA-2222", TransmissionType.AUTOMATIC, VehicleStatus.FOR_SALE, "cor1",
 				new BigDecimal("7000.00"), model, null);
-		
+
 		Vehicle vehicle3 = new Vehicle(null, "AAA-3333", TransmissionType.AUTOMATIC, VehicleStatus.FOR_SALE, "cor1",
 				new BigDecimal("7000.00"), model, null);
 
 		vehicle1 = vehicleRepository.save(vehicle1);
 
 		vehicle2 = vehicleRepository.save(vehicle2);
-		
+
 		vehicle3 = vehicleRepository.save(vehicle3);
 
 		Employee employee = new Employee(null, "nome1", "1111111111", "email1@gmail.com", "81911111111",
@@ -165,25 +165,27 @@ class ListSaleTI {
 				CustomerType.PF, null);
 
 		customer = customerRepository.save(customer);
-		
-		Sale sale = new Sale(null, LocalDate.now(), PaymentType.CASH, new BigDecimal("10000.00"), employee, customer, null);
-		
-		Sale sale1 = new Sale(null, LocalDate.now(), PaymentType.CREDIT_CARD, new BigDecimal("7000.00"), employee, customer, null);
-		
+
+		Sale sale = new Sale(null, LocalDate.now(), PaymentType.CASH, new BigDecimal("10000.00"), employee, customer,
+				null);
+
+		Sale sale1 = new Sale(null, LocalDate.now(), PaymentType.CREDIT_CARD, new BigDecimal("7000.00"), employee,
+				customer, null);
+
 		sale = saleRepository.save(sale);
-		
+
 		sale1 = saleRepository.save(sale1);
-		
+
 		List<Item> items = List.of(new Item(null, sale, vehicle1), new Item(null, sale, vehicle2));
-		
+
 		List<Item> items1 = List.of(new Item(null, sale1, vehicle3));
 
 		itemRepository.saveAll(items);
-		
+
 		itemRepository.saveAll(items1);
 
-		mockMvc.perform(
-				get(String.format("/sales")).queryParam("paymentType", sale.getPaymentType().name()).contentType(MediaType.APPLICATION_JSON))
+		mockMvc.perform(get(String.format("/sales")).queryParam("paymentType", sale.getPaymentType().name())
+				.contentType(MediaType.APPLICATION_JSON))
 				.andExpectAll(status().isOk(), jsonPath("$.numberOfElements").value(1)).andDo(print());
 	}
 }

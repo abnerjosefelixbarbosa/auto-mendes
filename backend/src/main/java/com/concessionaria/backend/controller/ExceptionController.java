@@ -24,46 +24,32 @@ public class ExceptionController {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
 		Map<String, String> errors = new HashMap<>();
-		
+
 		ex.getBindingResult().getAllErrors().forEach((error) -> {
 			String fieldName = ((FieldError) error).getField();
-			
+
 			String errorMessage = error.getDefaultMessage();
-			
+
 			errors.put(fieldName, errorMessage);
 		});
-		
+
 		return errors;
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(ApplicationException.class)
-	public ResponseEntity<ExceptionResponseDTO> handleApplicationException(
-			Exception e,
-			HttpServletRequest request
-	) {
-		ExceptionResponseDTO response = new ExceptionResponseDTO(
-				LocalDateTime.now(),
-				400,
-				e.getMessage(),
-				request.getRequestURI()
-		);
+	public ResponseEntity<ExceptionResponseDTO> handleApplicationException(Exception e, HttpServletRequest request) {
+		ExceptionResponseDTO response = new ExceptionResponseDTO(LocalDateTime.now(), 400, e.getMessage(),
+				request.getRequestURI());
 
 		return ResponseEntity.status(400).body(response);
 	}
 
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(NotFoundException.class)
-	public ResponseEntity<ExceptionResponseDTO> handleNotFoundException(
-			Exception e,
-			HttpServletRequest request
-	) {
-		ExceptionResponseDTO response = new ExceptionResponseDTO(
-				LocalDateTime.now(),
-				404,
-				e.getMessage(),
-				request.getRequestURI()
-		);
+	public ResponseEntity<ExceptionResponseDTO> handleNotFoundException(Exception e, HttpServletRequest request) {
+		ExceptionResponseDTO response = new ExceptionResponseDTO(LocalDateTime.now(), 404, e.getMessage(),
+				request.getRequestURI());
 
 		return ResponseEntity.status(404).body(response);
 	}

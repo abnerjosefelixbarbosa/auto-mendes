@@ -11,8 +11,6 @@ public class SwaggerConfig {
 	@Bean
 	public OpenAPI customOpenAPI() {
 		return new OpenAPI()
-				.info(new Info()
-						.title("API Auto Mendes")
-						.description("Documentação da API Auto Mendes com a OpenAPI"));
+				.info(new Info().title("API Auto Mendes").description("Documentação da API Auto Mendes com a OpenAPI"));
 	}
 }

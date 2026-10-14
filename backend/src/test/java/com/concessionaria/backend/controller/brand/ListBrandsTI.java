@@ -27,7 +27,7 @@ class ListBrandsTI {
 	private MockMvc mockMvc;
 	@Autowired
 	private BrandRepository brandRepository;
-	
+
 	@BeforeEach
 	void setUp() {
 		brandRepository.deleteAll();
@@ -37,7 +37,7 @@ class ListBrandsTI {
 	void tearDown() {
 		brandRepository.deleteAll();
 	}
-	
+
 	@Test
 	@DisplayName("Should list brands and return status 200.")
 	void listBrandsTest1() throws Exception {
@@ -49,12 +49,8 @@ class ListBrandsTI {
 
 		brandRepository.save(brand2);
 
-		mockMvc.perform(get("/brands")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON))
-		.andExpect(jsonPath("$.totalElements").value(2))
-		.andExpect(status().isOk())
-		.andDo(print());
+		mockMvc.perform(get("/brands").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$.totalElements").value(2)).andExpect(status().isOk()).andDo(print());
 	}
 
 	@Test
@@ -68,11 +64,8 @@ class ListBrandsTI {
 
 		brandRepository.save(brand2);
 
-		mockMvc.perform(get("/brands").queryParam("name", "Nome")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON))
-		.andExpect(jsonPath("$.totalElements").value(2))
-		.andExpect(status().isOk())
-		.andDo(print());
+		mockMvc.perform(get("/brands").queryParam("name", "Nome").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.totalElements").value(2))
+				.andExpect(status().isOk()).andDo(print());
 	}
 }

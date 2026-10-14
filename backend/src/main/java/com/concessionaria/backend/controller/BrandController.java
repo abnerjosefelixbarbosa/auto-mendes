@@ -32,93 +32,52 @@ public class BrandController {
 		this.brandService = brandService;
 	}
 
-	@ApiResponses(value = { 
-			@ApiResponse(responseCode = "201", description = "registra uma marca."),
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "registra uma marca."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
-			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") 
-	})
-	@Operation(
-			summary = "registrar marca.",
-	        description = "registra uma marca."
-	)
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
+	@Operation(summary = "registrar marca.", description = "registra uma marca.")
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
-	public ResponseEntity<BrandResponseDTO> registerBrand(
-			@RequestBody
-			@Valid 
-			BrandRequestDTO dto
-	) {
+	public ResponseEntity<BrandResponseDTO> registerBrand(@RequestBody @Valid BrandRequestDTO dto) {
 		BrandResponseDTO response = brandService.registerBrand(dto);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "atualiza uma marca pelo id."),
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "atualiza uma marca pelo id."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
-			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") 
-	})
-	@Operation(
-			summary = "atualizar marca pelo id.",
-			description = "atualiza uma marca pelo id."
-	)
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
+	@Operation(summary = "atualizar marca pelo id.", description = "atualiza uma marca pelo id.")
 	@ResponseStatus(HttpStatus.OK)
 	@PutMapping("/{id}")
-	public ResponseEntity<BrandResponseDTO> updateBrandById(
-			@PathVariable
-			String id,
-			@RequestBody
-			@Valid
-			BrandRequestDTO dto
-	) {
-		BrandResponseDTO response = brandService.updateBrandById(
-				id,
-				dto
-		);
+	public ResponseEntity<BrandResponseDTO> updateBrandById(@PathVariable String id,
+			@RequestBody @Valid BrandRequestDTO dto) {
+		BrandResponseDTO response = brandService.updateBrandById(id, dto);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
-	
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "procura uma marca pelo id."),
+
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "procura uma marca pelo id."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
-			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.")
-	})
-	@Operation(
-			summary = "procurar marca pelo id.",
-			description = "procura uma marca pelo id."
-	)
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
+	@Operation(summary = "procurar marca pelo id.", description = "procura uma marca pelo id.")
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping("/{id}")
-	public ResponseEntity<BrandResponseDTO> findBrandById(
-			@PathVariable
-			String id
-	) {
+	public ResponseEntity<BrandResponseDTO> findBrandById(@PathVariable String id) {
 		BrandResponseDTO response = brandService.findBrandById(id);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
-	
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "lista varias marcas."),
+
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "lista varias marcas."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
-			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") 
-	})
-	@Operation(
-			summary = "listar marcas.",
-			description = "lista varias marcas."
-	)
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
+	@Operation(summary = "listar marcas.", description = "lista varias marcas.")
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping
-	public ResponseEntity<Page<BrandResponseDTO>> listBrands(
-			@RequestParam(defaultValue = "")
-			String name,
-			Pageable pageable
-	) {
-		Page<BrandResponseDTO> response = brandService.listBrands(
-				name,
-				pageable
-		);
+	public ResponseEntity<Page<BrandResponseDTO>> listBrands(@RequestParam(defaultValue = "") String name,
+			Pageable pageable) {
+		Page<BrandResponseDTO> response = brandService.listBrands(name, pageable);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

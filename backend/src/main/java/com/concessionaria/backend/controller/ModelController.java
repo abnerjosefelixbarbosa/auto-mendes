@@ -32,92 +32,52 @@ public class ModelController {
 		this.modelService = modelService;
 	}
 
-	@Operation(
-			summary = "registrar modelo.",
-			description = "registra um modelo."
-	)
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "201", description = "registra um modelo."),
+	@Operation(summary = "registrar modelo.", description = "registra um modelo.")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "registra um modelo."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
-			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") 
-	})
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@PostMapping
-	public ResponseEntity<ModelResponseDTO> registerModel(
-			@RequestBody
-			@Valid
-			ModelRequestDTO dto
-	) {
+	public ResponseEntity<ModelResponseDTO> registerModel(@RequestBody @Valid ModelRequestDTO dto) {
 		ModelResponseDTO response = modelService.registerModel(dto);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 
-	@Operation(
-			summary = "atualizar modelo pelo id.",
-			description = "atualiza um modelo pelo id."
-	)
-	@ApiResponses(value = { 
-			@ApiResponse(responseCode = "200", description = "atualiza um modelo pelo id."),
+	@Operation(summary = "atualizar modelo pelo id.", description = "atualiza um modelo pelo id.")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "atualiza um modelo pelo id."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
-			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") 
-	})
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.OK)
 	@PutMapping("/{id}")
-	public ResponseEntity<ModelResponseDTO> updateModelById(
-			@PathVariable String id,
-			@RequestBody
-			@Valid 
-			ModelRequestDTO dto
-	) {
-		ModelResponseDTO response = modelService.updateModelById(
-				id,
-				dto
-		);
+	public ResponseEntity<ModelResponseDTO> updateModelById(@PathVariable String id,
+			@RequestBody @Valid ModelRequestDTO dto) {
+		ModelResponseDTO response = modelService.updateModelById(id, dto);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
-	@Operation(
-			summary = "procurar modelo pelo id.", 
-			description = "procura um modelo pelo id."
-	)
-	@ApiResponses(value = { 
-			@ApiResponse(responseCode = "200", description = "procura um modelo pelo id."),
+	@Operation(summary = "procurar modelo pelo id.", description = "procura um modelo pelo id.")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "procura um modelo pelo id."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
-			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") 
-	})
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping("/{id}")
-	public ResponseEntity<ModelResponseDTO> findModelById(
-			@PathVariable 
-			String id
-	) {
+	public ResponseEntity<ModelResponseDTO> findModelById(@PathVariable String id) {
 		ModelResponseDTO response = modelService.findModelById(id);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
-	@Operation(
-			summary = "listar modelos.", 
-			description = "lista varios modelos."
-	)
-	@ApiResponses(value = { 
-			@ApiResponse(responseCode = "200", description = "lista varios modelos."),
+	@Operation(summary = "listar modelos.", description = "lista varios modelos.")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "lista varios modelos."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
-			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") 
-	})
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping
-	public ResponseEntity<Page<ModelResponseDTO>> listModels(
-			@RequestParam(defaultValue = "") 
-			String name,
-			Pageable pageable
-	) {
-		Page<ModelResponseDTO> response = modelService.listModels(
-				name, 
-				pageable
-		);
+	public ResponseEntity<Page<ModelResponseDTO>> listModels(@RequestParam(defaultValue = "") String name,
+			Pageable pageable) {
+		Page<ModelResponseDTO> response = modelService.listModels(name, pageable);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

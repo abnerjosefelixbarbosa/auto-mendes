@@ -48,7 +48,7 @@ class UpdateModelByIdTI {
 		modelRepository.deleteAll();
 		brandRepository.deleteAll();
 	}
-	
+
 	@Test
 	@DisplayName("Should update model by id and return status 200.")
 	void updateModelByIdTest1() throws Exception {
@@ -64,10 +64,10 @@ class UpdateModelByIdTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/models/" + id).contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isOk()).andDo(print());
+		mockMvc.perform(put("/models/" + id).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(status().isOk()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should update model by id when id is not existent and return status 404.")
 	void updateModelByIdTest2() throws Exception {
@@ -83,8 +83,8 @@ class UpdateModelByIdTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/models/1" + id).contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
+		mockMvc.perform(put("/models/1" + id).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json))
 				.andExpectAll(jsonPath("$.message").value("Id deve ser existente."), status().isNotFound())
 				.andDo(print());
 	}
@@ -104,8 +104,8 @@ class UpdateModelByIdTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/models/" + id).contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
+		mockMvc.perform(put("/models/" + id).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
 
 	@Test
@@ -123,8 +123,8 @@ class UpdateModelByIdTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/models/" + id).contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
+		mockMvc.perform(put("/models/" + id).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
 
 	@Test
@@ -142,8 +142,8 @@ class UpdateModelByIdTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/models/" + id).contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
+		mockMvc.perform(put("/models/" + id).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
 
 	@Test
@@ -161,8 +161,8 @@ class UpdateModelByIdTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/models/" + id).contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
+		mockMvc.perform(put("/models/" + id).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
 
 	@Test
@@ -180,7 +180,7 @@ class UpdateModelByIdTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/models/" + id).contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isNotFound()).andDo(print());
+		mockMvc.perform(put("/models/" + id).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(status().isNotFound()).andDo(print());
 	}
 }

@@ -26,7 +26,7 @@ class FindBrandByIdTI {
 	private MockMvc mockMvc;
 	@Autowired
 	private BrandRepository brandRepository;
-	
+
 	@BeforeEach
 	void setUp() {
 		brandRepository.deleteAll();
@@ -36,7 +36,7 @@ class FindBrandByIdTI {
 	void tearDown() {
 		brandRepository.deleteAll();
 	}
-	
+
 	@Test
 	@DisplayName("Should find brand by id and return status 200.")
 	void findBrandByIdTest1() throws Exception {
@@ -44,9 +44,7 @@ class FindBrandByIdTI {
 
 		String id = brandRepository.save(brand).getId();
 
-		mockMvc.perform(get("/brands/" + id))
-		.andExpect(status().isOk())
-		.andDo(print());
+		mockMvc.perform(get("/brands/" + id)).andExpect(status().isOk()).andDo(print());
 	}
 
 	@Test
@@ -56,9 +54,7 @@ class FindBrandByIdTI {
 
 		String id = brandRepository.save(brand).getId();
 
-		mockMvc.perform(get("/brands/1" + id))
-		.andExpect(status().isNotFound())
-		.andExpect(jsonPath("$.message").value("Id deve ser existente."))
-		.andDo(print());
+		mockMvc.perform(get("/brands/1" + id)).andExpect(status().isNotFound())
+				.andExpect(jsonPath("$.message").value("Id deve ser existente.")).andDo(print());
 	}
 }

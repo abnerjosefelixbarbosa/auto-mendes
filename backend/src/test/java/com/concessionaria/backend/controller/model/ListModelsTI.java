@@ -61,11 +61,10 @@ class ListModelsTI {
 
 		modelRepository.saveAll(List.of(model1, model2));
 
-		mockMvc.perform(get("/models").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON))
+		mockMvc.perform(get("/models").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpectAll(status().isOk(), jsonPath("$.numberOfElements").value("2")).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should list models by name when name is 'Nome' and return status 200.")
 	void listModelsByNameTest2() throws Exception {

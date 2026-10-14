@@ -126,12 +126,9 @@ class RegisterSaleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/sales")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)
-				.content(json))
-		.andExpectAll(status().isCreated())
-		.andDo(print());
+		mockMvc.perform(
+				post("/sales").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(json))
+				.andExpectAll(status().isCreated()).andDo(print());
 	}
 
 	@Test
@@ -172,15 +169,13 @@ class RegisterSaleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/sales")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-		.andExpectAll(
-				status().isBadRequest(),
-				jsonPath("$.paymentType").value("Tipo do pagamento deve ser obrigatório."))
-		.andDo(print());
+		mockMvc.perform(
+				post("/sales").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(json))
+				.andExpectAll(status().isBadRequest(),
+						jsonPath("$.paymentType").value("Tipo do pagamento deve ser obrigatório."))
+				.andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register sale when matriculation is null and return status 400.")
 	void registerSaleTest3() throws Exception {
@@ -219,16 +214,13 @@ class RegisterSaleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/sales")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-		.andExpectAll(
-				status().isBadRequest(),
-				jsonPath("$.matriculation").value("Matricula do funcionário deve ser obrigatório.")
-		)
-		.andDo(print());
+		mockMvc.perform(
+				post("/sales").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(json))
+				.andExpectAll(status().isBadRequest(),
+						jsonPath("$.matriculation").value("Matricula do funcionário deve ser obrigatório."))
+				.andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register sale when matriculation is empty and return status 400.")
 	void registerSaleTest4() throws Exception {
@@ -267,15 +259,13 @@ class RegisterSaleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/sales")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)
-				.content(json))
-		.andExpectAll(status().isBadRequest(),
-				jsonPath("$.matriculation").value("Matricula do funcionário deve ser obrigatório."))
-		.andDo(print());
+		mockMvc.perform(
+				post("/sales").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(json))
+				.andExpectAll(status().isBadRequest(),
+						jsonPath("$.matriculation").value("Matricula do funcionário deve ser obrigatório."))
+				.andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register sale when document is null and return status 400.")
 	void registerSaleTest5() throws Exception {
@@ -320,7 +310,7 @@ class RegisterSaleTI {
 						jsonPath("$.document").value("Documento do cliente deve ser obrigatório."))
 				.andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register sale when document is empty and return status 400.")
 	void registerSaleTest6() throws Exception {
@@ -365,7 +355,7 @@ class RegisterSaleTI {
 						jsonPath("$.document").value("Documento do cliente deve ser obrigatório."))
 				.andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register sale when item list is null and return status 400.")
 	void registerSaleTest7() throws Exception {
@@ -406,11 +396,10 @@ class RegisterSaleTI {
 
 		mockMvc.perform(
 				post("/sales").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpectAll(status().isBadRequest(),
-						jsonPath("$.items").value("Items deve ser obrigatorios."))
+				.andExpectAll(status().isBadRequest(), jsonPath("$.items").value("Items deve ser obrigatorios."))
 				.andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register sale when matriculation not is existent and return status 404.")
 	void registerSaleTest8() throws Exception {
@@ -443,7 +432,8 @@ class RegisterSaleTI {
 
 		customerRepository.save(customer);
 
-		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-1111"), new ItemRequestDTO("AAA-2222"));;
+		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-1111"), new ItemRequestDTO("AAA-2222"));
+		;
 
 		SaleRequestDTO dto = new SaleRequestDTO(PaymentType.CASH, "1111111112", "70230924476", requestDTOs);
 
@@ -455,7 +445,7 @@ class RegisterSaleTI {
 						jsonPath("$.message").value("Matricula do funcionário deve ser existente."))
 				.andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register sale when document not is existent and return status 404.")
 	void registerSaleTest9() throws Exception {
@@ -488,7 +478,8 @@ class RegisterSaleTI {
 
 		customerRepository.save(customer);
 
-		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-1111"), new ItemRequestDTO("AAA-2222"));;
+		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-1111"), new ItemRequestDTO("AAA-2222"));
+		;
 
 		SaleRequestDTO dto = new SaleRequestDTO(PaymentType.CASH, "1111111111", "70230924475", requestDTOs);
 
@@ -496,11 +487,10 @@ class RegisterSaleTI {
 
 		mockMvc.perform(
 				post("/sales").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpectAll(status().isNotFound(),
-						jsonPath("$.message").value("Documento deve ser existente."))
+				.andExpectAll(status().isNotFound(), jsonPath("$.message").value("Documento deve ser existente."))
 				.andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register sale when plate not is existent and return status 400.")
 	void registerSaleTest10() throws Exception {
@@ -533,7 +523,8 @@ class RegisterSaleTI {
 
 		customerRepository.save(customer);
 
-		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-111"), new ItemRequestDTO("AAA-2222"));;
+		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-111"), new ItemRequestDTO("AAA-2222"));
+		;
 
 		SaleRequestDTO dto = new SaleRequestDTO(PaymentType.CASH, "1111111111", "70230924476", requestDTOs);
 
@@ -545,7 +536,7 @@ class RegisterSaleTI {
 						jsonPath("$.message").value("Lista de itens deve ter placa de veiculo existente."))
 				.andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register sale when employee type is not SALLER  and return status 400.")
 	void registerSaleTest11() throws Exception {
@@ -570,13 +561,13 @@ class RegisterSaleTI {
 		Employee employee1 = new Employee(null, "nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1995), "46358981480", new BigDecimal("2000.00"), 10, EmployeeStatus.ACTIVE,
 				EmployeeType.SELLER, null);
-		
+
 		Employee employee2 = new Employee(null, "nome2", "1111111112", "email2@gmail.com", "81911111112",
 				LocalDate.now().withYear(1995), "47150987419", new BigDecimal("3000.00"), null, EmployeeStatus.ACTIVE,
 				EmployeeType.MANAGER, null);
 
 		employeeRepository.save(employee1);
-		
+
 		employeeRepository.save(employee2);
 
 		Customer customer = new Customer(null, "nome1", "70230924476", "email1@gmail.com", "81911111111",
@@ -584,7 +575,8 @@ class RegisterSaleTI {
 
 		customerRepository.save(customer);
 
-		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-1111"), new ItemRequestDTO("AAA-2222"));;
+		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-1111"), new ItemRequestDTO("AAA-2222"));
+		;
 
 		SaleRequestDTO dto = new SaleRequestDTO(PaymentType.CASH, "1111111112", "70230924476", requestDTOs);
 
@@ -596,7 +588,7 @@ class RegisterSaleTI {
 						jsonPath("$.message").value("Matricula do funcionário deve ser de um vendedor."))
 				.andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register sale when vehicle status is SOLD and return status 400.")
 	void registerSaleTest12() throws Exception {
@@ -621,13 +613,13 @@ class RegisterSaleTI {
 		Employee employee1 = new Employee(null, "nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1995), "46358981480", new BigDecimal("2000.00"), 10, EmployeeStatus.ACTIVE,
 				EmployeeType.SELLER, null);
-		
+
 		Employee employee2 = new Employee(null, "nome2", "1111111112", "email2@gmail.com", "81911111112",
 				LocalDate.now().withYear(1995), "47150987419", new BigDecimal("3000.00"), null, EmployeeStatus.ACTIVE,
 				EmployeeType.MANAGER, null);
 
 		employeeRepository.save(employee1);
-		
+
 		employeeRepository.save(employee2);
 
 		Customer customer = new Customer(null, "nome1", "70230924476", "email1@gmail.com", "81911111111",
@@ -635,7 +627,8 @@ class RegisterSaleTI {
 
 		customerRepository.save(customer);
 
-		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-1111"), new ItemRequestDTO("AAA-2222"));;
+		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-1111"), new ItemRequestDTO("AAA-2222"));
+		;
 
 		SaleRequestDTO dto = new SaleRequestDTO(PaymentType.CASH, "1111111111", "70230924476", requestDTOs);
 

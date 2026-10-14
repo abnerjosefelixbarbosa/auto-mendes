@@ -42,7 +42,7 @@ class FindEmployeeByIdTI {
 	void tearDown() throws Exception {
 		employeeRepository.deleteAll();
 	}
-	
+
 	@Test
 	@DisplayName("Should find employee by id and return status 200.")
 	void findEmployeeByIdTest1() throws Exception {
@@ -54,9 +54,10 @@ class FindEmployeeByIdTI {
 
 		this.employeeRepository.saveAll(employees);
 
-		this.mockMvc.perform(get(String.format("/employees/%s", employees.get(0).getId()))
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-				.andDo(print());
+		this.mockMvc
+				.perform(get(String.format("/employees/%s", employees.get(0).getId()))
+						.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andDo(print());
 	}
 
 	@Test

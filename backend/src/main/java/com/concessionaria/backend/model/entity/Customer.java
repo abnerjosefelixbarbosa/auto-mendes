@@ -41,7 +41,7 @@ public class Customer {
 	private String phone;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "customer_type", nullable = false)
-	private CustomerType customerType; 
-	@OneToMany(mappedBy = "customer", cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+	private CustomerType customerType;
+	@OneToMany(mappedBy = "customer", cascade = { CascadeType.MERGE }, fetch = FetchType.LAZY)
 	private List<Sale> sales;
 }

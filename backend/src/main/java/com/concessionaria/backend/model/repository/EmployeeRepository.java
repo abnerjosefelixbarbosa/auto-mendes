@@ -10,15 +10,8 @@ import com.concessionaria.backend.model.entity.Employee;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, String>, JpaSpecificationExecutor<Employee> {
-	boolean existsByNameOrMatriculationOrEmailOrPhoneOrCpf(
-			String name, 
-			String matriculation,
-			String email,
-			String phone,
-			String cpf
-	);
+	boolean existsByNameOrMatriculationOrEmailOrPhoneOrCpf(String name, String matriculation, String email,
+			String phone, String cpf);
 
-	Optional<Employee> findByMatriculation(
-			String matriculation
-	);
+	Optional<Employee> findByMatriculation(String matriculation);
 }

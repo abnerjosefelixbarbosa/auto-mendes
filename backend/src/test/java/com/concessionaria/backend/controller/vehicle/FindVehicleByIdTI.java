@@ -63,7 +63,7 @@ class FindVehicleByIdTI {
 		Model model = new Model(null, "nome1", brand, null);
 
 		model = modelRepository.save(model);
-		
+
 		Vehicle vehicle = new Vehicle(null, "1111-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE, "cor1",
 				new BigDecimal("10000.00"), model, null);
 
@@ -72,7 +72,7 @@ class FindVehicleByIdTI {
 		mockMvc.perform(get("/vehicles/find-vehicle-by-id/" + vehicle.getId()).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not find vehicle by id when id is not existent and return status 404.")
 	void findVehicleByIdTest2() throws Exception {
@@ -83,7 +83,7 @@ class FindVehicleByIdTI {
 		Model model = new Model(null, "nome1", brand, null);
 
 		model = modelRepository.save(model);
-		
+
 		Vehicle vehicle = new Vehicle(null, "1111-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE, "cor1",
 				new BigDecimal("10000.00"), model, null);
 

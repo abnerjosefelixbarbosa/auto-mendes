@@ -10,11 +10,7 @@ import com.concessionaria.backend.model.entity.Vehicle;
 
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle, String>, JpaSpecificationExecutor<Vehicle> {
-	boolean existsByPlate(
-			String plate
-	);
+	boolean existsByPlate(String plate);
 
-	Optional<Vehicle> findByPlate(
-			String plate
-	);
+	Optional<Vehicle> findByPlate(String plate);
 }

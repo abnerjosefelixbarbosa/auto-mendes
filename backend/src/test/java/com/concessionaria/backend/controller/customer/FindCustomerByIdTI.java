@@ -38,30 +38,29 @@ class FindCustomerByIdTI {
 	void tearDown() {
 		customerRepository.deleteAll();
 	}
-	
+
 	@Test
 	@DisplayName("Should find customer by id and return status 200.")
 	void findCustomerByIdTest1() throws Exception {
-		Customer customer = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111", CustomerType.PF, null);
+		Customer customer = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111",
+				CustomerType.PF, null);
 
 		String id = customerRepository.save(customer).getId();
 
-		mockMvc.perform(get("/customers/" + id)
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON))
-		.andExpect(status().isOk())
-		.andDo(print());
+		mockMvc.perform(
+				get("/customers/" + id).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andDo(print());
 	}
 
 	@Test
 	@DisplayName("Should not find customer by id when id is not existent and return status 404.")
 	void findCustomerByIdTest2() throws Exception {
-		Customer customer = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111", CustomerType.PF, null);
+		Customer customer = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111",
+				CustomerType.PF, null);
 
 		String id = customerRepository.save(customer).getId();
 
-		mockMvc.perform(get("/customers/1" + id))
-		.andExpect(jsonPath("$.message").value("Id deve ser existente.")).andExpect(status().isNotFound())
-		.andDo(print());
+		mockMvc.perform(get("/customers/1" + id)).andExpect(jsonPath("$.message").value("Id deve ser existente."))
+				.andExpect(status().isNotFound()).andDo(print());
 	}
 }

@@ -32,7 +32,7 @@ class RegisterBrandTI {
 	private ObjectMapper objectMapper;
 	@Autowired
 	private BrandRepository brandRepository;
-	
+
 	@BeforeEach
 	void setUp() {
 		brandRepository.deleteAll();
@@ -42,7 +42,7 @@ class RegisterBrandTI {
 	void tearDown() {
 		brandRepository.deleteAll();
 	}
-	
+
 	@Test
 	@DisplayName("Should register brand and return status 201.")
 	void registerBrandTest1() throws Exception {
@@ -50,14 +50,10 @@ class RegisterBrandTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/brands")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)
-				.content(json))
-		.andExpect(status().isCreated())
-		.andDo(print());
+		mockMvc.perform(post("/brands").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(status().isCreated()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register brand when name is null and return status 400.")
 	void registerBrandTest2() throws Exception {
@@ -65,15 +61,11 @@ class RegisterBrandTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/brands")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)
-				.content(json))
-		.andExpect(status().isBadRequest())
-		.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório."))
-		.andDo(print());
+		mockMvc.perform(post("/brands").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório.")).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register brand when name is empty and return status 400.")
 	void registerBrandTest3() throws Exception {
@@ -81,15 +73,11 @@ class RegisterBrandTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/brands")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)
-				.content(json))
-		.andExpect(status().isBadRequest())
-		.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório."))
-		.andDo(print());
+		mockMvc.perform(post("/brands").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório.")).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register brand when name contains 31 characters and return status 400.")
 	void registerBrandTest4() throws Exception {
@@ -97,32 +85,24 @@ class RegisterBrandTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/brands")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)
-				.content(json))
-		.andExpect(status().isBadRequest())
-		.andExpect(jsonPath("$.name").value("Nome deve ter até 30 caracteres."))
-		.andDo(print());
+		mockMvc.perform(post("/brands").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.name").value("Nome deve ter até 30 caracteres.")).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register brand when name is repeated and return status 400.")
 	void registerBrandTest5() throws Exception {
 		Brand brand = new Brand(null, "nome1", null);
-		
+
 		brandRepository.save(brand);
-		
+
 		BrandRequestDTO dto = new BrandRequestDTO("nome1");
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/brands")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)
-				.content(json))
-		.andExpect(status().isBadRequest())
-		.andExpect(jsonPath("$.message").value("Nome deve não deve ser repetido."))
-		.andDo(print());
+		mockMvc.perform(post("/brands").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.message").value("Nome deve não deve ser repetido.")).andDo(print());
 	}
 }

@@ -29,6 +29,6 @@ public class Brand {
 	private String id;
 	@Column(name = "name", nullable = false, unique = true, length = 30)
 	private String name;
-	@OneToMany(mappedBy = "brand", cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "brand", cascade = { CascadeType.MERGE }, fetch = FetchType.LAZY)
 	private List<Model> models;
 }

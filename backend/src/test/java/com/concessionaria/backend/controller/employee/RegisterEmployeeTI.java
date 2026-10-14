@@ -48,7 +48,7 @@ class RegisterEmployeeTI {
 	void tearDown() {
 		employeeRepository.deleteAll();
 	}
-	
+
 	@Test
 	@DisplayName("Should register employee and return status 201.")
 	void registerEmployeeTest1() throws Exception {
@@ -58,8 +58,8 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(status().isCreated()).andDo(print());
 	}
 
 	@Test
@@ -71,10 +71,9 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório.")).andExpect(status().isBadRequest())
-				.andDo(print());
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(jsonPath("$.name").value("Nome deve ser obrigatório."))
+				.andExpect(status().isBadRequest()).andDo(print());
 	}
 
 	@Test
@@ -86,12 +85,11 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório.")).andExpect(status().isBadRequest())
-				.andDo(print());
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(jsonPath("$.name").value("Nome deve ser obrigatório."))
+				.andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register employee  when name contains 101 characters and return status 400.")
 	void registerEmployeeTest4() throws Exception {
@@ -102,9 +100,8 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.name").value("Nome deve ter até 100 caracteres."))
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(jsonPath("$.name").value("Nome deve ter até 100 caracteres."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -125,8 +122,8 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json))
 				.andExpect(
 						jsonPath("$.message").value("Nome, matrícula, email, telefone ou cpf não deve ser repetido."))
 				.andExpect(status().isBadRequest()).andDo(print());
@@ -141,9 +138,8 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.matriculation").value("Matrícula deve ser obrigatória."))
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(jsonPath("$.matriculation").value("Matrícula deve ser obrigatória."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -156,25 +152,25 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json))
 				.andExpect(jsonPath("$.matriculation").value("Matrícula deve ter 10 caracteres numéricos."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register employee when matriculation not contains 10 numeric characters and return status 400")
 	void registerEmployeeTest8() throws Exception {
-	    EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1", "email1@gmail.com", "81911111111",
-	            LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-	            EmployeeType.SELLER);
+		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1", "email1@gmail.com", "81911111111",
+				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
+				EmployeeType.SELLER);
 
-	    String json = objectMapper.writeValueAsString(dto);
+		String json = objectMapper.writeValueAsString(dto);
 
-	    mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-	            .accept(MediaType.APPLICATION_JSON).content(json))
-	            .andExpect(jsonPath("$.matriculation").value("Matrícula deve ter 10 caracteres numéricos."))
-	            .andExpect(status().isBadRequest()).andDo(print());
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json))
+				.andExpect(jsonPath("$.matriculation").value("Matrícula deve ter 10 caracteres numéricos."))
+				.andExpect(status().isBadRequest()).andDo(print());
 	}
 
 	@Test
@@ -186,8 +182,8 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json))
 				.andExpect(jsonPath("$.matriculation").value("Matrícula deve ter 10 caracteres numéricos."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
@@ -209,8 +205,8 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json))
 				.andExpect(
 						jsonPath("$.message").value("Nome, matrícula, email, telefone ou cpf não deve ser repetido."))
 				.andExpect(status().isBadRequest()).andDo(print());
@@ -225,10 +221,9 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.email").value("Email deve ser valido.")).andExpect(status().isBadRequest())
-				.andDo(print());
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(jsonPath("$.email").value("Email deve ser valido."))
+				.andExpect(status().isBadRequest()).andDo(print());
 	}
 
 	@Test
@@ -240,10 +235,9 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.email").value("Email deve ser valido.")).andExpect(status().isBadRequest())
-				.andDo(print());
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(jsonPath("$.email").value("Email deve ser valido."))
+				.andExpect(status().isBadRequest()).andDo(print());
 	}
 
 	@Test
@@ -255,10 +249,9 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.email").value("Email deve ser valido.")).andExpect(status().isBadRequest())
-				.andDo(print());
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(jsonPath("$.email").value("Email deve ser valido."))
+				.andExpect(status().isBadRequest()).andDo(print());
 	}
 
 	@Test
@@ -278,8 +271,8 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json))
 				.andExpect(
 						jsonPath("$.message").value("Nome, matrícula, email, telefone ou cpf não deve ser repetido."))
 				.andExpect(status().isBadRequest()).andDo(print());
@@ -294,9 +287,8 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.phone").value("Telefone deve ser obrigatório."))
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(jsonPath("$.phone").value("Telefone deve ser obrigatório."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -309,9 +301,8 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.phone").value("Telefone deve ser obrigatório."))
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(jsonPath("$.phone").value("Telefone deve ser obrigatório."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -324,9 +315,8 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.phone").value("Telefone deve ter até 30 caracteres."))
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(jsonPath("$.phone").value("Telefone deve ter até 30 caracteres."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -347,8 +337,8 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json))
 				.andExpect(
 						jsonPath("$.message").value("Nome, matrícula, email, telefone ou cpf não deve ser repetido."))
 				.andExpect(status().isBadRequest()).andDo(print());
@@ -362,9 +352,8 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.birthDate").value("Data de nascimento deve ser obrigatória."))
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(jsonPath("$.birthDate").value("Data de nascimento deve ser obrigatória."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -377,10 +366,9 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.cpf").value("CPF deve ser valido.")).andExpect(status().isBadRequest())
-				.andDo(print());
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(jsonPath("$.cpf").value("CPF deve ser valido."))
+				.andExpect(status().isBadRequest()).andDo(print());
 	}
 
 	@Test
@@ -392,10 +380,9 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.cpf").value("CPF deve ser valido.")).andExpect(status().isBadRequest())
-				.andDo(print());
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(jsonPath("$.cpf").value("CPF deve ser valido."))
+				.andExpect(status().isBadRequest()).andDo(print());
 	}
 
 	@Test
@@ -407,10 +394,9 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.cpf").value("CPF deve ser valido.")).andExpect(status().isBadRequest())
-				.andDo(print());
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(jsonPath("$.cpf").value("CPF deve ser valido."))
+				.andExpect(status().isBadRequest()).andDo(print());
 	}
 
 	@Test
@@ -430,8 +416,8 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json))
 				.andExpect(
 						jsonPath("$.message").value("Nome, matrícula, email, telefone ou cpf não deve ser repetido."))
 				.andExpect(status().isBadRequest()).andDo(print());
@@ -445,9 +431,8 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.salary").value("Salário deve ser obrigatório."))
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(jsonPath("$.salary").value("Salário deve ser obrigatório."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -460,9 +445,8 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.message").value("Salário deve ter 2 dígitos."))
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(jsonPath("$.message").value("Salário deve ter 2 dígitos."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -475,10 +459,9 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.message").value("Salário não deve 0.00.")).andExpect(status().isBadRequest())
-				.andDo(print());
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(jsonPath("$.message").value("Salário não deve 0.00."))
+				.andExpect(status().isBadRequest()).andDo(print());
 	}
 
 	@Test
@@ -490,8 +473,8 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json))
 				.andExpect(jsonPath("$.message").value("Comissão deve ser obrigatório para funcionário vendedor."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
@@ -505,28 +488,26 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json))
 				.andExpect(jsonPath("$.message").value("Comissão deve ser obrigatório para funcionário vendedor."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
 
 	@Test
 	@DisplayName("Should not register employee when comissition is '101' and employee type is saller and return status 400.")
-	void registerEmployeeTest29()
-			throws Exception {
+	void registerEmployeeTest29() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 101, EmployeeStatus.ACTIVE,
 				EmployeeType.SELLER);
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.message").value("Comissão deve ser menor que 100."))
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(jsonPath("$.message").value("Comissão deve ser menor que 100."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not register employee when employee status is null and return status 400.")
 	void registerEmployeeTest30() throws Exception {
@@ -536,8 +517,8 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json))
 				.andExpect(jsonPath("$.employeeStatus").value("Status do funcionário deve ser obrigatório."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
@@ -551,9 +532,8 @@ class RegisterEmployeeTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.employeeType").value("Tipo de funcionário deve ser obrigatório."))
+		mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.content(json)).andExpect(jsonPath("$.employeeType").value("Tipo de funcionário deve ser obrigatório."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
 }

@@ -50,6 +50,6 @@ public class Vehicle {
 	@ManyToOne
 	@JoinColumn(name = "model_id", nullable = false)
 	private Model model;
-	@OneToMany(mappedBy = "vehicle", cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "vehicle", cascade = { CascadeType.MERGE }, fetch = FetchType.LAZY)
 	private List<Item> items;
 }

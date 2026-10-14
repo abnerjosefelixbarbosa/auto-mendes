@@ -83,7 +83,7 @@ class DeleteSaleByIdTI {
 		customerRepository.deleteAll();
 		employeeRepository.deleteAll();
 	}
-	
+
 	@Test
 	@DisplayName("Should delete sale by id and return status 204.")
 	void deleteSaleByIdTest1() throws Exception {
@@ -115,20 +115,20 @@ class DeleteSaleByIdTI {
 				CustomerType.PF, null);
 
 		customer = customerRepository.save(customer);
-		
-		Sale sale = new Sale(null, LocalDate.now(), PaymentType.CASH, new BigDecimal("100000"), employee, customer, null);
-		
+
+		Sale sale = new Sale(null, LocalDate.now(), PaymentType.CASH, new BigDecimal("100000"), employee, customer,
+				null);
+
 		sale = saleRepository.save(sale);
-		
+
 		List<Item> items = List.of(new Item(null, sale, vehicle1), new Item(null, sale, vehicle2));
 
 		itemRepository.saveAll(items);
 
-		mockMvc.perform(
-				delete(String.format("/sales/%s", sale.getId())).contentType(MediaType.APPLICATION_JSON))
+		mockMvc.perform(delete(String.format("/sales/%s", sale.getId())).contentType(MediaType.APPLICATION_JSON))
 				.andExpectAll(status().isNoContent()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should delete sale by id when id not is existent and return status 404.")
 	void deleteSaleByIdTest2() throws Exception {
@@ -160,17 +160,18 @@ class DeleteSaleByIdTI {
 				CustomerType.PF, null);
 
 		customer = customerRepository.save(customer);
-		
-		Sale sale = new Sale(null, LocalDate.now(), PaymentType.CASH, new BigDecimal("100000"), employee, customer, null);
-		
+
+		Sale sale = new Sale(null, LocalDate.now(), PaymentType.CASH, new BigDecimal("100000"), employee, customer,
+				null);
+
 		sale = saleRepository.save(sale);
-		
+
 		List<Item> items = List.of(new Item(null, sale, vehicle1), new Item(null, sale, vehicle2));
 
 		itemRepository.saveAll(items);
 
-		mockMvc.perform(
-				delete(String.format("/sales/%s", "1")).contentType(MediaType.APPLICATION_JSON))
-				.andExpectAll(status().isNotFound(), jsonPath("$.message").value("Id deve ser existente.")).andDo(print());
+		mockMvc.perform(delete(String.format("/sales/%s", "1")).contentType(MediaType.APPLICATION_JSON))
+				.andExpectAll(status().isNotFound(), jsonPath("$.message").value("Id deve ser existente."))
+				.andDo(print());
 	}
 }

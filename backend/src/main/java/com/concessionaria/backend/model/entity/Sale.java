@@ -48,6 +48,7 @@ public class Sale {
 	@ManyToOne
 	@JoinColumn(name = "customer_id", nullable = false)
 	private Customer customer;
-	@OneToMany(mappedBy = "sale", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "sale", cascade = { CascadeType.MERGE, CascadeType.PERSIST,
+			CascadeType.REMOVE }, fetch = FetchType.LAZY)
 	private List<Item> items;
 }

@@ -43,7 +43,7 @@ public class ListEmployeesTI {
 	void tearDown() throws Exception {
 		employeeRepository.deleteAll();
 	}
-	
+
 	@Test
 	@DisplayName("Should list employees and return status 200.")
 	void listEmployeesTest1() throws Exception {
@@ -67,9 +67,8 @@ public class ListEmployeesTI {
 
 		employeeRepository.saveAll(employees);
 
-		mockMvc.perform(get("/employees").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.totalElements").value(4))
-				.andExpect(status().isOk()).andDo(print());
+		mockMvc.perform(get("/employees").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$.totalElements").value(4)).andExpect(status().isOk()).andDo(print());
 	}
 
 	@Test
@@ -95,11 +94,11 @@ public class ListEmployeesTI {
 
 		employeeRepository.saveAll(employees);
 
-		mockMvc.perform(get("/employees").queryParam("name", "Nome")
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$.totalElements").value(4)).andExpect(status().isOk()).andDo(print());
+		mockMvc.perform(get("/employees").queryParam("name", "Nome").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.totalElements").value(4))
+				.andExpect(status().isOk()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should list employees when employee status is active and return status 200.")
 	void listEmployeesTest3() throws Exception {
@@ -123,9 +122,9 @@ public class ListEmployeesTI {
 
 		employeeRepository.saveAll(employees);
 
-		mockMvc.perform(get("/employees").queryParam("employeeStatus", "ACTIVE")
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$.totalElements").value(4)).andExpect(status().isOk()).andDo(print());
+		mockMvc.perform(get("/employees").queryParam("employeeStatus", "ACTIVE").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.totalElements").value(4))
+				.andExpect(status().isOk()).andDo(print());
 	}
 
 	@Test

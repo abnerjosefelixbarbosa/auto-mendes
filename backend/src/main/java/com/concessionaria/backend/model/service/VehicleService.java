@@ -10,33 +10,16 @@ import com.concessionaria.backend.model.entity.enums.TransmissionType;
 import com.concessionaria.backend.model.entity.enums.VehicleStatus;
 
 public interface VehicleService {
-	VehicleResponseDTO registerVehicle(
-			VehicleRequestDTO dto
-	);
-	
-	VehicleResponseDTO updateVehicleById(
-			String id, 
-			VehicleRequestDTO dto
-	);
-	
-	void updateVehicleByPlate(
-			String plate, 
-			Vehicle vehicle
-	);
-	
-	VehicleResponseDTO findVehicleById(
-			String id
-	);
+	VehicleResponseDTO registerVehicle(VehicleRequestDTO dto);
 
-	Page<VehicleResponseDTO> listVehicles(
-			TransmissionType transmissionType, 
-			VehicleStatus vehicleStatus,
-			 String color, 
-			 String plate, 
-			 Pageable pageable
-	);
+	VehicleResponseDTO updateVehicleById(String id, VehicleRequestDTO dto);
 
-	Vehicle findVehicleByPlate(
-			String plate
-	);
+	void updateVehicleByPlate(String plate, Vehicle vehicle);
+
+	VehicleResponseDTO findVehicleById(String id);
+
+	Page<VehicleResponseDTO> listVehicles(TransmissionType transmissionType, VehicleStatus vehicleStatus, String color,
+			String plate, Pageable pageable);
+
+	Vehicle findVehicleByPlate(String plate);
 }

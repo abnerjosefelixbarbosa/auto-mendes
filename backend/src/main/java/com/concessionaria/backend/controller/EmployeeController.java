@@ -34,99 +34,55 @@ public class EmployeeController {
 		this.employeeService = employeeService;
 	}
 
-	@ApiResponses(value = { 
-			@ApiResponse(responseCode = "201", description = "registra um funcionário."),
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "registra um funcionário."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
-			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado."), 
-	})
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado."), })
 	@ResponseStatus(value = HttpStatus.CREATED)
-	@Operation(
-			summary = "registrar funcionário.",
-			description = "registra um funcionário."
-	)
+	@Operation(summary = "registrar funcionário.", description = "registra um funcionário.")
 	@PostMapping
-	public ResponseEntity<EmployeeResponseDTO> registerEmployee(
-			@RequestBody
-			@Valid
-			EmployeeRequestDTO dto
-	) {
+	public ResponseEntity<EmployeeResponseDTO> registerEmployee(@RequestBody @Valid EmployeeRequestDTO dto) {
 		EmployeeResponseDTO response = employeeService.registerEmployee(dto);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "atualiza um funcionário."),
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "atualiza um funcionário."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
-			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado."),
-	})
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado."), })
 	@ResponseStatus(value = HttpStatus.OK)
-	@Operation(
-			summary = "atualizar funcionário pelo id.",
-			description = "atualiza um funcionário pelo id."
-	)
+	@Operation(summary = "atualizar funcionário pelo id.", description = "atualiza um funcionário pelo id.")
 	@PutMapping("/{id}")
-	public ResponseEntity<EmployeeResponseDTO> updateEmployeeById(
-			@PathVariable
-			String id,
-			@RequestBody
-			@Valid 
-			EmployeeRequestDTO dto
-	) {
-		EmployeeResponseDTO response = employeeService.updateEmployeeById(
-				id,
-				dto
-		);
+	public ResponseEntity<EmployeeResponseDTO> updateEmployeeById(@PathVariable String id,
+			@RequestBody @Valid EmployeeRequestDTO dto) {
+		EmployeeResponseDTO response = employeeService.updateEmployeeById(id, dto);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "procura um funcionário pelo id."),
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "procura um funcionário pelo id."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
-			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado."),
-	})
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado."), })
 	@ResponseStatus(value = HttpStatus.OK)
-	@Operation(
-			summary = "procurar funcionário pelo id.",
-			description = "procura um funcionário pelo id."
-	)
+	@Operation(summary = "procurar funcionário pelo id.", description = "procura um funcionário pelo id.")
 	@GetMapping("/{id}")
-	public ResponseEntity<EmployeeResponseDTO> findEmployeeById(
-			@PathVariable
-			String id
-	) {
+	public ResponseEntity<EmployeeResponseDTO> findEmployeeById(@PathVariable String id) {
 		EmployeeResponseDTO response = employeeService.findEmployeeById(id);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "lista varios funcionários."),
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "lista varios funcionários."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
-			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado."), 
-	})
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado."), })
 	@ResponseStatus(value = HttpStatus.OK)
-	@Operation(
-			summary = "listar funcionários.",
-			description = "lista varios funcionários."
-	)
+	@Operation(summary = "listar funcionários.", description = "lista varios funcionários.")
 	@GetMapping
-	public ResponseEntity<Page<EmployeeResponseDTO>> listEmployees(
-			Pageable pageable,
-			@RequestParam(defaultValue = "")
-			String name,
-			@RequestParam(defaultValue = "")
-			EmployeeStatus employeeStatus,
-			@RequestParam(defaultValue = "")
-			EmployeeType employeeType
-	) {
-		Page<EmployeeResponseDTO> response = employeeService.listEmployees(
-				name,
-				employeeStatus,
-				employeeType,
-				pageable
-		);
+	public ResponseEntity<Page<EmployeeResponseDTO>> listEmployees(Pageable pageable,
+			@RequestParam(defaultValue = "") String name,
+			@RequestParam(defaultValue = "") EmployeeStatus employeeStatus,
+			@RequestParam(defaultValue = "") EmployeeType employeeType) {
+		Page<EmployeeResponseDTO> response = employeeService.listEmployees(name, employeeStatus, employeeType,
+				pageable);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

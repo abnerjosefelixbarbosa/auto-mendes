@@ -207,7 +207,7 @@ class UpdateVehicleByIdTI {
 		mockMvc.perform(put("/vehicles/update-vehicle-by-id/" + vehicle.getId()).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not update vehicle by id when color is null and return status 400.")
 	void updateVehicleByIdTest7() throws Exception {
@@ -232,7 +232,7 @@ class UpdateVehicleByIdTI {
 		mockMvc.perform(put("/vehicles/update-vehicle-by-id/" + vehicle.getId()).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not update vehicle by id when color is empty and return status 400.")
 	void updateVehicleByIdTest8() throws Exception {
@@ -257,7 +257,7 @@ class UpdateVehicleByIdTI {
 		mockMvc.perform(put("/vehicles/update-vehicle-by-id/" + vehicle.getId()).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not update vehicle by id when color contains more than 30 characters and return status 400.")
 	void updateVehicleByIdTest9() throws Exception {
@@ -274,15 +274,15 @@ class UpdateVehicleByIdTI {
 
 		vehicle = vehicleRepository.save(vehicle);
 
-		VehicleRequestDTO dto = new VehicleRequestDTO("2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE, "cor1111111111111111111111111111111111111111111111111111111",
-				new BigDecimal("10000.00"), "nome1");
+		VehicleRequestDTO dto = new VehicleRequestDTO("2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE,
+				"cor1111111111111111111111111111111111111111111111111111111", new BigDecimal("10000.00"), "nome1");
 
 		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(put("/vehicles/update-vehicle-by-id/" + vehicle.getId()).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not update vehicle by id when price is null and return status 400.")
 	void updateVehicleByIdTest10() throws Exception {
@@ -299,15 +299,15 @@ class UpdateVehicleByIdTI {
 
 		vehicle = vehicleRepository.save(vehicle);
 
-		VehicleRequestDTO dto = new VehicleRequestDTO("2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE, "cor1",
-				null, "nome1");
+		VehicleRequestDTO dto = new VehicleRequestDTO("2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE,
+				"cor1", null, "nome1");
 
 		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(put("/vehicles/update-vehicle-by-id/" + vehicle.getId()).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not update vehicle by id when model name is null and return status 400.")
 	void updateVehicleByIdTest11() throws Exception {
@@ -324,15 +324,15 @@ class UpdateVehicleByIdTI {
 
 		vehicle = vehicleRepository.save(vehicle);
 
-		VehicleRequestDTO dto = new VehicleRequestDTO("2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE, "cor1",
-				new BigDecimal("10000.00"), null);
+		VehicleRequestDTO dto = new VehicleRequestDTO("2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE,
+				"cor1", new BigDecimal("10000.00"), null);
 
 		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(put("/vehicles/update-vehicle-by-id/" + vehicle.getId()).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not update vehicle by id when model name is empty and return status 400.")
 	void updateVehicleByIdTest12() throws Exception {
@@ -349,15 +349,15 @@ class UpdateVehicleByIdTI {
 
 		vehicle = vehicleRepository.save(vehicle);
 
-		VehicleRequestDTO dto = new VehicleRequestDTO("2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE, "cor1",
-				new BigDecimal("10000.00"), "");
+		VehicleRequestDTO dto = new VehicleRequestDTO("2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE,
+				"cor1", new BigDecimal("10000.00"), "");
 
 		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(put("/vehicles/update-vehicle-by-id/" + vehicle.getId()).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not update vehicle by id when model name contains more than 30 characters and return status 400.")
 	void updateVehicleByIdTest13() throws Exception {
@@ -374,15 +374,15 @@ class UpdateVehicleByIdTI {
 
 		vehicle = vehicleRepository.save(vehicle);
 
-		VehicleRequestDTO dto = new VehicleRequestDTO("2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE, "cor1",
-				new BigDecimal("10000.00"), "nome111111111111111111111111111111111111111111111111111111111111");
+		VehicleRequestDTO dto = new VehicleRequestDTO("2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE,
+				"cor1", new BigDecimal("10000.00"), "nome111111111111111111111111111111111111111111111111111111111111");
 
 		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(put("/vehicles/update-vehicle-by-id/" + vehicle.getId()).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not update vehicle by id when plate is repeated and return status 404.")
 	void updateVehicleByIdTest14() throws Exception {
@@ -399,15 +399,15 @@ class UpdateVehicleByIdTI {
 
 		vehicle = vehicleRepository.save(vehicle);
 
-		VehicleRequestDTO dto = new VehicleRequestDTO("1111-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE, "cor1",
-				new BigDecimal("10000.00"), "nome1");
+		VehicleRequestDTO dto = new VehicleRequestDTO("1111-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE,
+				"cor1", new BigDecimal("10000.00"), "nome1");
 
 		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(put("/vehicles/update-vehicle-by-id/" + vehicle.getId()).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not update vehicle by id when id is not existent and return status 404.")
 	void updateVehicleByIdTest15() throws Exception {
@@ -424,15 +424,16 @@ class UpdateVehicleByIdTI {
 
 		vehicle = vehicleRepository.save(vehicle);
 
-		VehicleRequestDTO dto = new VehicleRequestDTO("2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE, "cor1",
-				new BigDecimal("10000.00"), "nome1");
+		VehicleRequestDTO dto = new VehicleRequestDTO("2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE,
+				"cor1", new BigDecimal("10000.00"), "nome1");
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/vehicles/update-vehicle-by-id/1" + vehicle.getId()).contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isNotFound()).andDo(print());
+		mockMvc.perform(put("/vehicles/update-vehicle-by-id/1" + vehicle.getId())
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(json))
+				.andExpect(status().isNotFound()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not update vehicle by id when price not contains 2 digits and return status 400.")
 	void updateVehicleByIdTest16() throws Exception {
@@ -449,15 +450,15 @@ class UpdateVehicleByIdTI {
 
 		vehicle = vehicleRepository.save(vehicle);
 
-		VehicleRequestDTO dto = new VehicleRequestDTO("2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE, "cor1",
-				new BigDecimal("1000000"), "nome1");
+		VehicleRequestDTO dto = new VehicleRequestDTO("2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE,
+				"cor1", new BigDecimal("1000000"), "nome1");
 
 		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(put("/vehicles/update-vehicle-by-id/" + vehicle.getId()).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not update vehicle by id when price is '0.00'  and return status 400.")
 	void updateVehicleByIdTest17() throws Exception {
@@ -474,15 +475,15 @@ class UpdateVehicleByIdTI {
 
 		vehicle = vehicleRepository.save(vehicle);
 
-		VehicleRequestDTO dto = new VehicleRequestDTO("2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE, "cor1",
-				new BigDecimal("0.00"), "nome1");
+		VehicleRequestDTO dto = new VehicleRequestDTO("2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE,
+				"cor1", new BigDecimal("0.00"), "nome1");
 
 		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(put("/vehicles/update-vehicle-by-id/" + vehicle.getId()).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	@DisplayName("Should not update vehicle by id when model name is not existent and return status 404.")
 	void updateVehicleByIdTest18() throws Exception {
@@ -499,8 +500,8 @@ class UpdateVehicleByIdTI {
 
 		vehicle = vehicleRepository.save(vehicle);
 
-		VehicleRequestDTO dto = new VehicleRequestDTO("2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE, "cor1",
-				new BigDecimal("10000.00"), "nome2");
+		VehicleRequestDTO dto = new VehicleRequestDTO("2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE,
+				"cor1", new BigDecimal("10000.00"), "nome2");
 
 		String json = objectMapper.writeValueAsString(dto);
 

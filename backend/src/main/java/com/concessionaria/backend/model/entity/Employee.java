@@ -56,6 +56,6 @@ public class Employee {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "employee_type", nullable = false)
 	private EmployeeType employeeType;
-	@OneToMany(mappedBy = "employee", cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "employee", cascade = { CascadeType.MERGE }, fetch = FetchType.LAZY)
 	private List<Sale> sales;
 }

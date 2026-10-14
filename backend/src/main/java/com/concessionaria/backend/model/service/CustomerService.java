@@ -9,26 +9,13 @@ import com.concessionaria.backend.model.entity.Customer;
 import com.concessionaria.backend.model.entity.enums.CustomerType;
 
 public interface CustomerService {
-	CustomerResponseDTO registerCustomer(
-			CustomerRequestDTO dto
-	);
+	CustomerResponseDTO registerCustomer(CustomerRequestDTO dto);
 
-	CustomerResponseDTO updateCustomerById(
-			String id, 
-			CustomerRequestDTO dto
-	);
+	CustomerResponseDTO updateCustomerById(String id, CustomerRequestDTO dto);
 
-	CustomerResponseDTO findCustomerById(
-			String id
-	);
+	CustomerResponseDTO findCustomerById(String id);
 
-	Page<CustomerResponseDTO> listCustomers(
-			String name, 
-			CustomerType customerType, 
-			Pageable pageable
-	);
+	Page<CustomerResponseDTO> listCustomers(String name, CustomerType customerType, Pageable pageable);
 
-	Customer findCustomerByDocument(
-			String document
-	);
+	Customer findCustomerByDocument(String document);
 }

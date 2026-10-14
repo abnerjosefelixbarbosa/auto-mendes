@@ -12,10 +12,7 @@ public class CustomerSpecification {
 				return null;
 			}
 
-			return builder.like(
-					builder.upper(root.get("name")),
-					"%" + name.toUpperCase() + "%"
-			);
+			return builder.like(builder.upper(root.get("name")), "%" + name.toUpperCase() + "%");
 		};
 	}
 
@@ -25,21 +22,11 @@ public class CustomerSpecification {
 				return null;
 			}
 
-			return builder.equal(
-					root.get("customerType"),
-					customerType
-			);
+			return builder.equal(root.get("customerType"), customerType);
 		};
 	}
 
-	public static Specification<Customer> filter(
-			CustomerType customerType,
-			String name
-	) {
-		return Specification.where(
-				byCustomerType(customerType)
-		).and(
-				byName(name)
-		);
+	public static Specification<Customer> filter(CustomerType customerType, String name) {
+		return Specification.where(byCustomerType(customerType)).and(byName(name));
 	}
 }
