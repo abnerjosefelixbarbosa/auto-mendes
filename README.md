@@ -175,16 +175,6 @@ PF,PJ;
 - Listar vendas
 - Deletar vendas pelo id.   
 
-# Execução do projeto 
-
-- Copie o repositório em uma IDE.
-- Execute o projeto.
-
-```bash
-# clone repository
-git clone https://github.com/abnerjosefelixbarbosa/api-controle-de-estoque.git
-```
-
 # Documentação da API
 
 Documentação da API concessionaria
@@ -1476,6 +1466,16 @@ Corpo de resposta:
 # Documentação da OpenAPI
 
 [Documentação](https://github.com/abnerjosefelixbarbosa/concessionaria/blob/develop/docs/openapi.json)
+
+# Execução do projeto 
+
+- Copie o repositório em uma IDE.
+- Execute o projeto.
+
+```bash
+# clone repository
+git clone https://github.com/abnerjosefelixbarbosa/auto-mendes.git
+```
 
 # Autor
 
