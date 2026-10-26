@@ -2,24 +2,24 @@
 
 # Sobre
 
-Aplicação backend desenvolvida com Spring  para gerenciamento da concessionaria Auto Mendes com registro de funcionários, registro de clientes, registro de veículos e registro de vendas.         
+Aplicação backend desenvolvida com Spring para gerenciamento da concessionaria Auto Mendes.         
 
 ## Modelo
 
 ```mermaid
 classDiagram
 
-Employee "1" -- "*" Sale
+Employee "1" -- "*" Sale : has
 
-Customer "1" -- "*" Sale
+Customer "1" -- "*" Sale : has
 
-Item "*" --  "1" Vehicle 
+Item "*" --  "1" Vehicle : has
 
-Item "*" -- "1" Sale 
+Item "*" -- "1" Sale : has
 
-Model "1" -- "*" Vehicle 
+Model "1" -- "*" Vehicle : has
 
-Brand "1" -- "*" Model
+Brand "1" -- "*" Model : has
 
 CustomerType -- Customer
 
