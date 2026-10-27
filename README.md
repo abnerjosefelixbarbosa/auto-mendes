@@ -2,7 +2,7 @@
 
 # Sobre
 
-Aplicação backend desenvolvida com Spring para gerenciamento da concessionaria Auto Mendes.         
+Aplicação backend para gerenciamento da concessionaria Auto Mendes.         
 
 ## Modelo
 
