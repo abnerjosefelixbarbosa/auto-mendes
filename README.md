@@ -141,7 +141,8 @@ PF,PJ;
 ## Backend
 
 - Spring Boot
-- H2 DB
+- Lombok
+- H2SQL
 - PostgreeSQL
 - Spring Data JPA
 - MVC
