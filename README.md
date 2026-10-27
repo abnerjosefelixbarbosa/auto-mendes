@@ -149,29 +149,29 @@ PF,PJ;
 
 ## Funcionalidades
 
-- Registrar funcionário.
-- Atualizar funcionário pelo id.
-- Listar funcionários.
-- Procurar funcionário pelo id.
-- Registrar cliente.
-- Atualizar cliente pelo id.
-- Listar clientes.
-- Procurar cliente pelo id.
-- Registrar marca.
-- Atualizar marca pelo id.
-- Procurar marca pelo id.
-- Listar marcas.
-- Registrar modelo.
-- Atualizar modelo pelo id.
-- Procurar modelo pelo id.
-- Listar modelos.
-- Registrar veículo.
-- Atualizar veículo pelo id.
-- Listrar veículos.
-- Procurar veículo pelo id.
+- Registrar funcionário
+- Atualizar funcionário pelo id
+- Listar funcionários
+- Procurar funcionário pelo id
+- Registrar cliente
+- Atualizar cliente pelo id
+- Listar clientes
+- Procurar cliente pelo id
+- Registrar marca
+- Atualizar marca pelo id
+- Procurar marca pelo id
+- Listar marcas
+- Registrar modelo
+- Atualizar modelo pelo id
+- Procurar modelo pelo id
+- Listar modelos
+- Registrar veículo
+- Atualizar veículo pelo id
+- Listrar veículos
+- Procurar veículo pelo id
 - Registrar venda
 - Listar vendas
-- Deletar vendas pelo id.   
+- Deletar vendas pelo id   
 
 # Documentação da API
 
