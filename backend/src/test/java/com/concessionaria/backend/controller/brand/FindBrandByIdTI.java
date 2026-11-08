@@ -15,8 +15,8 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.concessionaria.backend.model.entity.Brand;
-import com.concessionaria.backend.model.repository.BrandRepository;
+import com.concessionaria.backend.entity.Brand;
+import com.concessionaria.backend.repository.BrandRepository;
 
 @SpringBootTest
 @ActiveProfiles("test")

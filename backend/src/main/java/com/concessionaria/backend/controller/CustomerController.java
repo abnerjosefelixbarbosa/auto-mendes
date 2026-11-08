@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.concessionaria.backend.model.dto.CustomerRequestDTO;
-import com.concessionaria.backend.model.dto.CustomerResponseDTO;
-import com.concessionaria.backend.model.entity.enums.CustomerType;
-import com.concessionaria.backend.model.service.CustomerService;
+import com.concessionaria.backend.dto.request.CustomerRequestDTO;
+import com.concessionaria.backend.dto.response.CustomerResponseDTO;
+import com.concessionaria.backend.entity.Customer;
+import com.concessionaria.backend.entity.enums.CustomerType;
+import com.concessionaria.backend.mapper.CustomerMapper;
+import com.concessionaria.backend.service.CustomerService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -39,8 +41,12 @@ public class CustomerController {
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@Operation(summary = "registrar cliente.", description = "registra um cliente.")
 	@PostMapping
-	public ResponseEntity<CustomerResponseDTO> registerCustomer(@RequestBody @Valid CustomerRequestDTO dto) {
-		CustomerResponseDTO response = customerService.registerCustomer(dto);
+	public ResponseEntity<CustomerResponseDTO> registerCustomer(@RequestBody @Valid CustomerRequestDTO request) {
+		Customer customer = CustomerMapper.toCustomer(request);
+		
+		Customer registeredCustomer = customerService.registerCustomer(customer);
+		
+		CustomerResponseDTO response = CustomerMapper.toCustomerResponseDTO(registeredCustomer);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
@@ -52,8 +58,12 @@ public class CustomerController {
 	@Operation(summary = "atualizar cliente pelo id.", description = "atualiza um cliente pelo id.")
 	@PutMapping("/{id}")
 	public ResponseEntity<CustomerResponseDTO> updateCustomerById(@PathVariable String id,
-			@RequestBody @Valid CustomerRequestDTO dto) {
-		CustomerResponseDTO response = customerService.updateCustomerById(id, dto);
+			@RequestBody @Valid CustomerRequestDTO request) {
+		Customer customer = CustomerMapper.toCustomer(request);
+		
+		Customer updatedCustomer = customerService.updateCustomerById(id, customer);
+		
+		CustomerResponseDTO response = CustomerMapper.toCustomerResponseDTO(updatedCustomer);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
@@ -65,7 +75,9 @@ public class CustomerController {
 	@Operation(summary = "procurar cliente pelo id.", description = "procura um cliente pelo id.")
 	@GetMapping("/{id}")
 	public ResponseEntity<CustomerResponseDTO> findCustomerById(@PathVariable String id) {
-		CustomerResponseDTO response = customerService.findCustomerById(id);
+		Customer foundCustomer = customerService.findCustomerById(id);
+		
+		CustomerResponseDTO response = CustomerMapper.toCustomerResponseDTO(foundCustomer);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
@@ -78,7 +90,9 @@ public class CustomerController {
 	@GetMapping
 	public ResponseEntity<Page<CustomerResponseDTO>> listCustomers(@RequestParam(defaultValue = "") String name,
 			@RequestParam(defaultValue = "") CustomerType customerType, Pageable pageable) {
-		Page<CustomerResponseDTO> response = customerService.listCustomers(name, customerType, pageable);
+		Page<Customer> page = customerService.listCustomers(name, customerType, pageable);
+		
+		Page<CustomerResponseDTO> response = page.map(CustomerMapper::toCustomerResponseDTO);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

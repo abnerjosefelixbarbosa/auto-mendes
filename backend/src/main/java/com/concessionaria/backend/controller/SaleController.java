@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.concessionaria.backend.model.dto.SaleRequestDTO;
-import com.concessionaria.backend.model.dto.SaleResponseDTO;
-import com.concessionaria.backend.model.entity.enums.PaymentType;
-import com.concessionaria.backend.model.service.SaleService;
+import com.concessionaria.backend.dto.request.SaleRequestDTO;
+import com.concessionaria.backend.dto.response.SaleResponseDTO;
+import com.concessionaria.backend.entity.Sale;
+import com.concessionaria.backend.entity.enums.PaymentType;
+import com.concessionaria.backend.mapper.SaleMapper;
+import com.concessionaria.backend.service.SaleService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -39,8 +41,12 @@ public class SaleController {
 	@Operation(summary = "registrar venda.", description = "registra uma venda.")
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
-	public ResponseEntity<SaleResponseDTO> registerSale(@RequestBody @Valid SaleRequestDTO dto) {
-		SaleResponseDTO response = saleService.registerSale(dto);
+	public ResponseEntity<SaleResponseDTO> registerSale(@RequestBody @Valid SaleRequestDTO request) {
+		Sale sale = SaleMapper.toSale(request);
+		
+		Sale registeredSale = saleService.registerSale(sale);
+		
+		SaleResponseDTO response = SaleMapper.toSaleResponseDTO(registeredSale);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
@@ -65,7 +71,9 @@ public class SaleController {
 	@GetMapping
 	public ResponseEntity<Page<SaleResponseDTO>> listSales(@RequestParam(defaultValue = "") PaymentType paymentType,
 			Pageable pageable) {
-		Page<SaleResponseDTO> response = saleService.listSales(paymentType, pageable);
+		Page<Sale> page = saleService.listSales(paymentType, pageable);
+		
+		Page<SaleResponseDTO> response = page.map(SaleMapper::toSaleResponseDTO);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

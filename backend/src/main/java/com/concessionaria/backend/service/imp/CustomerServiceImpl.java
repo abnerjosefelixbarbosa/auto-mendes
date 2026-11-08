@@ -1,0 +1,111 @@
+package com.concessionaria.backend.service.imp;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import com.concessionaria.backend.entity.Customer;
+import com.concessionaria.backend.entity.enums.CustomerType;
+import com.concessionaria.backend.exception.ApplicationException;
+import com.concessionaria.backend.exception.NotFoundException;
+import com.concessionaria.backend.repository.CustomerRepository;
+import com.concessionaria.backend.service.CustomerService;
+import com.concessionaria.backend.specification.CustomerSpecification;
+
+import br.com.caelum.stella.validation.CNPJValidator;
+import br.com.caelum.stella.validation.CPFValidator;
+import jakarta.transaction.Transactional;
+
+@Service
+public class CustomerServiceImpl implements CustomerService {
+	private final CustomerRepository customerRepository;
+
+	public CustomerServiceImpl(CustomerRepository customerRepository) {
+		this.customerRepository = customerRepository;
+	}
+
+	@Transactional
+	public Customer registerCustomer(Customer customer) {
+		validateCustomer(customer);
+
+		Customer savedCustomer = customerRepository.save(customer);
+
+		return savedCustomer;
+	}
+
+	@Transactional
+	public Customer updateCustomerById(String id, Customer customer) {
+		validateCustomer(customer);
+
+		Customer foundCustomer = customerRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
+
+		BeanUtils.copyProperties(customer, foundCustomer, "id");
+
+		customerRepository.save(foundCustomer);
+
+		return foundCustomer;
+	}
+
+	public Customer findCustomerById(String id) {
+		Customer foundCustomer = customerRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
+
+		return foundCustomer;
+	}
+
+	public Page<Customer> listCustomers(String name, CustomerType customerType, Pageable pageable) {
+		Page<Customer> page = customerRepository.findAll(CustomerSpecification.filter(customerType, name), pageable);
+
+		return page;
+	}
+
+	public Customer findCustomerByDocument(String document) {
+		Customer customerFound = customerRepository.findByDocument(document)
+				.orElseThrow(() -> new NotFoundException("Documento deve ser existente."));
+
+		return customerFound;
+	}
+
+	private void validateCustomer(Customer customer) {
+		if (!validateDocument(customer.getDocument())) {
+			throw new ApplicationException("Documento deve ser CPF ou CNPJ valido.");
+		}
+
+		if (isExistsByNameOrDocumentOrEmailOrPhone(customer)) {
+			throw new ApplicationException("Nome, documento, email ou telefone não deve ser repetido.");
+		}
+	}
+
+	private boolean validateDocument(String document) {
+		return isCPF(document) || isCNPJ(document);
+	}
+
+	private boolean isCPF(String cpf) {
+		CPFValidator validator = new CPFValidator();
+
+		try {
+			validator.assertValid(cpf);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	private boolean isCNPJ(String cnpj) {
+		CNPJValidator validator = new CNPJValidator();
+
+		try {
+			validator.assertValid(cnpj);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	private boolean isExistsByNameOrDocumentOrEmailOrPhone(Customer customer) {
+		return customerRepository.existsByNameOrDocumentOrEmailOrPhone(customer.getName(), customer.getDocument(),
+				customer.getEmail(), customer.getPhone());
+	}
+}

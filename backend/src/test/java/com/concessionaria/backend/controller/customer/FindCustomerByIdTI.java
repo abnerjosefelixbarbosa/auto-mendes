@@ -16,9 +16,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.concessionaria.backend.model.entity.Customer;
-import com.concessionaria.backend.model.entity.enums.CustomerType;
-import com.concessionaria.backend.model.repository.CustomerRepository;
+import com.concessionaria.backend.entity.Customer;
+import com.concessionaria.backend.entity.enums.CustomerType;
+import com.concessionaria.backend.repository.CustomerRepository;
 
 @SpringBootTest
 @ActiveProfiles("test")

@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.concessionaria.backend.model.dto.EmployeeRequestDTO;
-import com.concessionaria.backend.model.dto.EmployeeResponseDTO;
-import com.concessionaria.backend.model.entity.enums.EmployeeStatus;
-import com.concessionaria.backend.model.entity.enums.EmployeeType;
-import com.concessionaria.backend.model.service.EmployeeService;
+import com.concessionaria.backend.dto.request.EmployeeRequestDTO;
+import com.concessionaria.backend.dto.response.EmployeeResponseDTO;
+import com.concessionaria.backend.entity.Employee;
+import com.concessionaria.backend.entity.enums.EmployeeStatus;
+import com.concessionaria.backend.entity.enums.EmployeeType;
+import com.concessionaria.backend.mapper.EmployeeMapper;
+import com.concessionaria.backend.service.EmployeeService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -40,8 +42,12 @@ public class EmployeeController {
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@Operation(summary = "registrar funcionário.", description = "registra um funcionário.")
 	@PostMapping
-	public ResponseEntity<EmployeeResponseDTO> registerEmployee(@RequestBody @Valid EmployeeRequestDTO dto) {
-		EmployeeResponseDTO response = employeeService.registerEmployee(dto);
+	public ResponseEntity<EmployeeResponseDTO> registerEmployee(@RequestBody @Valid EmployeeRequestDTO request) {
+		Employee employee = EmployeeMapper.toEmployee(request);
+		
+		Employee registeredEmployee = employeeService.registerEmployee(employee);
+		
+		EmployeeResponseDTO response = EmployeeMapper.toEmployeeResponseDTO(registeredEmployee);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
@@ -53,8 +59,12 @@ public class EmployeeController {
 	@Operation(summary = "atualizar funcionário pelo id.", description = "atualiza um funcionário pelo id.")
 	@PutMapping("/{id}")
 	public ResponseEntity<EmployeeResponseDTO> updateEmployeeById(@PathVariable String id,
-			@RequestBody @Valid EmployeeRequestDTO dto) {
-		EmployeeResponseDTO response = employeeService.updateEmployeeById(id, dto);
+			@RequestBody @Valid EmployeeRequestDTO request) {
+		Employee employee = EmployeeMapper.toEmployee(request);
+		
+		Employee updatedEmployee = employeeService.updateEmployeeById(id, employee);
+		
+		EmployeeResponseDTO response = EmployeeMapper.toEmployeeResponseDTO(updatedEmployee); 
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
@@ -66,7 +76,9 @@ public class EmployeeController {
 	@Operation(summary = "procurar funcionário pelo id.", description = "procura um funcionário pelo id.")
 	@GetMapping("/{id}")
 	public ResponseEntity<EmployeeResponseDTO> findEmployeeById(@PathVariable String id) {
-		EmployeeResponseDTO response = employeeService.findEmployeeById(id);
+		Employee foundEmployee = employeeService.findEmployeeById(id);
+		
+		EmployeeResponseDTO response = EmployeeMapper.toEmployeeResponseDTO(foundEmployee); 
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
@@ -81,8 +93,10 @@ public class EmployeeController {
 			@RequestParam(defaultValue = "") String name,
 			@RequestParam(defaultValue = "") EmployeeStatus employeeStatus,
 			@RequestParam(defaultValue = "") EmployeeType employeeType) {
-		Page<EmployeeResponseDTO> response = employeeService.listEmployees(name, employeeStatus, employeeType,
+		Page<Employee> page = employeeService.listEmployees(name, employeeStatus, employeeType,
 				pageable);
+		
+		Page<EmployeeResponseDTO> response = page.map(EmployeeMapper::toEmployeeResponseDTO);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

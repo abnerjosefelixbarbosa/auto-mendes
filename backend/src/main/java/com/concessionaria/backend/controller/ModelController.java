@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.concessionaria.backend.model.dto.ModelRequestDTO;
-import com.concessionaria.backend.model.dto.ModelResponseDTO;
-import com.concessionaria.backend.model.service.ModelService;
+import com.concessionaria.backend.dto.request.ModelRequestDTO;
+import com.concessionaria.backend.dto.response.ModelResponseDTO;
+import com.concessionaria.backend.entity.Model;
+import com.concessionaria.backend.mapper.ModelMapper;
+import com.concessionaria.backend.service.ModelService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -38,8 +40,12 @@ public class ModelController {
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@PostMapping
-	public ResponseEntity<ModelResponseDTO> registerModel(@RequestBody @Valid ModelRequestDTO dto) {
-		ModelResponseDTO response = modelService.registerModel(dto);
+	public ResponseEntity<ModelResponseDTO> registerModel(@RequestBody @Valid ModelRequestDTO request) {
+		Model model = ModelMapper.toModel(request);
+		
+		Model registeredModel = modelService.registerModel(model);
+		
+		ModelResponseDTO response = ModelMapper.toModelResponseDTO(registeredModel);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
@@ -51,8 +57,12 @@ public class ModelController {
 	@ResponseStatus(value = HttpStatus.OK)
 	@PutMapping("/{id}")
 	public ResponseEntity<ModelResponseDTO> updateModelById(@PathVariable String id,
-			@RequestBody @Valid ModelRequestDTO dto) {
-		ModelResponseDTO response = modelService.updateModelById(id, dto);
+			@RequestBody @Valid ModelRequestDTO request) {
+		Model model = ModelMapper.toModel(request);
+		
+		Model updatedModel = modelService.updateModelById(id, model);
+		
+		ModelResponseDTO response = ModelMapper.toModelResponseDTO(updatedModel);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
@@ -64,7 +74,9 @@ public class ModelController {
 	@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping("/{id}")
 	public ResponseEntity<ModelResponseDTO> findModelById(@PathVariable String id) {
-		ModelResponseDTO response = modelService.findModelById(id);
+		Model foundModel = modelService.findModelById(id);
+		
+		ModelResponseDTO response = ModelMapper.toModelResponseDTO(foundModel);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
@@ -77,7 +89,9 @@ public class ModelController {
 	@GetMapping
 	public ResponseEntity<Page<ModelResponseDTO>> listModels(@RequestParam(defaultValue = "") String name,
 			Pageable pageable) {
-		Page<ModelResponseDTO> response = modelService.listModels(name, pageable);
+		Page<Model> page = modelService.listModels(name, pageable);
+		
+		Page<ModelResponseDTO> response = page.map(ModelMapper::toModelResponseDTO);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

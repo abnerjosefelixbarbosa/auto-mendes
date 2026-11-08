@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.concessionaria.backend.model.dto.ExceptionResponseDTO;
-import com.concessionaria.backend.model.exception.ApplicationException;
-import com.concessionaria.backend.model.exception.NotFoundException;
+import com.concessionaria.backend.dto.response.ExceptionResponseDTO;
+import com.concessionaria.backend.exception.ApplicationException;
+import com.concessionaria.backend.exception.NotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
 

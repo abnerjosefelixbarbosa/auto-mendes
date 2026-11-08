@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.concessionaria.backend.model.dto.VehicleRequestDTO;
-import com.concessionaria.backend.model.dto.VehicleResponseDTO;
-import com.concessionaria.backend.model.entity.enums.TransmissionType;
-import com.concessionaria.backend.model.entity.enums.VehicleStatus;
-import com.concessionaria.backend.model.service.VehicleService;
+import com.concessionaria.backend.dto.request.VehicleRequestDTO;
+import com.concessionaria.backend.dto.response.VehicleResponseDTO;
+import com.concessionaria.backend.entity.Vehicle;
+import com.concessionaria.backend.entity.enums.TransmissionType;
+import com.concessionaria.backend.entity.enums.VehicleStatus;
+import com.concessionaria.backend.mapper.VehicleMapper;
+import com.concessionaria.backend.service.VehicleService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -40,8 +42,12 @@ public class VehicleController {
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
-	public ResponseEntity<VehicleResponseDTO> registerVehicle(@RequestBody @Valid VehicleRequestDTO dto) {
-		VehicleResponseDTO response = vehicleService.registerVehicle(dto);
+	public ResponseEntity<VehicleResponseDTO> registerVehicle(@RequestBody @Valid VehicleRequestDTO request) {
+		Vehicle vehicle = VehicleMapper.toVehicle(request);
+		
+		Vehicle registeredVehicle = vehicleService.registerVehicle(vehicle);
+
+		VehicleResponseDTO response = VehicleMapper.toVehicleResponseDTO(registeredVehicle);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
@@ -53,8 +59,12 @@ public class VehicleController {
 	@ResponseStatus(HttpStatus.OK)
 	@PutMapping("/{id}")
 	public ResponseEntity<VehicleResponseDTO> updateVehicleById(@PathVariable String id,
-			@RequestBody @Valid VehicleRequestDTO dto) {
-		VehicleResponseDTO response = vehicleService.updateVehicleById(id, dto);
+			@RequestBody @Valid VehicleRequestDTO request) {
+		Vehicle vehicle = VehicleMapper.toVehicle(request);
+		
+		Vehicle updatedVehicle = vehicleService.updateVehicleById(id, vehicle);
+		
+		VehicleResponseDTO response = VehicleMapper.toVehicleResponseDTO(updatedVehicle);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
@@ -66,7 +76,9 @@ public class VehicleController {
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping("/{id}")
 	public ResponseEntity<VehicleResponseDTO> findVehicleById(@PathVariable String id) {
-		VehicleResponseDTO response = vehicleService.findVehicleById(id);
+		Vehicle foundVehicle = vehicleService.findVehicleById(id);
+		
+		VehicleResponseDTO response = VehicleMapper.toVehicleResponseDTO(foundVehicle);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
@@ -81,8 +93,10 @@ public class VehicleController {
 			@RequestParam(defaultValue = "") TransmissionType transmissionType,
 			@RequestParam(defaultValue = "") VehicleStatus vehicleStatus, @RequestParam(defaultValue = "") String color,
 			@RequestParam(defaultValue = "") String plate, Pageable pageable) {
-		Page<VehicleResponseDTO> response = vehicleService.listVehicles(transmissionType, vehicleStatus, color, plate,
+		Page<Vehicle> page = vehicleService.listVehicles(transmissionType, vehicleStatus, color, plate,
 				pageable);
+		
+		Page<VehicleResponseDTO> response = page.map(VehicleMapper::toVehicleResponseDTO);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

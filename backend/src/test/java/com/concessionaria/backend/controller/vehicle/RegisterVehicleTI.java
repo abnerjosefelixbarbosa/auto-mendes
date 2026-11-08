@@ -17,14 +17,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.concessionaria.backend.model.dto.VehicleRequestDTO;
-import com.concessionaria.backend.model.entity.Brand;
-import com.concessionaria.backend.model.entity.Model;
-import com.concessionaria.backend.model.entity.enums.TransmissionType;
-import com.concessionaria.backend.model.entity.enums.VehicleStatus;
-import com.concessionaria.backend.model.repository.BrandRepository;
-import com.concessionaria.backend.model.repository.ModelRepository;
-import com.concessionaria.backend.model.repository.VehicleRepository;
+import com.concessionaria.backend.dto.request.VehicleRequestDTO;
+import com.concessionaria.backend.entity.Brand;
+import com.concessionaria.backend.entity.Model;
+import com.concessionaria.backend.entity.enums.TransmissionType;
+import com.concessionaria.backend.entity.enums.VehicleStatus;
+import com.concessionaria.backend.repository.BrandRepository;
+import com.concessionaria.backend.repository.ModelRepository;
+import com.concessionaria.backend.repository.VehicleRepository;
 
 import tools.jackson.databind.ObjectMapper;
 
@@ -73,7 +73,7 @@ class RegisterVehicleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/vehicles/register-vehicle").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/vehicles").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
 	}
 
@@ -93,7 +93,7 @@ class RegisterVehicleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/vehicles/register-vehicle").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/vehicles").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -113,7 +113,7 @@ class RegisterVehicleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/vehicles/register-vehicle").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/vehicles").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -133,7 +133,7 @@ class RegisterVehicleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/vehicles/register-vehicle").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/vehicles").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -153,7 +153,7 @@ class RegisterVehicleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/vehicles/register-vehicle").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/vehicles").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -173,7 +173,7 @@ class RegisterVehicleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/vehicles/register-vehicle").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/vehicles").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -193,7 +193,7 @@ class RegisterVehicleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/vehicles/register-vehicle").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/vehicles").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -213,7 +213,7 @@ class RegisterVehicleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/vehicles/register-vehicle").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/vehicles").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -233,7 +233,7 @@ class RegisterVehicleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/vehicles/register-vehicle").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/vehicles").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -253,7 +253,7 @@ class RegisterVehicleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/vehicles/register-vehicle").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/vehicles").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -273,7 +273,7 @@ class RegisterVehicleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/vehicles/register-vehicle").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/vehicles").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -293,7 +293,7 @@ class RegisterVehicleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/vehicles/register-vehicle").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/vehicles").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -313,7 +313,7 @@ class RegisterVehicleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/vehicles/register-vehicle").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/vehicles").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -333,7 +333,7 @@ class RegisterVehicleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/vehicles/register-vehicle").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/vehicles").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isNotFound()).andDo(print());
 	}
 
@@ -353,7 +353,7 @@ class RegisterVehicleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/vehicles/register-vehicle").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/vehicles").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -373,7 +373,7 @@ class RegisterVehicleTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/vehicles/register-vehicle").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/vehicles").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest()).andDo(print());
 	}
 }

@@ -2,8 +2,8 @@ package com.concessionaria.backend.controller.sale;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,26 +20,27 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.concessionaria.backend.model.dto.ItemRequestDTO;
-import com.concessionaria.backend.model.dto.SaleRequestDTO;
-import com.concessionaria.backend.model.entity.Brand;
-import com.concessionaria.backend.model.entity.Customer;
-import com.concessionaria.backend.model.entity.Employee;
-import com.concessionaria.backend.model.entity.Model;
-import com.concessionaria.backend.model.entity.Vehicle;
-import com.concessionaria.backend.model.entity.enums.CustomerType;
-import com.concessionaria.backend.model.entity.enums.EmployeeStatus;
-import com.concessionaria.backend.model.entity.enums.EmployeeType;
-import com.concessionaria.backend.model.entity.enums.PaymentType;
-import com.concessionaria.backend.model.entity.enums.TransmissionType;
-import com.concessionaria.backend.model.entity.enums.VehicleStatus;
-import com.concessionaria.backend.model.repository.BrandRepository;
-import com.concessionaria.backend.model.repository.CustomerRepository;
-import com.concessionaria.backend.model.repository.EmployeeRepository;
-import com.concessionaria.backend.model.repository.ItemRepository;
-import com.concessionaria.backend.model.repository.ModelRepository;
-import com.concessionaria.backend.model.repository.SaleRepository;
-import com.concessionaria.backend.model.repository.VehicleRepository;
+import com.concessionaria.backend.dto.request.ItemRequestDTO;
+import com.concessionaria.backend.dto.request.SaleRequestDTO;
+import com.concessionaria.backend.dto.request.VehicleRequestDTO;
+import com.concessionaria.backend.entity.Brand;
+import com.concessionaria.backend.entity.Customer;
+import com.concessionaria.backend.entity.Employee;
+import com.concessionaria.backend.entity.Model;
+import com.concessionaria.backend.entity.Vehicle;
+import com.concessionaria.backend.entity.enums.CustomerType;
+import com.concessionaria.backend.entity.enums.EmployeeStatus;
+import com.concessionaria.backend.entity.enums.EmployeeType;
+import com.concessionaria.backend.entity.enums.PaymentType;
+import com.concessionaria.backend.entity.enums.TransmissionType;
+import com.concessionaria.backend.entity.enums.VehicleStatus;
+import com.concessionaria.backend.repository.BrandRepository;
+import com.concessionaria.backend.repository.CustomerRepository;
+import com.concessionaria.backend.repository.EmployeeRepository;
+import com.concessionaria.backend.repository.ItemRepository;
+import com.concessionaria.backend.repository.ModelRepository;
+import com.concessionaria.backend.repository.SaleRepository;
+import com.concessionaria.backend.repository.VehicleRepository;
 
 import tools.jackson.databind.ObjectMapper;
 
@@ -120,7 +121,9 @@ class RegisterSaleTI {
 
 		customerRepository.save(customer);
 
-		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-1111"), new ItemRequestDTO("AAA-2222"));
+		List<ItemRequestDTO> requestDTOs = List.of(
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-1111", null, null, null, null, null)),
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-2222", null, null, null, null, null)));
 
 		SaleRequestDTO dto = new SaleRequestDTO(PaymentType.CASH, "1111111111", "70230924476", requestDTOs);
 
@@ -163,7 +166,9 @@ class RegisterSaleTI {
 
 		customerRepository.save(customer);
 
-		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-1111"), new ItemRequestDTO("AAA-2222"));
+		List<ItemRequestDTO> requestDTOs = List.of(
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-1111", null, null, null, null, null)),
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-2222", null, null, null, null, null)));;
 
 		SaleRequestDTO dto = new SaleRequestDTO(null, "1111111111", "70230924476", requestDTOs);
 
@@ -208,7 +213,9 @@ class RegisterSaleTI {
 
 		customerRepository.save(customer);
 
-		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-1111"), new ItemRequestDTO("AAA-2222"));
+		List<ItemRequestDTO> requestDTOs = List.of(
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-1111", null, null, null, null, null)),
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-2222", null, null, null, null, null)));
 
 		SaleRequestDTO dto = new SaleRequestDTO(PaymentType.CASH, null, "70230924476", requestDTOs);
 
@@ -253,7 +260,9 @@ class RegisterSaleTI {
 
 		customerRepository.save(customer);
 
-		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-1111"), new ItemRequestDTO("AAA-2222"));
+		List<ItemRequestDTO> requestDTOs = List.of(
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-1111", null, null, null, null, null)),
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-2222", null, null, null, null, null)));
 
 		SaleRequestDTO dto = new SaleRequestDTO(PaymentType.CASH, "", "70230924476", requestDTOs);
 
@@ -298,7 +307,9 @@ class RegisterSaleTI {
 
 		customerRepository.save(customer);
 
-		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-1111"), new ItemRequestDTO("AAA-2222"));
+		List<ItemRequestDTO> requestDTOs = List.of(
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-1111", null, null, null, null, null)),
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-2222", null, null, null, null, null)));
 
 		SaleRequestDTO dto = new SaleRequestDTO(PaymentType.CASH, "1111111111", null, requestDTOs);
 
@@ -343,7 +354,9 @@ class RegisterSaleTI {
 
 		customerRepository.save(customer);
 
-		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-1111"), new ItemRequestDTO("AAA-2222"));
+		List<ItemRequestDTO> requestDTOs = List.of(
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-1111", null, null, null, null, null)),
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-2222", null, null, null, null, null)));
 
 		SaleRequestDTO dto = new SaleRequestDTO(PaymentType.CASH, "1111111111", "", requestDTOs);
 
@@ -432,7 +445,9 @@ class RegisterSaleTI {
 
 		customerRepository.save(customer);
 
-		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-1111"), new ItemRequestDTO("AAA-2222"));
+		List<ItemRequestDTO> requestDTOs = List.of(
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-1111", null, null, null, null, null)),
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-2222", null, null, null, null, null)));
 		;
 
 		SaleRequestDTO dto = new SaleRequestDTO(PaymentType.CASH, "1111111112", "70230924476", requestDTOs);
@@ -478,8 +493,9 @@ class RegisterSaleTI {
 
 		customerRepository.save(customer);
 
-		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-1111"), new ItemRequestDTO("AAA-2222"));
-		;
+		List<ItemRequestDTO> requestDTOs = List.of(
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-1111", null, null, null, null, null)),
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-2222", null, null, null, null, null)));
 
 		SaleRequestDTO dto = new SaleRequestDTO(PaymentType.CASH, "1111111111", "70230924475", requestDTOs);
 
@@ -523,7 +539,9 @@ class RegisterSaleTI {
 
 		customerRepository.save(customer);
 
-		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-111"), new ItemRequestDTO("AAA-2222"));
+		List<ItemRequestDTO> requestDTOs = List.of(
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-1111", null, null, null, null, null)),
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-2222", null, null, null, null, null)));
 		;
 
 		SaleRequestDTO dto = new SaleRequestDTO(PaymentType.CASH, "1111111111", "70230924476", requestDTOs);
@@ -575,7 +593,9 @@ class RegisterSaleTI {
 
 		customerRepository.save(customer);
 
-		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-1111"), new ItemRequestDTO("AAA-2222"));
+		List<ItemRequestDTO> requestDTOs = List.of(
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-1111", null, null, null, null, null)),
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-2222", null, null, null, null, null)));
 		;
 
 		SaleRequestDTO dto = new SaleRequestDTO(PaymentType.CASH, "1111111112", "70230924476", requestDTOs);
@@ -627,8 +647,9 @@ class RegisterSaleTI {
 
 		customerRepository.save(customer);
 
-		List<ItemRequestDTO> requestDTOs = List.of(new ItemRequestDTO("AAA-1111"), new ItemRequestDTO("AAA-2222"));
-		;
+		List<ItemRequestDTO> requestDTOs = List.of(
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-1111", null, null, null, null, null)),
+				new ItemRequestDTO(new VehicleRequestDTO("AAA-2222", null, null, null, null, null)));
 
 		SaleRequestDTO dto = new SaleRequestDTO(PaymentType.CASH, "1111111111", "70230924476", requestDTOs);
 

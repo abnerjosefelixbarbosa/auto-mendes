@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.concessionaria.backend.model.dto.BrandRequestDTO;
-import com.concessionaria.backend.model.dto.BrandResponseDTO;
-import com.concessionaria.backend.model.service.BrandService;
+import com.concessionaria.backend.dto.request.BrandRequestDTO;
+import com.concessionaria.backend.dto.response.BrandResponseDTO;
+import com.concessionaria.backend.entity.Brand;
+import com.concessionaria.backend.mapper.BrandMapper;
+import com.concessionaria.backend.service.BrandService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -38,8 +40,12 @@ public class BrandController {
 	@Operation(summary = "registrar marca.", description = "registra uma marca.")
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
-	public ResponseEntity<BrandResponseDTO> registerBrand(@RequestBody @Valid BrandRequestDTO dto) {
-		BrandResponseDTO response = brandService.registerBrand(dto);
+	public ResponseEntity<BrandResponseDTO> registerBrand(@RequestBody @Valid BrandRequestDTO request) {
+		Brand brand = BrandMapper.toBrand(request);
+		
+		Brand registeredBrand = brandService.registerBrand(brand);
+		
+		BrandResponseDTO response = BrandMapper.toBrandResponseDTO(registeredBrand);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
@@ -51,8 +57,12 @@ public class BrandController {
 	@ResponseStatus(HttpStatus.OK)
 	@PutMapping("/{id}")
 	public ResponseEntity<BrandResponseDTO> updateBrandById(@PathVariable String id,
-			@RequestBody @Valid BrandRequestDTO dto) {
-		BrandResponseDTO response = brandService.updateBrandById(id, dto);
+			@RequestBody @Valid BrandRequestDTO request) {
+		Brand brand = BrandMapper.toBrand(request);
+		
+		Brand updatedBrand = brandService.updateBrandById(id, brand);
+		
+		BrandResponseDTO response = BrandMapper.toBrandResponseDTO(updatedBrand);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
@@ -64,7 +74,9 @@ public class BrandController {
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping("/{id}")
 	public ResponseEntity<BrandResponseDTO> findBrandById(@PathVariable String id) {
-		BrandResponseDTO response = brandService.findBrandById(id);
+		Brand foundBrand = brandService.findBrandById(id);
+		
+		BrandResponseDTO response = BrandMapper.toBrandResponseDTO(foundBrand);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
@@ -77,7 +89,9 @@ public class BrandController {
 	@GetMapping
 	public ResponseEntity<Page<BrandResponseDTO>> listBrands(@RequestParam(defaultValue = "") String name,
 			Pageable pageable) {
-		Page<BrandResponseDTO> response = brandService.listBrands(name, pageable);
+		Page<Brand> page = brandService.listBrands(name, pageable);
+		
+		Page<BrandResponseDTO> response = page.map(BrandMapper::toBrandResponseDTO);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

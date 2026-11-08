@@ -20,26 +20,26 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.concessionaria.backend.model.entity.Brand;
-import com.concessionaria.backend.model.entity.Customer;
-import com.concessionaria.backend.model.entity.Employee;
-import com.concessionaria.backend.model.entity.Item;
-import com.concessionaria.backend.model.entity.Model;
-import com.concessionaria.backend.model.entity.Sale;
-import com.concessionaria.backend.model.entity.Vehicle;
-import com.concessionaria.backend.model.entity.enums.CustomerType;
-import com.concessionaria.backend.model.entity.enums.EmployeeStatus;
-import com.concessionaria.backend.model.entity.enums.EmployeeType;
-import com.concessionaria.backend.model.entity.enums.PaymentType;
-import com.concessionaria.backend.model.entity.enums.TransmissionType;
-import com.concessionaria.backend.model.entity.enums.VehicleStatus;
-import com.concessionaria.backend.model.repository.BrandRepository;
-import com.concessionaria.backend.model.repository.CustomerRepository;
-import com.concessionaria.backend.model.repository.EmployeeRepository;
-import com.concessionaria.backend.model.repository.ItemRepository;
-import com.concessionaria.backend.model.repository.ModelRepository;
-import com.concessionaria.backend.model.repository.SaleRepository;
-import com.concessionaria.backend.model.repository.VehicleRepository;
+import com.concessionaria.backend.entity.Brand;
+import com.concessionaria.backend.entity.Customer;
+import com.concessionaria.backend.entity.Employee;
+import com.concessionaria.backend.entity.Item;
+import com.concessionaria.backend.entity.Model;
+import com.concessionaria.backend.entity.Sale;
+import com.concessionaria.backend.entity.Vehicle;
+import com.concessionaria.backend.entity.enums.CustomerType;
+import com.concessionaria.backend.entity.enums.EmployeeStatus;
+import com.concessionaria.backend.entity.enums.EmployeeType;
+import com.concessionaria.backend.entity.enums.PaymentType;
+import com.concessionaria.backend.entity.enums.TransmissionType;
+import com.concessionaria.backend.entity.enums.VehicleStatus;
+import com.concessionaria.backend.repository.BrandRepository;
+import com.concessionaria.backend.repository.CustomerRepository;
+import com.concessionaria.backend.repository.EmployeeRepository;
+import com.concessionaria.backend.repository.ItemRepository;
+import com.concessionaria.backend.repository.ModelRepository;
+import com.concessionaria.backend.repository.SaleRepository;
+import com.concessionaria.backend.repository.VehicleRepository;
 
 @SpringBootTest
 @ActiveProfiles("test")

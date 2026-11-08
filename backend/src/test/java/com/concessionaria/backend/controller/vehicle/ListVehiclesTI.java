@@ -18,14 +18,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.concessionaria.backend.model.entity.Brand;
-import com.concessionaria.backend.model.entity.Model;
-import com.concessionaria.backend.model.entity.Vehicle;
-import com.concessionaria.backend.model.entity.enums.TransmissionType;
-import com.concessionaria.backend.model.entity.enums.VehicleStatus;
-import com.concessionaria.backend.model.repository.BrandRepository;
-import com.concessionaria.backend.model.repository.ModelRepository;
-import com.concessionaria.backend.model.repository.VehicleRepository;
+import com.concessionaria.backend.entity.Brand;
+import com.concessionaria.backend.entity.Model;
+import com.concessionaria.backend.entity.Vehicle;
+import com.concessionaria.backend.entity.enums.TransmissionType;
+import com.concessionaria.backend.entity.enums.VehicleStatus;
+import com.concessionaria.backend.repository.BrandRepository;
+import com.concessionaria.backend.repository.ModelRepository;
+import com.concessionaria.backend.repository.VehicleRepository;
 
 @SpringBootTest
 @ActiveProfiles("test")
