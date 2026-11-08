@@ -1,0 +1,82 @@
+<!--  
+<p>employee-creation works!</p>
+-->
+
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Criação de Funcionário</title>
+  </head>
+  <body>
+    <main class="container">
+      <form>
+        <div class="mb-3">
+          <label for="name" class="form-label">Nome:</label>
+          <input type="text" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+          <label for="matriculation" class="form-label">Matricula</label>
+          <input type="text" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email:</label>
+          <input type="email" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+          <label for="phone" class="form-label">Telefone:</label>
+          <input type="phone" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+          <label for="birthDate" class="form-label">Data de Nascimento:</label>
+          <input type="date" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+          <label for="cpf" class="form-label">CPF:</label>
+          <input type="text" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+          <label for="salary" class="form-label">Salário:</label>
+          <input type="number" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+          <label for="commission" class="form-label">Comissão:</label>
+          <input type="number" class="form-control" />
+        </div>
+
+        <label for="employeeStatus" class="form-label">Status do funcionário:</label>
+        <input
+          class="form-control"
+          list="datalistOptions"
+          id="employeeStatus"
+          placeholder=""
+        />
+        <datalist id="datalistOptions">
+          <option value="Ativo"></option>
+          <option value="Inativo"></option>
+        </datalist>
+
+        <label for="employeeType" class="form-label">Tipo de funcionário:</label>
+        <input
+          class="form-control"
+          list="datalistOptions"
+          id="employeeType"
+          placeholder=""
+        />
+        <datalist id="datalistOptions">
+          <option value="Gerente"></option>
+          <option value="Gerente Assistente"></option>
+          <option value="Vendedor"></option>
+        </datalist>
+      </form>
+    </main>
+  </body>
+</html>
