@@ -1,0 +1,23 @@
+<main>
+  <div class="container">
+    <form [formGroup]="brandForm" (submit)="registerBrand()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" formControlName="name" />
+        @if (brandForm.get('name')?.invalid && brandForm.get('name')?.touched) {
+          @if (brandForm.get('name')?.errors?.['required']) {
+            <div class="text-danger">Nome é obrigatório.</div>
+          }
+          @if (brandForm.get('name')?.errors?.['maxlength']) {
+            <div class="text-danger">Nome não pode ter mais de 100 caracteres.</div>
+          }
+        }
+      </div>
+      <div class="d-grid gap-2">
+        <button class="btn btn-primary" type="submit" [disabled]="brandForm.invalid">
+          Registrar Marca
+        </button>
+      </div>
+    </form>
+  </div>
+</main>
