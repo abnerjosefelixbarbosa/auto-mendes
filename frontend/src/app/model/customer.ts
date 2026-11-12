@@ -1,5 +1,5 @@
-import { EmployeeStatus } from "../enum/employee-status";
-import { EmployeeType } from "../enum/employee-type";
+import { EmployeeStatus } from "./employee-status";
+import { EmployeeType } from "./employee-type";
 import { Sale } from "./sale";
 
 export interface Customer {

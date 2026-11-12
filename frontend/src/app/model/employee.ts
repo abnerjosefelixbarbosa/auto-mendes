@@ -1,4 +1,4 @@
-import { CustomerType } from "../enum/customer-type";
+import { CustomerType } from "./customer-type";
 import { Sale } from "./sale";
 
 export interface Employee {

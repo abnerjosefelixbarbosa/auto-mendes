@@ -1,4 +1,4 @@
-import { PaymentType } from "../enum/payment-type";
+import { PaymentType } from "./payment-type";
 import { Customer } from "./customer";
 import { Employee } from "./employee";
 import { Item } from "./item";

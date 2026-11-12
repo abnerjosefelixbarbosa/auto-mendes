@@ -1,5 +1,5 @@
-import { TransmissionType } from "../enum/transmission-type";
-import { VehicleStatus } from "../enum/vehicle-status";
+import { TransmissionType } from "./transmission-type";
+import { VehicleStatus } from "./vehicle-status";
 import { Item } from "./item";
 import { Model } from "./model";
 
