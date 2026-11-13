@@ -3,11 +3,12 @@ import { Brand } from '../../model/brand';
 import { BrandService } from '../../service/brand-service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastService } from '../../service/toast-service';
+import { Navbar } from '../../components/navbar/navbar';
 
 @Component({
   selector: 'app-brand-creation',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, Navbar],
   styleUrl: './brand-creation.css',
   templateUrl: './brand-creation.html',
 })
